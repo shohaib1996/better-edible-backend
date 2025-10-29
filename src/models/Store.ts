@@ -2,7 +2,7 @@
 import { Schema, model, Document, Types } from 'mongoose';
 
 interface IContact {
-  name: string;
+  name?: string;
   role?: string;
   email?: string;
   phone?: string;
@@ -14,9 +14,9 @@ export interface IStore extends Document {
   city?: string;
   state?: string;
   zip?: string;
-  territory?: string; // as you said, string not ref
-  reps: Types.ObjectId[];
-  contacts: IContact[];
+  territory?: string;
+  rep?: Types.ObjectId;
+  contacts?: IContact[];
   blocked: boolean;
   terms?: string;
   group?: string;
@@ -26,9 +26,10 @@ export interface IStore extends Document {
   updatedAt: Date;
 }
 
+// Contact sub-schema
 const ContactSchema = new Schema<IContact>(
   {
-    name: { type: String, required: true },
+    name: String,
     role: String,
     email: String,
     phone: String,
@@ -36,6 +37,7 @@ const ContactSchema = new Schema<IContact>(
   { _id: false }
 );
 
+// Store schema
 const StoreSchema = new Schema<IStore>(
   {
     name: { type: String, required: true },
@@ -44,7 +46,7 @@ const StoreSchema = new Schema<IStore>(
     state: String,
     zip: String,
     territory: String,
-    reps: [{ type: Schema.Types.ObjectId, ref: 'Rep' }],
+    rep: { type: Schema.Types.ObjectId, ref: 'Rep', required: false },
     contacts: [ContactSchema],
     blocked: { type: Boolean, default: false },
     terms: String,
@@ -59,4 +61,5 @@ const StoreSchema = new Schema<IStore>(
 StoreSchema.index({ name: 'text', 'contacts.name': 'text', 'contacts.email': 'text' });
 StoreSchema.index({ territory: 1 });
 
+// ✅ Correct: use IStore as the type parameter
 export const Store = model<IStore>('Store', StoreSchema);

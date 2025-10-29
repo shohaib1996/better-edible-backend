@@ -11,7 +11,7 @@ export const getAllStores = async (req: Request, res: Response) => {
     if (search) query.$text = { $search: search as string };
 
     const stores = await Store.find(query)
-      .populate('reps', 'name repType territory')
+      .populate('rep', 'name repType territory')
       .skip((+page - 1) * +limit)
       .limit(+limit)
       .sort({ createdAt: -1 });
@@ -27,7 +27,7 @@ export const getAllStores = async (req: Request, res: Response) => {
 // Get store by ID
 export const getStoreById = async (req: Request, res: Response) => {
   try {
-    const store = await Store.findById(req.params.id).populate('reps', 'name repType');
+    const store = await Store.findById(req.params.id).populate('rep', 'name repType');
     if (!store) return res.status(404).json({ message: 'Store not found' });
     res.json(store);
   } catch (error) {
@@ -38,11 +38,11 @@ export const getStoreById = async (req: Request, res: Response) => {
 // Create store
 export const createStore = async (req: Request, res: Response) => {
   try {
-    const { name, address, city, contacts, reps } = req.body;
+    const { name, address, city, contacts, rep } = req.body;
     const existing = await Store.findOne({ name });
     if (existing) return res.status(400).json({ message: 'Store already exists' });
 
-    const store = await Store.create({ name, address, city, contacts, reps });
+    const store = await Store.create({ name, address, city, contacts, rep });
     res.status(201).json(store);
   } catch (error) {
     res.status(500).json({ message: 'Error creating store', error });
