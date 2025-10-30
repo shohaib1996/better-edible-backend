@@ -34,6 +34,7 @@ export interface IStore extends Document {
   totalPaid: number;
   dueAmount: number;
   lastPaidAt?: Date;
+  paymentStatus: 'green' | 'yellow' | 'red';
 
   createdAt: Date;
   updatedAt: Date;
@@ -76,33 +77,35 @@ const StoreSchema = new Schema<IStore>(
     totalPaid: { type: Number, default: 0 },
     dueAmount: { type: Number, default: 0 },
     lastPaidAt: Date,
+
+    // ✅ Payment Status stored in DB (not virtual)
+    paymentStatus: {
+      type: String,
+      enum: ['green', 'yellow', 'red'],
+      default: 'green',
+    },
   },
-  {
-    timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
-  }
+  { timestamps: true }
 );
-
-// -------------------
-// VIRTUALS
-// -------------------
-StoreSchema.virtual('paymentStatus').get(function () {
-  if (!this.lastPaidAt) return 'red';
-
-  const now = new Date();
-  const diffDays = (now.getTime() - this.lastPaidAt.getTime()) / (1000 * 60 * 60 * 24);
-
-  if (diffDays <= 7) return 'green';
-  if (diffDays <= 30) return 'yellow';
-  return 'red';
-});
 
 // -------------------
 // Hooks & Logic
 // -------------------
 StoreSchema.pre('save', function (next) {
+  // 1️⃣ Calculate due amount
   this.dueAmount = this.totalPurchase - this.totalPaid;
+
+  // 2️⃣ Auto-update paymentStatus based on lastPaidAt
+  const now = new Date();
+  if (!this.lastPaidAt) {
+    this.paymentStatus = 'red';
+  } else {
+    const diffDays = (now.getTime() - this.lastPaidAt.getTime()) / (1000 * 60 * 60 * 24);
+    if (diffDays <= 7) this.paymentStatus = 'green';
+    else if (diffDays <= 30) this.paymentStatus = 'yellow';
+    else this.paymentStatus = 'red';
+  }
+
   next();
 });
 
