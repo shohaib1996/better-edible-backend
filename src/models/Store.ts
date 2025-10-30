@@ -1,6 +1,9 @@
 // src/models/Store.ts
 import { Schema, model, Document, Types } from 'mongoose';
 
+// -------------------
+// Contact Sub-Interface
+// -------------------
 interface IContact {
   name?: string;
   role?: string;
@@ -8,6 +11,9 @@ interface IContact {
   phone?: string;
 }
 
+// -------------------
+// Main Store Interface
+// -------------------
 export interface IStore extends Document {
   name: string;
   address?: string;
@@ -22,11 +28,20 @@ export interface IStore extends Document {
   group?: string;
   notesCount: number;
   lastOrderAt?: Date;
+
+  // 💰 Balance fields
+  totalPurchase: number;
+  totalPaid: number;
+  dueAmount: number;
+  lastPaidAt?: Date;
+
   createdAt: Date;
   updatedAt: Date;
 }
 
-// Contact sub-schema
+// -------------------
+// Contact Sub-Schema
+// -------------------
 const ContactSchema = new Schema<IContact>(
   {
     name: String,
@@ -37,7 +52,9 @@ const ContactSchema = new Schema<IContact>(
   { _id: false }
 );
 
-// Store schema
+// -------------------
+// Store Schema
+// -------------------
 const StoreSchema = new Schema<IStore>(
   {
     name: { type: String, required: true },
@@ -53,13 +70,49 @@ const StoreSchema = new Schema<IStore>(
     group: String,
     notesCount: { type: Number, default: 0 },
     lastOrderAt: Date,
+
+    // 💰 Balance Info
+    totalPurchase: { type: Number, default: 0 },
+    totalPaid: { type: Number, default: 0 },
+    dueAmount: { type: Number, default: 0 },
+    lastPaidAt: Date,
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
 );
 
-// helpful indexes
+// -------------------
+// VIRTUALS
+// -------------------
+StoreSchema.virtual('paymentStatus').get(function () {
+  if (!this.lastPaidAt) return 'red';
+
+  const now = new Date();
+  const diffDays = (now.getTime() - this.lastPaidAt.getTime()) / (1000 * 60 * 60 * 24);
+
+  if (diffDays <= 7) return 'green';
+  if (diffDays <= 30) return 'yellow';
+  return 'red';
+});
+
+// -------------------
+// Hooks & Logic
+// -------------------
+StoreSchema.pre('save', function (next) {
+  this.dueAmount = this.totalPurchase - this.totalPaid;
+  next();
+});
+
+// -------------------
+// Indexes
+// -------------------
 StoreSchema.index({ name: 'text', 'contacts.name': 'text', 'contacts.email': 'text' });
 StoreSchema.index({ territory: 1 });
 
-// ✅ Correct: use IStore as the type parameter
+// -------------------
+// Model Export
+// -------------------
 export const Store = model<IStore>('Store', StoreSchema);
