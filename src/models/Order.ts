@@ -1,5 +1,8 @@
-// src/models/Order.ts
 import { Schema, model, Document, Types } from 'mongoose';
+
+// ─────────────────────────────
+// TYPES
+// ─────────────────────────────
 
 export type OrderStatus =
   | 'draft'
@@ -22,25 +25,35 @@ export interface IOrderItem {
 }
 
 export interface IPayment {
-  method?: string; // e.g. cash, card
-  amount?: number;
+  method?: 'cash' | 'card' | 'bank' | 'stripe';
+  amount: number;
   collected?: boolean;
   collectedBy?: Types.ObjectId;
   collectedAt?: Date;
+  note?: string;
 }
 
 export interface IOrder extends Document {
+  orderNumber: number;
   store: Types.ObjectId;
   rep: Types.ObjectId;
   items: IOrderItem[];
   subtotal: number;
+  tax?: number;
+  discount?: number;
   total: number;
   payment?: IPayment;
   status: OrderStatus;
   note?: string;
+  deliveryDate?: Date;
+  dueDate?: Date;
   createdAt: Date;
   updatedAt: Date;
 }
+
+// ─────────────────────────────
+// SCHEMAS
+// ─────────────────────────────
 
 const OrderItemSchema = new Schema<IOrderItem>(
   {
@@ -57,22 +70,30 @@ const OrderItemSchema = new Schema<IOrderItem>(
 
 const PaymentSchema = new Schema<IPayment>(
   {
-    method: String,
-    amount: Number,
+    method: {
+      type: String,
+      enum: ['cash', 'card', 'bank', 'stripe'],
+      default: 'cash',
+    },
+    amount: { type: Number, required: true },
     collected: { type: Boolean, default: false },
     collectedBy: { type: Schema.Types.ObjectId, ref: 'Rep' },
     collectedAt: Date,
+    note: String,
   },
   { _id: false }
 );
 
 const OrderSchema = new Schema<IOrder>(
   {
+    orderNumber: { type: Number, unique: true, index: true },
     store: { type: Schema.Types.ObjectId, ref: 'Store', required: true },
     rep: { type: Schema.Types.ObjectId, ref: 'Rep', required: true },
     items: { type: [OrderItemSchema], default: [] },
-    subtotal: Number,
-    total: Number,
+    subtotal: { type: Number, default: 0 },
+    tax: { type: Number, default: 0 },
+    discount: { type: Number, default: 0 },
+    total: { type: Number, default: 0 },
     payment: PaymentSchema,
     status: {
       type: String,
@@ -89,10 +110,40 @@ const OrderSchema = new Schema<IOrder>(
       default: 'draft',
     },
     note: String,
+    deliveryDate: Date,
+    dueDate: Date,
   },
   { timestamps: true }
 );
 
 OrderSchema.index({ store: 1, status: 1, createdAt: -1 });
+
+// ─────────────────────────────
+// AUTO-INCREMENT LOGIC
+// ─────────────────────────────
+
+// Separate collection to track the last used order number
+const CounterSchema = new Schema({
+  _id: { type: String, required: true },
+  seq: { type: Number, default: 0 },
+});
+
+const Counter = model('Counter', CounterSchema);
+
+OrderSchema.pre<IOrder>('save', async function (next) {
+  if (this.isNew) {
+    const counter = await Counter.findByIdAndUpdate(
+      { _id: 'orderNumber' },
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true }
+    );
+    this.orderNumber = counter.seq;
+  }
+  next();
+});
+
+// ─────────────────────────────
+// EXPORT
+// ─────────────────────────────
 
 export const Order = model<IOrder>('Order', OrderSchema);

@@ -4,6 +4,7 @@ import { Order } from '../models/Order';
 import { Rep } from '../models/Rep';
 import { Store } from '../models/Store';
 import { Product } from '../models/Product';
+import mongoose from 'mongoose';
 
 // 🟩 Create order
 export const createOrder = async (req: Request, res: Response) => {
@@ -60,20 +61,32 @@ export const getAllOrders = async (req: Request, res: Response) => {
   try {
     const { status, storeId, repId, page = 1, limit = 20 } = req.query;
     const query: any = {};
+
     if (status) query.status = status;
-    if (storeId) query.store = storeId;
-    if (repId) query.rep = repId;
+    if (storeId) {
+      if (!mongoose.Types.ObjectId.isValid(storeId.toString()))
+        return res.status(400).json({ message: 'Invalid store ID' });
+      query.store = storeId;
+    }
+    if (repId) {
+      if (!mongoose.Types.ObjectId.isValid(repId.toString()))
+        return res.status(400).json({ message: 'Invalid rep ID' });
+      query.rep = repId;
+    }
 
     const orders = await Order.find(query)
-      .populate('rep', 'name repType territory')
-      .populate('store', 'name blocked')
+      .select('orderNumber status total note deliveryDate createdAt store rep')
+      .populate('rep', 'name')
+      .populate('store', 'name address')
       .skip((+page - 1) * +limit)
       .limit(+limit)
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .lean();
 
     const total = await Order.countDocuments(query);
     res.json({ total, page: +page, limit: +limit, orders });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: 'Error fetching orders', error });
   }
 };

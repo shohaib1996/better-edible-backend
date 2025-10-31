@@ -27,7 +27,7 @@ app.use('/api/admin', adminRoutes);
 app.use("/api/reps", repRoutes);
 app.use("/api/stores", storeRoutes);
 app.use("/api/products", productRoutes);
-app.use("/api/orders", orderRoutes);
+app.use('/api/orders', orderRoutes);
 app.use("/api/deliveries", deliveryRoutes);
 app.use("/api/notes", noteRoutes);
 app.use("/api/timelogs", timeLogRoutes);
