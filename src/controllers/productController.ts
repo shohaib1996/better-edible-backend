@@ -1,4 +1,3 @@
-// src/controllers/productController.ts
 import { Request, Response } from "express";
 import { Product } from "../models/Product";
 
@@ -6,7 +5,6 @@ import { Product } from "../models/Product";
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
     const products = await Product.find().sort({ createdAt: -1 });
-
     const total = await Product.countDocuments();
     res.json({ total, products });
   } catch (error) {
@@ -32,7 +30,12 @@ export const createProduct = async (req: Request, res: Response) => {
       productLine,
       subProductLine,
       itemName,
-      hybridBreakdown,
+      hybridUnits,
+      hybridDiscount,
+      indicaUnits,
+      indicaDiscount,
+      sativaUnits,
+      sativaDiscount,
       price,
       discountPrice,
       variants,
@@ -43,7 +46,7 @@ export const createProduct = async (req: Request, res: Response) => {
       metadata,
     } = req.body;
 
-    // Avoid duplicate entries
+    // 🔒 Avoid duplicate entries
     const existing = await Product.findOne({
       productLine,
       subProductLine,
@@ -55,12 +58,11 @@ export const createProduct = async (req: Request, res: Response) => {
         .json({ message: "Product already exists for this line" });
     }
 
-    // 🔧 Build dynamic product object
+    // 🔧 Build product object dynamically
     const productData: any = {
       productLine,
       subProductLine,
       itemName,
-      hybridBreakdown,
       price,
       discountPrice,
       variants,
@@ -71,33 +73,57 @@ export const createProduct = async (req: Request, res: Response) => {
       metadata,
     };
 
-    // Validate product type
+    // 🔹 Cannacrispy logic
     if (productLine === "Cannacrispy") {
-      if (!hybridBreakdown) {
-        return res
-          .status(400)
-          .json({
-            message:
-              "Hybrid, Indica, and Sativa values are required for Cannacrispy",
-          });
-      }
-    } else if (productLine === "Fifty-One Fifty") {
+      productData.hybridBreakdown = {
+        hybrid: hybridUnits ? parseFloat(hybridUnits) : undefined,
+        indica: indicaUnits ? parseFloat(indicaUnits) : undefined,
+        sativa: sativaUnits ? parseFloat(sativaUnits) : undefined,
+      };
+
+      // ✅ Store prices per type
+      productData.prices = {
+        hybrid: {
+          price: hybridUnits ? parseFloat(hybridUnits) : undefined,
+          discountPrice: hybridDiscount
+            ? parseFloat(hybridDiscount)
+            : undefined,
+        },
+        indica: {
+          price: indicaUnits ? parseFloat(indicaUnits) : undefined,
+          discountPrice: indicaDiscount
+            ? parseFloat(indicaDiscount)
+            : undefined,
+        },
+        sativa: {
+          price: sativaUnits ? parseFloat(sativaUnits) : undefined,
+          discountPrice: sativaDiscount
+            ? parseFloat(sativaDiscount)
+            : undefined,
+        },
+      };
+    }
+
+    // 🔹 Fifty-One Fifty logic
+    else if (productLine === "Fifty-One Fifty") {
       if (typeof price !== "number") {
-        return res
-          .status(400)
-          .json({ message: "Price is required for Fifty-One Fifty products" });
-      }
-    } else if (productLine === "BLISS Cannabis Syrup") {
-      if (!Array.isArray(variants) || variants.length === 0) {
-        return res
-          .status(400)
-          .json({
-            message:
-              "Variants (100mg, 300mg, 1000mg) are required for BLISS Syrup",
-          });
+        return res.status(400).json({
+          message: "Price is required for Fifty-One Fifty products",
+        });
       }
     }
 
+    // 🔹 BLISS Cannabis Syrup logic
+    else if (productLine === "BLISS Cannabis Syrup") {
+      if (!Array.isArray(variants) || variants.length === 0) {
+        return res.status(400).json({
+          message:
+            "Variants (100mg, 300mg, 1000mg) are required for BLISS Syrup",
+        });
+      }
+    }
+
+    // 🧾 Create product
     const product = await Product.create(productData);
     res.status(201).json(product);
   } catch (error) {
@@ -108,9 +134,50 @@ export const createProduct = async (req: Request, res: Response) => {
 // ✏️ Update product
 export const updateProduct = async (req: Request, res: Response) => {
   try {
+    const {
+      productLine,
+      hybridUnits,
+      hybridDiscount,
+      indicaUnits,
+      indicaDiscount,
+      sativaUnits,
+      sativaDiscount,
+    } = req.body;
+
+    // 🔹 Handle Cannacrispy updates
+    if (productLine === "Cannacrispy") {
+      req.body.hybridBreakdown = {
+        hybrid: hybridUnits ?? req.body.hybridBreakdown?.hybrid,
+        indica: indicaUnits ?? req.body.hybridBreakdown?.indica,
+        sativa: sativaUnits ?? req.body.hybridBreakdown?.sativa,
+      };
+
+      req.body.prices = {
+        hybrid: {
+          price: hybridUnits ? parseFloat(hybridUnits) : undefined,
+          discountPrice: hybridDiscount
+            ? parseFloat(hybridDiscount)
+            : undefined,
+        },
+        indica: {
+          price: indicaUnits ? parseFloat(indicaUnits) : undefined,
+          discountPrice: indicaDiscount
+            ? parseFloat(indicaDiscount)
+            : undefined,
+        },
+        sativa: {
+          price: sativaUnits ? parseFloat(sativaUnits) : undefined,
+          discountPrice: sativaDiscount
+            ? parseFloat(sativaDiscount)
+            : undefined,
+        },
+      };
+    }
+
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
+
     if (!product) return res.status(404).json({ message: "Product not found" });
     res.json(product);
   } catch (error) {

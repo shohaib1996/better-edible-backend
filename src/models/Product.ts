@@ -7,20 +7,32 @@ interface IHybridBreakdown {
   sativa?: number;
 }
 
+interface IPriceGroup {
+  price: number;
+  discountPrice?: number;
+}
+
+interface IPricesByType {
+  hybrid?: IPriceGroup;
+  indica?: IPriceGroup;
+  sativa?: IPriceGroup;
+}
+
 interface IVariantPrice {
-  label: string; // e.g., "100Mg", "300Mg", "1000Mg"
+  label: string;
   price: number;
   discountPrice?: number;
 }
 
 export interface IProduct extends Document {
-  productLine: string; // e.g. "Cannacrispy", "Fifty-One Fifty", "BLISS Cannabis Syrup"
-  subProductLine?: string; // e.g. "Original", "Chocolate", "Mango"
-  itemName?: string; // specific product under the line
-  hybridBreakdown?: IHybridBreakdown; // used only for Cannacrispy
-  price?: number; // used for Fifty-One Fifty single item price
-  discountPrice?: number; // optional discount
-  variants?: IVariantPrice[]; // used for BLISS syrup’s 100mg/300mg/1000mg
+  productLine: string;
+  subProductLine?: string;
+  itemName?: string;
+  hybridBreakdown?: IHybridBreakdown;
+  prices?: IPricesByType;             // ✅ Unified price/discount system
+  price?: number;
+  discountPrice?: number;
+  variants?: IVariantPrice[];
   priceDescription?: string;
   discountDescription?: string;
   applyDiscount?: boolean;
@@ -30,11 +42,29 @@ export interface IProduct extends Document {
   updatedAt: Date;
 }
 
+// 🔹 Subschemas
 const HybridBreakdownSchema = new Schema<IHybridBreakdown>(
   {
     hybrid: Number,
     indica: Number,
     sativa: Number,
+  },
+  { _id: false }
+);
+
+const PriceGroupSchema = new Schema<IPriceGroup>(
+  {
+    price: Number,
+    discountPrice: Number,
+  },
+  { _id: false }
+);
+
+const PricesByTypeSchema = new Schema<IPricesByType>(
+  {
+    hybrid: PriceGroupSchema,
+    indica: PriceGroupSchema,
+    sativa: PriceGroupSchema,
   },
   { _id: false }
 );
@@ -48,12 +78,14 @@ const VariantPriceSchema = new Schema<IVariantPrice>(
   { _id: false }
 );
 
+// 🔹 Main schema
 const ProductSchema = new Schema<IProduct>(
   {
     productLine: { type: String, required: true },
     subProductLine: String,
     itemName: String,
     hybridBreakdown: HybridBreakdownSchema,
+    prices: PricesByTypeSchema,       // ✅ Unified per-type pricing
     price: Number,
     discountPrice: Number,
     variants: [VariantPriceSchema],
@@ -66,6 +98,10 @@ const ProductSchema = new Schema<IProduct>(
   { timestamps: true }
 );
 
-ProductSchema.index({ productLine: 'text', subProductLine: 'text', itemName: 'text' });
+ProductSchema.index({
+  productLine: 'text',
+  subProductLine: 'text',
+  itemName: 'text',
+});
 
 export const Product = model<IProduct>('Product', ProductSchema);
