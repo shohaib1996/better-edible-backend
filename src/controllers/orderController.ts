@@ -5,86 +5,182 @@ import { Rep } from "../models/Rep";
 import { Store } from "../models/Store";
 import { Product, IProduct } from "../models/Product";
 
+/**
+ * Helper: pick price information for a product given a type/label
+ * Returns { unitPrice, discountPrice, source, label }.
+ *
+ * Priority:
+ * 1. variant (match by label case-insensitive)
+ * 2. product.prices[type] (e.g. prices.hybrid)
+ * 3. product.hybridBreakdown[type]
+ * 4. product.discountPrice / product.price (product level)
+ */
+function pickPriceForProduct(product: any, typeOrLabel?: string | null) {
+  const norm = typeOrLabel ? String(typeOrLabel).trim().toLowerCase() : null;
+
+  // 1) Variant match (case-insensitive)
+  if (product.variants?.length) {
+    const found =
+      product.variants.find(
+        (v: any) =>
+          v.label &&
+          norm &&
+          v.label.trim().toLowerCase() === norm
+      ) || null;
+    if (found) {
+      return {
+        unitPrice: Number(found.price ?? 0),
+        discountPrice: Number(found.discountPrice ?? 0),
+        source: "variant",
+        label: found.label,
+      };
+    }
+  }
+
+  // 2) product.prices[type] (e.g. prices.hybrid)
+  if (product.prices && norm && product.prices[norm]) {
+    const p = product.prices[norm];
+    return {
+      unitPrice: Number(p.price ?? 0),
+      discountPrice: Number(p.discountPrice ?? p.price ?? 0),
+      source: `prices.${norm}`,
+      label: norm,
+    };
+  }
+
+  // 3) hybridBreakdown
+  if (product.hybridBreakdown && norm && product.hybridBreakdown[norm] != null) {
+    return {
+      unitPrice: Number(product.hybridBreakdown[norm] ?? 0),
+      discountPrice: Number(product.discountPrice ?? 0),
+      source: "hybridBreakdown",
+      label: norm,
+    };
+  }
+
+  // 4) fallback to product-level
+  return {
+    unitPrice: Number(product.price ?? 0),
+    discountPrice: Number(product.discountPrice ?? product.price ?? 0),
+    source: "product-level",
+    label: null,
+  };
+}
+
 // ─────────────────────────────
 // 🟩 Create Order
 // ─────────────────────────────
 
 export const createOrder = async (req: Request, res: Response) => {
   try {
-    const { repId, storeId, items, note, deliveryDate } = req.body;
+    const {
+      repId,
+      storeId,
+      items = [],
+      note,
+      deliveryDate,
+      discountType,
+      discountValue,
+      tax,
+    } = req.body;
 
-    // Validate Rep
+    // ✅ Validate Rep
     const rep = await Rep.findById(repId);
     if (!rep) return res.status(404).json({ message: "Rep not found" });
 
-    // Validate Store
+    // ✅ Validate Store
     const store = await Store.findById(storeId);
     if (!store) return res.status(404).json({ message: "Store not found" });
     if (store.blocked)
       return res.status(400).json({ message: "Store is blocked" });
 
-    // 🧩 Build Order Items (denormalize product pricing)
+    // ✅ Build Order Items (denormalized pricing info)
     const orderItems = await Promise.all(
-      items.map(async (item: any) => {
-        const product = (await Product.findById(
-          item.product
-        )) as IProduct | null;
+      (items || []).map(async (item: any) => {
+        const product = (await Product.findById(item.product)) as IProduct | null;
         if (!product) throw new Error(`Product not found: ${item.product}`);
 
-        // 🔸 Pick price from variants or base price
-        const variant =
-          product.variants?.find((v) => v.label === item.unitLabel) ||
-          product.variants?.[0];
+        const rawLabel = item.unitLabel ?? null;
+        const lookupLabel = rawLabel ? String(rawLabel).trim().toLowerCase() : null;
 
-        const price =
-          variant?.discountPrice ??
-          variant?.price ??
-          product.discountPrice ??
-          product.price ??
-          0;
+        const priceInfo = pickPriceForProduct(product, lookupLabel);
 
-        const lineTotal = price * item.qty;
+        const effectivePrice =
+          priceInfo.discountPrice && priceInfo.discountPrice > 0
+            ? priceInfo.discountPrice
+            : priceInfo.unitPrice;
+
+        const qty = Number(item.qty || 0);
+        const lineTotal = Number((effectivePrice * qty).toFixed(2));
 
         return {
           product: product._id,
-          name:
-            product.itemName || product.subProductLine || product.productLine,
-          items,
+          name: product.itemName || product.subProductLine || product.productLine,
           productLine: product.productLine,
           subProductLine: product.subProductLine,
           sku: product.metadata?.sku || "",
-          unitLabel: variant?.label || null,
-          unitPrice: variant?.price ?? product.price ?? 0,
-          discountPrice: variant?.discountPrice ?? product.discountPrice ?? 0,
-          qty: item.qty,
+          unitLabel: rawLabel ?? (priceInfo.label ?? null),
+          unitPrice: Number(priceInfo.unitPrice ?? 0),
+          discountPrice: Number(priceInfo.discountPrice ?? 0),
+          qty,
           lineTotal,
         };
       })
     );
 
-    const subtotal = orderItems.reduce((sum, i) => sum + i.lineTotal, 0);
+    // ✅ Calculate subtotal
+    const subtotal = Number(
+      orderItems.reduce((sum, i) => sum + (Number(i.lineTotal) || 0), 0).toFixed(2)
+    );
 
-    // 🧾 Create Order
+    // ✅ Discount calculation (same as updateOrder)
+    const dType = discountType || "flat"; // "percent" or "flat"
+    const dValue = parseFloat(discountValue) || 0;
+
+    let discountAmount = 0;
+    if (dType === "percent") {
+      discountAmount = (subtotal * dValue) / 100;
+    } else {
+      discountAmount = dValue;
+    }
+
+    discountAmount = Math.max(0, Number(discountAmount.toFixed(2)));
+
+    // ✅ Tax calculation
+    const taxAmount = Number(tax || 0);
+
+    // ✅ Total
+    const total = Number(Math.max(0, subtotal - discountAmount + taxAmount).toFixed(2));
+
+    // ✅ Create the order
     const order = await Order.create({
       store: store._id,
       rep: rep._id,
       items: orderItems,
       subtotal,
-      total: subtotal,
+      tax: taxAmount,
+      discount: discountAmount,
+      discountType: dType,
+      discountValue: dValue,
+      total,
       note,
       deliveryDate,
-      status: "draft",
+      status: "submitted",
     });
 
-    res.status(201).json(order);
+    res.status(201).json({
+      message: "Order created successfully",
+      order,
+    });
   } catch (error: any) {
-    console.error(error);
+    console.error("Error creating order:", error);
     res.status(500).json({
       message: "Error creating order",
       error: error.message,
     });
   }
 };
+
 
 // ─────────────────────────────
 // 🟨 Get All Orders
@@ -105,10 +201,10 @@ export const getAllOrders = async (req: Request, res: Response) => {
     const matchStage: any = {};
 
     if (status) matchStage.status = status;
-    if (storeId && mongoose.Types.ObjectId.isValid(storeId.toString()))
-      matchStage.store = new mongoose.Types.ObjectId(storeId.toString());
-    if (repId && mongoose.Types.ObjectId.isValid(repId.toString()))
-      matchStage.rep = new mongoose.Types.ObjectId(repId.toString());
+    if (storeId && mongoose.Types.ObjectId.isValid(String(storeId)))
+      matchStage.store = new mongoose.Types.ObjectId(String(storeId));
+    if (repId && mongoose.Types.ObjectId.isValid(String(repId)))
+      matchStage.rep = new mongoose.Types.ObjectId(String(repId));
 
     const pipeline: any[] = [
       { $match: matchStage },
@@ -134,7 +230,7 @@ export const getAllOrders = async (req: Request, res: Response) => {
       { $unwind: { path: "$rep", preserveNullAndEmptyArrays: true } },
     ];
 
-    // ✅ Search by store name
+    // Search by store name
     if (search && typeof search === "string" && search.trim()) {
       pipeline.push({
         $match: {
@@ -143,7 +239,7 @@ export const getAllOrders = async (req: Request, res: Response) => {
       });
     }
 
-    // ✅ Filter by rep name
+    // Filter by rep name
     if (repName && typeof repName === "string" && repName.trim()) {
       pipeline.push({
         $match: {
@@ -162,13 +258,13 @@ export const getAllOrders = async (req: Request, res: Response) => {
           status: 1,
           total: 1,
           subtotal: 1,
-          discount: 1, // ✅ already included
+          discount: 1,
           note: 1,
           deliveryDate: 1,
           createdAt: 1,
           store: { _id: 1, name: 1, address: 1, city: 1, blocked: 1 },
           rep: { _id: 1, name: 1, repType: 1 },
-          items: 1, // ✅ now included
+          items: 1,
         },
       }
     );
@@ -192,18 +288,20 @@ export const getOrderById = async (req: Request, res: Response) => {
     const order = await Order.findById(req.params.id)
       .populate("rep", "name repType email")
       .populate("store", "name address city blocked")
+      // populate product basic info for the items.product reference
       .populate("items.product", "productLine subProductLine itemName");
 
     if (!order) return res.status(404).json({ message: "Order not found" });
 
     res.json(order);
   } catch (error) {
+    console.error("Error fetching order:", error);
     res.status(500).json({ message: "Error fetching order", error });
   }
 };
 
 // ─────────────────────────────
-// 🟧 Update Order (Draft only)
+// 🟧 Update Order
 // ─────────────────────────────
 
 export const updateOrder = async (req: Request, res: Response) => {
@@ -211,61 +309,71 @@ export const updateOrder = async (req: Request, res: Response) => {
     const order = await Order.findById(req.params.id);
     if (!order) return res.status(404).json({ message: "Order not found" });
 
-    // ❌ Removed the restriction — all orders are now editable
-    // if (order.status !== "draft")
-    //   return res
-    //     .status(400)
-    //     .json({ message: "Cannot edit a non-draft order" });
-
-    // ✅ Apply all basic fields first (storeId, repId, note, deliveryDate, etc.)
+    // Apply top-level fields (storeId, repId, note, deliveryDate, etc.)
     Object.assign(order, req.body);
 
-    // ✅ Then rebuild the items safely if provided
+    // If items are included in the request, rebuild them properly
     if (req.body.items && Array.isArray(req.body.items)) {
       const updatedItems = await Promise.all(
         req.body.items.map(async (item: any) => {
           const product = await Product.findById(item.product);
-          if (!product) {
-            throw new Error(`Product not found: ${item.product}`);
-          }
+          if (!product) throw new Error(`Product not found: ${item.product}`);
 
-          const variant =
-            product.variants?.find((v) => v.label === item.unitLabel) ||
-            product.variants?.[0];
+          const rawLabel = item.unitLabel ?? null;
+          const lookupLabel = rawLabel ? String(rawLabel).trim().toLowerCase() : null;
 
-          const price =
-            variant?.discountPrice ??
-            variant?.price ??
-            product.discountPrice ??
-            product.price ??
-            0;
+          const priceInfo = pickPriceForProduct(product, lookupLabel);
+
+          const effectivePrice =
+            priceInfo.discountPrice && priceInfo.discountPrice > 0
+              ? priceInfo.discountPrice
+              : priceInfo.unitPrice;
+
+          const qty = Number(item.qty || 0);
+          const lineTotal = Number((effectivePrice * qty).toFixed(2));
 
           return {
             product: product._id,
-            name:
-              product.itemName || product.subProductLine || product.productLine,
-            unitLabel: variant?.label,
-            unitPrice: variant?.price ?? product.price ?? 0,
-            discountPrice: variant?.discountPrice ?? product.discountPrice ?? 0,
-            qty: item.qty,
-            lineTotal: price * item.qty,
+            name: product.itemName || product.subProductLine || product.productLine,
+            productLine: product.productLine,
+            subProductLine: product.subProductLine,
+            sku: product.metadata?.sku || "",
+            unitLabel: rawLabel ?? (priceInfo.label ?? null),
+            unitPrice: Number(priceInfo.unitPrice ?? 0),
+            discountPrice: Number(priceInfo.discountPrice ?? 0),
+            qty,
+            lineTotal,
           };
         })
       );
 
+      // Recalculate subtotal
       order.items = updatedItems;
-      order.subtotal = updatedItems.reduce((sum, i) => sum + i.lineTotal, 0);
+      order.subtotal = Number(
+        updatedItems.reduce((sum: number, i: any) => sum + (Number(i.lineTotal) || 0), 0).toFixed(2)
+      );
 
-      const discountValue = req.body.discountValue || 0;
-      const discountType = req.body.discountType || "flat";
+      // --- ✅ Discount logic update ---
+      const discountType = req.body.discountType || "flat"; // "percent" or "flat"
+      const discountValue = parseFloat(req.body.discountValue) || 0; // numeric value
 
-      const discountAmount =
-        discountType === "flat"
-          ? discountValue
-          : (order.subtotal * discountValue) / 100;
+      let discountAmount = 0;
 
-      order.total = order.subtotal - discountAmount;
+      if (discountType === "percent") {
+        discountAmount = (order.subtotal * discountValue) / 100;
+      } else {
+        discountAmount = discountValue;
+      }
+
+      discountAmount = Math.max(0, Number(discountAmount.toFixed(2)));
       order.discount = discountAmount;
+
+      // Tax (if any)
+      const taxAmount = Number(req.body.tax || 0);
+      order.tax = taxAmount;
+
+      // --- ✅ Final total ---
+      order.total = Number(Math.max(0, order.subtotal - discountAmount + taxAmount).toFixed(2));
     }
 
     await order.save();
@@ -276,11 +384,13 @@ export const updateOrder = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error("Error updating order:", error);
-    res
-      .status(500)
-      .json({ message: "Error updating order", error: error.message });
+    res.status(500).json({
+      message: "Error updating order",
+      error: error.message,
+    });
   }
 };
+
 
 // ─────────────────────────────
 // 🟫 Change Order Status
@@ -301,6 +411,7 @@ export const changeOrderStatus = async (req: Request, res: Response) => {
 
     res.json({ message: `Order moved to ${status}`, order });
   } catch (error) {
+    console.error("Error changing order status:", error);
     res.status(500).json({ message: "Error changing order status", error });
   }
 };
@@ -329,6 +440,7 @@ export const collectPayment = async (req: Request, res: Response) => {
 
     res.json({ message: "Payment collected successfully", order });
   } catch (error) {
+    console.error("Error collecting payment:", error);
     res.status(500).json({ message: "Error collecting payment", error });
   }
 };

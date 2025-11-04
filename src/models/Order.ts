@@ -98,7 +98,6 @@ const OrderSchema = new Schema<IOrder>(
     status: {
       type: String,
       enum: [
-        'draft',
         'submitted',
         'accepted',
         'manifested',
@@ -107,7 +106,7 @@ const OrderSchema = new Schema<IOrder>(
         'cancelled',
         'returned',
       ],
-      default: 'draft',
+      default: 'submitted',
     },
     note: String,
     deliveryDate: Date,
