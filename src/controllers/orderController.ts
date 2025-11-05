@@ -22,10 +22,7 @@ function pickPriceForProduct(product: any, typeOrLabel?: string | null) {
   if (product.variants?.length) {
     const found =
       product.variants.find(
-        (v: any) =>
-          v.label &&
-          norm &&
-          v.label.trim().toLowerCase() === norm
+        (v: any) => v.label && norm && v.label.trim().toLowerCase() === norm
       ) || null;
     if (found) {
       return {
@@ -49,7 +46,11 @@ function pickPriceForProduct(product: any, typeOrLabel?: string | null) {
   }
 
   // 3) hybridBreakdown
-  if (product.hybridBreakdown && norm && product.hybridBreakdown[norm] != null) {
+  if (
+    product.hybridBreakdown &&
+    norm &&
+    product.hybridBreakdown[norm] != null
+  ) {
     return {
       unitPrice: Number(product.hybridBreakdown[norm] ?? 0),
       discountPrice: Number(product.discountPrice ?? 0),
@@ -95,18 +96,29 @@ export const createOrder = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Store is blocked" });
 
     // ✅ Build Order Items (denormalized pricing info)
+    // inside createOrder: build orderItems
     const orderItems = await Promise.all(
       (items || []).map(async (item: any) => {
-        const product = (await Product.findById(item.product)) as IProduct | null;
+        const product = (await Product.findById(
+          item.product
+        )) as IProduct | null;
         if (!product) throw new Error(`Product not found: ${item.product}`);
 
         const rawLabel = item.unitLabel ?? null;
-        const lookupLabel = rawLabel ? String(rawLabel).trim().toLowerCase() : null;
+        const lookupLabel = rawLabel
+          ? String(rawLabel).trim().toLowerCase()
+          : null;
 
         const priceInfo = pickPriceForProduct(product, lookupLabel);
 
+        // NEW: read apply flag from incoming item. default false
+        const applyDiscount = !!item.applyDiscount;
+
+        // Decide effective price using the apply flag (not simply presence of discountPrice)
         const effectivePrice =
-          priceInfo.discountPrice && priceInfo.discountPrice > 0
+          applyDiscount &&
+          priceInfo.discountPrice &&
+          priceInfo.discountPrice > 0
             ? priceInfo.discountPrice
             : priceInfo.unitPrice;
 
@@ -115,13 +127,16 @@ export const createOrder = async (req: Request, res: Response) => {
 
         return {
           product: product._id,
-          name: product.itemName || product.subProductLine || product.productLine,
+          name:
+            product.itemName || product.subProductLine || product.productLine,
           productLine: product.productLine,
           subProductLine: product.subProductLine,
           sku: product.metadata?.sku || "",
-          unitLabel: rawLabel ?? (priceInfo.label ?? null),
+          unitLabel: rawLabel ?? priceInfo.label ?? null,
           unitPrice: Number(priceInfo.unitPrice ?? 0),
           discountPrice: Number(priceInfo.discountPrice ?? 0),
+          // NEW: record whether the discount was actually applied for this item
+          appliedDiscount: applyDiscount ? true : false,
           qty,
           lineTotal,
         };
@@ -130,7 +145,9 @@ export const createOrder = async (req: Request, res: Response) => {
 
     // ✅ Calculate subtotal
     const subtotal = Number(
-      orderItems.reduce((sum, i) => sum + (Number(i.lineTotal) || 0), 0).toFixed(2)
+      orderItems
+        .reduce((sum, i) => sum + (Number(i.lineTotal) || 0), 0)
+        .toFixed(2)
     );
 
     // ✅ Discount calculation (same as updateOrder)
@@ -150,7 +167,9 @@ export const createOrder = async (req: Request, res: Response) => {
     const taxAmount = Number(tax || 0);
 
     // ✅ Total
-    const total = Number(Math.max(0, subtotal - discountAmount + taxAmount).toFixed(2));
+    const total = Number(
+      Math.max(0, subtotal - discountAmount + taxAmount).toFixed(2)
+    );
 
     // ✅ Create the order
     const order = await Order.create({
@@ -181,7 +200,6 @@ export const createOrder = async (req: Request, res: Response) => {
   }
 };
 
-
 // ─────────────────────────────
 // 🟨 Get All Orders
 // ─────────────────────────────
@@ -196,15 +214,30 @@ export const getAllOrders = async (req: Request, res: Response) => {
       page = 1,
       limit = 20,
       search,
+      startDate,
+      endDate,
     } = req.query;
 
     const matchStage: any = {};
 
-    if (status) matchStage.status = status;
+    if (status && typeof status === "string") {
+      matchStage.status = { $in: status.split(",") };
+    }
     if (storeId && mongoose.Types.ObjectId.isValid(String(storeId)))
       matchStage.store = new mongoose.Types.ObjectId(String(storeId));
     if (repId && mongoose.Types.ObjectId.isValid(String(repId)))
       matchStage.rep = new mongoose.Types.ObjectId(String(repId));
+
+    if (startDate && endDate) {
+      const start = new Date(startDate as string);
+      const end = new Date(endDate as string);
+      end.setHours(23, 59, 59, 999); // Set end date to end of day
+
+      matchStage.deliveryDate = {
+        $gte: start,
+        $lte: end,
+      };
+    }
 
     const pipeline: any[] = [
       { $match: matchStage },
@@ -248,6 +281,9 @@ export const getAllOrders = async (req: Request, res: Response) => {
       });
     }
 
+    // Create a separate pipeline for counting documents
+    const countPipeline = [...pipeline, { $count: "total" }];
+
     pipeline.push(
       { $sort: { createdAt: -1 } },
       { $skip: (Number(page) - 1) * Number(limit) },
@@ -269,8 +305,12 @@ export const getAllOrders = async (req: Request, res: Response) => {
       }
     );
 
-    const orders = await Order.aggregate(pipeline);
-    const total = await Order.countDocuments(matchStage);
+    const [orders, totalResult] = await Promise.all([
+      Order.aggregate(pipeline),
+      Order.aggregate(countPipeline),
+    ]);
+
+    const total = totalResult.length > 0 ? totalResult[0].total : 0;
 
     res.json({ total, page: Number(page), limit: Number(limit), orders });
   } catch (error) {
@@ -320,12 +360,18 @@ export const updateOrder = async (req: Request, res: Response) => {
           if (!product) throw new Error(`Product not found: ${item.product}`);
 
           const rawLabel = item.unitLabel ?? null;
-          const lookupLabel = rawLabel ? String(rawLabel).trim().toLowerCase() : null;
+          const lookupLabel = rawLabel
+            ? String(rawLabel).trim().toLowerCase()
+            : null;
 
+          // inside updateOrder when building updatedItems:
           const priceInfo = pickPriceForProduct(product, lookupLabel);
+          const applyDiscount = !!item.applyDiscount;
 
           const effectivePrice =
-            priceInfo.discountPrice && priceInfo.discountPrice > 0
+            applyDiscount &&
+            priceInfo.discountPrice &&
+            priceInfo.discountPrice > 0
               ? priceInfo.discountPrice
               : priceInfo.unitPrice;
 
@@ -334,13 +380,15 @@ export const updateOrder = async (req: Request, res: Response) => {
 
           return {
             product: product._id,
-            name: product.itemName || product.subProductLine || product.productLine,
+            name:
+              product.itemName || product.subProductLine || product.productLine,
             productLine: product.productLine,
             subProductLine: product.subProductLine,
             sku: product.metadata?.sku || "",
-            unitLabel: rawLabel ?? (priceInfo.label ?? null),
+            unitLabel: rawLabel ?? priceInfo.label ?? null,
             unitPrice: Number(priceInfo.unitPrice ?? 0),
             discountPrice: Number(priceInfo.discountPrice ?? 0),
+            appliedDiscount: applyDiscount ? true : false, // <- persisted
             qty,
             lineTotal,
           };
@@ -350,7 +398,9 @@ export const updateOrder = async (req: Request, res: Response) => {
       // Recalculate subtotal
       order.items = updatedItems;
       order.subtotal = Number(
-        updatedItems.reduce((sum: number, i: any) => sum + (Number(i.lineTotal) || 0), 0).toFixed(2)
+        updatedItems
+          .reduce((sum: number, i: any) => sum + (Number(i.lineTotal) || 0), 0)
+          .toFixed(2)
       );
 
       // --- ✅ Discount logic update ---
@@ -373,7 +423,9 @@ export const updateOrder = async (req: Request, res: Response) => {
       order.tax = taxAmount;
 
       // --- ✅ Final total ---
-      order.total = Number(Math.max(0, order.subtotal - discountAmount + taxAmount).toFixed(2));
+      order.total = Number(
+        Math.max(0, order.subtotal - discountAmount + taxAmount).toFixed(2)
+      );
     }
 
     await order.save();
@@ -390,7 +442,6 @@ export const updateOrder = async (req: Request, res: Response) => {
     });
   }
 };
-
 
 // ─────────────────────────────
 // 🟫 Change Order Status

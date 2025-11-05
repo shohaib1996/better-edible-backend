@@ -1,18 +1,15 @@
-import { Schema, model, Document, Types } from 'mongoose';
+import { Schema, model, Document, Types } from "mongoose";
 
 // ─────────────────────────────
 // TYPES
 // ─────────────────────────────
 
 export type OrderStatus =
-  | 'draft'
-  | 'submitted'
-  | 'accepted'
-  | 'manifested'
-  | 'shipped'
-  | 'delivered'
-  | 'cancelled'
-  | 'returned';
+  | "submitted"
+  | "accepted"
+  | "manifested"
+  | "shipped"
+  | "cancelled";
 
 export interface IOrderItem {
   product: Types.ObjectId;
@@ -22,10 +19,11 @@ export interface IOrderItem {
   discountPrice?: number;
   qty: number;
   lineTotal: number;
+  appliedDiscount?: boolean; // 🆕 add this
 }
 
 export interface IPayment {
-  method?: 'cash' | 'card' | 'bank' | 'stripe';
+  method?: "cash" | "card" | "bank" | "stripe";
   amount: number;
   collected?: boolean;
   collectedBy?: Types.ObjectId;
@@ -47,6 +45,8 @@ export interface IOrder extends Document {
   note?: string;
   deliveryDate?: Date;
   dueDate?: Date;
+  discountType?: 'flat' | 'percent';
+  discountValue?: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -57,13 +57,16 @@ export interface IOrder extends Document {
 
 const OrderItemSchema = new Schema<IOrderItem>(
   {
-    product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
+    product: { type: Schema.Types.ObjectId, ref: "Product", required: true },
     name: { type: String, required: true },
     unitLabel: String,
     unitPrice: { type: Number, required: true },
     discountPrice: Number,
     qty: { type: Number, required: true },
     lineTotal: { type: Number, required: true },
+
+    // 🆕 NEW FIELD
+    appliedDiscount: { type: Boolean, default: false }, // true = discount manually applied
   },
   { _id: false }
 );
@@ -72,12 +75,12 @@ const PaymentSchema = new Schema<IPayment>(
   {
     method: {
       type: String,
-      enum: ['cash', 'card', 'bank', 'stripe'],
-      default: 'cash',
+      enum: ["cash", "card", "bank", "stripe"],
+      default: "cash",
     },
     amount: { type: Number, required: true },
     collected: { type: Boolean, default: false },
-    collectedBy: { type: Schema.Types.ObjectId, ref: 'Rep' },
+    collectedBy: { type: Schema.Types.ObjectId, ref: "Rep" },
     collectedAt: Date,
     note: String,
   },
@@ -87,8 +90,8 @@ const PaymentSchema = new Schema<IPayment>(
 const OrderSchema = new Schema<IOrder>(
   {
     orderNumber: { type: Number, unique: true, index: true },
-    store: { type: Schema.Types.ObjectId, ref: 'Store', required: true },
-    rep: { type: Schema.Types.ObjectId, ref: 'Rep', required: true },
+    store: { type: Schema.Types.ObjectId, ref: "Store", required: true },
+    rep: { type: Schema.Types.ObjectId, ref: "Rep", required: true },
     items: { type: [OrderItemSchema], default: [] },
     subtotal: { type: Number, default: 0 },
     tax: { type: Number, default: 0 },
@@ -98,19 +101,21 @@ const OrderSchema = new Schema<IOrder>(
     status: {
       type: String,
       enum: [
-        'submitted',
-        'accepted',
-        'manifested',
-        'shipped',
-        'delivered',
-        'cancelled',
-        'returned',
+        "submitted",
+        "accepted",
+        "manifested",
+        "shipped",
+        "delivered",
+        "cancelled",
+        "returned",
       ],
-      default: 'submitted',
+      default: "submitted",
     },
     note: String,
     deliveryDate: Date,
     dueDate: Date,
+    discountType: { type: String, enum: ["flat", "percent"], default: "flat" },
+    discountValue: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
@@ -127,12 +132,12 @@ const CounterSchema = new Schema({
   seq: { type: Number, default: 0 },
 });
 
-const Counter = model('Counter', CounterSchema);
+const Counter = model("Counter", CounterSchema);
 
-OrderSchema.pre<IOrder>('save', async function (next) {
+OrderSchema.pre<IOrder>("save", async function (next) {
   if (this.isNew) {
     const counter = await Counter.findByIdAndUpdate(
-      { _id: 'orderNumber' },
+      { _id: "orderNumber" },
       { $inc: { seq: 1 } },
       { new: true, upsert: true }
     );
@@ -145,4 +150,4 @@ OrderSchema.pre<IOrder>('save', async function (next) {
 // EXPORT
 // ─────────────────────────────
 
-export const Order = model<IOrder>('Order', OrderSchema);
+export const Order = model<IOrder>("Order", OrderSchema);
