@@ -43,8 +43,8 @@ export const registerRep = async (req: Request, res: Response) => {
 // 🟦 Login Rep
 export const loginRep = async (req: Request, res: Response) => {
   try {
-    const { loginName, password } = req.body;
-    const rep = await Rep.findOne({ loginName });
+    const { email , password } = req.body;
+    const rep = await Rep.findOne({ email });
 
     if (!rep) return res.status(404).json({ message: 'Rep not found' });
 
