@@ -2,6 +2,7 @@
 import { Request, Response } from "express";
 import { Delivery } from "../models/Delivery";
 import { Rep } from "../models/Rep";
+import { Store } from "../models/Store";
 
 // 🟩 Create delivery assignment
 export const createDelivery = async (req: Request, res: Response) => {
@@ -37,14 +38,41 @@ export const createDelivery = async (req: Request, res: Response) => {
   }
 };
 
+
 // 🟨 Get all deliveries
 export const getAllDeliveries = async (req: Request, res: Response) => {
   try {
-    const { status, assignedTo, storeId, page = 1, limit = 20 } = req.query;
+    const {
+      status,
+      assignedTo,
+      storeId,
+      storeName,
+      scheduledAt,
+      page = 1,
+      limit = 20,
+    } = req.query;
     const query: any = {};
     if (status) query.status = status;
     if (assignedTo) query.assignedTo = assignedTo;
     if (storeId) query.storeId = storeId;
+    if (scheduledAt) {
+      const startOfDay = new Date(scheduledAt as string);
+      startOfDay.setUTCHours(0, 0, 0, 0);
+      const endOfDay = new Date(scheduledAt as string);
+      endOfDay.setUTCHours(23, 59, 59, 999);
+      query.scheduledAt = {
+        $gte: startOfDay,
+        $lt: endOfDay,
+      };
+    }
+
+    if (storeName) {
+      const stores = await Store.find({
+        name: { $regex: storeName, $options: "i" },
+      }).select("_id");
+      const storeIds = stores.map((store) => store._id);
+      query.storeId = { $in: storeIds };
+    }
 
     const deliveries = await Delivery.find(query)
       .populate("assignedTo", "name repType")
