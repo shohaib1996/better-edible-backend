@@ -104,6 +104,24 @@ export const getDeliveryById = async (req: Request, res: Response) => {
   }
 };
 
+// 🟨 Update delivery
+export const updateDelivery = async (req: Request, res: Response) => {
+  try {
+    const delivery = await Delivery.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!delivery) {
+      return res.status(404).json({ message: "Delivery not found" });
+    }
+    res.json({ message: "Delivery updated successfully", delivery });
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ message: "Error updating delivery", error: error.message });
+  }
+};
+
 // 🟧 Update delivery status
 export const updateDeliveryStatus = async (req: Request, res: Response) => {
   try {
