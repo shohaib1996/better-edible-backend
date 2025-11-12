@@ -11,6 +11,7 @@ import noteRoutes from "./routes/noteRoutes";
 import authRoutes from './routes/authRoutes';
 import adminRoutes from './routes/adminRoutes';
 import timeLogRoutes from './routes/timeLogRoutes';
+import sampleRoutes from './routes/sampleRoutes';
 
 
 
@@ -31,6 +32,7 @@ app.use('/api/orders', orderRoutes);
 app.use("/api/deliveries", deliveryRoutes);
 app.use("/api/notes", noteRoutes);
 app.use("/api/timelogs", timeLogRoutes);
+app.use("/api/samples", sampleRoutes);
 
 app.get("/", (_, res) => {
   res.send("Rep Order System API is running...");
