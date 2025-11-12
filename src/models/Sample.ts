@@ -6,7 +6,7 @@ export interface ISample extends Document {
   status: 'in progress' | 'delivered';
   samples: {
     cannacrispy?: string;
-    'holy water'?: string;
+    // 'holy water'?: string;
     'fifty one fifty': string;
     'bliss cannabis syrup'?: string;
   };
@@ -24,7 +24,7 @@ const SampleSchema: Schema = new Schema(
     },
     samples: {
       cannacrispy: { type: String },
-      'holy water': { type: String },
+      // 'holy water': { type: String },
       'bliss cannabis syrup': { type: String },
       'fifty one fifty': {type: String}
     },
