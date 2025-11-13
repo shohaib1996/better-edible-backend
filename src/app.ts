@@ -13,6 +13,7 @@ import adminRoutes from './routes/adminRoutes';
 import timeLogRoutes from './routes/timeLogRoutes';
 import sampleRoutes from './routes/sampleRoutes';
 import contactRoutes from './routes/contactRoutes';
+import followupRoutes from './routes/followupRoutes';
 
 
 
@@ -35,6 +36,7 @@ app.use("/api/notes", noteRoutes);
 app.use("/api/timelogs", timeLogRoutes);
 app.use("/api/samples", sampleRoutes);
 app.use("/api/contacts", contactRoutes);
+app.use("/api/followups", followupRoutes);
 
 app.get("/", (_, res) => {
   res.send("Rep Order System API is running...");
