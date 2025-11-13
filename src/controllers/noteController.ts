@@ -5,21 +5,53 @@ import { Note } from "../models/Note";
 // 🟩 Create a note
 export const createNote = async (req: Request, res: Response) => {
   try {
-    const { entityType, entityId, author, text } = req.body;
+    const {
+      entityId,
+      author,
+      disposition,
+      visitType,
+      content,
+      sample,
+      delivery,
+      payment,
+      date,
+    } = req.body;
 
-    if (!entityType || !entityId || !text)
-      return res.status(400).json({ message: "Missing required fields" });
+    if (!entityId || !author || !content) {
+      return res.status(400).json({
+        message: "entityId, author, and content are required",
+      });
+    }
 
-    const note = await Note.create({ entityType, entityId, author, text });
-    res.status(201).json({ message: "Note added successfully", note });
-  } catch (error) {
-    res.status(500).json({ message: "Error creating note", error });
+    const note = await Note.create({
+      entityId,
+      author,
+      disposition,
+      visitType,
+      content,
+      sample,
+      delivery,
+      payment,
+      date,
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "Note created successfully",
+      note,
+    });
+  } catch (error: any) {
+    console.error("Error creating note:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error creating note",
+      error: error.message || error,
+    });
   }
 };
 
-// 🟨 Get all notes (with filters)
+// 🟨 Get all notes
 export const getAllNotes = async (req: Request, res: Response) => {
-  console.log(req.query);
   try {
     const { entityId, page = 1, limit = 20 } = req.query;
 
@@ -35,7 +67,7 @@ export const getAllNotes = async (req: Request, res: Response) => {
     const query = { entityId };
 
     const notes = await Note.find(query)
-      .populate("entityId", "name address city state")
+      .populate("author", "name role email")
       .sort({ createdAt: -1 })
       .skip((pageNum - 1) * limitNum)
       .limit(limitNum);
@@ -59,14 +91,85 @@ export const getAllNotes = async (req: Request, res: Response) => {
     });
   }
 };
+
 // 🟦 Get a single note
 export const getNoteById = async (req: Request, res: Response) => {
   try {
-    const note = await Note.findById(req.params.id).populate("author", "name");
+    const note = await Note.findById(req.params.id).populate(
+      "author",
+      "name email role"
+    );
+
     if (!note) return res.status(404).json({ message: "Note not found" });
-    res.json(note);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching note", error });
+
+    res.json({ success: true, note });
+  } catch (error: any) {
+    console.error("Error fetching note:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error fetching note",
+      error: error.message || error,
+    });
+  }
+};
+
+// 🟩 Update a note (edit)
+export const updateNote = async (req: Request, res: Response) => {
+  try {
+    const noteId = req.params.id;
+    if (!noteId) {
+      return res.status(400).json({ message: "Note id is required" });
+    }
+
+    // Only allow updating these fields (do not allow changing entityId or author)
+    const {
+      disposition,
+      visitType,
+      content,
+      sample,
+      delivery,
+      payment,
+      date,
+    } = req.body;
+
+    const updates: any = {};
+
+    if (disposition !== undefined) updates.disposition = disposition;
+    if (visitType !== undefined) updates.visitType = visitType;
+    if (content !== undefined) updates.content = content;
+    if (sample !== undefined) updates.sample = sample;
+    if (delivery !== undefined) updates.delivery = delivery;
+    if (payment !== undefined) updates.payment = payment;
+    if (date !== undefined) updates.date = date;
+
+    // If no updatable fields present
+    if (Object.keys(updates).length === 0) {
+      return res
+        .status(400)
+        .json({ message: "No valid fields provided for update" });
+    }
+
+    const updatedNote = await Note.findByIdAndUpdate(noteId, updates, {
+      new: true,
+      runValidators: true,
+    }).populate("author", "name email role");
+
+    if (!updatedNote) {
+      return res.status(404).json({ message: "Note not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Note updated successfully",
+      note: updatedNote,
+    });
+  } catch (error: any) {
+    console.error("Error updating note:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error updating note",
+      error: error.message || error,
+    });
   }
 };
 
@@ -75,8 +178,17 @@ export const deleteNote = async (req: Request, res: Response) => {
   try {
     const note = await Note.findByIdAndDelete(req.params.id);
     if (!note) return res.status(404).json({ message: "Note not found" });
-    res.json({ message: "Note deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Error deleting note", error });
+
+    res.json({
+      success: true,
+      message: "Note deleted successfully",
+    });
+  } catch (error: any) {
+    console.error("Error deleting note:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error deleting note",
+      error: error.message || error,
+    });
   }
 };
