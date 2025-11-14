@@ -1,15 +1,35 @@
 
 import { Request, Response } from 'express';
 import { Followup } from '../models/Followup';
+import { Store } from '../models/Store';
 
 // Get all followups
 export const getAllFollowups = async (req: Request, res: Response) => {
   try {
-    const { storeId, repId, page = 1, limit = 20 } = req.query;
+    const { storeId, repId, page = 1, limit = 20, storeName, date } = req.query;
     const query: any = {};
 
     if (storeId) query.store = storeId;
     if (repId) query.rep = repId;
+
+    // Search by store name
+    if (storeName) {
+      const stores = await Store.find({ name: { $regex: storeName, $options: 'i' } });
+      const storeIds = stores.map(store => store._id);
+      query.store = { $in: storeIds };
+    }
+
+    // Search by date
+    if (date) {
+      const searchDate = new Date(date as string);
+      searchDate.setUTCHours(0, 0, 0, 0);
+      const nextDay = new Date(searchDate);
+      nextDay.setUTCDate(searchDate.getUTCDate() + 1);
+      query.followupDate = {
+        $gte: searchDate,
+        $lt: nextDay,
+      };
+    }
 
     const followups = await Followup.find(query)
       .populate('store', 'name')
