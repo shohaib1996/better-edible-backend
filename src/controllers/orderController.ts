@@ -297,6 +297,7 @@ export const getAllOrders = async (req: Request, res: Response) => {
           discount: 1,
           note: 1,
           deliveryDate: 1,
+          // discountType: 1,
           createdAt: 1,
           store: { _id: 1, name: 1, address: 1, city: 1, blocked: 1 },
           rep: { _id: 1, name: 1, repType: 1 },

@@ -38,7 +38,6 @@ export const createDelivery = async (req: Request, res: Response) => {
   }
 };
 
-
 // 🟨 Get all deliveries
 export const getAllDeliveries = async (req: Request, res: Response) => {
   try {
@@ -48,6 +47,8 @@ export const getAllDeliveries = async (req: Request, res: Response) => {
       storeId,
       storeName,
       scheduledAt,
+      startDate,
+      endDate,
       page = 1,
       limit = 20,
     } = req.query;
@@ -55,7 +56,20 @@ export const getAllDeliveries = async (req: Request, res: Response) => {
     if (status) query.status = status;
     if (assignedTo) query.assignedTo = assignedTo;
     if (storeId) query.storeId = storeId;
-    if (scheduledAt) {
+
+    // Date filtering logic
+    if (startDate && endDate) {
+      const start = new Date(startDate as string);
+      start.setUTCHours(0, 0, 0, 0);
+
+      const end = new Date(endDate as string);
+      end.setUTCHours(23, 59, 59, 999);
+
+      query.scheduledAt = {
+        $gte: start,
+        $lte: end,
+      };
+    } else if (scheduledAt) {
       const startOfDay = new Date(scheduledAt as string);
       startOfDay.setUTCHours(0, 0, 0, 0);
       const endOfDay = new Date(scheduledAt as string);
