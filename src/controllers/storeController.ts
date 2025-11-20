@@ -15,7 +15,9 @@ export const getAllStores = async (req: Request, res: Response) => {
     } = req.query;
     const query: any = {};
 
-    if (search) query.$text = { $search: search as string };
+    if (search) {
+      query.name = { $regex: search as string, $options: "i" };
+    }
     if (repId) query.rep = repId;
     if (paymentStatus) query.paymentStatus = paymentStatus;
     if (isDue === "true") query.dueAmount = { $gt: 0 };
