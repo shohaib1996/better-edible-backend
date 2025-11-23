@@ -60,10 +60,15 @@ export const getAllDeliveries = async (req: Request, res: Response) => {
     // Date filtering logic
     if (startDate && endDate) {
       const start = new Date(startDate as string);
-      start.setUTCHours(0, 0, 0, 0);
-
       const end = new Date(endDate as string);
-      end.setUTCHours(23, 59, 59, 999);
+
+      // Only snap to day boundaries if the input string looks like a plain date (length 10)
+      if ((startDate as string).length === 10) {
+        start.setUTCHours(0, 0, 0, 0);
+      }
+      if ((endDate as string).length === 10) {
+        end.setUTCHours(23, 59, 59, 999);
+      }
 
       query.scheduledAt = {
         $gte: start,
