@@ -1,6 +1,7 @@
 // src/controllers/storeController.ts
 import { Request, Response } from "express";
 import { Store } from "../models/Store";
+import { Contact } from "../models/Contact"; // Ensure Contact model is registered
 
 // Get all stores (with search & pagination)
 export const getAllStores = async (req: Request, res: Response) => {
@@ -51,9 +52,14 @@ export const getAllStores = async (req: Request, res: Response) => {
 
     const stores = await Store.find(query)
       .populate("rep", "name repType territory")
+      .populate({
+        path: "contacts",
+        select: "name role email phone importantToKnow",
+      })
       .skip((+page - 1) * +limit)
       .limit(+limit)
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .lean(); // ← return plain JS objects (recommended)
 
     const total = await Store.countDocuments(query);
 
@@ -66,10 +72,9 @@ export const getAllStores = async (req: Request, res: Response) => {
 // Get store by ID
 export const getStoreById = async (req: Request, res: Response) => {
   try {
-    const store = await Store.findById(req.params.id).populate(
-      "rep",
-      "name repType"
-    );
+    const store = await Store.findById(req.params.id)
+      .populate("rep", "name repType")
+      .populate("contacts");
     if (!store) return res.status(404).json({ message: "Store not found" });
     res.json(store);
   } catch (error) {

@@ -1,0 +1,5578 @@
+[
+  {
+    "name": "Jennifer",
+    "role": "Intake",
+    "email": "Thefourtwentyclubllc@gmail.com",
+    "phone": "541-672-2420",
+    "importantToKnow": "Jennifer is at the shop 9am to 5pm DOES NOT WORK MONDAYS",
+    "store": "692452b64af7d6b4bed7c9cd"
+  },
+  {
+    "name": "Angel",
+    "role": "Intake",
+    "email": "klamathcannabis@gmail.com",
+    "phone": "541-887-2335",
+    "importantToKnow": "Klamathdispensary@gmail.com gets checked more",
+    "store": "692452b64af7d6b4bed7c9ce"
+  },
+  {
+    "name": "BudTenders",
+    "role": "Intake",
+    "email": "Aprimeleafwm@gmail.com",
+    "phone": "971-599-5892",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7c9cf"
+  },
+  {
+    "name": "Arnoldo",
+    "role": "Intake",
+    "email": "arnoldo@abc.coop",
+    "phone": "541-622-8340",
+    "importantToKnow": "Do not call this store.  Arnoldo is here Mon-Fri 8-4",
+    "store": "692452b64af7d6b4bed7c9d0"
+  },
+  {
+    "name": "Sam",
+    "role": "Order placer",
+    "email": "alternative.remedies4u@gmail.com",
+    "phone": "5034774203",
+    "importantToKnow": "SAM GETS IN AT 4",
+    "store": "692452b64af7d6b4bed7c9d1"
+  },
+  {
+    "name": "Adam",
+    "role": "Intake",
+    "email": "Adam@amazonorganics.net",
+    "phone": "541-636-4100",
+    "importantToKnow": "Use the back entrance of store for vendors. Dave gets irritated if you go in the store -- Adam does not work Mondays, only does intake through email.",
+    "store": "692452b64af7d6b4bed7c9d2"
+  },
+  {
+    "name": "Mat",
+    "role": "Order placer",
+    "email": "Math@vibebycalifornia.com",
+    "phone": "503-233-0420",
+    "importantToKnow": "Vibe - Portland Cannabis Dispensarymath@vibe...",
+    "store": "692452b64af7d6b4bed7c9d3"
+  },
+  {
+    "name": "Morgan",
+    "role": "Order placer",
+    "email": "morgan.americannarx@gmail.com",
+    "phone": "971-254-4581",
+    "importantToKnow": "Dan is the owner Morgan is the order placer",
+    "store": "692452b64af7d6b4bed7c9d4"
+  },
+  {
+    "name": "Steven",
+    "role": "Intake Manager",
+    "email": "steven@better-edibles.com",
+    "phone": "18184154043",
+    "importantToKnow": "This is internal test store account",
+    "store": "692452b64af7d6b4bed7c9d5"
+  },
+  {
+    "name": "Galen",
+    "role": "Purchaser",
+    "email": "Galen@Apothca.com",
+    "phone": "458-201-7098",
+    "importantToKnow": "Opens at 10:00 am",
+    "store": "692452b64af7d6b4bed7c9d6"
+  },
+  {
+    "name": "Andy",
+    "role": "manager",
+    "email": "info@arcannapdx.com",
+    "phone": "(503) 206-5809",
+    "importantToKnow": "971-666-4208 - vendor line",
+    "store": "692452b64af7d6b4bed7c9d7"
+  },
+  {
+    "name": "Fernando",
+    "role": "Purchaser",
+    "email": "archiveportland@gmail.com",
+    "phone": "503-719-4229",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7c9d8"
+  },
+  {
+    "name": "Intake Managers",
+    "role": "",
+    "email": "asapbudsintake@gmail.com",
+    "phone": "+19713747953",
+    "importantToKnow": "same owner as hall of strains and speedy janes",
+    "store": "692452b64af7d6b4bed7c9d9"
+  },
+  {
+    "name": "Brett",
+    "role": "IM",
+    "email": "Pdxascend@gmail.com",
+    "phone": "(971) 279-4769",
+    "importantToKnow": "jarhurliman6@gmail.com alternative email",
+    "store": "692452b64af7d6b4bed7c9da"
+  },
+  {
+    "name": "Christian",
+    "role": "Manager",
+    "email": "contact@astralmarkets.com",
+    "phone": "503-506-0607",
+    "importantToKnow": "Store opens at 10am CLOSED",
+    "store": "692452b64af7d6b4bed7c9db"
+  },
+  {
+    "name": "Johnny",
+    "role": "IM",
+    "email": "Johnny@attistrading.com",
+    "phone": "(510)709-8241",
+    "importantToKnow": "This store burnt down",
+    "store": "692452b64af7d6b4bed7c9dc"
+  },
+  {
+    "name": "Crystal",
+    "role": "Manager",
+    "email": "Crystal@attistrading.com",
+    "phone": "(971) 544-7685",
+    "importantToKnow": "Crystal works Mon-Thurs",
+    "store": "692452b64af7d6b4bed7c9dd"
+  },
+  {
+    "name": "Brie",
+    "role": "Intake",
+    "email": "breanna@attistrading.com",
+    "phone": "(541) 418-5200",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7c9de"
+  },
+  {
+    "name": "Chris",
+    "role": "Store Manager",
+    "email": "chris@attistrading.com",
+    "phone": "503-815-7623",
+    "importantToKnow": "Chris usually leaves before 1 - Central purchasing through Kyle at HotBox",
+    "store": "692452b64af7d6b4bed7c9df"
+  },
+  {
+    "name": "Matt",
+    "role": "",
+    "email": "info@bahamabuds.com",
+    "phone": "(503) 436-4298",
+    "importantToKnow": "Matt's email is matt.bahamabuds.cannon@gmail.com",
+    "store": "692452b64af7d6b4bed7c9e0"
+  },
+  {
+    "name": "Colin",
+    "role": "manager",
+    "email": "Tim@bahamabuds.com",
+    "phone": "(541) 808-9420",
+    "importantToKnow": "Tim is at the store Mon - Fri before 3pm -",
+    "store": "692452b64af7d6b4bed7c9e1"
+  },
+  {
+    "name": "Angie",
+    "role": "Owner/Intake",
+    "email": "Beaverballerbrad@gmail.com",
+    "phone": "541-704-0280",
+    "importantToKnow": "Angie is easier to get ahold of - mainly works at this location - opens at 10",
+    "store": "692452b64af7d6b4bed7c9e2"
+  },
+  {
+    "name": "Angie",
+    "role": "Owner/Intake",
+    "email": "Beaverballerbrad@gmail.com",
+    "phone": "541-286-4657",
+    "importantToKnow": "Angie is easier to get ahold of - mainly works at Albany location - opens at 10",
+    "store": "692452b64af7d6b4bed7c9e3"
+  },
+  {
+    "name": "Harvest Coleman",
+    "role": "Intake Manager",
+    "email": "Harvest@virginleaf.com",
+    "phone": "(503) 477-8953",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7c9e4"
+  },
+  {
+    "name": "Stephan",
+    "role": "Purchaser",
+    "email": "goldengrailgroup@gmail.com",
+    "phone": "+15416008185",
+    "importantToKnow": "CHALICE - CALLED SORORITY HOUSE NOW",
+    "store": "692452b64af7d6b4bed7c9e5"
+  },
+  {
+    "name": "Stephen",
+    "role": "Owner",
+    "email": "stephen@betterdazeahead.com",
+    "phone": "541-654-0595",
+    "importantToKnow": "DO NOT CALL -- Do not pitch CC, 5150 or Bliss",
+    "store": "692452b64af7d6b4bed7c9e6"
+  },
+  {
+    "name": "Trentin",
+    "role": "Manager",
+    "email": "bigfootbudco109@gmail.com",
+    "phone": "(503) 829-7717",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7c9e7"
+  },
+  {
+    "name": "Marissa",
+    "role": "Manager",
+    "email": "Blazencannabisllc@gmail.com",
+    "phone": "5415895027",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7c9e8"
+  },
+  {
+    "name": "Dani",
+    "role": "Intake",
+    "email": "bloominaticannabis@yahoo.com",
+    "phone": "541-230-1465",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7c9e9"
+  },
+  {
+    "name": "Sona",
+    "role": "Order placer",
+    "email": "bloominaticannabisfg@yahoo.com",
+    "phone": "5037187299",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7c9ea"
+  },
+  {
+    "name": "Andrew",
+    "role": "",
+    "email": "bluedreamportland@gmail.com",
+    "phone": "(503) 719-6935",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7c9eb"
+  },
+  {
+    "name": "Jed",
+    "role": "Owner/Intake",
+    "email": "Jed@breezebotanicals.com",
+    "phone": "541-708-6446",
+    "importantToKnow": "Jed is here during the weekRiley- Purchasing",
+    "store": "692452b64af7d6b4bed7c9ec"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "+15417086446",
+    "importantToKnow": "BOUGHT BY SUBSTANCE - DUPLICATE",
+    "store": "692452b64af7d6b4bed7c9ec"
+  },
+  {
+    "name": "5 Stacy",
+    "role": "Intake",
+    "email": "Sgilbert@breezebotanicals.com",
+    "phone": "541-855-8797",
+    "importantToKnow": "This store only carries organic products, and products from Southern Oregon",
+    "store": "692452b64af7d6b4bed7c9ee"
+  },
+  {
+    "name": "Kelly",
+    "role": "Order placer",
+    "email": "kbrett@bridgecitycollective.com",
+    "phone": "5034779532",
+    "importantToKnow": "no intakes at this location",
+    "store": "692452b64af7d6b4bed7c9ef"
+  },
+  {
+    "name": "Kelly",
+    "role": "",
+    "email": "kbrett@bridgecitycollective.com",
+    "phone": "(503) 384-2955",
+    "importantToKnow": "In leaflink as \"BCC\" - Kelly is typically at this location PREFER LIVE ROSIN",
+    "store": "692452b64af7d6b4bed7c9f0"
+  },
+  {
+    "name": "Austin",
+    "role": "Purchaser",
+    "email": "austin@broadway-cannabis.com",
+    "phone": "+15032120608",
+    "importantToKnow": "FIRE DEPT./MINT",
+    "store": "692452b64af7d6b4bed7c9f1"
+  },
+  {
+    "name": "Austin",
+    "role": "",
+    "email": "austin@broadway-cannabis.com",
+    "phone": "15032120608",
+    "importantToKnow": "IM- Austin FIRE DEPT./MINT",
+    "store": "692452b64af7d6b4bed7c9f2"
+  },
+  {
+    "name": "Intake",
+    "role": "",
+    "email": "intake@broadway-cannabis.com",
+    "phone": "(503) 212-0608",
+    "importantToKnow": "FIRE DEPT./MINT",
+    "store": "692452b64af7d6b4bed7c9f3"
+  },
+  {
+    "name": "Austin",
+    "role": "Purchaser",
+    "email": "austin@broadway-cannabis.com",
+    "phone": "707-292-2521",
+    "importantToKnow": "Austin in PURCHASER NOW -- FIRE DEPT./MINT",
+    "store": "692452b64af7d6b4bed7c9f4"
+  },
+  {
+    "name": "Austin",
+    "role": "",
+    "email": "austin@broadway-cannabis.com",
+    "phone": "+15032120608",
+    "importantToKnow": "FIRE DEPT./MINT",
+    "store": "692452b64af7d6b4bed7c9f5"
+  },
+  {
+    "name": "David",
+    "role": "Intake",
+    "email": "710silentbob710@gmail.com",
+    "phone": "(541) 412-1675",
+    "importantToKnow": "Davids's cell - (541)787-5000",
+    "store": "692452b64af7d6b4bed7c9f6"
+  },
+  {
+    "name": "David",
+    "role": "Intake",
+    "email": "budbroscj1@gmail.com",
+    "phone": "541-592-3500",
+    "importantToKnow": "David's cell - (541)787-5000",
+    "store": "692452b64af7d6b4bed7c9f7"
+  },
+  {
+    "name": "Kristine",
+    "role": "GM",
+    "email": "Kristine@budlandiapdx.com",
+    "phone": "(503) 805-2871",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7c9f8"
+  },
+  {
+    "name": "Noah / Damon",
+    "role": "Intake Manager",
+    "email": "damon@budlandiapdx.com",
+    "phone": "5034128447",
+    "importantToKnow": "Noah's email -- noah@budlandiapdx.com",
+    "store": "692452b64af7d6b4bed7c9f9"
+  },
+  {
+    "name": "Tristan",
+    "role": "",
+    "email": "statelinevendors@gmail.com",
+    "phone": "541-251-7002",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7c9fa"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "5417782500",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7c9fb"
+  },
+  {
+    "name": "Danny",
+    "role": "Intake",
+    "email": "buds4ustores@gmail.com",
+    "phone": "541-759-1200",
+    "importantToKnow": "All buying out of Florence store",
+    "store": "692452b64af7d6b4bed7c9fc"
+  },
+  {
+    "name": "Dani",
+    "role": "Intake",
+    "email": "Budz4ullc@gmail.com",
+    "phone": "541-997-5321",
+    "importantToKnow": "All buying out of Florence store",
+    "store": "692452b64af7d6b4bed7c9fd"
+  },
+  {
+    "name": "Cass",
+    "role": "",
+    "email": "cass@budzsuperstore.com",
+    "phone": "(541) 897-0731",
+    "importantToKnow": "Budz barn cannabis dispensary",
+    "store": "692452b64af7d6b4bed7c9fe"
+  },
+  {
+    "name": "Scarlett Golden",
+    "role": "intake",
+    "email": "scarlett@budzsuperstore.com",
+    "phone": "541-507-1337",
+    "importantToKnow": "Mon-Thurs only deliveries, no payments past 4:00 pm",
+    "store": "692452b64af7d6b4bed7c9ff"
+  },
+  {
+    "name": "Martin",
+    "role": "",
+    "email": "martin@budzsuperstore.com",
+    "phone": "(458) 225-9070",
+    "importantToKnow": "Percy's email: percy@budzsuperstore",
+    "store": "692452b64af7d6b4bed7ca00"
+  },
+  {
+    "name": "Jesse",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(541) 200-6699",
+    "importantToKnow": "Nectar store",
+    "store": "692452b64af7d6b4bed7ca01"
+  },
+  {
+    "name": "keaton",
+    "role": "",
+    "email": "manager@buzzboxpdx.com",
+    "phone": "(503) 444-7175",
+    "importantToKnow": "CLOSED PERMANENTLY",
+    "store": "692452b64af7d6b4bed7ca02"
+  },
+  {
+    "name": "Oleay",
+    "role": "Owner/Intake",
+    "email": "olec5120@gmail.com",
+    "phone": "541-531-3406",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7ca03"
+  },
+  {
+    "name": "Steven",
+    "role": "Intake",
+    "email": "Info.cafeverde@gmail.com",
+    "phone": "541-916-8430",
+    "importantToKnow": "Steven and Aaron are available by appointment only",
+    "store": "692452b64af7d6b4bed7ca04"
+  },
+  {
+    "name": "Dillion",
+    "role": "IM",
+    "email": "Cannabiscorner710@gmail.com",
+    "phone": "(503) 739-7575",
+    "importantToKnow": "All purchasing done through Cannabis Corner in Portland",
+    "store": "692452b64af7d6b4bed7ca05"
+  },
+  {
+    "name": "Myrka",
+    "role": "Intake",
+    "email": "inventory@cannabrosweed.com",
+    "phone": "(541) 405-4979",
+    "importantToKnow": "All buying done out of Newberg store",
+    "store": "692452b64af7d6b4bed7ca06"
+  },
+  {
+    "name": "Myrka",
+    "role": "Purchaser",
+    "email": "inventory@cannabrosweed.com",
+    "phone": "5034876184",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca07"
+  },
+  {
+    "name": "Mryka",
+    "role": "",
+    "email": "inventory@cannabrosweed.com",
+    "phone": "(503) 843-9055",
+    "importantToKnow": "All buying done out of Newberg store",
+    "store": "692452b64af7d6b4bed7ca08"
+  },
+  {
+    "name": "Jordan",
+    "role": "Intake",
+    "email": "staytoncannabros@gmail.com",
+    "phone": "503-769-2338",
+    "importantToKnow": "All buying done out of Newberg store",
+    "store": "692452b64af7d6b4bed7ca09"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca0a"
+  },
+  {
+    "name": "Myrka",
+    "role": "Purchaser",
+    "email": "inventory@cannabrosweed.com",
+    "phone": "+15036875797",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca0b"
+  },
+  {
+    "name": "Roxie",
+    "role": "Manager",
+    "email": "rdallas@gw-ind.com",
+    "phone": "9712794932",
+    "importantToKnow": "all orders are through Groundworks",
+    "store": "692452b64af7d6b4bed7ca0c"
+  },
+  {
+    "name": "Tony Ray",
+    "role": "Sales rep",
+    "email": "sales@uplifted.farm",
+    "phone": "971-241-1179",
+    "importantToKnow": "This store does not have a number on google CLOSED",
+    "store": "692452b64af7d6b4bed7ca0d"
+  },
+  {
+    "name": "Ford",
+    "role": "",
+    "email": "cannabend@gmail.com",
+    "phone": "541-617-0420",
+    "importantToKnow": "No interest in edibles medicated with distillate",
+    "store": "692452b64af7d6b4bed7ca0e"
+  },
+  {
+    "name": "Amanda",
+    "role": "Assistant Manager",
+    "email": "purchasing@cannabisandglass.com",
+    "phone": "5419071234",
+    "importantToKnow": "All purchasing goes through Johnny Yerby",
+    "store": "692452b64af7d6b4bed7ca0f"
+  },
+  {
+    "name": "Dillon",
+    "role": "Purchasing",
+    "email": "cannabiscorner710@gmail.com",
+    "phone": "5037720420",
+    "importantToKnow": "Darcy handles payments - Her number (5033584404) - Dillon's cell (5038904237)",
+    "store": "692452b64af7d6b4bed7ca10"
+  },
+  {
+    "name": "Chloe",
+    "role": "Order placer",
+    "email": "chloe@medizenpdx.com",
+    "phone": "(503)946-8662",
+    "importantToKnow": "owned by happy kitchen",
+    "store": "692452b64af7d6b4bed7ca11"
+  },
+  {
+    "name": "Cody",
+    "role": "Intake",
+    "email": "Cannabisllconmainst@gmail.com",
+    "phone": "541-505-9971",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca12"
+  },
+  {
+    "name": "MacKenzie",
+    "role": "",
+    "email": "seaside@cannabisnationinc.com",
+    "phone": "(503) 717-5565",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca13"
+  },
+  {
+    "name": "Tony",
+    "role": "",
+    "email": "beaverton@cannabisnationinc.com",
+    "phone": "503) 430-5909",
+    "importantToKnow": "Blooming deals",
+    "store": "692452b64af7d6b4bed7ca14"
+  },
+  {
+    "name": "Katie",
+    "role": "",
+    "email": "katie.luther@cannabisnationinc.com",
+    "phone": "503-492-6159",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca15"
+  },
+  {
+    "name": "Anthony",
+    "role": "Intake",
+    "email": "anthony.fritts@cannabisnationinc.com",
+    "phone": "(503) 305-8073",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca16"
+  },
+  {
+    "name": "Kaycee",
+    "role": "",
+    "email": "kaycee.allen@cannabisnationinc.com",
+    "phone": "541-241-7380",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca17"
+  },
+  {
+    "name": "Robert Weinger",
+    "role": "Owner/Intake",
+    "email": "Rweinger@cannabizx.com",
+    "phone": "541-816-4209",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca18"
+  },
+  {
+    "name": "RyanPurchasing@chalicebrandsltd.com",
+    "role": "Purchaser",
+    "email": "Purchasing@chalicebrandsltd.com",
+    "phone": "",
+    "importantToKnow": "STORE CLOSED - NEW LOCATION 2160 W BURNSIDE",
+    "store": "692452b64af7d6b4bed7ca19"
+  },
+  {
+    "name": "Kathryn",
+    "role": "Owner/Intake",
+    "email": "Cannaking.m.d@gmail.com",
+    "phone": "855-420-1420",
+    "importantToKnow": "Kathryn is in the shop Wednesday to Sunday",
+    "store": "692452b64af7d6b4bed7ca1a"
+  },
+  {
+    "name": "Matty",
+    "role": "",
+    "email": "management@yourcannasource.com",
+    "phone": "(971) 254-4374",
+    "importantToKnow": "Open 10AM",
+    "store": "692452b64af7d6b4bed7ca1b"
+  },
+  {
+    "name": "Steph",
+    "role": "",
+    "email": "sales@cannavidacannabis.com",
+    "phone": "541-797-7985",
+    "importantToKnow": "Carries organic products",
+    "store": "692452b64af7d6b4bed7ca1c"
+  },
+  {
+    "name": "Thorin",
+    "role": "Owner/Intake",
+    "email": "Santiamcanyoncannabis@gmail.com",
+    "phone": "503-897-2420",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7ca1d"
+  },
+  {
+    "name": "Lily",
+    "role": "Intake",
+    "email": "capitolgreenleaf@gmail.com",
+    "phone": "971-313-9333",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7ca1e"
+  },
+  {
+    "name": "Rachel",
+    "role": "",
+    "email": "Centralorganics@yahoo.com",
+    "phone": "541-475-0420",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca1f"
+  },
+  {
+    "name": "Rachel",
+    "role": "Owner",
+    "email": "info@goldengrailgroup.com",
+    "phone": "(503) 477-7626",
+    "importantToKnow": "MAIN LOCATION - PURCHASING DONE HERE",
+    "store": "692452b64af7d6b4bed7ca20"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "+15416008185",
+    "importantToKnow": "DUPLICATE - Called Belushi's Animal house now",
+    "store": "692452b64af7d6b4bed7ca21"
+  },
+  {
+    "name": "Spencer",
+    "role": "Store manager",
+    "email": "Spencerloeks@goldengrailgroup.com",
+    "phone": "+15035014612",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca22"
+  },
+  {
+    "name": "Ronald Gearhart",
+    "role": "Store manager",
+    "email": "tigardmanager@goldengrailgroup.com",
+    "phone": "+15037475451",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca23"
+  },
+  {
+    "name": "Raheem",
+    "role": "Store manager",
+    "email": "powellmanager@goldengrailgroup.com",
+    "phone": "+15037889999",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca24"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "+15412468615",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca25"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "+15414972463",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca26"
+  },
+  {
+    "name": "Perry",
+    "role": "Store Manager",
+    "email": "edgewatermanager@goldengrailgroup.com",
+    "phone": "+15036891167",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca27"
+  },
+  {
+    "name": "Brianna",
+    "role": "Store manager",
+    "email": "lansingmanager@goldengrailgroup.com",
+    "phone": "+19717074101",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca28"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "NO STORE HERE",
+    "importantToKnow": "CLOSED",
+    "store": "692452b64af7d6b4bed7ca29"
+  },
+  {
+    "name": "Marty",
+    "role": "Manager",
+    "email": "Martychronicwest@gmail.com",
+    "phone": "503-385-1785",
+    "importantToKnow": "Club Pitbull is new store name",
+    "store": "692452b64af7d6b4bed7ca2a"
+  },
+  {
+    "name": "Daniel",
+    "role": "GM",
+    "email": "ghostcannabiz@gmail.com",
+    "phone": "(503) 477-9452",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca2b"
+  },
+  {
+    "name": "Ken and Jade",
+    "role": "Order placer",
+    "email": "citizendispensary@gmail.com",
+    "phone": "(503) 483-1187",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca2c"
+  },
+  {
+    "name": "Kaleb",
+    "role": "Intake",
+    "email": "cloud9cannabis@yahoo.com",
+    "phone": "541-981-2097",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca2d"
+  },
+  {
+    "name": "jared",
+    "role": "Manager",
+    "email": "jared@cloud9wellness.com",
+    "phone": "541-622-8018",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca2e"
+  },
+  {
+    "name": "Lillie",
+    "role": "",
+    "email": "clubskyhigh@comcast.net",
+    "phone": "(503) 719-5801",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca2f"
+  },
+  {
+    "name": "Joe",
+    "role": "Intake",
+    "email": "jointfriendly@outlook.com",
+    "phone": "541-247-9080",
+    "importantToKnow": "Joe is here on  Tues-Thurs",
+    "store": "692452b64af7d6b4bed7ca30"
+  },
+  {
+    "name": "corey",
+    "role": "",
+    "email": "cccholdingcompany@gmail.com",
+    "phone": "(503) 739-7029",
+    "importantToKnow": "Corey is in wed and friday only",
+    "store": "692452b64af7d6b4bed7ca31"
+  },
+  {
+    "name": "Carly",
+    "role": "Intake",
+    "email": "cumali@gw-ind.com",
+    "phone": "(503) 746-4713",
+    "importantToKnow": "Groundworks",
+    "store": "692452b64af7d6b4bed7ca32"
+  },
+  {
+    "name": "Norm",
+    "role": "",
+    "email": "crherbals@gmail.com",
+    "phone": "(541) 296-1656",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca33"
+  },
+  {
+    "name": "Lindsey",
+    "role": "Intake",
+    "email": "cookiesonhighst@gmail.com",
+    "phone": "541-393-6892",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca34"
+  },
+  {
+    "name": "Evelyn",
+    "role": "",
+    "email": "Cookiesonhalsey@gmail.com",
+    "phone": "(503) 764-9863",
+    "importantToKnow": "oliver",
+    "store": "692452b64af7d6b4bed7ca35"
+  },
+  {
+    "name": "Shelley",
+    "role": "Owner/Intake",
+    "email": "cougarcannabis@hotmail.com",
+    "phone": "541-391-4955",
+    "importantToKnow": "Shelley is at the shop on Thursdays -- Ryan can also do intake",
+    "store": "692452b64af7d6b4bed7ca36"
+  },
+  {
+    "name": "Shay",
+    "role": "Intake",
+    "email": "cratercanna@gmail.com",
+    "phone": "541-500-1711",
+    "importantToKnow": "Shay is seen by appointment only - opens at 10am",
+    "store": "692452b64af7d6b4bed7ca37"
+  },
+  {
+    "name": "Evan",
+    "role": "",
+    "email": "intake@ordercream.com",
+    "phone": "15033039990",
+    "importantToKnow": "LOCATION NEEDS UPDATED -- Purchaser available WED - FRI",
+    "store": "692452b64af7d6b4bed7ca38"
+  },
+  {
+    "name": "brandon",
+    "role": "General manager",
+    "email": "bphoun@gmail.com",
+    "phone": "503-206-6920",
+    "importantToKnow": "Brandon works mornings",
+    "store": "692452b64af7d6b4bed7ca39"
+  },
+  {
+    "name": "Jina",
+    "role": "",
+    "email": "curedgreen@gmail.com",
+    "phone": "(503) 206-5430",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7ca3a"
+  },
+  {
+    "name": "Dillon",
+    "role": "Intake for all stores",
+    "email": "dillon@deanzgreenz.com",
+    "phone": "(503) 265-8353",
+    "importantToKnow": "Dillon works out of Sandy Location",
+    "store": "692452b64af7d6b4bed7ca3b"
+  },
+  {
+    "name": "Dillon",
+    "role": "",
+    "email": "Dillon@deanzgreenz.com",
+    "phone": "(503) 954-1327",
+    "importantToKnow": "Come in before 4:00 - Dillon works out of Sandy Location",
+    "store": "692452b64af7d6b4bed7ca3c"
+  },
+  {
+    "name": "Dillon",
+    "role": "Order placer",
+    "email": "dillon@deanzgreenz.com",
+    "phone": "(971) 255-0758",
+    "importantToKnow": "Dillon works out of this location",
+    "store": "692452b64af7d6b4bed7ca3d"
+  },
+  {
+    "name": "Braden",
+    "role": "Intake",
+    "email": "Deeprootscannabis420@gmail.com",
+    "phone": "541-636-4548",
+    "importantToKnow": "Braden works on Mon and Wed from 9-5 DONT PITCH 5150",
+    "store": "692452b64af7d6b4bed7ca3e"
+  },
+  {
+    "name": "Summer",
+    "role": "",
+    "email": "inventory@defyne.life",
+    "phone": "(503) 372-5254",
+    "importantToKnow": "THIS STORE IS A MINT NOW -- OWNED BY FIRE DEPT.",
+    "store": "692452b64af7d6b4bed7ca3f"
+  },
+  {
+    "name": "Andrew",
+    "role": "",
+    "email": "Andrew@diamondtreeclub.com",
+    "phone": "541-388-7901",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca40"
+  },
+  {
+    "name": "Joey",
+    "role": "",
+    "email": "joey@diamondtreeclub.com",
+    "phone": "(541) 706-9340",
+    "importantToKnow": "Ordering done out of this location",
+    "store": "692452b64af7d6b4bed7ca41"
+  },
+  {
+    "name": "Andrew",
+    "role": "",
+    "email": "andrew@diamondtreeclub.com",
+    "phone": "541-475-4605",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca42"
+  },
+  {
+    "name": "Beau",
+    "role": "",
+    "email": "toke.Discovery@gmail.com",
+    "phone": "541-563-6087",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca43"
+  },
+  {
+    "name": "Thomas",
+    "role": "Order placer",
+    "email": "doctorsorderspdx@gmail.com",
+    "phone": "(971) 254-4731",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca44"
+  },
+  {
+    "name": "lexi",
+    "role": "",
+    "email": "lexi@drjollys.com",
+    "phone": "541-508-2708",
+    "importantToKnow": "CHALICE",
+    "store": "692452b64af7d6b4bed7ca45"
+  },
+  {
+    "name": "Mike",
+    "role": "Owner/Intake",
+    "email": "Dreamsdispensary@gmail.com",
+    "phone": "541-520-9118",
+    "importantToKnow": "Contact info updated",
+    "store": "692452b64af7d6b4bed7ca46"
+  },
+  {
+    "name": "Spencer",
+    "role": "Intake",
+    "email": "Spencer@edencraftcannabis.com",
+    "phone": "503-990-7664",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca47"
+  },
+  {
+    "name": "Michelle",
+    "role": "Manager",
+    "email": "michelle@edencraftcannabis.com",
+    "phone": "(503) 477-9998",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca48"
+  },
+  {
+    "name": "Nathan",
+    "role": "Order placer",
+    "email": "nathan@edencraftcannabis.com",
+    "phone": "(503) 388-7663",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca49"
+  },
+  {
+    "name": "Spencer",
+    "role": "IM for all stores",
+    "email": "Spencer@edencraftcannabis.com",
+    "phone": "971-207-4031",
+    "importantToKnow": "Store is being relocated",
+    "store": "692452b64af7d6b4bed7ca4a"
+  },
+  {
+    "name": "Spencer",
+    "role": "Order placer",
+    "email": "Spencer@edencraftcannabis.com",
+    "phone": "(503) 477-4368",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca4b"
+  },
+  {
+    "name": "Groundworks",
+    "role": "",
+    "email": "purchasing@gw-ind.com",
+    "phone": "(503) 218-1116",
+    "importantToKnow": "Central buying through Groundworks",
+    "store": "692452b64af7d6b4bed7ca4c"
+  },
+  {
+    "name": "Roxy",
+    "role": "Store Manager",
+    "email": "RDallas@gw-ind.com",
+    "phone": "9712794932",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca4d"
+  },
+  {
+    "name": "Groundworks",
+    "role": "",
+    "email": "purchasing@gw-ind.com",
+    "phone": "(503) 384-2164",
+    "importantToKnow": "Central buying through Groundworks",
+    "store": "692452b64af7d6b4bed7ca4e"
+  },
+  {
+    "name": "Groundworks",
+    "role": "",
+    "email": "purchasing@gw-ind.com",
+    "phone": "(503) 954-3152",
+    "importantToKnow": "Central buying through Groundworks",
+    "store": "692452b64af7d6b4bed7ca4f"
+  },
+  {
+    "name": "Groundworks",
+    "role": "",
+    "email": "purchasing@gw-ind.com",
+    "phone": "(503) 746-5193",
+    "importantToKnow": "Central buying through Groundworks",
+    "store": "692452b64af7d6b4bed7ca50"
+  },
+  {
+    "name": "Andrew",
+    "role": "Manager",
+    "email": "purchasing@gw-ind.com",
+    "phone": "541-735-3813",
+    "importantToKnow": "Central buying through Groundworks",
+    "store": "692452b64af7d6b4bed7ca51"
+  },
+  {
+    "name": "Groundworks",
+    "role": "",
+    "email": "purchasing@gw-ind.com",
+    "phone": "(503) 808-7239",
+    "importantToKnow": "Central buying through Groundworks",
+    "store": "692452b64af7d6b4bed7ca52"
+  },
+  {
+    "name": "Groundworks",
+    "role": "",
+    "email": "purchasing@gw-ind.com",
+    "phone": "(971) 713-2905",
+    "importantToKnow": "Central buying through Groundworks",
+    "store": "692452b64af7d6b4bed7ca53"
+  },
+  {
+    "name": "Groundworks",
+    "role": "",
+    "email": "purchasing@gw-ind.com",
+    "phone": "(503) 477-6324",
+    "importantToKnow": "Central buying through Groundworks",
+    "store": "692452b64af7d6b4bed7ca54"
+  },
+  {
+    "name": "Groundworks",
+    "role": "",
+    "email": "purchasing@gw-ind.com",
+    "phone": "(971) 544-7241",
+    "importantToKnow": "Central buying through Groundworks",
+    "store": "692452b64af7d6b4bed7ca55"
+  },
+  {
+    "name": "Intake",
+    "role": "",
+    "email": "info@electriclettuce.com",
+    "phone": "(971) 407-3150",
+    "importantToKnow": "Central buying through Groundworks",
+    "store": "692452b64af7d6b4bed7ca56"
+  },
+  {
+    "name": "Groundworks",
+    "role": "",
+    "email": "purchasing@gw-ind.com",
+    "phone": "(503) 946-6415",
+    "importantToKnow": "Central buying through Groundworks",
+    "store": "692452b64af7d6b4bed7ca57"
+  },
+  {
+    "name": "Groundworks",
+    "role": "Manager",
+    "email": "purchasing@gw-ind.com",
+    "phone": "(971) 302-7032",
+    "importantToKnow": "Central buying through Groundworks",
+    "store": "692452b64af7d6b4bed7ca58"
+  },
+  {
+    "name": "Groundworks",
+    "role": "",
+    "email": "purchasing@gw-ind.com",
+    "phone": "(503) 344-4364",
+    "importantToKnow": "Central buying through Groundworks",
+    "store": "692452b64af7d6b4bed7ca59"
+  },
+  {
+    "name": "Keely",
+    "role": "Inventory Manager",
+    "email": "keely.byerley@gmail.com",
+    "phone": "(971) 373-8056",
+    "importantToKnow": "Central buying through Groundworks",
+    "store": "692452b64af7d6b4bed7ca5a"
+  },
+  {
+    "name": "Groundworks",
+    "role": "",
+    "email": "purchasing@gw-ind.com",
+    "phone": "(503) 855-4673",
+    "importantToKnow": "Central buying through Groundworks",
+    "store": "692452b64af7d6b4bed7ca5b"
+  },
+  {
+    "name": "Sam",
+    "role": "",
+    "email": "purchasing@gw-ind.com",
+    "phone": "(503) 906-1420",
+    "importantToKnow": "this store is Sam's store (we can drop samples here for her direct) Central buying through Groundworks",
+    "store": "692452b64af7d6b4bed7ca5c"
+  },
+  {
+    "name": "Todd",
+    "role": "Owner",
+    "email": "elevatenworegon@gmail.com",
+    "phone": "503-689-1231",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca5d"
+  },
+  {
+    "name": "Andrea",
+    "role": "Intake Manager",
+    "email": "Andrea@elevation2150.com",
+    "phone": "5418899516",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca5e"
+  },
+  {
+    "name": "Tommy",
+    "role": "Intake",
+    "email": "Emeraldcitymedicinal@gmail.com",
+    "phone": "541-505-9065",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca5f"
+  },
+  {
+    "name": "Michelle",
+    "role": "Intake",
+    "email": "etmerlinbudtender@gmail.com",
+    "phone": "15415071022",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca60"
+  },
+  {
+    "name": "Ty",
+    "role": "Order placer",
+    "email": "emeraldtrianglety@gmail.com",
+    "phone": "458-226-2321",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca61"
+  },
+  {
+    "name": "Katrina",
+    "role": "Intake",
+    "email": "Emeraldtrianglekatrina@gmail.com",
+    "phone": "541-205-6564",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca62"
+  },
+  {
+    "name": "Katrina",
+    "role": "Intake",
+    "email": "Emeraldtrianglekatrina@gmail.com",
+    "phone": "541-851-9152",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca63"
+  },
+  {
+    "name": "Kristina",
+    "role": "Manager",
+    "email": "emeraldtriangleKristina@gmail.com",
+    "phone": "541-791-7097",
+    "importantToKnow": "Ty is the intake. He is at the Medford location",
+    "store": "692452b64af7d6b4bed7ca64"
+  },
+  {
+    "name": "Ty",
+    "role": "Intake",
+    "email": "emeraldtriangle.ty@gmail.com",
+    "phone": "541-500-1332",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca65"
+  },
+  {
+    "name": "Ty",
+    "role": "Owner/Intake",
+    "email": "emeraldtriangle.ty@gmail.com",
+    "phone": "541-423-5497",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca66"
+  },
+  {
+    "name": "Chrystal",
+    "role": "Intake",
+    "email": "emeraldtrianglechrystal@gmail.com",
+    "phone": "541-671-2066",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca67"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "NO STORE HERE",
+    "importantToKnow": "CLOSED",
+    "store": "692452b64af7d6b4bed7ca68"
+  },
+  {
+    "name": "Christian",
+    "role": "Owner/Intake",
+    "email": "Purchasing@eugeneog.com",
+    "phone": "541-505-7575",
+    "importantToKnow": "Christian works Mon-Thurs from 10-3",
+    "store": "692452b64af7d6b4bed7ca69"
+  },
+  {
+    "name": "Elizabeth",
+    "role": "Intake Manager",
+    "email": "info@evergreenhoodriver.com",
+    "phone": "(541) 436-4391",
+    "importantToKnow": "Store open at 11am - Evergreen Cannabis Supply on leaflink",
+    "store": "692452b64af7d6b4bed7ca6a"
+  },
+  {
+    "name": "Melissa",
+    "role": "Intake Manager",
+    "email": "melissa@farmgrasstable.com",
+    "phone": "(541) 436-4747",
+    "importantToKnow": "THEY WILL NOT SAY IF MANAGER WILL BE IN -- DONT ASK THEM",
+    "store": "692452b64af7d6b4bed7ca6b"
+  },
+  {
+    "name": "Kentrail",
+    "role": "Intake manager",
+    "email": "purchasing@gw-ind.com",
+    "phone": "(503) 206-4357",
+    "importantToKnow": "GROUND WORKS MAIN LOCATION",
+    "store": "692452b64af7d6b4bed7ca6c"
+  },
+  {
+    "name": "Gabe",
+    "role": "",
+    "email": "purchasing@gw-ind.com",
+    "phone": "(503) 741-3170",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca6d"
+  },
+  {
+    "name": "Groundworks",
+    "role": "",
+    "email": "ahuckaby@gw-ind.com",
+    "phone": "(503) 908-1389",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca6e"
+  },
+  {
+    "name": "kegan",
+    "role": "",
+    "email": "purchasing@gw-ind.com",
+    "phone": "(971) 544-7828",
+    "importantToKnow": "Kegan's email is kmadden@gw-ind.com",
+    "store": "692452b64af7d6b4bed7ca6f"
+  },
+  {
+    "name": "James",
+    "role": "Intake",
+    "email": "flowroflyfe@gmail.com",
+    "phone": "541-653-8801",
+    "importantToKnow": "Call before dropping in",
+    "store": "692452b64af7d6b4bed7ca70"
+  },
+  {
+    "name": "Brandon",
+    "role": "Order placer",
+    "email": "Brandon@oregonpotdeals.com",
+    "phone": "(503) 278-8073",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca71"
+  },
+  {
+    "name": "Brandon Watson",
+    "role": "Purchasing manager",
+    "email": "Brandon@tru-qual.com",
+    "phone": "(503) 298-5201",
+    "importantToKnow": "delivery Monday - Thursday 9-3 only",
+    "store": "692452b64af7d6b4bed7ca72"
+  },
+  {
+    "name": "Brandon",
+    "role": "Order placer",
+    "email": "brandon@tru-qual.com",
+    "phone": "(971) 255-1416",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca73"
+  },
+  {
+    "name": "Brandon",
+    "role": "",
+    "email": "brandon@oregonpotdeals.com",
+    "phone": "(503) 288-5454",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca74"
+  },
+  {
+    "name": "Brandon",
+    "role": "Order placer",
+    "email": "brandon@tru-qual.com",
+    "phone": "(503) 477-7090",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca75"
+  },
+  {
+    "name": "Justin",
+    "role": "Intake",
+    "email": "forwardcannabis@gmail.com",
+    "phone": "541-916-8411",
+    "importantToKnow": "541-787-0761",
+    "store": "692452b64af7d6b4bed7ca76"
+  },
+  {
+    "name": "Matt",
+    "role": "GM",
+    "email": "Frontierfarmshoodriver@gmail.com",
+    "phone": "(541) 645-4396",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca77"
+  },
+  {
+    "name": "Jesse",
+    "role": "Intake",
+    "email": "jesseworkmanfx420@gmail.com",
+    "phone": "541-459-7693",
+    "importantToKnow": "Jesse is at the store after 1 on Mon - Fri",
+    "store": "692452b64af7d6b4bed7ca78"
+  },
+  {
+    "name": "Matteo",
+    "role": "",
+    "email": "purchasing@fyredispensary.com",
+    "phone": "541-241-9633",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca79"
+  },
+  {
+    "name": "Emily",
+    "role": "",
+    "email": "emily@gnomegrownretail.com",
+    "phone": "(503) 396-5268",
+    "importantToKnow": "Gnome Grown",
+    "store": "692452b64af7d6b4bed7ca7a"
+  },
+  {
+    "name": "Conner",
+    "role": "GM",
+    "email": "Alberta@gnomegrownretail.com",
+    "phone": "(971) 346-2098",
+    "importantToKnow": "scott@gnomegrownretail.com",
+    "store": "692452b64af7d6b4bed7ca7b"
+  },
+  {
+    "name": "Kristie",
+    "role": "Intake",
+    "email": "goinggreenalbany@gmail.com",
+    "phone": "541-704-0757",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca7c"
+  },
+  {
+    "name": "Travis J.",
+    "role": "Intake",
+    "email": "Goinggreeneugene@gmail.com",
+    "phone": "541-735-3521",
+    "importantToKnow": "Travis J. works mornings",
+    "store": "692452b64af7d6b4bed7ca7d"
+  },
+  {
+    "name": "Dustin",
+    "role": "Intake",
+    "email": "Goinggreengrandronde@gmail.com",
+    "phone": "971-241-4363",
+    "importantToKnow": "Dustin works 9 am - 1 pm on Tues - Fri",
+    "store": "692452b64af7d6b4bed7ca7e"
+  },
+  {
+    "name": "Tiffany",
+    "role": "Order placer",
+    "email": "goinggreensweethome@gmail.com",
+    "phone": "541-405-8071",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca7f"
+  },
+  {
+    "name": "Perry Horton",
+    "role": "Manager",
+    "email": "gk3755commercial@gmail.com",
+    "phone": "503-990-8720",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca80"
+  },
+  {
+    "name": "3 Shane",
+    "role": "Order placer",
+    "email": "goodkarmaspringfield@gmail.com",
+    "phone": "541-246-5914",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca81"
+  },
+  {
+    "name": "Kevon",
+    "role": "",
+    "email": "Kmahieu@goodlifeweed.com",
+    "phone": "(503) 325-4078",
+    "importantToKnow": "Kevon's cell number - 3602412451 || Kevon doesn't work on Mondays",
+    "store": "692452b64af7d6b4bed7ca82"
+  },
+  {
+    "name": "Kirsten",
+    "role": "Intake manager",
+    "email": "intake@gorgegreenery.com",
+    "phone": "541-436-4647",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca83"
+  },
+  {
+    "name": "Baxter",
+    "role": "Intake Manager",
+    "email": "gramcentralstation420@gmail.com",
+    "phone": "(503) 284-6714",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca84"
+  },
+  {
+    "name": "Kim",
+    "role": "Intake",
+    "email": "grasslandsdispensary@gmail.com",
+    "phone": "541-505-9209",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca85"
+  },
+  {
+    "name": "Todd",
+    "role": "",
+    "email": "todd@greeleygallerypdx.com",
+    "phone": "(503) 889-0729",
+    "importantToKnow": "TODD LEAVES AT 2",
+    "store": "692452b64af7d6b4bed7ca86"
+  },
+  {
+    "name": "Frank",
+    "role": "Intake",
+    "email": "greenapplenw.or@gmail.com",
+    "phone": "(503) 791-8986",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca87"
+  },
+  {
+    "name": "Tawny",
+    "role": "Intake",
+    "email": "tawny@greencrosscanna.com",
+    "phone": "+19713485342",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca88"
+  },
+  {
+    "name": "Tawny",
+    "role": "central buyer",
+    "email": "tawny@greencrosscanna.com",
+    "phone": "541-633-7242",
+    "importantToKnow": "Tawny central buyer",
+    "store": "692452b64af7d6b4bed7ca89"
+  },
+  {
+    "name": "Tawny",
+    "role": "Manager",
+    "email": "tawny@greencrosscanna.com",
+    "phone": "971-304-7614",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca8a"
+  },
+  {
+    "name": "Tawny",
+    "role": "Intake",
+    "email": "tawny@greencrosscanna.com",
+    "phone": "(503) 339-7158",
+    "importantToKnow": "Tawny works out of River Road location",
+    "store": "692452b64af7d6b4bed7ca8b"
+  },
+  {
+    "name": "Tawny",
+    "role": "Intake",
+    "email": "tawny@greencrosscanna.com",
+    "phone": "(503) 689-1093",
+    "importantToKnow": "Tawny works out of this location",
+    "store": "692452b64af7d6b4bed7ca8c"
+  },
+  {
+    "name": "Karen",
+    "role": "Owner",
+    "email": "Greendragonhc@outlook.com",
+    "phone": "541-635-0210",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca8d"
+  },
+  {
+    "name": "Jessika",
+    "role": "IM",
+    "email": "Jessika@agricolacollective.com",
+    "phone": "(971) 319-2939",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca8e"
+  },
+  {
+    "name": "Elle",
+    "role": "Manager",
+    "email": "tori@greengoddesspdx.com",
+    "phone": "503-764-9000",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca8f"
+  },
+  {
+    "name": "GeeGee",
+    "role": "Order placer",
+    "email": "geegee@greengratitude.com",
+    "phone": "503-444-7707",
+    "importantToKnow": "GeeGee gets in at Noon",
+    "store": "692452b64af7d6b4bed7ca90"
+  },
+  {
+    "name": "Jamie",
+    "role": "Intake",
+    "email": "info@greenhealtheugene.com",
+    "phone": "458-221-1861",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca91"
+  },
+  {
+    "name": "Chelsea",
+    "role": "IM",
+    "email": "greenknottz@gmail.com",
+    "phone": "541-536-1070",
+    "importantToKnow": "TIM IS THE OWNER",
+    "store": "692452b64af7d6b4bed7ca92"
+  },
+  {
+    "name": "Tim",
+    "role": "Intake",
+    "email": "Greenknottz@gmail.com",
+    "phone": "541-827-5874",
+    "importantToKnow": "TEMPORARILY CLOSED",
+    "store": "692452b64af7d6b4bed7ca93"
+  },
+  {
+    "name": "Erica",
+    "role": "Intake",
+    "email": "Greenknottzkfalls@gmail.com",
+    "phone": "(541) 845-1093",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca94"
+  },
+  {
+    "name": "Joel",
+    "role": "",
+    "email": "Greenknottz@gmail.com",
+    "phone": "(541) 475-0192",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca95"
+  },
+  {
+    "name": "Yaniv",
+    "role": "Intake Manager",
+    "email": "",
+    "phone": "(503) 397-3545",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca96"
+  },
+  {
+    "name": "Tony",
+    "role": "",
+    "email": "greenliontony@gmail.com",
+    "phone": "+15034775274",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca97"
+  },
+  {
+    "name": "Tony",
+    "role": "",
+    "email": "greenliontony@gmail.com",
+    "phone": "+15415389015",
+    "importantToKnow": "DO NOT CALL THIS STORE NUMBER RIGHT NOW, IT'S ONE OF THE MANAGERS CELL PHONES",
+    "store": "692452b64af7d6b4bed7ca98"
+  },
+  {
+    "name": "Mandi",
+    "role": "manager",
+    "email": "mandihumphrey83@gmail.com",
+    "phone": "541-808-0056",
+    "importantToKnow": "541-751-3731 - Mandis cell number",
+    "store": "692452b64af7d6b4bed7ca99"
+  },
+  {
+    "name": "Tony",
+    "role": "",
+    "email": "greenlionrichie@gmail.com",
+    "phone": "15034775274",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca9a"
+  },
+  {
+    "name": "Steve",
+    "role": "Manager",
+    "email": "",
+    "phone": "(503) 368-3424",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7ca9b"
+  },
+  {
+    "name": "Multiple people",
+    "role": "Intake management team",
+    "email": "london@perennialops.com",
+    "phone": "(503) 747-0333",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca9c"
+  },
+  {
+    "name": "Kc",
+    "role": "Owner",
+    "email": "kc@gogreenhop.com",
+    "phone": "(971) 420-4917",
+    "importantToKnow": "KC works in the mornings",
+    "store": "692452b64af7d6b4bed7ca9d"
+  },
+  {
+    "name": "Danielle",
+    "role": "",
+    "email": "info@greenridge420.com",
+    "phone": "971) 261-2623",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca9e"
+  },
+  {
+    "name": "Danielle",
+    "role": "Main Buyer",
+    "email": "dwass@greenridgeapothecary.com",
+    "phone": "15034831166",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7ca9f"
+  },
+  {
+    "name": "Kevin",
+    "role": "Intake",
+    "email": "sales@shopgreenroom.com",
+    "phone": "541-230-1096",
+    "importantToKnow": "This is not the headquarters for Green Room. Kevin purchases for all stores from the hq location",
+    "store": "692452b64af7d6b4bed7caa0"
+  },
+  {
+    "name": "Daniel",
+    "role": "Intake",
+    "email": "sales@shopgreenroom.com",
+    "phone": "541-230-1096",
+    "importantToKnow": "ordering out of Campus location",
+    "store": "692452b64af7d6b4bed7caa1"
+  },
+  {
+    "name": "Intake",
+    "role": "Intake",
+    "email": "sales@shopgreenroom.com",
+    "phone": "(541) 704-0822",
+    "importantToKnow": "ordering out of Campus location",
+    "store": "692452b64af7d6b4bed7caa2"
+  },
+  {
+    "name": "Kevin",
+    "role": "Intake",
+    "email": "sales@shopgreenroom.com",
+    "phone": "541-230-1096",
+    "importantToKnow": "ordering out of Campus location",
+    "store": "692452b64af7d6b4bed7caa3"
+  },
+  {
+    "name": "Stephen",
+    "role": "Purchaser",
+    "email": "stephen.wildermuth@visittjs.com",
+    "phone": "541-654-0595",
+    "importantToKnow": "CALLED BETTER DAZE - DO NOT CALL",
+    "store": "692452b64af7d6b4bed7caa4"
+  },
+  {
+    "name": "Max",
+    "role": "GM/Purchaser",
+    "email": "happyhazeintake@gmail.com",
+    "phone": "+15412502332",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7caa5"
+  },
+  {
+    "name": "Darrell",
+    "role": "",
+    "email": "sales@happyleafportland.com",
+    "phone": "(971) 800-0420",
+    "importantToKnow": "Darrell works mornings",
+    "store": "692452b64af7d6b4bed7caa6"
+  },
+  {
+    "name": "Neil",
+    "role": "Intake",
+    "email": "hashitoutdispensary@gmail.com",
+    "phone": "541-824-1300",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7caa7"
+  },
+  {
+    "name": "Neil",
+    "role": "Owner",
+    "email": "",
+    "phone": "+14584551300",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7caa8"
+  },
+  {
+    "name": "Mike",
+    "role": "",
+    "email": "mike_brown@hashstoria.com",
+    "phone": "(503) 344-6290",
+    "importantToKnow": "Opens at 10 am",
+    "store": "692452b64af7d6b4bed7caa9"
+  },
+  {
+    "name": "Lauren",
+    "role": "Intake",
+    "email": "Springfield@hashstoria.com",
+    "phone": "541-393-6392",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7caaa"
+  },
+  {
+    "name": "Matt",
+    "role": "",
+    "email": "matt@hdbotanicals.com",
+    "phone": "541-536-0432",
+    "importantToKnow": "Matt primarily works Tues and Thurs",
+    "store": "692452b64af7d6b4bed7caab"
+  },
+  {
+    "name": "Nick",
+    "role": "",
+    "email": "nhebel@highdesertflower.com",
+    "phone": "+15412190589",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7caac"
+  },
+  {
+    "name": "Ian/Nakita",
+    "role": "",
+    "email": "herbalchoices.purchasing@gmail.com",
+    "phone": "5418083840",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7caad"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "541-329-0868",
+    "importantToKnow": "Herbal Choices is a central buying through a warehouse location",
+    "store": "692452b64af7d6b4bed7caae"
+  },
+  {
+    "name": "Nick",
+    "role": "Manager",
+    "email": "Herbalchoices.purchasing@gmail.com",
+    "phone": "541-267-8888",
+    "importantToKnow": "Herbal Choices is a central buying through a warehouse location",
+    "store": "692452b64af7d6b4bed7caaf"
+  },
+  {
+    "name": "Ian",
+    "role": "Owner/Intake",
+    "email": "Herbalchoices.purchasing@gmail.com",
+    "phone": "541-808-3840",
+    "importantToKnow": "Herbal Choices is a central buying through a warehouse location",
+    "store": "692452b64af7d6b4bed7cab0"
+  },
+  {
+    "name": "Ian",
+    "role": "Manager",
+    "email": "herbalchoices.purchasing@gmail.com",
+    "phone": "541-808-0558",
+    "importantToKnow": "Herbal Choices is a central buying through a warehouse location",
+    "store": "692452b64af7d6b4bed7cab1"
+  },
+  {
+    "name": "Nikita",
+    "role": "Intake",
+    "email": "herbalchoices.purchasing@gmail.com",
+    "phone": "541-361-6010",
+    "importantToKnow": "Herbal Choices is a central buying through a warehouse location",
+    "store": "692452b64af7d6b4bed7cab2"
+  },
+  {
+    "name": "Intake",
+    "role": "",
+    "email": "herbalchoices.purchasing@gmail.com",
+    "phone": "111-111-1111",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cab3"
+  },
+  {
+    "name": "Matt",
+    "role": "Intake",
+    "email": "herbalremedies503@gmail.com",
+    "phone": "503-385-1010",
+    "importantToKnow": "Same owners as Truth, but separate in most cases",
+    "store": "692452b64af7d6b4bed7cab4"
+  },
+  {
+    "name": "Emily",
+    "role": "Store manager",
+    "email": "Contact@herbanpdx.com",
+    "phone": "9712794766",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cab5"
+  },
+  {
+    "name": "Austin",
+    "role": "Purchaser",
+    "email": "Hierbabuenahubbard@gmail.com",
+    "phone": "(971) 444-1420",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cab6"
+  },
+  {
+    "name": "Brad",
+    "role": "Owner/Intake",
+    "email": "High5cannabis@gmail.com",
+    "phone": "541-726-9333",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cab7"
+  },
+  {
+    "name": "Will Quintana",
+    "role": "Intake Manager",
+    "email": "willquintanahdc@gmail.com",
+    "phone": "5412402011",
+    "importantToKnow": "store closed thursdays",
+    "store": "692452b64af7d6b4bed7cab8"
+  },
+  {
+    "name": "Heather",
+    "role": "Intake",
+    "email": "jake@high-lakes.com",
+    "phone": "541-591-1136",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cab9"
+  },
+  {
+    "name": "Jake",
+    "role": "Intake",
+    "email": "Jake@high-lakes.com",
+    "phone": "541-591-1417",
+    "importantToKnow": "CLOSED",
+    "store": "692452b64af7d6b4bed7caba"
+  },
+  {
+    "name": "Jacki",
+    "role": "owner",
+    "email": "jacki@highmtnrec.com",
+    "phone": "(541) 769-1400",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cabb"
+  },
+  {
+    "name": "Andy",
+    "role": "Intake",
+    "email": "vending@highquality.life",
+    "phone": "541-286-4771",
+    "importantToKnow": "Andy does not work Mondays",
+    "store": "692452b64af7d6b4bed7cabc"
+  },
+  {
+    "name": "Andy",
+    "role": "",
+    "email": "vending@highquality.life",
+    "phone": "+15412571121",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cabd"
+  },
+  {
+    "name": "Halee",
+    "role": "",
+    "email": "highsupplyor@gmail.com",
+    "phone": "541) 216-5331",
+    "importantToKnow": "PURCHASING DONE BY KYLE AT HOT BOX",
+    "store": "692452b64af7d6b4bed7cabe"
+  },
+  {
+    "name": "Jamie",
+    "role": "Intake Manager",
+    "email": "hightidenw2023@outlook.com",
+    "phone": "541-808-0174",
+    "importantToKnow": "Opens at 12pm",
+    "store": "692452b64af7d6b4bed7cabf"
+  },
+  {
+    "name": "Brigitte",
+    "role": "",
+    "email": "hightidewellness@gmail.com",
+    "phone": "541-813-1976",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cac0"
+  },
+  {
+    "name": "Lori",
+    "role": "Owner",
+    "email": "sales@hippytrip.com",
+    "phone": "541-921-7008",
+    "importantToKnow": "Opens at 10am - Monday is best to get ahold of Lori",
+    "store": "692452b64af7d6b4bed7cac1"
+  },
+  {
+    "name": "John",
+    "role": "Manager",
+    "email": "Hivegm@echoelectuary.com",
+    "phone": "541 510 1580",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cac2"
+  },
+  {
+    "name": "Melissa",
+    "role": "Intake",
+    "email": "Holygrailsm@gmail.com",
+    "phone": "458-201-8922",
+    "importantToKnow": "Melissas number: 707-334-2033. Melissa does not work Fridays - Usually in after 3:30",
+    "store": "692452b64af7d6b4bed7cac3"
+  },
+  {
+    "name": "Richard",
+    "role": "",
+    "email": "info@homegrownapothecary.com",
+    "phone": "(503) 232-1716",
+    "importantToKnow": "strict intake rules, -- Opens at 11",
+    "store": "692452b64af7d6b4bed7cac4"
+  },
+  {
+    "name": "Sasha",
+    "role": "Manager",
+    "email": "Sasha@hgremedies.com",
+    "phone": "503-979-0298",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cac5"
+  },
+  {
+    "name": "Sasha",
+    "role": "Manager",
+    "email": "Sasha@hgremedies.com",
+    "phone": "+15037431176",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cac6"
+  },
+  {
+    "name": "Chrissie",
+    "role": "",
+    "email": "Mountainviewnaturals@gmail.com",
+    "phone": "(541) 436-3333",
+    "importantToKnow": "Chrissie only works on Mondays and Thursdays",
+    "store": "692452b64af7d6b4bed7cac7"
+  },
+  {
+    "name": "Kyle",
+    "role": "",
+    "email": "kyle@hotboxfarms.com",
+    "phone": "+15039141377",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cac8"
+  },
+  {
+    "name": "Kyle Griffin",
+    "role": "Intake Manager",
+    "email": "thehotboxfarms@gmail.com",
+    "phone": "5418692121",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cac9"
+  },
+  {
+    "name": "Kim",
+    "role": "",
+    "email": "houseohash@gmail.com",
+    "phone": "541-907-1857",
+    "importantToKnow": "OWNED BY GREEN KNOTTZ",
+    "store": "692452b64af7d6b4bed7caca"
+  },
+  {
+    "name": "Corey Miles",
+    "role": "Intake",
+    "email": "Hwy99can@gmail.com",
+    "phone": "541-688-1233",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7cacb"
+  },
+  {
+    "name": "Natty",
+    "role": "",
+    "email": "hyrootorganics@gmail.com",
+    "phone": "541-536-6218",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cacc"
+  },
+  {
+    "name": "Greg",
+    "role": "Intake",
+    "email": "sales@ishentree.com",
+    "phone": "(503) 946-8230",
+    "importantToKnow": "Call after 3 for manager",
+    "store": "692452b64af7d6b4bed7cacd"
+  },
+  {
+    "name": "Soren",
+    "role": "Intake",
+    "email": "dashboard@jamaicajoels.com",
+    "phone": "541-505-8293",
+    "importantToKnow": "Soren leaves at 3",
+    "store": "692452b64af7d6b4bed7cace"
+  },
+  {
+    "name": "Emily",
+    "role": "IM",
+    "email": "Will@jaynepdx.com",
+    "phone": "(503) 719-5665",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cacf"
+  },
+  {
+    "name": "Cooper",
+    "role": "",
+    "email": "cdrinkward@jennysdispensary.com",
+    "phone": "541-797-2120",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cad0"
+  },
+  {
+    "name": "Jessica",
+    "role": "Intake",
+    "email": "justicecannabiscompany@gmail.com",
+    "phone": "(503) 776-9040",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cad1"
+  },
+  {
+    "name": "Matt",
+    "role": "Manager",
+    "email": "matthew@kaleafa.com",
+    "phone": "541-320-9150",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cad2"
+  },
+  {
+    "name": "Tyler",
+    "role": "Store Manager",
+    "email": "Tyler.poffer@kaleafa.com",
+    "phone": "(971) 229-2099",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cad3"
+  },
+  {
+    "name": "Fern",
+    "role": "Store Manager",
+    "email": "fern@kaleafa.com",
+    "phone": "(971) 300-0577",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cad4"
+  },
+  {
+    "name": "Tori",
+    "role": "Store Manager",
+    "email": "wholesale@kaleafa.com",
+    "phone": "(971) 246-5052",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cad5"
+  },
+  {
+    "name": "Brandon",
+    "role": "Store Manager",
+    "email": "brandon.canton@kaleafa.com",
+    "phone": "(503) 902-4221",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cad6"
+  },
+  {
+    "name": "Jess",
+    "role": "Store Manager",
+    "email": "jess@kaleafa.com",
+    "phone": "(503) 455-8810",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cad7"
+  },
+  {
+    "name": "Vivian",
+    "role": "Store Manager",
+    "email": "wholesale@kaleafa.com",
+    "phone": "(971) 407-3208",
+    "importantToKnow": "contact wholesale for general inquiries/intakes",
+    "store": "692452b64af7d6b4bed7cad8"
+  },
+  {
+    "name": "Dave",
+    "role": "Owner/Intake",
+    "email": "Dave@kanopy7.com",
+    "phone": "541-499-0080",
+    "importantToKnow": "Contact Kaydean",
+    "store": "692452b64af7d6b4bed7cad9"
+  },
+  {
+    "name": "Rachel",
+    "role": "",
+    "email": "info@kindheartcollective.com",
+    "phone": "(503) 512-6136",
+    "importantToKnow": "10am open (by appointment only?)",
+    "store": "692452b64af7d6b4bed7cada"
+  },
+  {
+    "name": "braxton",
+    "role": "Intake Manager",
+    "email": "intake@kindleafpendleton.com",
+    "phone": "5416126711",
+    "importantToKnow": "Vendor number 5416126711",
+    "store": "692452b64af7d6b4bed7cadb"
+  },
+  {
+    "name": "Andrew",
+    "role": "Owner/Intake",
+    "email": "Kannabisroyalty@gmail.com",
+    "phone": "541-808-9292",
+    "importantToKnow": "Opens at 10:30am",
+    "store": "692452b64af7d6b4bed7cadc"
+  },
+  {
+    "name": "Darren",
+    "role": "",
+    "email": "info@thekingsofcanna.com",
+    "phone": "(971) 319-6945",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cadd"
+  },
+  {
+    "name": "Steven",
+    "role": "Purchasing",
+    "email": "Billing@kingstoncannabis.com",
+    "phone": "541-708-0172",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cade"
+  },
+  {
+    "name": "Travis",
+    "role": "GM",
+    "email": "kfcannabistravis@gmail.com",
+    "phone": "(541) 887-2109",
+    "importantToKnow": "Part of Emerald Triangle chain",
+    "store": "692452b64af7d6b4bed7cadf"
+  },
+  {
+    "name": "Koryn",
+    "role": "Intake",
+    "email": "intake@knottyleaves.com",
+    "phone": "503-837-0048",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cae0"
+  },
+  {
+    "name": "Noah",
+    "role": "",
+    "email": "noah.kushcart@gmail.com",
+    "phone": "9712291281",
+    "importantToKnow": "open 12-9",
+    "store": "692452b64af7d6b4bed7cae1"
+  },
+  {
+    "name": "Conie",
+    "role": "Owner",
+    "email": "Kush.conie@gmail.com",
+    "phone": "214-728-2881",
+    "importantToKnow": "Connie is at the store Wed-Mon after 1  CLOSED",
+    "store": "692452b64af7d6b4bed7cae2"
+  },
+  {
+    "name": "Jason",
+    "role": "Purchaser",
+    "email": "jason.sr@highdesertflower.com",
+    "phone": "+15038285327",
+    "importantToKnow": "owned by high desert flower - Jason's number is (3609035429)",
+    "store": "692452b64af7d6b4bed7cae3"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(503) 841-6314",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cae4"
+  },
+  {
+    "name": "Intake",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(541) 245-9554",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cae5"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(503) 777-9333",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cae6"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(503) 254-9333",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cae7"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(541) 813-1662",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cae8"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(541) 499-0027",
+    "importantToKnow": "Temporarily Closed",
+    "store": "692452b64af7d6b4bed7cae9"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(541)773-9331",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7caea"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(541)836-9333",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7caeb"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7caec"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(503) 747-4654",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7caed"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(541) 246-8913",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7caee"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7caef"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(541) 425-5378",
+    "importantToKnow": "Located at 29844 Ellensburg",
+    "store": "692452b64af7d6b4bed7caf0"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(111)111-1111",
+    "importantToKnow": "No Number on google",
+    "store": "692452b64af7d6b4bed7caf1"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(541) 405-4070",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7caf2"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(541) 259-6682",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7caf3"
+  },
+  {
+    "name": "Centeral",
+    "role": "Purchaser",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(541) 570-1273",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7caf4"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(541) 245-9554",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7caf5"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(541) 559-1133",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7caf6"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7caf7"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(458) 675-9096",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7caf8"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(541) 779-9333",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7caf9"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7caf9"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(503) 355-6333",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cafb"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(541) 672-9333",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cafc"
+  },
+  {
+    "name": "Kevin",
+    "role": "Purchaser",
+    "email": "lamotasandymanager@gmail.com",
+    "phone": "9713462067",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cafd"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(971) 346-2067",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cafd"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(971) 384-2119",
+    "importantToKnow": "Aloha Oregon, Not Beaverton",
+    "store": "692452b64af7d6b4bed7caff"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(503) 477-7965",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb00"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(541) 246-8913",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb01"
+  },
+  {
+    "name": "La Mota",
+    "role": "",
+    "email": "lamotawarehouse@gmail.com",
+    "phone": "(541) 499-6314",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb02"
+  },
+  {
+    "name": "Julian",
+    "role": "Intake",
+    "email": "magicxcastle@gmail.com",
+    "phone": "(503) 206-4939",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb03"
+  },
+  {
+    "name": "Cody",
+    "role": "Store Manager",
+    "email": "Lemonnadepdx@gmail.com",
+    "phone": "(971) 279-2337",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb04"
+  },
+  {
+    "name": "Anne",
+    "role": "IM",
+    "email": "anne@lemonnadestjohns.com",
+    "phone": "(503) 946-1972",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb05"
+  },
+  {
+    "name": "Will",
+    "role": "Intake",
+    "email": "dispensary@liftednw.com",
+    "phone": "(503) 894-9495",
+    "importantToKnow": "Devin also does intakes - devin@liftednw.com -- DEVIN NOT IN ON MONDAYS -- Payment inquiries through Melissa (accounting@liftednw.com)",
+    "store": "692452b64af7d6b4bed7cb06"
+  },
+  {
+    "name": "Tim",
+    "role": "Intake",
+    "email": "Lincolncitycollective@gmail.com",
+    "phone": "(541) 557-9402",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7cb07"
+  },
+  {
+    "name": "Tim",
+    "role": "",
+    "email": "lincolncitycollective@gmail.com",
+    "phone": "(541)614-0290",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7cb08"
+  },
+  {
+    "name": "Renee",
+    "role": "Owner",
+    "email": "renee.barnes@comcast.net",
+    "phone": "503-384-2751",
+    "importantToKnow": "owner comes in around 2pm",
+    "store": "692452b64af7d6b4bed7cb09"
+  },
+  {
+    "name": "Phillip",
+    "role": "Intake",
+    "email": "livewelldispensary@gmail.com",
+    "phone": "971-273-0940",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb0a"
+  },
+  {
+    "name": "Josh",
+    "role": "Intake",
+    "email": "Livewelldispensary2@gmail.com",
+    "phone": "971-600-3464",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb0b"
+  },
+  {
+    "name": "Kahlea",
+    "role": "intake",
+    "email": "kahlea@local-herb.com",
+    "phone": "(503) 433-8030",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7cb0c"
+  },
+  {
+    "name": "Staci",
+    "role": "",
+    "email": "staci@theherbcenter.com",
+    "phone": "(503) 468-7912",
+    "importantToKnow": "Chalice",
+    "store": "692452b64af7d6b4bed7cb0d"
+  },
+  {
+    "name": "Diamond",
+    "role": "IM",
+    "email": "diamond@lovebuzzpdx.com",
+    "phone": "(971) 754-4977",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb0e"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb0f"
+  },
+  {
+    "name": "Zach",
+    "role": "Intake Manager",
+    "email": "Lovebuzz.or@gmail.com",
+    "phone": "+15032787780",
+    "importantToKnow": "diamond@lovebuzzpdx.com all intakes go through glisan st location",
+    "store": "692452b64af7d6b4bed7cb10"
+  },
+  {
+    "name": "Gil",
+    "role": "Intake Manger",
+    "email": "Lovebuzz.or@gmail.com",
+    "phone": "+15039268299",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb11"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "NO STORE HERE",
+    "importantToKnow": "CLOSED",
+    "store": "692452b64af7d6b4bed7cb12"
+  },
+  {
+    "name": "Brad",
+    "role": "Owner",
+    "email": "bradleycloud9@gmail.com",
+    "phone": "541) 505-7606",
+    "importantToKnow": "Store temporarily closed",
+    "store": "692452b64af7d6b4bed7cb13"
+  },
+  {
+    "name": "Caroline",
+    "role": "Intake",
+    "email": "purchasing@luckylionpdx.com",
+    "phone": "541-357-4472",
+    "importantToKnow": "purchasing done through Portland store",
+    "store": "692452b64af7d6b4bed7cb14"
+  },
+  {
+    "name": "Elliot",
+    "role": "IM for all stores",
+    "email": "Purchasing@luckylionpdx.com",
+    "phone": "971-407-3124",
+    "importantToKnow": "home location for manager",
+    "store": "692452b64af7d6b4bed7cb15"
+  },
+  {
+    "name": "Elliot",
+    "role": "Purchaser",
+    "email": "Purchasing@luckylionpdx.com",
+    "phone": "(503) 764-9089",
+    "importantToKnow": "503-946-1807",
+    "store": "692452b64af7d6b4bed7cb16"
+  },
+  {
+    "name": "Elliot",
+    "role": "IM for all stores",
+    "email": "Purchasing@luckylionpdx.com",
+    "phone": "(503) 946-1807",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb17"
+  },
+  {
+    "name": "Zack",
+    "role": "",
+    "email": "zb@mthriveorganics.com",
+    "phone": "(541) 769-1420",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7cb18"
+  },
+  {
+    "name": "Tyrel",
+    "role": "",
+    "email": "zb@mthriveorganics.com",
+    "phone": "(541) 432-4200",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb18"
+  },
+  {
+    "name": "Randall",
+    "role": "Purchaser",
+    "email": "m.c.spectrumllc@gmail.com",
+    "phone": "+19719015027",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb1a"
+  },
+  {
+    "name": "Paul",
+    "role": "Owner",
+    "email": "",
+    "phone": "+15032658971",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb1b"
+  },
+  {
+    "name": "Christina",
+    "role": "Owner",
+    "email": "MJCC568@gmail.com",
+    "phone": "541-360-3952",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7cb1c"
+  },
+  {
+    "name": "Kip",
+    "role": "Owner",
+    "email": "Marijuanaparadise420@gmail.com",
+    "phone": "+15037320047",
+    "importantToKnow": "Opens at 10am -- USE CELL NUMBER",
+    "store": "692452b64af7d6b4bed7cb1d"
+  },
+  {
+    "name": "Ian",
+    "role": "",
+    "email": "ian@maritimecafe.com",
+    "phone": "(503) 305-8307",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb1e"
+  },
+  {
+    "name": "Hope",
+    "role": "Intake",
+    "email": "hope@mjfarmacy.com",
+    "phone": "503-586-3349",
+    "importantToKnow": "Mary Jane's Farmacy",
+    "store": "692452b64af7d6b4bed7cb1f"
+  },
+  {
+    "name": "Antonia",
+    "role": "IM",
+    "email": "Medicinetreellc420@yahoo.com",
+    "phone": "503-857-0592",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7cb20"
+  },
+  {
+    "name": "Austin",
+    "role": "",
+    "email": "austin@broadway-cannabis.com",
+    "phone": "(503) 987-5243",
+    "importantToKnow": "Owned by Fire dept. not worth it.",
+    "store": "692452b64af7d6b4bed7cb21"
+  },
+  {
+    "name": "Austin",
+    "role": "",
+    "email": "austin@broadway-cannabis.com",
+    "phone": "(503) 987-5243",
+    "importantToKnow": "NOW CALLED PORTAL 503 -- OWNED BY TJ'S -- DREW WILL BE PURCHASING FOR THEM",
+    "store": "692452b64af7d6b4bed7cb21"
+  },
+  {
+    "name": "Mike",
+    "role": "Owner",
+    "email": "buyer@miraclegreens.com",
+    "phone": "(541) 952-2363",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb23"
+  },
+  {
+    "name": "Kaily",
+    "role": "Owner",
+    "email": "kaily.cook.mf@gmail.com",
+    "phone": "541-405-4364",
+    "importantToKnow": "Under new ownership reach out to Kaily for purchasing",
+    "store": "692452b64af7d6b4bed7cb24"
+  },
+  {
+    "name": "Kaily",
+    "role": "Intake",
+    "email": "modernforestsweethome@gmail.com",
+    "phone": "541-818-0017",
+    "importantToKnow": "under new ownership reach out to Kaily for purchasing",
+    "store": "692452b64af7d6b4bed7cb25"
+  },
+  {
+    "name": "Jack",
+    "role": "",
+    "email": "buying@mongoosecannabis.com",
+    "phone": "+15034775805",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb26"
+  },
+  {
+    "name": "Margo",
+    "role": "Owner",
+    "email": "wsc.monresults@gmail.com",
+    "phone": "503-551-9232",
+    "importantToKnow": "Store opens at 10am - Connected to West Salem Cannabis",
+    "store": "692452b64af7d6b4bed7cb27"
+  },
+  {
+    "name": "Sydney Wisdom",
+    "role": "Intake",
+    "email": "sydney@letschangeyourmood.com",
+    "phone": "458-215-4942",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb28"
+  },
+  {
+    "name": "Brittany",
+    "role": "Intake",
+    "email": "Purchasing@mosscrossing.com",
+    "phone": "541-636-3724",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb29"
+  },
+  {
+    "name": "Lindsey",
+    "role": "",
+    "email": "lindsey@wowzer.net",
+    "phone": "(503) 622-4272",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb2a"
+  },
+  {
+    "name": "Intake",
+    "role": "",
+    "email": "ty@mngenterprise.com",
+    "phone": "(541) 368-3965",
+    "importantToKnow": "CLOSED",
+    "store": "692452b64af7d6b4bed7cb2b"
+  },
+  {
+    "name": "Intake",
+    "role": "",
+    "email": "ty@mngenterprise.com",
+    "phone": "(503) 741-3420",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb2c"
+  },
+  {
+    "name": "Tim",
+    "role": "Store Manager",
+    "email": "tim.moffett@mngenterprise.com",
+    "phone": "(541) 647-2785",
+    "importantToKnow": "Ty is the purchaser",
+    "store": "692452b64af7d6b4bed7cb2d"
+  },
+  {
+    "name": "Angela",
+    "role": "Store Manager",
+    "email": "angela.cox@mngenterprise.com",
+    "phone": "(503) 741-3666",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb2e"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb2f"
+  },
+  {
+    "name": "Intake",
+    "role": "",
+    "email": "ty@mngenterprise.com",
+    "phone": "(503) 430-0329",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb30"
+  },
+  {
+    "name": "Keagan",
+    "role": "Store Manager",
+    "email": "keagan.junker@mngenterprise.com",
+    "phone": "(541) 207-3764",
+    "importantToKnow": "Ty is the purchaser",
+    "store": "692452b64af7d6b4bed7cb31"
+  },
+  {
+    "name": "Melanie",
+    "role": "Store Manager",
+    "email": "Melanie.lee@mngenterprise.com",
+    "phone": "(541) 614-4319",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb32"
+  },
+  {
+    "name": "Alex",
+    "role": "Manager",
+    "email": "Alex.helms@mngenterprise.com",
+    "phone": "(503) 946-8474",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb33"
+  },
+  {
+    "name": "Jairus Judkins",
+    "role": "Store Manager",
+    "email": "jairus.judkins@mngenterprise.com",
+    "phone": "(541) 405-4336",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb34"
+  },
+  {
+    "name": "Crystal",
+    "role": "Store Manager",
+    "email": "crystal.young@mngenterprise.com",
+    "phone": "(971) 915-2938",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb35"
+  },
+  {
+    "name": "Intake",
+    "role": "",
+    "email": "ty@mngenterprise.com",
+    "phone": "(458) 226-2306",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb36"
+  },
+  {
+    "name": "Shayla",
+    "role": "Store Manager",
+    "email": "Shayla.cole@mngenterprise.com",
+    "phone": "(971) 306-1313",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb37"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb38"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb39"
+  },
+  {
+    "name": "Intake",
+    "role": "",
+    "email": "ty@mngenterprise.com",
+    "phone": "(458) 207-9074",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb3a"
+  },
+  {
+    "name": "Intake",
+    "role": "",
+    "email": "ty@mngenterprise.com",
+    "phone": "(541) 563-4200",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb3b"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb3c"
+  },
+  {
+    "name": "Derek",
+    "role": "Purchaser",
+    "email": "derek.nepote@gmail.com",
+    "phone": "+15414524018",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb3d"
+  },
+  {
+    "name": "karly",
+    "role": "inventory manager",
+    "email": "karly@mythoscannabis.com",
+    "phone": "(503) 841-5382",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb3e"
+  },
+  {
+    "name": "Christina",
+    "role": "Intake",
+    "email": "goodtimes@naturalhighcoquille.com",
+    "phone": "541-396-1500",
+    "importantToKnow": "Christina is available at the shop before 3 CLOSED",
+    "store": "692452b64af7d6b4bed7cb3f"
+  },
+  {
+    "name": "Ron",
+    "role": "",
+    "email": "Nrmanagement420@gmail.com",
+    "phone": "(503) 719-7881",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb40"
+  },
+  {
+    "name": "Dan",
+    "role": "",
+    "email": "nreastpdx@gmail.com",
+    "phone": "503-444-7792",
+    "importantToKnow": "Dan is not in on Tuesdays.",
+    "store": "692452b64af7d6b4bed7cb41"
+  },
+  {
+    "name": "Jackson",
+    "role": "",
+    "email": "info@naturalwonderspdx.com",
+    "phone": "(503) 928-1228",
+    "importantToKnow": "Store opens 10am",
+    "store": "692452b64af7d6b4bed7cb42"
+  },
+  {
+    "name": "RJ",
+    "role": "IM",
+    "email": "Gm@nebulapdx.com",
+    "phone": "503-477-5799",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb43"
+  },
+  {
+    "name": "Mike",
+    "role": "IM",
+    "email": "puddletownorganics@gmail.com",
+    "phone": "503-558-6321",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb44"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 206-8354",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb45"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(971) 279-2512",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb46"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(971) 245-5675",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb47"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 894-8217",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb48"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "5412352001",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb49"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 912-1946",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb4a"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 477-8800",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb4b"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(541) 636-4735",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb4c"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 626-1994",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb4d"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(541) 488-6776",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb4e"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 477-9850",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb4f"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(971) 371-2186",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb50"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 372-9583",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb51"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 512-8123",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb52"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 990-6667",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb53"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 265-8615",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb54"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(541) 226-9344",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb55"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 626-2163",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb56"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 719-6106",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb57"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(971) 707-4184",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb58"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 719-7036",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb59"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(541) 654-8136",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb5a"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 908-8564",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb5b"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(541) 816-4204",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb5c"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 305-5965",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb5d"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 206-4818",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb5e"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 328-8182",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb5f"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 690-8420",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb60"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(541) 255-2457",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb61"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 477-5083",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb62"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(971) 703-4777",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb63"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "Purchasing@nectarmarkets.com",
+    "phone": "(503) 719-7318",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb64"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(971) 754-4956",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb65"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 354-2074",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb66"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 719-5761",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb67"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(971) 229-1600",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb68"
+  },
+  {
+    "name": "Ben",
+    "role": "Order placer",
+    "email": "info@nectarmarkets.com",
+    "phone": "971-940-6624",
+    "importantToKnow": "Opens at 10am - Part of Nectar chain",
+    "store": "692452b64af7d6b4bed7cb69"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(971) 407-3925",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb6a"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 352-4581",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb6b"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb6c"
+  },
+  {
+    "name": "Nectar",
+    "role": "",
+    "email": "purchasing@nectarmarkets.com",
+    "phone": "(503) 372-9343",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb6d"
+  },
+  {
+    "name": "Lauren",
+    "role": "Manager",
+    "email": "newleafmidtown@gmail.com",
+    "phone": "(503) 472-4816",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7cb6e"
+  },
+  {
+    "name": "Cody",
+    "role": "Intake",
+    "email": "Nextlevelintake@gmail.com",
+    "phone": "541-515-6514",
+    "importantToKnow": "Sarah works Tuesday-Saturday",
+    "store": "692452b64af7d6b4bed7cb6f"
+  },
+  {
+    "name": "Alyssa",
+    "role": "Intake",
+    "email": "Nodakgreenprairie@gmail.com",
+    "phone": "541-505-8740",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb70"
+  },
+  {
+    "name": "Jillian",
+    "role": "IM",
+    "email": "Jillian@northwestcannabis.com",
+    "phone": "(971) 634-4400",
+    "importantToKnow": "By appointment",
+    "store": "692452b64af7d6b4bed7cb71"
+  },
+  {
+    "name": "Izzy",
+    "role": "Store Manager",
+    "email": "zaibucks@gmail.com",
+    "phone": "(503) 994-2000",
+    "importantToKnow": "Brandyn's email - brandynaustin12@gmail.com",
+    "store": "692452b64af7d6b4bed7cb72"
+  },
+  {
+    "name": "Ali",
+    "role": "Manager",
+    "email": "oasiscannabispdx@gmail.com",
+    "phone": "971-254-8932",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb73"
+  },
+  {
+    "name": "Jay",
+    "role": "Intake",
+    "email": "jay@oasisdispensaries.com",
+    "phone": "503-837-0418",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7cb74"
+  },
+  {
+    "name": "Deana",
+    "role": "",
+    "email": "deana@oasisdispensaries.com",
+    "phone": "(971) 832-8737",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb75"
+  },
+  {
+    "name": "Syd",
+    "role": "",
+    "email": "oasisseaside@gmail.com",
+    "phone": "(503) 738-9105",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb76"
+  },
+  {
+    "name": "Mick",
+    "role": "Intake",
+    "email": "Ogccvending@gmail.com",
+    "phone": "4582262414",
+    "importantToKnow": "Mick personal email (mickogc@gmail.com) - Mick starts his day at Oregon Grown",
+    "store": "692452b64af7d6b4bed7cb77"
+  },
+  {
+    "name": "Kaylee",
+    "role": "",
+    "email": "Kbarr@orderog.com",
+    "phone": "(971) 720-1560",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb78"
+  },
+  {
+    "name": "Kaylee",
+    "role": "",
+    "email": "Kbarr@orderog.com",
+    "phone": "(541) 230-1655",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb79"
+  },
+  {
+    "name": "Kaylee",
+    "role": "",
+    "email": "Kbarr@orderog.com",
+    "phone": "(503) 689-1235",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb7a"
+  },
+  {
+    "name": "Kaylee",
+    "role": "",
+    "email": "Kbarr@orderog.com",
+    "phone": "(971) 332-5453",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb7b"
+  },
+  {
+    "name": "Kaylee",
+    "role": "Intake",
+    "email": "kbarr@orderog.com",
+    "phone": "503-385-1948",
+    "importantToKnow": "Kaylee works out of this location",
+    "store": "692452b64af7d6b4bed7cb7c"
+  },
+  {
+    "name": "Kaylee",
+    "role": "",
+    "email": "Kbarr@orderog.com",
+    "phone": "(971) 701-6447",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb7d"
+  },
+  {
+    "name": "Kalee",
+    "role": "",
+    "email": "kbarr@orderog.com",
+    "phone": "(503) 837-0450",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb7e"
+  },
+  {
+    "name": "Fred",
+    "role": "Intake",
+    "email": "Product@oldschoolbliss.com",
+    "phone": "458-215-4561",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb7f"
+  },
+  {
+    "name": "Joe",
+    "role": "owner",
+    "email": "onedrawoffice@gmail.com",
+    "phone": "(503) 954-1433",
+    "importantToKnow": "onedrawoffice@gmail.com",
+    "store": "692452b64af7d6b4bed7cb80"
+  },
+  {
+    "name": "Chloe Guerassio",
+    "role": "Manager",
+    "email": "Cguerassio@oregonbc.com",
+    "phone": "503-894-9392",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb81"
+  },
+  {
+    "name": "Sam",
+    "role": "",
+    "email": "sdove@oregonbc.com",
+    "phone": "(503) 352-4484",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb82"
+  },
+  {
+    "name": "Brie",
+    "role": "",
+    "email": "breyes@oregonbc.com",
+    "phone": "(503) 477-8241",
+    "importantToKnow": "Jeramiah's email -- info@oregonbc.com",
+    "store": "692452b64af7d6b4bed7cb83"
+  },
+  {
+    "name": "Hailey",
+    "role": "",
+    "email": "Hgaddy@oregonbc.com",
+    "phone": "(503) 850-4930",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb84"
+  },
+  {
+    "name": "Tyler",
+    "role": "Intake",
+    "email": "tfoster@oregonbc.com",
+    "phone": "971-599-5438",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb85"
+  },
+  {
+    "name": "Justin Briggs",
+    "role": "Intake",
+    "email": "Jbriggs@Oregonbc.com",
+    "phone": "541-265-8611",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb86"
+  },
+  {
+    "name": "Lee",
+    "role": "",
+    "email": "Stephan@oregoncannabismart.com",
+    "phone": "+19718884144",
+    "importantToKnow": "Bobby 360.904.6885 -- Angels personal number 5039294928",
+    "store": "692452b64af7d6b4bed7cb87"
+  },
+  {
+    "name": "Kayla",
+    "role": "Intake",
+    "email": "Stephan@oregoncannabismart.com",
+    "phone": "+15417469720",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb88"
+  },
+  {
+    "name": "Jess",
+    "role": "",
+    "email": "info@orcoastcannabis.com",
+    "phone": "(503) 368-4200",
+    "importantToKnow": "Opens at 10am, wooden bigfoot shop DO NOT CALL",
+    "store": "692452b64af7d6b4bed7cb89"
+  },
+  {
+    "name": "Zach",
+    "role": "Manager",
+    "email": "nyebeachmmj@gmail.com",
+    "phone": "541-264-8102",
+    "importantToKnow": "Bill is in the store on Mon and Fri - Opens at 10am",
+    "store": "692452b64af7d6b4bed7cb8a"
+  },
+  {
+    "name": "Sam",
+    "role": "Intake Manager",
+    "email": "OregonEuphorics@gmail.com",
+    "phone": "+14583294945",
+    "importantToKnow": "opens at 10am",
+    "store": "692452b64af7d6b4bed7cb8b"
+  },
+  {
+    "name": "Clay",
+    "role": "Owner/Intake",
+    "email": "Oregonfarmacy@gmail.com",
+    "phone": "541-816-4620",
+    "importantToKnow": "Clay, works Wed-Fri- Opens at 10am - tuesday or wednesday for intake",
+    "store": "692452b64af7d6b4bed7cb8c"
+  },
+  {
+    "name": "Ryan",
+    "role": "Intake Manager",
+    "email": "jman@smokeogc.com",
+    "phone": "541-816-4206",
+    "importantToKnow": "Mick starts his day here",
+    "store": "692452b64af7d6b4bed7cb8d"
+  },
+  {
+    "name": "Justin",
+    "role": "",
+    "email": "oregonweedery@gmail.com",
+    "phone": "(503) 750-4594",
+    "importantToKnow": "THEY WANT LOW DOSE OPTIONS",
+    "store": "692452b64af7d6b4bed7cb8e"
+  },
+  {
+    "name": "Dillon",
+    "role": "intake",
+    "email": "pdxobb@gmail.com",
+    "phone": "15034775408",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb8f"
+  },
+  {
+    "name": "Katie",
+    "role": "",
+    "email": "newvendor@ofmeds.com",
+    "phone": "(503) 239-1150",
+    "importantToKnow": "purchasing@ofmeds.com is best way to reach Katie",
+    "store": "692452b64af7d6b4bed7cb90"
+  },
+  {
+    "name": "Jared Grossman",
+    "role": "Intake",
+    "email": "oregonsgreenrush2644@gmail.com",
+    "phone": "541-653-8523",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb91"
+  },
+  {
+    "name": "James",
+    "role": "Intake",
+    "email": "Oregonsherbalremediesllc@gmail.com",
+    "phone": "541-935-9618",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb92"
+  },
+  {
+    "name": "Sam",
+    "role": "IM",
+    "email": "oregonsown.intake@gmail.com",
+    "phone": "5032441273",
+    "importantToKnow": "permanently closed",
+    "store": "692452b64af7d6b4bed7cb93"
+  },
+  {
+    "name": "Jared",
+    "role": "",
+    "email": "intake@oregrown.com, jared@oregrown.com",
+    "phone": "1-844-673-4769",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb94"
+  },
+  {
+    "name": "Jared",
+    "role": "",
+    "email": "jared@oregrown.com",
+    "phone": "(844) 673-4769",
+    "importantToKnow": "PERMANENTLY CLOSED",
+    "store": "692452b64af7d6b4bed7cb95"
+  },
+  {
+    "name": "Jared",
+    "role": "Owner",
+    "email": "",
+    "phone": "+18446734769",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb96"
+  },
+  {
+    "name": "Rae",
+    "role": "Intake manager",
+    "email": "Rae@oregrown.com",
+    "phone": "(503) 477-6898",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb97"
+  },
+  {
+    "name": "Ashley",
+    "role": "Manager",
+    "email": "otiscollective@yahoo.com",
+    "phone": "541-418-5085",
+    "importantToKnow": "Store opens at 10am",
+    "store": "692452b64af7d6b4bed7cb98"
+  },
+  {
+    "name": "Chong",
+    "role": "Intake Manager",
+    "email": "Pacificgreenportland@gmail.com",
+    "phone": "(971) 242-8535",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb99"
+  },
+  {
+    "name": "Axel",
+    "role": "Intake",
+    "email": "info@pacificwaveresource.com",
+    "phone": "541-614-1364",
+    "importantToKnow": "Makes their own edibles in house",
+    "store": "692452b64af7d6b4bed7cb9a"
+  },
+  {
+    "name": "Alivia",
+    "role": "",
+    "email": "info@pakalolopdx.com",
+    "phone": "(503) 369-8955",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7cb9b"
+  },
+  {
+    "name": "Devlin",
+    "role": "",
+    "email": "Papabudspdx@gmail.com",
+    "phone": "(503) 206-8639",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cb9c"
+  },
+  {
+    "name": "Paul",
+    "role": "",
+    "email": "papasdispensaryemployee@yahoo.com",
+    "phone": "541-592-4367",
+    "importantToKnow": "\"Providing all patients access\" in leaflink",
+    "store": "692452b64af7d6b4bed7cb9d"
+  },
+  {
+    "name": "Sammy",
+    "role": "Intake for all stores",
+    "email": "sammyparadisefound@gmail.com",
+    "phone": "(971) 803-7172",
+    "importantToKnow": "Owners dogs name Bella - (808)-271-6487 personal number",
+    "store": "692452b64af7d6b4bed7cb9e"
+  },
+  {
+    "name": "Andrew",
+    "role": "Temp Manager",
+    "email": "Andrew@myherbcenter.com",
+    "phone": "(503) 477-4540",
+    "importantToKnow": "CHALICE",
+    "store": "692452b64af7d6b4bed7cb9f"
+  },
+  {
+    "name": "AJ",
+    "role": "Intake",
+    "email": "peachcannabisAJ@gmail.com",
+    "phone": "541-636-3323",
+    "importantToKnow": "AJ uses they/them pronouns",
+    "store": "692452b64af7d6b4bed7cba0"
+  },
+  {
+    "name": "Jessi",
+    "role": "Intake Manager",
+    "email": "jessi@conversionc.net",
+    "phone": "5413793799",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cba1"
+  },
+  {
+    "name": "Jo",
+    "role": "Owner",
+    "email": "flowerpotphoenix@gmail.com",
+    "phone": "541-614-4085",
+    "importantToKnow": "Opens at 11am",
+    "store": "692452b64af7d6b4bed7cba2"
+  },
+  {
+    "name": "Doyle",
+    "role": "",
+    "email": "Doyle@phreshcannabis.com",
+    "phone": "(503) 430-1575",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cba3"
+  },
+  {
+    "name": "Sidney",
+    "role": "Intake",
+    "email": "infocb@pioneer-herbs.com",
+    "phone": "541-808-3700",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cba4"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cba4"
+  },
+  {
+    "name": "Trinidy",
+    "role": "",
+    "email": "info@pioneer-herbs.com",
+    "phone": "(541) 615-1635",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cba6"
+  },
+  {
+    "name": "Kelly",
+    "role": "Intake",
+    "email": "pipedreamsdispensary@gmail.com",
+    "phone": "541-614-0682",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7cba7"
+  },
+  {
+    "name": "Greg",
+    "role": "",
+    "email": "planejanes2.02024@gmail.com",
+    "phone": "971-255-0999",
+    "importantToKnow": "Biker",
+    "store": "692452b64af7d6b4bed7cba8"
+  },
+  {
+    "name": "Alex",
+    "role": "",
+    "email": "intake@plantaeoregon.com",
+    "phone": "541-640-8295",
+    "importantToKnow": "Alex works primarily out of this location",
+    "store": "692452b64af7d6b4bed7cba9"
+  },
+  {
+    "name": "Alex",
+    "role": "",
+    "email": "intake@plantaeoregon.com",
+    "phone": "(541) 475-0457",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbaa"
+  },
+  {
+    "name": "Maegan",
+    "role": "IM",
+    "email": "plusdispensary@gmail.com",
+    "phone": "971-271-8618",
+    "importantToKnow": "Maegan leaves at 3:00",
+    "store": "692452b64af7d6b4bed7cbab"
+  },
+  {
+    "name": "Shelly",
+    "role": "Owner",
+    "email": "shelly@popsoregon.com",
+    "phone": "541-366-2260",
+    "importantToKnow": "Shelly makes final purchasing decisions, lives out of state -- Joe is store manager, can help out",
+    "store": "692452b64af7d6b4bed7cbac"
+  },
+  {
+    "name": "Sam",
+    "role": "iM",
+    "email": "info@portlandbestbuds.com",
+    "phone": "(503) 954-1862",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbad"
+  },
+  {
+    "name": "Carissa",
+    "role": "",
+    "email": "Portlandcannaconnection@gmail.com",
+    "phone": "(503) 477-9247",
+    "importantToKnow": "PERMANENTLY CLOSED",
+    "store": "692452b64af7d6b4bed7cbae"
+  },
+  {
+    "name": "Grace",
+    "role": "",
+    "email": "purchasing@greenoasiscannabis.com",
+    "phone": "(503) 937-2060",
+    "importantToKnow": "opens at 10",
+    "store": "692452b64af7d6b4bed7cbaf"
+  },
+  {
+    "name": "Greg",
+    "role": "Owner",
+    "email": "gregposvibes@gmail.com",
+    "phone": "5418089230",
+    "importantToKnow": "Greg - NOT there on Wednesday",
+    "store": "692452b64af7d6b4bed7cbb0"
+  },
+  {
+    "name": "Hammond",
+    "role": "",
+    "email": "Hpotter@potmatespdx.com",
+    "phone": "(971)255-0076",
+    "importantToKnow": "Opens at 11am - Hammonds number: 503-716-2617",
+    "store": "692452b64af7d6b4bed7cbb1"
+  },
+  {
+    "name": "Chris",
+    "role": "",
+    "email": "intake@pottonmouth.com",
+    "phone": "503-433-1833",
+    "importantToKnow": "PERMANENTLY CLOSED",
+    "store": "692452b64af7d6b4bed7cbb2"
+  },
+  {
+    "name": "Bobby",
+    "role": "Intake",
+    "email": "powerplantcommercial@gmail.com",
+    "phone": "971-599-5143",
+    "importantToKnow": "Samantha works Mon - Thurs from 2 - 10",
+    "store": "692452b64af7d6b4bed7cbb3"
+  },
+  {
+    "name": "Devon",
+    "role": "Purchaser",
+    "email": "smdenn5@aol.com",
+    "phone": "541-991-3606",
+    "importantToKnow": "opens at 10am",
+    "store": "692452b64af7d6b4bed7cbb4"
+  },
+  {
+    "name": "Katie",
+    "role": "",
+    "email": "katie@shoppreserve.com",
+    "phone": "(971) 446-1098",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbb5"
+  },
+  {
+    "name": "Katie",
+    "role": "Intake",
+    "email": "katie@shoppreserve.com",
+    "phone": "971-719-2914",
+    "importantToKnow": "Katie is available Mon and Thurs for appointments",
+    "store": "692452b64af7d6b4bed7cbb6"
+  },
+  {
+    "name": "Colby",
+    "role": "Owner",
+    "email": "privatereservecannabis@gmail.com",
+    "phone": "541-590-3887",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbb7"
+  },
+  {
+    "name": "Braelyn",
+    "role": "",
+    "email": "purrootspdx@gmail.com",
+    "phone": "(971) 865-5176",
+    "importantToKnow": "Braelyn only available on weekends, contact via email",
+    "store": "692452b64af7d6b4bed7cbb8"
+  },
+  {
+    "name": "Chris",
+    "role": "Owner",
+    "email": "purplesunset112023@gmail.com",
+    "phone": "15034364056",
+    "importantToKnow": "OPEN AT 11",
+    "store": "692452b64af7d6b4bed7cbb9"
+  },
+  {
+    "name": "Chad",
+    "role": "Intake",
+    "email": "Rareearthorganicspatientcenter@gmail.com",
+    "phone": "541-357-5546",
+    "importantToKnow": "Best time to drop order is 10:30-1 - If Chad isn't there for drop, call his cell (408-807-7625) - Opens at 10am - Rare Earth Organics in leaflink",
+    "store": "692452b64af7d6b4bed7cbba"
+  },
+  {
+    "name": "Angel",
+    "role": "Intake Manager",
+    "email": "powerplantportland@gmail.com",
+    "phone": "(971) 302-7283",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbbb"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbbc"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbbd"
+  },
+  {
+    "name": "Madison Sakamoto",
+    "role": "Intake",
+    "email": "madison@redbarndispensary.com",
+    "phone": "+15414920334",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbbe"
+  },
+  {
+    "name": "Madison Sakamoto",
+    "role": "Intake",
+    "email": "madison@redbarndispensary.com,info@redbarndispensary.com",
+    "phone": "541-860-7676",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbbf"
+  },
+  {
+    "name": "Madison Sakamoto",
+    "role": "Intake",
+    "email": "madison@redbarndispensary.com",
+    "phone": "541-559-0420",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbc0"
+  },
+  {
+    "name": "Madison Sakamoto",
+    "role": "Intake",
+    "email": "madison@redbarndispensary.com",
+    "phone": "541-900-1019",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbc1"
+  },
+  {
+    "name": "Madison Sakamoto",
+    "role": "Intake",
+    "email": "madison@redbarndispensary.com,info@redbarndispensary.com",
+    "phone": "541-672-4662",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbc2"
+  },
+  {
+    "name": "Madison",
+    "role": "Intake",
+    "email": "madison@redbarndispensary.com",
+    "phone": "541-844-1999",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbc3"
+  },
+  {
+    "name": "Katie",
+    "role": "Davis",
+    "email": "Redwoodvendors@gmail.com",
+    "phone": "541-916-8140",
+    "importantToKnow": "Katy is the intake - Opens at 10am",
+    "store": "692452b64af7d6b4bed7cbc4"
+  },
+  {
+    "name": "Dana",
+    "role": "Intake",
+    "email": "Reefermadness001@gmail.com",
+    "phone": "503-385-1393",
+    "importantToKnow": "permanently closed",
+    "store": "692452b64af7d6b4bed7cbc5"
+  },
+  {
+    "name": "Zach",
+    "role": "",
+    "email": "zach.refinery@gmail.com",
+    "phone": "(971) 291-0052",
+    "importantToKnow": "TEMPORARILY CLOSED",
+    "store": "692452b64af7d6b4bed7cbc6"
+  },
+  {
+    "name": "Lauren",
+    "role": "Intake",
+    "email": "lthomas@occfarms.com",
+    "phone": "541-897-0646",
+    "importantToKnow": "Talent Health Club, LLC. on leaflink",
+    "store": "692452b64af7d6b4bed7cbc7"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "NO STORE HERE",
+    "importantToKnow": "CLOSED",
+    "store": "692452b64af7d6b4bed7cbc8"
+  },
+  {
+    "name": "Kayla",
+    "role": "Intake Manager",
+    "email": "kayla@rippedcitygreenz.com",
+    "phone": "(503) 344-4606",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbc9"
+  },
+  {
+    "name": "Krista",
+    "role": "Intake",
+    "email": "krista@rivercitymerlin.com",
+    "phone": "541-244-1632",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbca"
+  },
+  {
+    "name": "Janna",
+    "role": "",
+    "email": "greentrainllc@gmail.com",
+    "phone": "(503) 894-9561",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7cbcb"
+  },
+  {
+    "name": "Taylor",
+    "role": "Intake Manager",
+    "email": "rmdispensary@gmail.com",
+    "phone": "(541) 575-4200",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbcc"
+  },
+  {
+    "name": "Taylor",
+    "role": "",
+    "email": "rmdispensary@gmail.com",
+    "phone": "(541) 575-4200",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7cbcd"
+  },
+  {
+    "name": "Damon",
+    "role": "",
+    "email": "",
+    "phone": "+15418790138",
+    "importantToKnow": "THEY ARE A FARM.  THEY DO WHOLESALE FLOWER.",
+    "store": "692452b64af7d6b4bed7cbce"
+  },
+  {
+    "name": "Amanda",
+    "role": "Intake",
+    "email": "Herbalpainmanagement@gmail.com",
+    "phone": "541-299-0090",
+    "importantToKnow": "Opens at 9:30 am PERMANENTLY CLOSED",
+    "store": "692452b64af7d6b4bed7cbcf"
+  },
+  {
+    "name": "Koda",
+    "role": "Intake",
+    "email": "gabe@rvcoregon.com",
+    "phone": "541-879-0681",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbd0"
+  },
+  {
+    "name": "Gaia",
+    "role": "Intake",
+    "email": "kristen@rvcoregon.com",
+    "phone": "541-631-0240",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbd1"
+  },
+  {
+    "name": "Kyle",
+    "role": "Owner",
+    "email": "info@rosebudzpdx.com",
+    "phone": "(503) 208-3955",
+    "importantToKnow": "Also own Top Hat Express",
+    "store": "692452b64af7d6b4bed7cbd2"
+  },
+  {
+    "name": "Francine",
+    "role": "",
+    "email": "rosebud.francinegomez@gmail.com",
+    "phone": "+15039543373",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbd3"
+  },
+  {
+    "name": "David",
+    "role": "Intake",
+    "email": "staff@ssemporium.com",
+    "phone": "541-808-0917",
+    "importantToKnow": "TEMPORARILY CLOSED",
+    "store": "692452b64af7d6b4bed7cbd4"
+  },
+  {
+    "name": "Ashley",
+    "role": "IM",
+    "email": "Management@satchelpdx.com",
+    "phone": "(503) 206-4725",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbd5"
+  },
+  {
+    "name": "Lindsey",
+    "role": "Intake",
+    "email": "staff@seaofgreendispensary.com",
+    "phone": "541-563-4206",
+    "importantToKnow": "The sign on the store still says Coastal Cannabanoids - Not open to carrying gelatin based edibles",
+    "store": "692452b64af7d6b4bed7cbd6"
+  },
+  {
+    "name": "Dave",
+    "role": "Owner",
+    "email": "Seaweedreef@hotmail.com",
+    "phone": "541-272-5044",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7cbd7"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "NO STORE HERE",
+    "importantToKnow": "CLOSED",
+    "store": "692452b64af7d6b4bed7cbd8"
+  },
+  {
+    "name": "Janae",
+    "role": "Purchaser",
+    "email": "janae@sensiblecc.com",
+    "phone": "(503) 477-4430",
+    "importantToKnow": "opens at 10 - alternate email (sensiblepearlpdx@gmail.com)",
+    "store": "692452b64af7d6b4bed7cbd9"
+  },
+  {
+    "name": "Trinity",
+    "role": "Intake",
+    "email": "Trinityw@sensiblecc.com",
+    "phone": "541-816-4210",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbda"
+  },
+  {
+    "name": "Ben",
+    "role": "Intake manager",
+    "email": "Benjamin@sensiblecc.com",
+    "phone": "(503) 841-6126",
+    "importantToKnow": "\"Sensible\" in leaflink -- Janae handles purchasing for this store",
+    "store": "692452b64af7d6b4bed7cbdb"
+  },
+  {
+    "name": "Jill",
+    "role": "manager",
+    "email": "Jilliansensiblecc@gmail.com",
+    "phone": "9712338902",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbdc"
+  },
+  {
+    "name": "Nicole Thompson",
+    "role": "GM",
+    "email": "nthompson@gw-ind.com",
+    "phone": "(971) 544-7055",
+    "importantToKnow": "Groundworks",
+    "store": "692452b64af7d6b4bed7cbdd"
+  },
+  {
+    "name": "Jeremy",
+    "role": "Gm",
+    "email": "jhall@goshango.com",
+    "phone": "(503) 788-7005",
+    "importantToKnow": "Called Vibe Cannabis now",
+    "store": "692452b64af7d6b4bed7cbde"
+  },
+  {
+    "name": "Kenna",
+    "role": "Owner/Intake",
+    "email": "Silvercreekdispensary@gmail.com",
+    "phone": "(503) 874-4630",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbdf"
+  },
+  {
+    "name": "McCall",
+    "role": "",
+    "email": "mccallh@silverstemcannabis.com",
+    "phone": "(503) 477-9034",
+    "importantToKnow": "manager available around 4",
+    "store": "692452b64af7d6b4bed7cbe0"
+  },
+  {
+    "name": "Kevin",
+    "role": "intake",
+    "email": "kevskunkrx@gmail.com",
+    "phone": "541-299-0599",
+    "importantToKnow": "Krista is Lead BT",
+    "store": "692452b64af7d6b4bed7cbe1"
+  },
+  {
+    "name": "Lindsey",
+    "role": "Purchasing",
+    "email": "smilescannabis@gmail.com",
+    "phone": "458-803-0820",
+    "importantToKnow": "Katie is at the store Tues-Fri at 9am to 3pmLindsey is at the store  Mon-Thurs at 9am to 3pm -- THEY PASS OUT SAMPLES AT THE BEGINNING OF THE MONTH",
+    "store": "692452b64af7d6b4bed7cbe2"
+  },
+  {
+    "name": "Brandy",
+    "role": "intake",
+    "email": "smilescannabis@gmail.com",
+    "phone": "458 803 0820",
+    "importantToKnow": "opens 10 am",
+    "store": "692452b64af7d6b4bed7cbe3"
+  },
+  {
+    "name": "Josh",
+    "role": "",
+    "email": "intake@mthoodmarijuana.net",
+    "phone": "19712724660",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbe4"
+  },
+  {
+    "name": "Josh",
+    "role": "",
+    "email": "budtenderjosh@gmail.com",
+    "phone": "(503) 468-0360",
+    "importantToKnow": "Central purchasing from Josh at McMinnville store",
+    "store": "692452b64af7d6b4bed7cbe5"
+  },
+  {
+    "name": "Josh",
+    "role": "",
+    "email": "budtenderjosh@gmail.com",
+    "phone": "(503) 894-9075",
+    "importantToKnow": "Central purchasing from Josh at McMinnville store",
+    "store": "692452b64af7d6b4bed7cbe6"
+  },
+  {
+    "name": "Josh",
+    "role": "Intake",
+    "email": "budtenderjosh@gmail.com",
+    "phone": "541-614-0044",
+    "importantToKnow": "Central purchasing from Josh at McMinnville store",
+    "store": "692452b64af7d6b4bed7cbe7"
+  },
+  {
+    "name": "Josh",
+    "role": "",
+    "email": "budtenderjosh@gmail.com",
+    "phone": "(971) 261-2372",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbe8"
+  },
+  {
+    "name": "Reese",
+    "role": "Store Manager",
+    "email": "reese@smoothroots.org",
+    "phone": "+19717544367",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbe9"
+  },
+  {
+    "name": "Kayla",
+    "role": "Order placer",
+    "email": "srveneta@gmail.com",
+    "phone": "(458) 207-9189",
+    "importantToKnow": "Central purchasing from Josh at McMinnville store \"Canna Royal LLC\" in leaflink",
+    "store": "692452b64af7d6b4bed7cbea"
+  },
+  {
+    "name": "Corey",
+    "role": "Intake",
+    "email": "Newmillenniumeugene@gmail.com",
+    "phone": "541-357-4211",
+    "importantToKnow": "New Millennium",
+    "store": "692452b64af7d6b4bed7cbeb"
+  },
+  {
+    "name": "Ethan",
+    "role": "Manager",
+    "email": "intake@somewherepdx.com",
+    "phone": "(503) 384-2466",
+    "importantToKnow": "PREFER LIVE ROSIN",
+    "store": "692452b64af7d6b4bed7cbec"
+  },
+  {
+    "name": "Anne",
+    "role": "Intake",
+    "email": "socannabisconnection@gmail.com",
+    "phone": "541-916-8420",
+    "importantToKnow": "soccmanagers@gmail.com is a more direct email",
+    "store": "692452b64af7d6b4bed7cbed"
+  },
+  {
+    "name": "Taylour",
+    "role": "",
+    "email": "T@erb.xyz",
+    "phone": "(503) 410-5643",
+    "importantToKnow": "FRIDAYS ARE THE BEST DAYS TO GET AHOLD OF TAYLOUR",
+    "store": "692452b64af7d6b4bed7cbee"
+  },
+  {
+    "name": "Allen",
+    "role": "owner",
+    "email": "spacestationmlk@gmail.com",
+    "phone": "19713833919",
+    "importantToKnow": "Allens number 904-891-7856 - Allens email a@erb.xyz",
+    "store": "692452b64af7d6b4bed7cbef"
+  },
+  {
+    "name": "Abi",
+    "role": "Intake Edibles",
+    "email": "spacebudsthemanagers@gmail.com",
+    "phone": "541-505-9834",
+    "importantToKnow": "General email - Spacebudsthedispensary@gmail.com",
+    "store": "692452b64af7d6b4bed7cbf0"
+  },
+  {
+    "name": "Phillip",
+    "role": "Intake Manager",
+    "email": "spacebudstheoutpost@gmail.com",
+    "phone": "+14582158091",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbf1"
+  },
+  {
+    "name": "Ryan",
+    "role": "",
+    "email": "speedyjanes.intake@gmail.com",
+    "phone": "(503) 744-7420",
+    "importantToKnow": "Same owner as hall of strains and asap buds",
+    "store": "692452b64af7d6b4bed7cbf2"
+  },
+  {
+    "name": "Ashley",
+    "role": "Intake",
+    "email": "salmonrivercollective@outlook.com",
+    "phone": "503-876-9026",
+    "importantToKnow": "Ashley is here from 9-3 Mon - Fri",
+    "store": "692452b64af7d6b4bed7cbf3"
+  },
+  {
+    "name": "Charolette",
+    "role": "Intake",
+    "email": "statelinevendors@gmail.com",
+    "phone": "(541) 254-9444",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbf4"
+  },
+  {
+    "name": "Charolette",
+    "role": "",
+    "email": "statelinecanna@gmail.com",
+    "phone": "5412549444",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbf5"
+  },
+  {
+    "name": "Andrew",
+    "role": "Manager",
+    "email": "sweetangel5034200404@gmail.com",
+    "phone": "5034200404",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbf6"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "+19714208730",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbf7"
+  },
+  {
+    "name": "Faythe",
+    "role": "",
+    "email": "sapnumbers@gmail.com",
+    "phone": "503-206-8785",
+    "importantToKnow": "Store affiliated with Club Pitbull in Salem",
+    "store": "692452b64af7d6b4bed7cbf8"
+  },
+  {
+    "name": "Jeff",
+    "role": "",
+    "email": "vending@substancemarket.com",
+    "phone": "+15413171814",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbf9"
+  },
+  {
+    "name": "Jeff",
+    "role": "",
+    "email": "vending@substancemarket.com",
+    "phone": "541-317-1814",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbfa"
+  },
+  {
+    "name": "Jeff",
+    "role": "",
+    "email": "vending@substancemarket.com",
+    "phone": "541-317-1814",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbfb"
+  },
+  {
+    "name": "Steve/Jeff",
+    "role": "",
+    "email": "vending@substancemarket.com",
+    "phone": "(541) 317-1814",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbfc"
+  },
+  {
+    "name": "Purchasing",
+    "role": "Intake",
+    "email": "vending@substancemarket.com",
+    "phone": "541-317-1814",
+    "importantToKnow": "Online Vendor Application https://www.substancemarket.com/cannabis-101/vending-with-us/",
+    "store": "692452b64af7d6b4bed7cbfd"
+  },
+  {
+    "name": "Jeff",
+    "role": "",
+    "email": "vending@substancemarket.com",
+    "phone": "+15413171814",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cbfe"
+  },
+  {
+    "name": "Purchasing",
+    "role": "Intake",
+    "email": "vending@substancemarket.com",
+    "phone": "541-317-1814",
+    "importantToKnow": "Store has not opened yet",
+    "store": "692452b64af7d6b4bed7cbff"
+  },
+  {
+    "name": "Rex",
+    "role": "Manager",
+    "email": "sumpternugget@gmail.com",
+    "phone": "5418942939",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc00"
+  },
+  {
+    "name": "Dan",
+    "role": "Owner",
+    "email": "dant@sunraycannabis.com",
+    "phone": "541-614-1358",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc01"
+  },
+  {
+    "name": "TJ",
+    "role": "Manager",
+    "email": "Sweetleafcannabis3912@gmail.com",
+    "phone": "(541) 636-4953",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc02"
+  },
+  {
+    "name": "Dalton",
+    "role": "Intake Manager",
+    "email": "sweetleafillusions@gmail.com",
+    "phone": "(503) 719-5322",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc03"
+  },
+  {
+    "name": "Mark / Cora",
+    "role": "IM",
+    "email": "sweetrelief.product@gmail.com",
+    "phone": "5037397551",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc04"
+  },
+  {
+    "name": "Mark",
+    "role": "IM",
+    "email": "Sweetrelief.product@gmail.com",
+    "phone": "503-338-9458",
+    "importantToKnow": "Alternate email is sweetrelief.mark@gmail.com",
+    "store": "692452b64af7d6b4bed7cc05"
+  },
+  {
+    "name": "Mark",
+    "role": "Manager",
+    "email": "sweetrelief.mark@gmail.com",
+    "phone": "5039871193",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc06"
+  },
+  {
+    "name": "Mark/Cora",
+    "role": "Intake",
+    "email": "sweetrelief.product@gmail.com",
+    "phone": "5033965382",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc07"
+  },
+  {
+    "name": "Mark/Cora",
+    "role": "Intake",
+    "email": "sweetrelief.product@gmail.com",
+    "phone": "5033545463",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc08"
+  },
+  {
+    "name": "Bri",
+    "role": "Intake",
+    "email": "Sweettreefarms@outlook.com",
+    "phone": "541-246-8075",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc09"
+  },
+  {
+    "name": "james",
+    "role": "Manager",
+    "email": "Tangentfarmacy@gmail.com",
+    "phone": "541-248-1478",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc0a"
+  },
+  {
+    "name": "Jeremy",
+    "role": "Manager",
+    "email": "terpcollective@gmail.com",
+    "phone": "541-614-1711",
+    "importantToKnow": "Opens at 10am CLOSED",
+    "store": "692452b64af7d6b4bed7cc0b"
+  },
+  {
+    "name": "Gabe",
+    "role": "",
+    "email": "gabe@tetrapdx.com",
+    "phone": "5034894568",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc0c"
+  },
+  {
+    "name": "Jasmine",
+    "role": "Gen Manager",
+    "email": "naturequest@outlook.com",
+    "phone": "503-391-8214",
+    "importantToKnow": "opens at 10am",
+    "store": "692452b64af7d6b4bed7cc0d"
+  },
+  {
+    "name": "Sonja",
+    "role": "Intake",
+    "email": "info@arboretum.com",
+    "phone": "541-991-3751",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc0e"
+  },
+  {
+    "name": "Ernesto Perez",
+    "role": "Manager/pt owner",
+    "email": "Dabbadabbadoo4@gmail.com",
+    "phone": "5095172934",
+    "importantToKnow": "CLOSED",
+    "store": "692452b64af7d6b4bed7cc0f"
+  },
+  {
+    "name": "Will",
+    "role": "Intake",
+    "email": "will@blackcastlecannabis.com",
+    "phone": "+15037934209",
+    "importantToKnow": "COD only",
+    "store": "692452b64af7d6b4bed7cc10"
+  },
+  {
+    "name": "Christie",
+    "role": "buyer",
+    "email": "thebakerydispensary420@gmail.com",
+    "phone": "+15038643373",
+    "importantToKnow": "$99.25 remaining in credit",
+    "store": "692452b64af7d6b4bed7cc11"
+  },
+  {
+    "name": "Katie",
+    "role": "Intake",
+    "email": "supply@thebudhouse.com",
+    "phone": "541-216-6118",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc12"
+  },
+  {
+    "name": "Michael",
+    "role": "manager",
+    "email": "cannashoppe2@gmail.com",
+    "phone": "(503) 875-1667",
+    "importantToKnow": "OPENS AT 10:30",
+    "store": "692452b64af7d6b4bed7cc13"
+  },
+  {
+    "name": "Price",
+    "role": "IM",
+    "email": "thecannashoppe@gmail.com",
+    "phone": "5036605209",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc14"
+  },
+  {
+    "name": "Trisha",
+    "role": "Manager",
+    "email": "thecannabisshopteamemail@gmail.com",
+    "phone": "541-666-2172",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7cc15"
+  },
+  {
+    "name": "Kevin",
+    "role": "IM",
+    "email": "Thecdcbiz@gmail.com",
+    "phone": "(503) 272-7890",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc16"
+  },
+  {
+    "name": "Juno",
+    "role": "Owner",
+    "email": "Thechroniconcommercial@gmail.com",
+    "phone": "503-991-5062",
+    "importantToKnow": "Juno works after 5 on Thursdays and mornings of weekends",
+    "store": "692452b64af7d6b4bed7cc17"
+  },
+  {
+    "name": "Savanah",
+    "role": "Purchasing Manager",
+    "email": "Savanah@thedimestore.net",
+    "phone": "15032658918",
+    "importantToKnow": "Manager in after 1:30pm daily",
+    "store": "692452b64af7d6b4bed7cc18"
+  },
+  {
+    "name": "Jess",
+    "role": "Owner",
+    "email": "Info@thedispensaryon52nd.com",
+    "phone": "503-420-8000",
+    "importantToKnow": "manager should be in from 9-4",
+    "store": "692452b64af7d6b4bed7cc19"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "",
+    "phone": "",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc1a"
+  },
+  {
+    "name": "James",
+    "role": "Intake",
+    "email": "",
+    "phone": "+15418131711",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc1b"
+  },
+  {
+    "name": "Alex",
+    "role": "",
+    "email": "theflowerroombend@gmail.com",
+    "phone": "541-550-7777",
+    "importantToKnow": "Krissy is doing the ordering now -- ALEX DOES NOT WORK MONDAYS -- Higher Elevation in leaflink",
+    "store": "692452b64af7d6b4bed7cc1c"
+  },
+  {
+    "name": "Alex",
+    "role": "",
+    "email": "theflowerroombend@gmail.com",
+    "phone": "+15416687101",
+    "importantToKnow": "Alex's cell 6305441817",
+    "store": "692452b64af7d6b4bed7cc1d"
+  },
+  {
+    "name": "Brittany",
+    "role": "",
+    "email": "Purchasing@thegreenplanet.net",
+    "phone": "503-592-9152",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc1e"
+  },
+  {
+    "name": "Brittany",
+    "role": "Intake manager",
+    "email": "Purchasing@thegreenplanet.net",
+    "phone": "(503) 292-1203",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc1f"
+  },
+  {
+    "name": "Brittany",
+    "role": "",
+    "email": "purchasing@thegreenplanet.net",
+    "phone": "5034305660",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc20"
+  },
+  {
+    "name": "Brittany",
+    "role": "",
+    "email": "purchasing@thegreenplanet.net",
+    "phone": "503-344-6057",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc21"
+  },
+  {
+    "name": "",
+    "role": "",
+    "email": "purchasing@thegreenplanet.net",
+    "phone": "+15034876802",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc22"
+  },
+  {
+    "name": "Brittany",
+    "role": "",
+    "email": "purchasing@thegreenplanet.net",
+    "phone": "5039121144",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc23"
+  },
+  {
+    "name": "Justin",
+    "role": "Purchasing Manager",
+    "email": "contact@thegreenremedy.com",
+    "phone": "503-954-2991",
+    "importantToKnow": "Justin cell 360-852-2796",
+    "store": "692452b64af7d6b4bed7cc24"
+  },
+  {
+    "name": "Chelsea",
+    "role": "Manager",
+    "email": "Tgsintakes@gmail.com",
+    "phone": "541-345-8904",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc25"
+  },
+  {
+    "name": "Jernaline",
+    "role": "Owner",
+    "email": "Stayhigh@cruisecontrol.net",
+    "phone": "(503) 252-0036",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc26"
+  },
+  {
+    "name": "Margaret",
+    "role": "IM for all stores",
+    "email": "margaret@thegreenfront.org",
+    "phone": "(503) 206-7679",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc27"
+  },
+  {
+    "name": "Rick",
+    "role": "Ass. Manager",
+    "email": "rick@myherbcenter.com",
+    "phone": "5415507325",
+    "importantToKnow": "CHALICE",
+    "store": "692452b64af7d6b4bed7cc28"
+  },
+  {
+    "name": "Bri",
+    "role": "Manager",
+    "email": "Bri@myherbcenter.com",
+    "phone": "503-210-1732",
+    "importantToKnow": "CHALICE",
+    "store": "692452b64af7d6b4bed7cc29"
+  },
+  {
+    "name": "Mike",
+    "role": "Purchasing Manager",
+    "email": "mbazanele@gmail.com",
+    "phone": "458-201-8164",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc2a"
+  },
+  {
+    "name": "Jennifer",
+    "role": "Owner/Intake",
+    "email": "Theherbsmanmedford@gmail.com",
+    "phone": "541-690-1711",
+    "importantToKnow": "Opens at 11am \"Dabtown USA\" in leaflink. eddie is jennifer husband.",
+    "store": "692452b64af7d6b4bed7cc2b"
+  },
+  {
+    "name": "John",
+    "role": "",
+    "email": "thcinsalem@gmail.com",
+    "phone": "503-990-7312",
+    "importantToKnow": "try to get cod",
+    "store": "692452b64af7d6b4bed7cc2c"
+  },
+  {
+    "name": "3 Riley",
+    "role": "Owner",
+    "email": "Cgthc1@gmail.com",
+    "phone": "541-946-3337",
+    "importantToKnow": "They are on COD.  They claimed to have paid an invoice when we for sure know they didn't.",
+    "store": "692452b64af7d6b4bed7cc2d"
+  },
+  {
+    "name": "Dayve",
+    "role": "Owner",
+    "email": "Dayve0420@yahoo.com",
+    "phone": "541-361-6290",
+    "importantToKnow": "Dayve uses his cell to communicate 541-294-2229",
+    "store": "692452b64af7d6b4bed7cc2e"
+  },
+  {
+    "name": "Kyle",
+    "role": "Intake",
+    "email": "thejointonmarket@gmail.com",
+    "phone": "971-304-7131",
+    "importantToKnow": "Kyle buys for both stores.",
+    "store": "692452b64af7d6b4bed7cc2f"
+  },
+  {
+    "name": "Kyle",
+    "role": "Intake",
+    "email": "thejointonmarket@gmail.com",
+    "phone": "503-990-6723",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc30"
+  },
+  {
+    "name": "Cinnamon",
+    "role": "Order placer",
+    "email": "carefreecannabispdx@gmail.com",
+    "phone": "9718885109",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7cc31"
+  },
+  {
+    "name": "Brett",
+    "role": "Intake",
+    "email": "manager@thelocalmarketbend.com",
+    "phone": "(458) 836-7876",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc32"
+  },
+  {
+    "name": "Nick",
+    "role": "",
+    "email": "info@theluckyleaf.com",
+    "phone": "5038744788",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc33"
+  },
+  {
+    "name": "Mauricio",
+    "role": "",
+    "email": "tmscottagegrove@gmail.com",
+    "phone": "541-649-1819",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc34"
+  },
+  {
+    "name": "Shannon",
+    "role": "Intake Manager",
+    "email": "Tmsnewport@gmail.com",
+    "phone": "541-265-9170",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc35"
+  },
+  {
+    "name": "Abby",
+    "role": "",
+    "email": "abigail@thenewamsterdam.com",
+    "phone": "541-947-3227",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc36"
+  },
+  {
+    "name": "Steve",
+    "role": "Manager",
+    "email": "Vend@thenewamsterdam.com",
+    "phone": "5035585678",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc37"
+  },
+  {
+    "name": "Chelsea",
+    "role": "",
+    "email": "chelsea@thenewamsterdam.com",
+    "phone": "(541) 592-4197",
+    "importantToKnow": "\"Bud Junction, LLC\" on leaflink",
+    "store": "692452b64af7d6b4bed7cc38"
+  },
+  {
+    "name": "Josh",
+    "role": "",
+    "email": "thepeopleswellnesscenter@gmail.com",
+    "phone": "541-505-8100",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc39"
+  },
+  {
+    "name": "Kyle Griffin",
+    "role": "Intake Manager",
+    "email": "thehotboxfarms@gmail.com",
+    "phone": "5412165104",
+    "importantToKnow": "Kyle is main buyer for Hot Box",
+    "store": "692452b64af7d6b4bed7cc3a"
+  },
+  {
+    "name": "Merlo",
+    "role": "Intake",
+    "email": "Therockdispensary@gmail.com",
+    "phone": "503-385-8451",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc3b"
+  },
+  {
+    "name": "Intake",
+    "role": "",
+    "email": "management@thespotdispensaries.com",
+    "phone": "(541) 499-6242",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc3c"
+  },
+  {
+    "name": "Jason",
+    "role": "Manager",
+    "email": "management@thespotdispensaries.com",
+    "phone": "541-500-1524",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc3d"
+  },
+  {
+    "name": "Rainey",
+    "role": "Purchaser",
+    "email": "rainey@thetokeshops.com",
+    "phone": "15412469166",
+    "importantToKnow": "Rainey cell - 541-222-9056",
+    "store": "692452b64af7d6b4bed7cc3e"
+  },
+  {
+    "name": "Mike",
+    "role": "Intake",
+    "email": "3kings224@gmail.com",
+    "phone": "5413702246",
+    "importantToKnow": "Opens at 10am",
+    "store": "692452b64af7d6b4bed7cc3f"
+  },
+  {
+    "name": "Bobby",
+    "role": "Owner",
+    "email": "powerplantthurman@gmail.com",
+    "phone": "9718037970",
+    "importantToKnow": "Power Plant on Thurman - Opens at 10ampowerplantthurman@gmail.com",
+    "store": "692452b64af7d6b4bed7cc40"
+  },
+  {
+    "name": "Jacki",
+    "role": "",
+    "email": "thur420@gmail.com",
+    "phone": "(541) 429-8760",
+    "importantToKnow": "Best to call in the morning -- Jacki leaves at 3:30",
+    "store": "692452b64af7d6b4bed7cc41"
+  },
+  {
+    "name": "Victoria (V)",
+    "role": "",
+    "email": "thursontario@gmail.com",
+    "phone": "541-709-5015",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc42"
+  },
+  {
+    "name": "Paige",
+    "role": "",
+    "email": "paige@thehighestxpectation.com",
+    "phone": "19713835140",
+    "importantToKnow": "Jermaine jthompson@thehighedtxpectation.com",
+    "store": "692452b64af7d6b4bed7cc43"
+  },
+  {
+    "name": "Drew",
+    "role": "Manager",
+    "email": "drew@tjsoregon.com",
+    "phone": "+19713462639",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc44"
+  },
+  {
+    "name": "Brittany",
+    "role": "Purchaser",
+    "email": "brittany.baker@visittjs.com",
+    "phone": "+15412468835",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc45"
+  },
+  {
+    "name": "Briana",
+    "role": "",
+    "email": "thcglad@gmail.com",
+    "phone": "503-829-6337",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc46"
+  },
+  {
+    "name": "May",
+    "role": "IM",
+    "email": "thcbarbur@gmail.com",
+    "phone": "503-208-3042",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc47"
+  },
+  {
+    "name": "Mike",
+    "role": "IM",
+    "email": "thcmilwaukie@gmail.com",
+    "phone": "971-204-7175",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc48"
+  },
+  {
+    "name": "Jackson",
+    "role": "IM",
+    "email": "thcrainier@gmail.com",
+    "phone": "503-395-2340",
+    "importantToKnow": "vendor hours are Tues-Thurs 9-5pm. Wednesdays are preferred",
+    "store": "692452b64af7d6b4bed7cc49"
+  },
+  {
+    "name": "Dane",
+    "role": "Purchasing",
+    "email": "thcstayton@gmail.com",
+    "phone": "503-767-2388",
+    "importantToKnow": "Email or call ahead for appointment",
+    "store": "692452b64af7d6b4bed7cc4a"
+  },
+  {
+    "name": "Judy",
+    "role": "IM",
+    "email": "THCTillamook@gmail.com",
+    "phone": "503-354-5014",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc4b"
+  },
+  {
+    "name": "Ryan",
+    "role": "",
+    "email": "ryan@tokyostarfish.com",
+    "phone": "541-241-2387",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc4c"
+  },
+  {
+    "name": "Ryan",
+    "role": "",
+    "email": "vendors@tokyostarfish.com",
+    "phone": "(541) 678-5199",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc4d"
+  },
+  {
+    "name": "Ryan",
+    "role": "",
+    "email": "ryan@tokyostarfish.com",
+    "phone": "541-797-2110",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc4e"
+  },
+  {
+    "name": "Ryan",
+    "role": "Intake",
+    "email": "topcropcorvallis@gmail.com",
+    "phone": "(541) 243-8145",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc4f"
+  },
+  {
+    "name": "Zane Winn",
+    "role": "Purchaser",
+    "email": "Topcropintake@gmail.com",
+    "phone": "458-201-8964",
+    "importantToKnow": "Ryan is centralized purchaser (Ryan@topcropor.com)",
+    "store": "692452b64af7d6b4bed7cc50"
+  },
+  {
+    "name": "Adam",
+    "role": "Manager",
+    "email": "thetopcropllc@gmail.com",
+    "phone": "5416667888",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc51"
+  },
+  {
+    "name": "Kyle",
+    "role": "IM",
+    "email": "Intake.tophatexpress@gmail.com",
+    "phone": "(503) 305-7882",
+    "importantToKnow": "Owned by Rose Budz PDX",
+    "store": "692452b64af7d6b4bed7cc52"
+  },
+  {
+    "name": "Brian",
+    "role": "IM",
+    "email": "brian@topshelfmcminnville.com",
+    "phone": "503-472-2405",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc53"
+  },
+  {
+    "name": "Sandra",
+    "role": "Owner",
+    "email": "Tsm3newport@gmail.com",
+    "phone": "541-264-8220",
+    "importantToKnow": "541-264-8220 - store number \"TSM3 inc in leaflink\"",
+    "store": "692452b64af7d6b4bed7cc54"
+  },
+  {
+    "name": "Jen",
+    "role": "",
+    "email": "topshelfmedicinebend@gmail.com",
+    "phone": "541-389-1043",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc55"
+  },
+  {
+    "name": "Kristen",
+    "role": "intake",
+    "email": "vendors@topshelfwellness.com",
+    "phone": "4582262140",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc56"
+  },
+  {
+    "name": "Kristin",
+    "role": "Intake",
+    "email": "vendors@topshelfbusiness.com",
+    "phone": "541-897-0716",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc57"
+  },
+  {
+    "name": "Kristin",
+    "role": "",
+    "email": "kristin@topshelfwellness.biz",
+    "phone": "541-879-0925",
+    "importantToKnow": "Don't accept deliveries past 5",
+    "store": "692452b64af7d6b4bed7cc58"
+  },
+  {
+    "name": "Kaitlyn",
+    "role": "Manager",
+    "email": "Tracktowncollective@gmail.com",
+    "phone": "541-654-0452",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc59"
+  },
+  {
+    "name": "Luke Kemp",
+    "role": "Intake Manager",
+    "email": "luke@treasurevalleycannabis.com",
+    "phone": "4582248400",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc5a"
+  },
+  {
+    "name": "Valerie",
+    "role": "IM",
+    "email": "pdx.treehouse@gmail.com",
+    "phone": "503-894-8774",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc5b"
+  },
+  {
+    "name": "Justin",
+    "role": "Purchaser",
+    "email": "north.thc@gmail.com",
+    "phone": "+15032401751",
+    "importantToKnow": "Nate and Dan are the owners",
+    "store": "692452b64af7d6b4bed7cc5c"
+  },
+  {
+    "name": "Chrissy",
+    "role": "Purchaser",
+    "email": "Purchasing@treescanna.com",
+    "phone": "5033842959",
+    "importantToKnow": "Kayla's cell (6026872354)",
+    "store": "692452b64af7d6b4bed7cc5d"
+  },
+  {
+    "name": "Chrissy",
+    "role": "",
+    "email": "Purchasing@treescanna.com",
+    "phone": "(971) 420-8925",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc5e"
+  },
+  {
+    "name": "Christian",
+    "role": "",
+    "email": "Tcclub420@gmail.com",
+    "phone": "(541) 386-9333",
+    "importantToKnow": "CLOSED",
+    "store": "692452b64af7d6b4bed7cc5f"
+  },
+  {
+    "name": "Darik",
+    "role": "Order placer",
+    "email": "retailstore@trulypure.com",
+    "phone": "5037196018",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc60"
+  },
+  {
+    "name": "Misha",
+    "role": "Store Manager",
+    "email": "truthdispensary@gmail.com",
+    "phone": "+15033397365",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc61"
+  },
+  {
+    "name": "Erik",
+    "role": "Store Manager",
+    "email": "truthdispensary@gmail.com",
+    "phone": "+19714437111",
+    "importantToKnow": "Erik's contact number is 503-851-3859 - He leaves before 2:30",
+    "store": "692452b64af7d6b4bed7cc62"
+  },
+  {
+    "name": "Kelsey",
+    "role": "purchaser",
+    "email": "truthdispensary@gmail.com",
+    "phone": "(971) 915-2957",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc63"
+  },
+  {
+    "name": "Jesse",
+    "role": "Store Manager",
+    "email": "truthdispensary@gmail.com",
+    "phone": "503-967-6010",
+    "importantToKnow": "Kelsey is also purchaser",
+    "store": "692452b64af7d6b4bed7cc64"
+  },
+  {
+    "name": "Jacob",
+    "role": "IM",
+    "email": "tsunamimj.orders@gmail.com",
+    "phone": "(971) 320-2174",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc65"
+  },
+  {
+    "name": "ashley",
+    "role": "Manager",
+    "email": "tumbleweedcannabis310@gmail.com",
+    "phone": "15415899054",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc66"
+  },
+  {
+    "name": "Brandon",
+    "role": "Intake",
+    "email": "Twentyafterfourwellness@gmail.com",
+    "phone": "541-393-6820",
+    "importantToKnow": "Brandon can be found here after 11 am - Opens at 10am",
+    "store": "692452b64af7d6b4bed7cc67"
+  },
+  {
+    "name": "Kalie",
+    "role": "Purchaser",
+    "email": "kalie@upnsmoke503.com",
+    "phone": "9713325441",
+    "importantToKnow": "If using the work cell TEXT don't call",
+    "store": "692452b64af7d6b4bed7cc68"
+  },
+  {
+    "name": "Zen",
+    "role": "Purchaser",
+    "email": "upliftbotanicals@gmail.com",
+    "phone": "9713196118",
+    "importantToKnow": "intake available mornings on mon, tues, wed, thurs",
+    "store": "692452b64af7d6b4bed7cc69"
+  },
+  {
+    "name": "Intake",
+    "role": "",
+    "email": "urbanfarmacypdx@gmail.com",
+    "phone": "503-957-7832",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc6a"
+  },
+  {
+    "name": "Blake",
+    "role": "Purchasing",
+    "email": "info@verdazepdx.com",
+    "phone": "+15039294730",
+    "importantToKnow": "Partnered with Marigrow farms",
+    "store": "692452b64af7d6b4bed7cc6b"
+  },
+  {
+    "name": "Wendy",
+    "role": "Order placer",
+    "email": "Vnc.Wendy@gmail.com",
+    "phone": "503-429-9333",
+    "importantToKnow": "noon to 4 is the best timeframe to catch Wendy",
+    "store": "692452b64af7d6b4bed7cc6c"
+  },
+  {
+    "name": "Karo",
+    "role": "Partial Owner",
+    "email": "weedlandinc@gmail.com",
+    "phone": "541 904 0000",
+    "importantToKnow": "owners name pronounced CAR-OH, Karo lives out of state",
+    "store": "692452b64af7d6b4bed7cc6d"
+  },
+  {
+    "name": "Marissa",
+    "role": "Manager",
+    "email": "Weedagainoregon@gmail.com",
+    "phone": "(458) 675-9123",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc6e"
+  },
+  {
+    "name": "Marissa",
+    "role": "Order placer",
+    "email": "weedagainsalem@gmail.com",
+    "phone": "971-599-5883",
+    "importantToKnow": "Opens at 10",
+    "store": "692452b64af7d6b4bed7cc6f"
+  },
+  {
+    "name": "Marisa",
+    "role": "Intake",
+    "email": "Weedagaineugene@gmail.com",
+    "phone": "541-744-2222",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc70"
+  },
+  {
+    "name": "Marissa",
+    "role": "Owner",
+    "email": "weedagainoregon@gmail.com",
+    "phone": "503-990-7348",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc71"
+  },
+  {
+    "name": "Marissa",
+    "role": "",
+    "email": "Weedagaineugene@gmail.com",
+    "phone": "+15418082924",
+    "importantToKnow": "Ordering done out of Eugene",
+    "store": "692452b64af7d6b4bed7cc72"
+  },
+  {
+    "name": "Adam",
+    "role": "Intake",
+    "email": "weedbucksmedford@gmail.com",
+    "phone": "541-973-2961",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc73"
+  },
+  {
+    "name": "Adam",
+    "role": "Manager",
+    "email": "weedbucksMerlin@gmail.com",
+    "phone": "541-295-8008",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc74"
+  },
+  {
+    "name": "Elise",
+    "role": "Manager",
+    "email": "weedbucksrogueriver@gmail.com",
+    "phone": "541-299-0420",
+    "importantToKnow": "Adam in Medford does purchasing for this store",
+    "store": "692452b64af7d6b4bed7cc75"
+  },
+  {
+    "name": "Intake",
+    "role": "",
+    "email": "sales@weedology.us",
+    "phone": "(541) 889-4862",
+    "importantToKnow": "Owned by \"Budhouse\"",
+    "store": "692452b64af7d6b4bed7cc76"
+  },
+  {
+    "name": "Clarisse",
+    "role": "Owner",
+    "email": "west.rockawaybeach@gmail.com",
+    "phone": "(971) 306-1025",
+    "importantToKnow": "no valid contact info STORE CLOSED",
+    "store": "692452b64af7d6b4bed7cc77"
+  },
+  {
+    "name": "Kadee",
+    "role": "Intake",
+    "email": "kadee93.wco@yahoo.com",
+    "phone": "5414128738",
+    "importantToKnow": "Kadee is at the shop in the mornings during weekdays",
+    "store": "692452b64af7d6b4bed7cc78"
+  },
+  {
+    "name": "Margo",
+    "role": "PM",
+    "email": "alternativereliefclinic@gmail.com",
+    "phone": "503-837-9398",
+    "importantToKnow": "Connected to Monmouth Cannabis",
+    "store": "692452b64af7d6b4bed7cc79"
+  },
+  {
+    "name": "Amiee",
+    "role": "Order placer",
+    "email": "evolaimee@gmail.com",
+    "phone": "19713846461",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc7a"
+  },
+  {
+    "name": "Amiee",
+    "role": "Order placer",
+    "email": "evolaimee@gmail.com",
+    "phone": "(971)384-5570",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc7b"
+  },
+  {
+    "name": "Amiee",
+    "role": "Order placer",
+    "email": "evolaimee@gmail.com",
+    "phone": "(971) 420-5887",
+    "importantToKnow": "503.481.0881 - Personal number for Aimee?",
+    "store": "692452b64af7d6b4bed7cc7c"
+  },
+  {
+    "name": "Aimee",
+    "role": "Order placer",
+    "email": "evolaimee@gmail.com",
+    "phone": "(971) 264-0063",
+    "importantToKnow": "Kirk is store manager",
+    "store": "692452b64af7d6b4bed7cc7d"
+  },
+  {
+    "name": "Amiee Mayfair",
+    "role": "Intake Manager",
+    "email": "evolaimee@gmail.com",
+    "phone": "(503) 213-2708",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc7e"
+  },
+  {
+    "name": "Lando",
+    "role": "",
+    "email": "lando@wvcc.biz",
+    "phone": "(503) 482-7277",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc7f"
+  },
+  {
+    "name": "Richard",
+    "role": "Intake",
+    "email": "brookingstopshelfcrew@gmail.com",
+    "phone": "541-254-9420",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc80"
+  },
+  {
+    "name": "Evan",
+    "role": "Order placer",
+    "email": "worldfamousgearhart@gmail.com",
+    "phone": "5037397088",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc81"
+  },
+  {
+    "name": "Erin Moas",
+    "role": "Purchaser",
+    "email": "yachatscannabis101@gmail.com",
+    "phone": "5415474912",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc82"
+  },
+  {
+    "name": "Linda",
+    "role": "",
+    "email": "linda@zioncannabis.com",
+    "phone": "5412165156",
+    "importantToKnow": "Linda leaves at 3",
+    "store": "692452b64af7d6b4bed7cc83"
+  },
+  {
+    "name": "Andrew",
+    "role": "Order placer",
+    "email": "Andrew@zioncannabis.com",
+    "phone": "9712551758",
+    "importantToKnow": "",
+    "store": "692452b64af7d6b4bed7cc84"
+  },
+  {
+    "name": "Savanna",
+    "role": "Intake",
+    "email": "Intake.zunifarmstand@gmail.com",
+    "phone": "541-244-1842",
+    "importantToKnow": "Savanna is here Mon-Fri from 9-5",
+    "store": "692452b64af7d6b4bed7cc85"
+  }
+]
