@@ -68,7 +68,7 @@ export const getAllNotes = async (req: Request, res: Response) => {
 
     const notes = await Note.find(query)
       .populate("author", "name role email")
-      .sort({ createdAt: -1 })
+      .sort({ date: -1 })
       .skip((pageNum - 1) * limitNum)
       .limit(limitNum);
 
@@ -122,15 +122,8 @@ export const updateNote = async (req: Request, res: Response) => {
     }
 
     // Only allow updating these fields (do not allow changing entityId or author)
-    const {
-      disposition,
-      visitType,
-      content,
-      sample,
-      delivery,
-      payment,
-      date,
-    } = req.body;
+    const { disposition, visitType, content, sample, delivery, payment, date } =
+      req.body;
 
     const updates: any = {};
 
