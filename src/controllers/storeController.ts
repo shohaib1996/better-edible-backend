@@ -51,14 +51,14 @@ export const getAllStores = async (req: Request, res: Response) => {
     }
 
     const stores = await Store.find(query)
+      .skip((+page - 1) * +limit)
+      .limit(+limit)
+      .sort({ createdAt: -1, _id: 1 })
       .populate("rep", "name repType territory")
       .populate({
         path: "contacts",
         select: "name role email phone importantToKnow",
       })
-      .skip((+page - 1) * +limit)
-      .limit(+limit)
-      .sort({ createdAt: -1, _id: 1 })
       .lean(); // ← return plain JS objects (recommended)
 
     const total = await Store.countDocuments(query);

@@ -1,17 +1,17 @@
 [
   {
     "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
+      "$oid": "692452b64af7d6b4bed7ca3b"
     },
     "author": {
       "$oid": "692421070e46984ac310858a"
     },
-    "date": "2025-05-09T10:57:49.000Z",
+    "date": "2025-06-03T16:50:38.000Z",
     "sample": false,
     "delivery": false,
-    "disposition": "Phone with budtender",
+    "disposition": "Phone with manager",
     "visitType": "No Payment",
-    "content": "Called about payment.  BT said Ross wasn't available.  I asked if there is a better way to get ahold of him because I tried texting his personal number a few days ago and still haven't gotten a response.  He said email might work, but the best way is his personal number.",
+    "content": "Talked to Jason.  He said they should still be good on stock at this location, but he did let me know he is ONLY doing intake not purchasing.  Dillon will still be handling the buying for this location.  Super nice guys though",
     "payment": {
       "cash": false,
       "check": false,
@@ -21,188 +21,37 @@
   },
   {
     "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
+      "$oid": "692452b64af7d6b4bed7ca3b"
     },
     "author": {
       "$oid": "692421070e46984ac310858a"
     },
-    "date": "2024-12-12T18:03:11.000Z",
+    "date": "2025-03-13T15:18:35.000Z",
     "sample": false,
-    "delivery": true,
-    "disposition": "Met with Manager",
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "We're gonna bring bliss to all their stores.",
+    "delivery": false,
+    "disposition": "Phone with manager",
+    "visitType": "No Payment",
+    "content": "Jason new Intake for this location. He said he's very new so still communicate with Dillon too for a while",
     "payment": {
       "cash": false,
       "check": false,
-      "noPay": false,
-      "amount": "0"
+      "noPay": true,
+      "amount": ""
     }
   },
   {
     "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
+      "$oid": "692452b64af7d6b4bed7ca3b"
     },
     "author": {
       "$oid": "692421070e46984ac310858a"
     },
-    "date": "2024-12-12T14:13:53.000Z",
+    "date": "2024-10-23T13:24:27.000Z",
     "sample": false,
-    "delivery": true,
-    "visitType": "Delivery ,, Payment-$0",
-    "payment": {
-      "cash": false,
-      "check": false,
-      "noPay": false,
-      "amount": "0"
-    }
-  },
-  {
-    "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
-    },
-    "author": {
-      "$oid": "692421070e46984ac310858a"
-    },
-    "date": "2024-12-11T13:35:45.000Z",
-    "sample": false,
-    "delivery": true,
-    "visitType": "Delivery ,, Payment-$0",
-    "payment": {
-      "cash": false,
-      "check": false,
-      "noPay": false,
-      "amount": "0"
-    }
-  },
-  {
-    "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
-    },
-    "author": {
-      "$oid": "692421070e46984ac310858a"
-    },
-    "date": "2024-08-29T13:16:28.000Z",
-    "sample": false,
-    "delivery": true,
-    "disposition": "Met with Budtenders",
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "they're good to go, have displays for holy water, CC, and 5150. still have plenty back stock as this product came from another location she thinks",
-    "payment": {
-      "cash": false,
-      "check": false,
-      "noPay": false,
-      "amount": "0"
-    }
-  },
-  {
-    "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
-    },
-    "author": {
-      "$oid": "692421070e46984ac310858a"
-    },
-    "date": "2024-08-29T09:41:43.000Z",
-    "sample": false,
-    "delivery": true,
-    "visitType": "Delivery ,, Payment-$0",
-    "payment": {
-      "cash": false,
-      "check": false,
-      "noPay": false,
-      "amount": "0"
-    }
-  },
-  {
-    "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
-    },
-    "author": {
-      "$oid": "692421070e46984ac310858a"
-    },
-    "date": "2024-08-16T17:55:24.000Z",
-    "sample": false,
-    "delivery": true,
-    "disposition": "Status Check",
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "need CC displays",
-    "payment": {
-      "cash": false,
-      "check": false,
-      "noPay": false,
-      "amount": "0"
-    }
-  },
-  {
-    "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
-    },
-    "author": {
-      "$oid": "692421070e46984ac310858a"
-    },
-    "date": "2024-08-16T09:08:29.000Z",
-    "sample": false,
-    "delivery": true,
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "see how our product is selling",
-    "payment": {
-      "cash": false,
-      "check": false,
-      "noPay": false,
-      "amount": "0"
-    }
-  },
-  {
-    "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
-    },
-    "author": {
-      "$oid": "692421070e46984ac310858a"
-    },
-    "date": "2024-08-14T12:26:28.000Z",
-    "sample": false,
-    "delivery": true,
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "see how product is selling",
-    "payment": {
-      "cash": false,
-      "check": false,
-      "noPay": false,
-      "amount": "0"
-    }
-  },
-  {
-    "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
-    },
-    "author": {
-      "$oid": "692421070e46984ac310858a"
-    },
-    "date": "2024-08-08T00:33:19.000Z",
-    "sample": false,
-    "delivery": true,
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "they have our product on consignment",
-    "payment": {
-      "cash": false,
-      "check": false,
-      "noPay": false,
-      "amount": "0"
-    }
-  },
-  {
-    "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
-    },
-    "author": {
-      "$oid": "692421070e46984ac310858a"
-    },
-    "date": "2024-04-16T11:13:31.000Z",
-    "sample": false,
-    "delivery": true,
+    "delivery": false,
     "disposition": "Phone with budtender",
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "Spoke with bt, Ross is not there today but says to give the Division store a call cause he is there",
+    "visitType": ", Payment-$0",
+    "content": "running low on CC but need to holla at Dillon closer to time of sampling Bliss",
     "payment": {
       "cash": false,
       "check": false,
@@ -212,15 +61,264 @@
   },
   {
     "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
+      "$oid": "692452b64af7d6b4bed7ca3b"
     },
     "author": {
       "$oid": "692421070e46984ac310858a"
     },
-    "date": "2024-04-03T02:01:01.000Z",
+    "date": "2024-10-07T14:57:45.000Z",
     "sample": false,
-    "delivery": true,
-    "visitType": "Delivery ,, Payment-$0",
+    "delivery": false,
+    "disposition": "Met with Budtenders",
+    "visitType": ", Payment-$0",
+    "content": "no less than 11 on any flavor,25 on chocolate , strawberry again, nothing negative to say, they actually like the CC but it's not a fast moving item.",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2024-09-19T14:12:07.000Z",
+    "sample": false,
+    "delivery": false,
+    "disposition": "Met with Budtenders",
+    "visitType": ", Payment-$0",
+    "content": "had about 18 left of each on average, closer to 30 on chocolate CC. this shop isn't really about hanging around and chatting with vendors so I thanked them and left",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2024-09-19T09:38:32.000Z",
+    "sample": false,
+    "delivery": false,
+    "visitType": ", Payment-$0",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2024-09-11T14:10:59.000Z",
+    "sample": false,
+    "delivery": false,
+    "disposition": "Met with Budtenders",
+    "visitType": ", Payment-$0",
+    "content": "just one Budtender here, she usually works at Sandy location so she was unsure about CC traction. I asked about back stock but she couldn't look it up. I wanted to counter with could she just physically check but decided to just leave it alone.",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2024-09-11T09:34:11.000Z",
+    "sample": false,
+    "delivery": false,
+    "visitType": ", Payment-$0",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2024-09-06T07:56:23.000Z",
+    "sample": false,
+    "delivery": false,
+    "visitType": ", Payment-$0",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2024-07-31T21:22:49.000Z",
+    "sample": false,
+    "delivery": false,
+    "visitType": ", Payment-$0",
+    "content": "see how the CC is selling over there.  We delivered 3 mixed case packs like 2 weeks ago to the sandy store.  this store should have gotten one of them.",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2024-07-31T17:24:47.000Z",
+    "sample": false,
+    "delivery": false,
+    "disposition": "Met with Budtenders",
+    "visitType": ", Payment-$0",
+    "content": "only Budtender there, didn't really have an opinion on if they're doing well or not. said it was kinda slow today",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2024-07-17T19:20:18.000Z",
+    "sample": false,
+    "delivery": false,
+    "visitType": ", Payment-$0",
+    "content": "they placed the order for cc from sandy store.  A good time to meet the crew and manager.  See if they have anything else there.",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2024-07-17T10:42:13.000Z",
+    "sample": false,
+    "delivery": false,
+    "disposition": "Met with Budtenders",
+    "visitType": ", Payment-$0",
+    "content": "thanked them for the order, left shelf talkers, mentioned Bliss",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2024-07-12T16:24:56.000Z",
+    "sample": false,
+    "delivery": false,
+    "visitType": ", Payment-$0",
+    "content": "100mg\nmule $6\nmagic Bev $17-18\n250mg mule $18-24\nCC $8\ngetting low on CC but not ready to reorder just yet. gave them HW &amp;CC shelf talker",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2024-07-12T15:40:58.000Z",
+    "sample": false,
+    "delivery": false,
+    "visitType": ", Payment-$0",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2024-04-19T12:43:59.000Z",
+    "sample": false,
+    "delivery": false,
+    "disposition": "Phone with manager",
+    "visitType": ", Payment-$0",
+    "content": "Spoke with bt, he said that Dillon is not here and typically works out of the Sandy store",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2024-04-10T02:01:01.000Z",
+    "sample": false,
+    "delivery": false,
+    "visitType": ", Payment-$0",
     "content": "Follow up if needed",
     "payment": {
       "cash": false,
@@ -231,17 +329,17 @@
   },
   {
     "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
+      "$oid": "692452b64af7d6b4bed7ca3b"
     },
     "author": {
       "$oid": "692421070e46984ac310858a"
     },
-    "date": "2024-03-05T14:25:28.000Z",
+    "date": "2024-03-13T15:39:19.000Z",
     "sample": false,
-    "delivery": true,
-    "disposition": "Phone with budtender",
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "Spoke with the bt that I spoke with yesterday, she let me know Ross is at the Division store today",
+    "delivery": false,
+    "disposition": "Other",
+    "visitType": ", Payment-$0",
+    "content": "hold off",
     "payment": {
       "cash": false,
       "check": false,
@@ -251,16 +349,17 @@
   },
   {
     "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
+      "$oid": "692452b64af7d6b4bed7ca3b"
     },
     "author": {
       "$oid": "692421070e46984ac310858a"
     },
-    "date": "2024-03-04T17:16:25.000Z",
+    "date": "2023-10-05T11:35:29.000Z",
     "sample": false,
-    "delivery": true,
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "Ross was busy helping a customer, I had her take down my name and number and told her to please have him give me a call back",
+    "delivery": false,
+    "disposition": "Talked with Budtenders",
+    "visitType": ", Payment-$0",
+    "content": "They are out of couple skus of CannaCrispy they said they are selling good, since the display holy water sales picked up. Emailed Dillon",
     "payment": {
       "cash": false,
       "check": false,
@@ -270,17 +369,77 @@
   },
   {
     "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
+      "$oid": "692452b64af7d6b4bed7ca3b"
     },
     "author": {
       "$oid": "692421070e46984ac310858a"
     },
-    "date": "2023-10-18T16:35:33.000Z",
+    "date": "2023-09-12T16:53:45.000Z",
+    "sample": false,
+    "delivery": false,
+    "disposition": "Met with Manager",
+    "visitType": ", Payment-$0",
+    "content": "Setting up hw day witj Daniel the manager daniel@deanzgreanz.com set up display",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2023-09-11T10:31:50.000Z",
+    "sample": false,
+    "delivery": false,
+    "disposition": "Exchanged emails",
+    "visitType": ", Payment-$0",
+    "content": "Called but didn't get Dillon set him about email",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2023-08-04T08:05:11.000Z",
+    "sample": false,
+    "delivery": false,
+    "disposition": "Met with Manager",
+    "visitType": ", Payment-$0",
+    "content": "Spoke with manager, they have displayed CannaCrispy really good they want customers to see they have them. Holy water takes a lot of explaining but it's moving. Told her about promo she said talk to Dillon I told her I already emailed him and going to his store later today",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2023-07-21T13:19:26.000Z",
     "sample": false,
     "delivery": true,
     "disposition": "Delivery",
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "Made a drop no payment.",
+    "visitType": ", Payment-$0",
+    "content": "Delivery made, menus and display for holy water drop",
     "payment": {
       "cash": false,
       "check": false,
@@ -290,17 +449,15 @@
   },
   {
     "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
+      "$oid": "692452b64af7d6b4bed7ca3b"
     },
     "author": {
       "$oid": "692421070e46984ac310858a"
     },
-    "date": "2023-10-06T12:06:18.000Z",
+    "date": "2023-06-19T08:43:57.000Z",
     "sample": false,
-    "delivery": true,
-    "disposition": "Talked on phone",
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "He is at Morrison because they are short handed, lot 9f people called in sick. So he won't get the breakdown till Monday when he is at division",
+    "delivery": false,
+    "visitType": ", Payment-$0",
     "payment": {
       "cash": false,
       "check": false,
@@ -310,17 +467,75 @@
   },
   {
     "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
+      "$oid": "692452b64af7d6b4bed7ca3b"
     },
     "author": {
       "$oid": "692421070e46984ac310858a"
     },
-    "date": "2023-09-29T14:38:05.000Z",
+    "date": "2023-05-16T15:46:41.000Z",
     "sample": false,
-    "delivery": true,
+    "delivery": false,
+    "visitType": ", Payment-$0",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2023-04-07T10:16:46.000Z",
+    "sample": false,
+    "delivery": false,
+    "disposition": "Exchanged emails",
+    "visitType": ", Payment-$0",
+    "content": "emailed Dillon for appointment and directed him to leaflink for 420 sales.",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2023-03-30T15:21:55.000Z",
+    "sample": false,
+    "delivery": false,
+    "disposition": "Other",
+    "visitType": ", Payment-$0",
+    "content": "emailed DIllon followed up about the show and meeting him there.",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2023-03-10T17:48:18.000Z",
+    "sample": false,
+    "delivery": false,
     "disposition": "Met with Manager",
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "I called him he was at Morrison today one of the manager daughter died so he is covering all his and other managers shifts, he will do ACH on Monday or Tuesday maybe cash he will call me Monday for 2500, he isn't ready for reorder but haply with sell thru. Dropped displayed. He can't order right now but will soon.",
+    "visitType": ", Payment-$0",
+    "content": "Waited for him for a bit. Once they let me in the office i started my pitch but the manager cut me off said that he has a meeting and he can't talk gave him quick run down and left info he said he will Spoke with Sarah, gave her a presentation of holy water and explained all our products, she was very curious about hw qbd would like samples told her about new line coming out next week.",
     "payment": {
       "cash": false,
       "check": false,
@@ -330,17 +545,93 @@
   },
   {
     "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
+      "$oid": "692452b64af7d6b4bed7ca3b"
     },
     "author": {
       "$oid": "692421070e46984ac310858a"
     },
-    "date": "2023-09-13T15:02:08.000Z",
+    "date": "2023-02-21T12:25:55.000Z",
     "sample": false,
-    "delivery": true,
+    "delivery": false,
+    "disposition": "Talked with Budtenders",
+    "visitType": ", Payment-$0",
+    "content": "They were very busy gave him quick run down on products he said he will pass it on to manager",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2023-02-20T11:25:40.000Z",
+    "sample": false,
+    "delivery": false,
+    "visitType": ", Payment-$0",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2023-02-03T08:56:18.000Z",
+    "sample": false,
+    "delivery": false,
+    "disposition": "Talked with Budtenders",
+    "visitType": ", Payment-$0",
+    "content": "Told bts about the product they said they heard about the holy water. I'm assuming from me when I was here last time but it means they are talking about it. They also liked the price of the gummy and game idea",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2023-01-18T10:57:50.000Z",
+    "sample": false,
+    "delivery": false,
+    "visitType": ", Payment-$0",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2023-01-17T11:45:41.000Z",
+    "sample": false,
+    "delivery": false,
     "disposition": "Met with Manager",
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "Set up.display for holy water, got q whole shelve for better Edibles. Educated the bt Ben he loves holy water. Walked in to Ross on way out. He will have 3k in 2-3 weeks and asked if we can do $6 for holy water also he wants 5150 lime up.for all stores as soon as its out he wants to pre order. He also wants AR report emailed to him and I have to send him ACH info again.",
+    "visitType": ", Payment-$0",
+    "content": "Met with Sam they are changing their POs system and doing a buy hold for two weeks getting rid of some products and brining new and said CannaCrispy will be one of them. Explained water and gummy, maybe worth sampling them while they on buying hold",
     "payment": {
       "cash": false,
       "check": false,
@@ -350,91 +641,17 @@
   },
   {
     "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
+      "$oid": "692452b64af7d6b4bed7ca3b"
     },
     "author": {
       "$oid": "692421070e46984ac310858a"
     },
-    "date": "2023-09-05T13:28:09.000Z",
+    "date": "2023-01-06T12:07:06.000Z",
     "sample": false,
-    "delivery": true,
-    "visitType": "Delivery ,, Payment-$0",
-    "payment": {
-      "cash": false,
-      "check": false,
-      "noPay": false,
-      "amount": "0"
-    }
-  },
-  {
-    "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
-    },
-    "author": {
-      "$oid": "692421070e46984ac310858a"
-    },
-    "date": "2023-06-02T07:53:23.000Z",
-    "sample": false,
-    "delivery": true,
-    "visitType": "Delivery ,, Payment-$0",
-    "payment": {
-      "cash": false,
-      "check": false,
-      "noPay": false,
-      "amount": "0"
-    }
-  },
-  {
-    "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
-    },
-    "author": {
-      "$oid": "692421070e46984ac310858a"
-    },
-    "date": "2023-05-08T18:45:50.000Z",
-    "sample": false,
-    "delivery": true,
-    "disposition": "Delivery",
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "Delivery made no payment, left display and holy water non medicated",
-    "payment": {
-      "cash": false,
-      "check": false,
-      "noPay": false,
-      "amount": "0"
-    }
-  },
-  {
-    "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
-    },
-    "author": {
-      "$oid": "692421070e46984ac310858a"
-    },
-    "date": "2023-04-04T11:27:04.000Z",
-    "sample": false,
-    "delivery": true,
-    "visitType": "Delivery ,, Payment-$0",
-    "payment": {
-      "cash": false,
-      "check": false,
-      "noPay": false,
-      "amount": "0"
-    }
-  },
-  {
-    "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
-    },
-    "author": {
-      "$oid": "692421070e46984ac310858a"
-    },
-    "date": "2023-03-30T10:39:51.000Z",
-    "sample": false,
-    "delivery": true,
+    "delivery": false,
     "disposition": "Met with Manager",
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "Delivered 2 boxes  of 5150, they sell about a box every two weeks. We are the cheapest gummy but they sell it for $8 each here. CannaCrispy sales slow down according to the manager but they like the 5150 sell thru. Talked up holy water and new line up. He said that's up to Ross.",
+    "visitType": ", Payment-$0",
+    "content": "Met with assistant, he likes our product but they finishing up last year inventory before they put up new items. Tied him about new products he likes the mystery idea",
     "payment": {
       "cash": false,
       "check": false,
@@ -444,17 +661,35 @@
   },
   {
     "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
+      "$oid": "692452b64af7d6b4bed7ca3b"
     },
     "author": {
       "$oid": "692421070e46984ac310858a"
     },
-    "date": "2023-01-26T11:57:26.000Z",
+    "date": "2023-01-04T10:44:05.000Z",
     "sample": false,
-    "delivery": true,
+    "delivery": false,
+    "visitType": ", Payment-$0",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2022-12-26T12:21:04.000Z",
+    "sample": false,
+    "delivery": false,
     "disposition": "Talked with Budtenders",
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "Talk to BT said things are very slow, told him about gummies and water he is looking forward to getting gummies next week and wish he could try the water",
+    "visitType": ", Payment-$0",
+    "content": "David the manager wasn't in but he will relay the message and leave menu on his desk",
     "payment": {
       "cash": false,
       "check": false,
@@ -464,17 +699,35 @@
   },
   {
     "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
+      "$oid": "692452b64af7d6b4bed7ca3b"
     },
     "author": {
       "$oid": "692421070e46984ac310858a"
     },
-    "date": "2023-01-09T02:00:00.000Z",
+    "date": "2022-12-22T09:58:27.000Z",
     "sample": false,
-    "delivery": true,
+    "delivery": false,
+    "visitType": ", Payment-$0",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2022-12-01T09:55:32.000Z",
+    "sample": false,
+    "delivery": false,
     "disposition": "Talked with Budtenders",
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "They are still slow things haven't picked up yet they are still good on inventory. Said to talk to Ross at division. (Going there today as well)",
+    "visitType": ", Payment-$0",
+    "content": "I'm wasn't in but they know CC and like it they will let IM know I stopped by",
     "payment": {
       "cash": false,
       "check": false,
@@ -484,17 +737,37 @@
   },
   {
     "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
+      "$oid": "692452b64af7d6b4bed7ca3b"
     },
     "author": {
       "$oid": "692421070e46984ac310858a"
     },
-    "date": "2022-12-20T11:18:59.000Z",
+    "date": "2022-09-21T17:11:33.000Z",
+    "sample": true,
+    "delivery": false,
+    "disposition": "Sample Drop",
+    "visitType": ", Payment-$0",
+    "content": "Met with manager he said people are asking for CC he needs it back on the shelves use to have us when we were 50mg",
+    "payment": {
+      "cash": false,
+      "check": false,
+      "noPay": false,
+      "amount": "0"
+    }
+  },
+  {
+    "entityId": {
+      "$oid": "692452b64af7d6b4bed7ca3b"
+    },
+    "author": {
+      "$oid": "692421070e46984ac310858a"
+    },
+    "date": "2022-08-08T20:04:49.000Z",
     "sample": false,
-    "delivery": true,
+    "delivery": false,
     "disposition": "Talked with Budtenders",
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "He said things are picking up a little but still slow, he is still good on product said to check with Division store",
+    "visitType": ", Payment-$0",
+    "content": "Intake manager not in, talk to BT they didn't know of CC told them about our product \nIM Dillon \nDillon@deanzgreens.com \n(I think I emailed him last week we stopped at a different location)",
     "payment": {
       "cash": false,
       "check": false,
@@ -504,95 +777,15 @@
   },
   {
     "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
+      "$oid": "692452b64af7d6b4bed7ca3b"
     },
     "author": {
       "$oid": "692421070e46984ac310858a"
     },
-    "date": "2022-11-30T11:30:57.000Z",
+    "date": "1969-12-31T18:00:00.000Z",
     "sample": false,
-    "delivery": true,
-    "disposition": "Met with Manager",
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "He said they are very slow and still good on inventory",
-    "payment": {
-      "cash": false,
-      "check": false,
-      "noPay": false,
-      "amount": "0"
-    }
-  },
-  {
-    "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
-    },
-    "author": {
-      "$oid": "692421070e46984ac310858a"
-    },
-    "date": "2022-11-03T02:01:01.000Z",
-    "sample": false,
-    "delivery": true,
-    "disposition": "Talked with Budtenders",
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "They  are having a walk way construction said they are very slow but still have stock",
-    "payment": {
-      "cash": false,
-      "check": false,
-      "noPay": false,
-      "amount": "0"
-    }
-  },
-  {
-    "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
-    },
-    "author": {
-      "$oid": "692421070e46984ac310858a"
-    },
-    "date": "2022-10-18T17:13:49.000Z",
-    "sample": false,
-    "delivery": true,
-    "visitType": "Delivery ,, Payment-$0",
-    "payment": {
-      "cash": false,
-      "check": false,
-      "noPay": false,
-      "amount": "0"
-    }
-  },
-  {
-    "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
-    },
-    "author": {
-      "$oid": "692421070e46984ac310858a"
-    },
-    "date": "2022-09-15T14:48:00.000Z",
-    "sample": false,
-    "delivery": true,
-    "disposition": "Talked with Budtenders",
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "They have a lot in stock only 3 flavors, told him about the 3 new. He said they moving ok, said to talk to intake on division, but I will go there when I pick up payment when u let me know",
-    "payment": {
-      "cash": false,
-      "check": false,
-      "noPay": false,
-      "amount": "0"
-    }
-  },
-  {
-    "entityId": {
-      "$oid": "6925ae582137cbce35905bd4"
-    },
-    "author": {
-      "$oid": "692421070e46984ac310858a"
-    },
-    "date": "2022-08-16T17:10:35.000Z",
-    "sample": false,
-    "delivery": true,
-    "disposition": "Talked with Budtenders",
-    "visitType": "Delivery ,, Payment-$0",
-    "content": "They carry CC, $9\nIM Lyna / Bccpdx@gmail.com\nRoss IM at other store",
+    "delivery": false,
+    "visitType": ", Payment-$0",
     "payment": {
       "cash": false,
       "check": false,
