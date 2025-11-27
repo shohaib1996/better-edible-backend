@@ -14,7 +14,7 @@ dotenv.config();
 const main = async () => {
   try {
     // Hardcoded values for store and author IDs, and HTML file name
-    const storeId = "692452b64af7d6b4bed7cab6"; // Use your desired store ObjectId
+    const storeId = "69287210d162ea739f3acd03"; // Use your desired store ObjectId
     const authorId = "692421070e46984ac310858a"; // Use your desired author ObjectId 692421070e46984ac310858a 6913775ecbb69fc48859edbf
     const htmlFileName = "Reps_Daily Contact Sheet.html";
 
