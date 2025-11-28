@@ -1,0 +1,152 @@
+[{
+  "_id": {
+    "$oid": "6913775ecbb69fc48859edbf"
+  },
+  "name": "Steven Cho",
+  "loginName": "Steven",
+  "passwordHash": "$2b$10$qoeQu4Q9QxGWbYNk9R6P8.V1uTJcUqBkt4O4BDy0mJoAp/aS6d99y",
+  "email": "steven@better-edibles.com",
+  "phone": "+18184154043",
+  "repType": "rep",
+  "territory": "chains (nectar, mr niceguys, chalice, groundworks)",
+  "assignedStores": [],
+  "checkin": false,
+  "status": "active",
+  "createdAt": {
+    "$date": "2025-11-11T17:50:22.047Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-24T09:47:30.787Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69241ed80e46984ac3108572"
+  },
+  "name": "Rep One",
+  "loginName": "rep",
+  "passwordHash": "$2b$10$f1z6.xTtjMhaCFKHu541E.DDXWi3p.I5ahh5yLk5sq0V5YY3VaVDm",
+  "email": "anish@better-edibles.com",
+  "phone": "+12012012018",
+  "repType": "rep",
+  "territory": "Rone Territory",
+  "assignedStores": [],
+  "checkin": false,
+  "status": "active",
+  "createdAt": {
+    "$date": "2025-11-24T09:01:12.901Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-24T09:47:55.121Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69241f560e46984ac310857a"
+  },
+  "name": "Sarah Hodges-Moore",
+  "loginName": "sarah",
+  "passwordHash": "$2b$10$9uHVuM9RlZlL0.xY9.6kLODTG1qhHK.de74Z.ULgWBs10SkVbNk3.",
+  "email": "sarah.kasper@better-edibles.com",
+  "phone": "+15038773873",
+  "repType": "rep",
+  "assignedStores": [],
+  "checkin": false,
+  "status": "active",
+  "createdAt": {
+    "$date": "2025-11-24T09:03:18.830Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-24T09:48:16.123Z"
+  },
+  "__v": 0,
+  "territory": "unassigned stores"
+},
+{
+  "_id": {
+    "$oid": "692420060e46984ac3108580"
+  },
+  "name": "House Account",
+  "loginName": "House",
+  "passwordHash": "$2b$10$z92VuWy7FcGZ/agA7nqM7eTwxYwHHeNg6yWNMn.f7vpBJMnnO151i",
+  "email": "jakoby.doke@better-edibles.com",
+  "phone": "+15039083171",
+  "repType": "rep",
+  "territory": "central oregon",
+  "assignedStores": [],
+  "checkin": false,
+  "status": "active",
+  "createdAt": {
+    "$date": "2025-11-24T09:06:14.648Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-24T09:48:30.028Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692420a60e46984ac3108584"
+  },
+  "name": "Cody Wright",
+  "loginName": "cody",
+  "passwordHash": "$2b$10$Nq7bHS4vfaP/nSC5wzJq9e.9LvK6p9GtzVU/BenqP0BwmsQgKdeHK",
+  "email": "sdf",
+  "phone": "w",
+  "repType": "rep",
+  "assignedStores": [],
+  "checkin": false,
+  "status": "active",
+  "createdAt": {
+    "$date": "2025-11-24T09:08:54.135Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-24T09:09:13.786Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692421070e46984ac310858a"
+  },
+  "name": "Dannie Condon",
+  "loginName": "danny",
+  "passwordHash": "$2b$10$gn3s8YRIge62jQxSoiZUPOZAklR7Tytw8LzVvN.0rdsXEu/ACQN7.",
+  "email": "dannie.condon@better-edibles.com",
+  "phone": "+15038774429",
+  "repType": "rep",
+  "territory": "primary oregon",
+  "assignedStores": [],
+  "checkin": false,
+  "status": "active",
+  "createdAt": {
+    "$date": "2025-11-24T09:10:31.495Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-24T09:48:48.058Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6924215c0e46984ac310858e"
+  },
+  "name": "desginer",
+  "loginName": "designer",
+  "passwordHash": "$2b$10$KlxHbFGK7vusqXAFP3NEa.eF5lcqA.i8mmmefScbbiiYKiGCiSR6K",
+  "email": "steven@better-edibles.com",
+  "phone": "12312",
+  "repType": "rep",
+  "assignedStores": [],
+  "checkin": false,
+  "status": "active",
+  "createdAt": {
+    "$date": "2025-11-24T09:11:56.075Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-24T09:11:56.075Z"
+  },
+  "__v": 0
+}]
