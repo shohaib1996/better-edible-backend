@@ -236,6 +236,7 @@ async function loginOldPortal() {
   const form = new URLSearchParams();
   form.set("username", username);
   form.set("password", password);
+  form.set("submit", "Login");
 
   await axios.post("/reps/index.php", form.toString(), {
     headers: {
@@ -313,8 +314,8 @@ function parseTopOrders(): TopOrderRow[] {
 
     // Pull i & s from the onclick attribute
     const onClickAttr = section
-      .find("h4 a[onClick*='order-details.php']")
-      .attr("onClick");
+      .find("h4 a[onclick*='order-details.php']")
+      .attr("onclick");
 
     let orderId = "";
     let storeParam = "";
@@ -364,8 +365,10 @@ async function fetchOrderDetails(orderId: string, storeParam: string) {
   const $ = cheerio.load(res.data);
 
   const items: OrderItem[] = [];
+  const rows = $("table.table.table-bordered tbody tr");
+  console.log(`    Found ${rows.length} rows for order ${orderId}`);
 
-  $("table.table.table-bordered tbody tr").each((i, row) => {
+  rows.each((i, row) => {
     const $row = $(row);
     const nameCell = $row.find("td.cart-product-name-info");
     const qtyCell = $row.find("td.cart-product-quantity");
