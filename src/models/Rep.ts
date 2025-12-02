@@ -1,8 +1,8 @@
 // src/models/Rep.ts
-import { Schema, model, Document, Types } from 'mongoose';
+import { Schema, model, Document, Types } from "mongoose";
 
-export type RepType = 'rep' | 'delivery' | 'both';
-export type RepStatus = 'active' | 'inactive' | 'suspended';
+export type RepType = "rep" | "delivery" | "both";
+export type RepStatus = "active" | "inactive" | "suspended";
 
 export interface IRep extends Document {
   name: string;
@@ -13,6 +13,7 @@ export interface IRep extends Document {
   // repClass?: string;
   repType: RepType;
   territory?: string;
+  pin: string;
   assignedStores: Types.ObjectId[];
   checkin: boolean;
   status: RepStatus;
@@ -25,24 +26,25 @@ const RepSchema = new Schema<IRep>(
     name: { type: String, required: true },
     loginName: { type: String, unique: true, required: true },
     passwordHash: { type: String, required: true },
+    pin: { type: String, required: true, default: "1212" },
     email: { type: String, sparse: true },
     phone: String,
     // repClass: String,
     repType: {
       type: String,
-      enum: ['rep', 'delivery', 'both'],
-      default: 'rep',
+      enum: ["rep", "delivery", "both"],
+      default: "rep",
     },
     territory: { type: String, trim: true }, // 👈 changed
-    assignedStores: [{ type: Schema.Types.ObjectId, ref: 'Store' }],
+    assignedStores: [{ type: Schema.Types.ObjectId, ref: "Store" }],
     checkin: { type: Boolean, default: false },
     status: {
       type: String,
-      enum: ['active', 'inactive', 'suspended'],
-      default: 'active',
+      enum: ["active", "inactive", "suspended"],
+      default: "active",
     },
   },
   { timestamps: true }
 );
 
-export const Rep = model<IRep>('Rep', RepSchema);
+export const Rep = model<IRep>("Rep", RepSchema);

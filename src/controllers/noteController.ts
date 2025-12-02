@@ -53,21 +53,43 @@ export const createNote = async (req: Request, res: Response) => {
 // 🟨 Get all notes
 export const getAllNotes = async (req: Request, res: Response) => {
   try {
-    const { entityId, page = 1, limit = 20 } = req.query;
+    const { entityId, repId, date, page = 1, limit = 20 } = req.query;
 
-    if (!entityId) {
-      return res
-        .status(400)
-        .json({ message: "entityId (store id) is required" });
+    const query: any = {};
+
+    if (entityId) {
+      query.entityId = entityId;
+    }
+
+    if (repId) {
+      query.author = repId;
+    }
+
+    if (date) {
+      // Create start and end of the specific date
+      const queryDate = new Date(date as string);
+      const startOfDay = new Date(queryDate.setHours(0, 0, 0, 0));
+      const endOfDay = new Date(queryDate.setHours(23, 59, 59, 999));
+
+      query.date = {
+        $gte: startOfDay,
+        $lte: endOfDay,
+      };
+    }
+
+    // Ensure at least one filter is provided to prevent fetching all notes blindly
+    if (Object.keys(query).length === 0) {
+      return res.status(400).json({
+        message: "At least one filter (entityId, repId, or date) is required",
+      });
     }
 
     const pageNum = Math.max(+page || 1, 1);
     const limitNum = Math.min(Math.max(+limit || 20, 1), 100);
 
-    const query = { entityId };
-
     const notes = await Note.find(query)
       .populate("author", "name role email")
+      .populate("entityId", "name address") // Optional: populate store info if listing across stores
       .sort({ date: -1 })
       .skip((pageNum - 1) * limitNum)
       .limit(limitNum);

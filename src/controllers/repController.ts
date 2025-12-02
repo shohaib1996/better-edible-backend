@@ -1,37 +1,39 @@
 // src/controllers/repController.ts
-import { Request, Response } from 'express';
-import { Rep } from '../models/Rep';
-import { TimeLog } from '../models/TimeLog';
-import bcrypt from 'bcryptjs';
+import { Request, Response } from "express";
+import { Rep } from "../models/Rep";
+import { TimeLog } from "../models/TimeLog";
+import bcrypt from "bcryptjs";
 
 // GET all reps
 export const getAllReps = async (req: Request, res: Response) => {
   try {
-    const reps = await Rep.find().populate('territory assignedStores');
+    const reps = await Rep.find().populate("territory assignedStores");
 
     // 1. Get the total count
     const totalReps = reps.length;
 
     // 2. Send back a structured JSON response
     res.json({
-      message: 'All reps retrieved successfully.',
+      message: "All reps retrieved successfully.",
       totalReps: totalReps,
       data: reps, // Use a key like 'data' or 'reps' for the actual list
     });
   } catch (error) {
     // Keep the error handling for robustness
-    res.status(500).json({ message: 'Error fetching reps', error });
+    res.status(500).json({ message: "Error fetching reps", error });
   }
 };
 
 // GET one rep
 export const getRepById = async (req: Request, res: Response) => {
   try {
-    const rep = await Rep.findById(req.params.id).populate('territory assignedStores');
-    if (!rep) return res.status(404).json({ message: 'Rep not found' });
+    const rep = await Rep.findById(req.params.id).populate(
+      "territory assignedStores"
+    );
+    if (!rep) return res.status(404).json({ message: "Rep not found" });
     res.json(rep);
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching rep', error });
+    res.status(500).json({ message: "Error fetching rep", error });
   }
 };
 
@@ -44,7 +46,7 @@ export const getRepById = async (req: Request, res: Response) => {
 //     if (existing) return res.status(400).json({ message: 'Login name already taken' });
 
 //     const hashedPassword = await bcrypt.hash(password, 10);
-//     const rep = await Rep.create({ 
+//     const rep = await Rep.create({
 //       name,
 //       loginName,
 //       passwordHash: hashedPassword,
@@ -61,11 +63,13 @@ export const getRepById = async (req: Request, res: Response) => {
 // UPDATE rep
 export const updateRep = async (req: Request, res: Response) => {
   try {
-    const rep = await Rep.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!rep) return res.status(404).json({ message: 'Rep not found' });
+    const rep = await Rep.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    if (!rep) return res.status(404).json({ message: "Rep not found" });
     res.json(rep);
   } catch (error) {
-    res.status(500).json({ message: 'Error updating rep', error });
+    res.status(500).json({ message: "Error updating rep", error });
   }
 };
 
@@ -73,10 +77,10 @@ export const updateRep = async (req: Request, res: Response) => {
 export const deleteRep = async (req: Request, res: Response) => {
   try {
     const rep = await Rep.findByIdAndDelete(req.params.id);
-    if (!rep) return res.status(404).json({ message: 'Rep not found' });
-    res.json({ message: 'Rep deleted successfully' });
+    if (!rep) return res.status(404).json({ message: "Rep not found" });
+    res.json({ message: "Rep deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: 'Error deleting rep', error });
+    res.status(500).json({ message: "Error deleting rep", error });
   }
 };
 
@@ -84,22 +88,21 @@ export const deleteRep = async (req: Request, res: Response) => {
 // ✅ SECURE CHECK-IN
 export const checkInRep = async (req: Request, res: Response) => {
   try {
-    const { loginName, password } = req.body; // ⬅️ loginName & password in body
+    const { loginName, pin } = req.body; // ⬅️ loginName & pin in body
 
     // 1. Find rep by loginName
     const rep = await Rep.findOne({ loginName });
     if (!rep) {
-      return res.status(404).json({ message: 'Rep not found' });
+      return res.status(404).json({ message: "Rep not found" });
     }
 
-    // 2. Verify password
-    const validPassword = await bcrypt.compare(password, rep.passwordHash);
-    if (!validPassword) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+    // 2. Verify PIN
+    if (rep.pin !== pin) {
+      return res.status(401).json({ message: "Invalid PIN" });
     }
 
     // 3. Check rep status
-    if (rep.status === 'inactive' || rep.status === 'suspended') {
+    if (rep.status === "inactive" || rep.status === "suspended") {
       return res.status(403).json({
         message: `Check-in denied. You are ${rep.status} from the system.`,
       });
@@ -107,7 +110,7 @@ export const checkInRep = async (req: Request, res: Response) => {
 
     // 4. Already checked in?
     if (rep.checkin) {
-      return res.status(400).json({ message: 'You are already checked in.' });
+      return res.status(400).json({ message: "You are already checked in." });
     }
 
     // 5. Update checkin flag and create time log
@@ -116,7 +119,7 @@ export const checkInRep = async (req: Request, res: Response) => {
     await TimeLog.create({ rep: rep._id, checkinTime: new Date() });
 
     res.json({
-      message: 'Checked in successfully',
+      message: "Checked in successfully",
       rep: {
         id: rep._id,
         name: rep.name,
@@ -126,29 +129,28 @@ export const checkInRep = async (req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    res.status(500).json({ message: 'Error during check-in', error });
+    res.status(500).json({ message: "Error during check-in", error });
   }
 };
 
 // ✅ SECURE CHECK-OUT
 export const checkOutRep = async (req: Request, res: Response) => {
   try {
-    const { loginName, password } = req.body;
+    const { loginName, pin } = req.body;
 
     // 1. Find rep by loginName
     const rep = await Rep.findOne({ loginName });
     if (!rep) {
-      return res.status(404).json({ message: 'Rep not found' });
+      return res.status(404).json({ message: "Rep not found" });
     }
 
-    // 2. Verify password
-    const validPassword = await bcrypt.compare(password, rep.passwordHash);
-    if (!validPassword) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+    // 2. Verify PIN
+    if (rep.pin !== pin) {
+      return res.status(401).json({ message: "Invalid PIN" });
     }
 
     // 3. Check rep status
-    if (rep.status === 'inactive' || rep.status === 'suspended') {
+    if (rep.status === "inactive" || rep.status === "suspended") {
       return res.status(403).json({
         message: `Check-out denied. You are ${rep.status} from the system.`,
       });
@@ -156,7 +158,7 @@ export const checkOutRep = async (req: Request, res: Response) => {
 
     // 4. Already checked out?
     if (!rep.checkin) {
-      return res.status(400).json({ message: 'You are already checked out.' });
+      return res.status(400).json({ message: "You are already checked out." });
     }
 
     // 5. Update checkin flag and time log
@@ -169,7 +171,7 @@ export const checkOutRep = async (req: Request, res: Response) => {
     }
 
     res.json({
-      message: 'Checked out successfully',
+      message: "Checked out successfully",
       rep: {
         id: rep._id,
         name: rep.name,
@@ -178,6 +180,51 @@ export const checkOutRep = async (req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    res.status(500).json({ message: 'Error during check-out', error });
+    res.status(500).json({ message: "Error during check-out", error });
+  }
+};
+
+// RESET Password
+export const resetPassword = async (req: Request, res: Response) => {
+  try {
+    const { password } = req.body;
+    if (!password) {
+      return res.status(400).json({ message: "New password is required" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const rep = await Rep.findByIdAndUpdate(
+      req.params.id,
+      { passwordHash: hashedPassword },
+      { new: true }
+    );
+
+    if (!rep) return res.status(404).json({ message: "Rep not found" });
+
+    res.json({ message: "Password reset successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error resetting password", error });
+  }
+};
+
+// RESET PIN
+export const resetPin = async (req: Request, res: Response) => {
+  try {
+    const { pin } = req.body;
+    if (!pin) {
+      return res.status(400).json({ message: "New PIN is required" });
+    }
+
+    const rep = await Rep.findByIdAndUpdate(
+      req.params.id,
+      { pin: pin },
+      { new: true }
+    );
+
+    if (!rep) return res.status(404).json({ message: "Rep not found" });
+
+    res.json({ message: "PIN reset successfully", pin: rep.pin });
+  } catch (error) {
+    res.status(500).json({ message: "Error resetting PIN", error });
   }
 };

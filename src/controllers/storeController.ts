@@ -85,12 +85,22 @@ export const getStoreById = async (req: Request, res: Response) => {
 // Create store
 export const createStore = async (req: Request, res: Response) => {
   try {
-    const { name, address, city, rep } = req.body;
+    const { name, address, city, rep, state, zipCode, terms, groups } =
+      req.body;
     const existing = await Store.findOne({ name });
     if (existing)
       return res.status(400).json({ message: "Store already exists" });
 
-    const store = await Store.create({ name, address, city, rep });
+    const store = await Store.create({
+      name,
+      address,
+      city,
+      rep,
+      state,
+      zipCode,
+      terms,
+      groups,
+    });
     res.status(201).json(store);
   } catch (error) {
     res.status(500).json({ message: "Error creating store", error });

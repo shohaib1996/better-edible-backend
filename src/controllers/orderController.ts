@@ -228,14 +228,11 @@ export const getAllOrders = async (req: Request, res: Response) => {
     if (repId && mongoose.Types.ObjectId.isValid(String(repId)))
       matchStage.rep = new mongoose.Types.ObjectId(String(repId));
 
+    // ✅ Filter by deliveryDate (now stored as string in YYYY-MM-DD format)
     if (startDate && endDate) {
-      const start = new Date(startDate as string);
-      const end = new Date(endDate as string);
-      end.setHours(23, 59, 59, 999); // Set end date to end of day
-
       matchStage.deliveryDate = {
-        $gte: start,
-        $lte: end,
+        $gte: String(startDate),
+        $lte: String(endDate),
       };
     }
 

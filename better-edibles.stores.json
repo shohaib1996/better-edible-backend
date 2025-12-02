@@ -14448,7 +14448,39 @@
     "$date": "2025-11-28T12:55:28.600Z"
   },
   "updatedAt": {
-    "$date": "2025-11-28T13:02:07.457Z"
+    "$date": "2025-12-02T03:23:32.239Z"
   },
-  "__v": 0
+  "__v": 0,
+  "state": "Oregon"
+},
+{
+  "_id": {
+    "$oid": "692de723138e05c84362b439"
+  },
+  "name": "Good Times",
+  "address": "8124 SE 6th Ave",
+  "city": "Portland",
+  "rep": {
+    "$oid": "692421070e46984ac310858a"
+  },
+  "contacts": [
+    {
+      "$oid": "692dffe7b0df6e900eb1ba12"
+    }
+  ],
+  "blocked": false,
+  "notesCount": 0,
+  "totalPurchase": 0,
+  "totalPaid": 0,
+  "dueAmount": 0,
+  "paymentStatus": null,
+  "createdAt": {
+    "$date": "2025-12-01T19:06:11.465Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-02T03:21:44.105Z"
+  },
+  "__v": 0,
+  "terms": "COD",
+  "state": "Oregon"
 }]
