@@ -132,7 +132,8 @@ for (const store of stores) {
 // product lookup helper
 function findProduct(
   rawName: string,
-  unitLabelRaw: string | null
+  unitLabelRaw: string | null,
+  unitPrice?: number
 ): ProductDoc | null {
   // Example rawName: "Original - Hybrid", "Fruity - Sativa", "SPLIT QUADS"
   const cleaned = rawName.replace(/\u00a0/g, " ").trim();
@@ -140,10 +141,35 @@ function findProduct(
   const baseName = left || cleaned;
   const baseKey = normalize(baseName);
 
-  // If unitLabelRaw isn’t provided, try from right side
+  // If unitLabelRaw isn't provided, try from right side
   const unitCandidate = unitLabelRaw || right || "";
   const unit = normalize(unitCandidate);
   const isStrain = unit === "hybrid" || unit === "indica" || unit === "sativa";
+
+  // Special handling for BLISS products
+  // Old: "BLISS - Pineapple" → New: productLine="BLISS Cannabis Syrup", subProductLine="Pineapple"
+  if (baseKey === "bliss" && unit) {
+    const blissProducts = products.filter(
+      (p) => p.productLine && normalize(p.productLine).includes("bliss")
+    );
+    const match = blissProducts.find(
+      (p) => p.subProductLine && normalize(p.subProductLine) === unit
+    );
+    if (match) return match;
+  }
+
+  // Special handling for Fifty-One Fifty products
+  // Old: "Fifty - One Fifty" → New: productLine="Fifty-One Fifty", itemName varies
+  // Match by price since old system doesn't capture specific item name
+  if (baseKey === "fifty" && unitPrice) {
+    const fiftyProducts = products.filter(
+      (p) => p.productLine && normalize(p.productLine).includes("fifty")
+    );
+    const match = fiftyProducts.find(
+      (p) => p.price === unitPrice || p.discountPrice === unitPrice
+    );
+    if (match) return match;
+  }
 
   // Strict match by subProductLine or itemName
   let candidates = products.filter(
@@ -250,7 +276,7 @@ async function loginOldPortal() {
 }
 
 // ─────────────────────────────
-// Parse orders.html (top list)
+// Parse orders-past-1000.html (top list)
 // ─────────────────────────────
 
 interface TopOrderRow {
@@ -266,8 +292,8 @@ interface TopOrderRow {
 }
 
 function parseTopOrders(): TopOrderRow[] {
-  const htmlPath = path.join(rootDir, "orders.html");
-  console.log("📄 Reading orders.html from:", htmlPath);
+  const htmlPath = path.join(rootDir, "orders-past-1000.html");
+  console.log("📄 Reading orders-past-1000.html from:", htmlPath);
   const html = fs.readFileSync(htmlPath, "utf8");
   const $ = cheerio.load(html);
 
@@ -342,7 +368,9 @@ function parseTopOrders(): TopOrderRow[] {
     });
   });
 
-  console.log(`✅ Parsed ${rows.length} top-level orders from orders.html`);
+  console.log(
+    `✅ Parsed ${rows.length} top-level orders from orders-past-1000.html`
+  );
   return rows;
 }
 
@@ -388,7 +416,7 @@ async function fetchOrderDetails(orderId: string, storeParam: string) {
     const baseName = left || cleaned;
     const unitLabel = right ? right.toLowerCase() : null;
 
-    const productDoc = findProduct(baseName, unitLabel);
+    const productDoc = findProduct(baseName, unitLabel, unitPrice);
     if (!productDoc) {
       console.warn(`    ⚠️  No product match for line: "${rawName}"`);
     }
@@ -478,7 +506,7 @@ async function main() {
       migrated.push(migratedOrder);
     }
 
-    const outPath = path.join(rootDir, "orders.migrated.json");
+    const outPath = path.join(rootDir, "orders.migrated2.json");
     fs.writeFileSync(outPath, JSON.stringify(migrated, null, 2));
     console.log(
       `\n✅ Done. Wrote ${migrated.length} orders with items to ${outPath}`

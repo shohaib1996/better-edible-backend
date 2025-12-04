@@ -1,0 +1,1171 @@
+[{
+  "_id": {
+    "$oid": "692dea9c71a397523ade41b3"
+  },
+  "store": {
+    "$oid": "692de723138e05c84362b439"
+  },
+  "rep": {
+    "$oid": "692421070e46984ac310858a"
+  },
+  "items": [
+    {
+      "product": {
+        "$oid": "690721b3faed4017da517d09"
+      },
+      "name": "Original",
+      "unitLabel": "hybrid",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721d3faed4017da517d0c"
+      },
+      "name": "Fruity",
+      "unitLabel": "sativa",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721e5faed4017da517d0f"
+      },
+      "name": "Chocolate",
+      "unitLabel": "hybrid",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721f3faed4017da517d12"
+      },
+      "name": "Cookies & Cream",
+      "unitLabel": "sativa",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "69072200faed4017da517d15"
+      },
+      "name": "Peanut Butter & Chocolate",
+      "unitLabel": "indica",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "6907220cfaed4017da517d18"
+      },
+      "name": "Strawberry",
+      "unitLabel": "hybrid",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    }
+  ],
+  "subtotal": 375,
+  "tax": 0,
+  "discount": 0,
+  "total": 375,
+  "status": "shipped",
+  "note": "",
+  "discountType": "flat",
+  "discountValue": 0,
+  "createdAt": {
+    "$date": "2025-12-01T19:21:00.391Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T21:41:19.471Z"
+  },
+  "orderNumber": 39,
+  "__v": 0,
+  "deliveryDate": "2025-12-02"
+},
+{
+  "_id": {
+    "$oid": "692deb5e71a397523ade4200"
+  },
+  "store": {
+    "$oid": "692452b64af7d6b4bed7ca31"
+  },
+  "rep": {
+    "$oid": "692421070e46984ac310858a"
+  },
+  "items": [
+    {
+      "product": {
+        "$oid": "690721f3faed4017da517d12"
+      },
+      "name": "Cookies & Cream",
+      "unitLabel": "indica",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721d3faed4017da517d0c"
+      },
+      "name": "Fruity",
+      "unitLabel": "sativa",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "6907220cfaed4017da517d18"
+      },
+      "name": "Strawberry",
+      "unitLabel": "hybrid",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721b3faed4017da517d09"
+      },
+      "name": "Original",
+      "unitLabel": "hybrid",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    }
+  ],
+  "subtotal": 250,
+  "tax": 0,
+  "discount": 0,
+  "total": 250,
+  "status": "shipped",
+  "note": "",
+  "discountType": "flat",
+  "discountValue": 0,
+  "createdAt": {
+    "$date": "2025-12-01T19:24:14.278Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T21:41:21.899Z"
+  },
+  "orderNumber": 41,
+  "__v": 0,
+  "deliveryDate": "2025-12-03"
+},
+{
+  "_id": {
+    "$oid": "692deb9271a397523ade421f"
+  },
+  "store": {
+    "$oid": "692712aa2a5c90a062b7cede"
+  },
+  "rep": {
+    "$oid": "692421070e46984ac310858a"
+  },
+  "items": [
+    {
+      "product": {
+        "$oid": "690721f3faed4017da517d12"
+      },
+      "name": "Cookies & Cream",
+      "unitLabel": "hybrid",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 3,
+      "lineTotal": 187.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721d3faed4017da517d0c"
+      },
+      "name": "Fruity",
+      "unitLabel": "sativa",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 2,
+      "lineTotal": 125,
+      "appliedDiscount": false
+    }
+  ],
+  "subtotal": 312.5,
+  "tax": 0,
+  "discount": 0,
+  "total": 312.5,
+  "status": "manifested",
+  "note": "",
+  "discountType": "flat",
+  "discountValue": 0,
+  "createdAt": {
+    "$date": "2025-12-01T19:25:06.092Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T21:41:27.383Z"
+  },
+  "orderNumber": 42,
+  "__v": 0,
+  "deliveryDate": "2025-12-04"
+},
+{
+  "_id": {
+    "$oid": "692debdb71a397523ade4252"
+  },
+  "store": {
+    "$oid": "692452b64af7d6b4bed7ca72"
+  },
+  "rep": {
+    "$oid": "692421070e46984ac310858a"
+  },
+  "items": [
+    {
+      "product": {
+        "$oid": "690721d3faed4017da517d0c"
+      },
+      "name": "Fruity",
+      "unitLabel": "sativa",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "69072200faed4017da517d15"
+      },
+      "name": "Peanut Butter & Chocolate",
+      "unitLabel": "indica",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    }
+  ],
+  "subtotal": 125,
+  "tax": 0,
+  "discount": 0,
+  "total": 125,
+  "status": "shipped",
+  "note": "",
+  "discountType": "flat",
+  "discountValue": 0,
+  "createdAt": {
+    "$date": "2025-12-01T19:26:19.879Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T21:41:13.360Z"
+  },
+  "orderNumber": 43,
+  "__v": 0,
+  "deliveryDate": "2025-12-03"
+},
+{
+  "_id": {
+    "$oid": "692dec2171a397523ade428b"
+  },
+  "store": {
+    "$oid": "692452b64af7d6b4bed7ca75"
+  },
+  "rep": {
+    "$oid": "6913775ecbb69fc48859edbf"
+  },
+  "items": [
+    {
+      "product": {
+        "$oid": "69072200faed4017da517d15"
+      },
+      "name": "Peanut Butter & Chocolate",
+      "unitLabel": "indica",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "6907220cfaed4017da517d18"
+      },
+      "name": "Strawberry",
+      "unitLabel": "sativa",
+      "unitPrice": 62.5,
+      "discountPrice": 62.5,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    }
+  ],
+  "subtotal": 125,
+  "tax": 0,
+  "discount": 0,
+  "total": 125,
+  "status": "shipped",
+  "note": "",
+  "discountType": "flat",
+  "discountValue": 0,
+  "createdAt": {
+    "$date": "2025-12-01T19:27:29.411Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T21:41:10.745Z"
+  },
+  "orderNumber": 44,
+  "__v": 0,
+  "deliveryDate": "2025-12-03"
+},
+{
+  "_id": {
+    "$oid": "692df8d78f88f997d508b3c4"
+  },
+  "store": {
+    "$oid": "692452b64af7d6b4bed7ca7f"
+  },
+  "rep": {
+    "$oid": "692421070e46984ac310858a"
+  },
+  "items": [
+    {
+      "product": {
+        "$oid": "690723b8c81f6a37e30a5c27"
+      },
+      "name": "100mg THC",
+      "unitLabel": null,
+      "unitPrice": 125,
+      "discountPrice": 105,
+      "qty": 2,
+      "lineTotal": 210,
+      "appliedDiscount": true
+    },
+    {
+      "product": {
+        "$oid": "690723b8c81f6a37e30a5c23"
+      },
+      "name": "100mg THC EXTREME SOUR",
+      "unitLabel": null,
+      "unitPrice": 125,
+      "discountPrice": 105,
+      "qty": 2,
+      "lineTotal": 250,
+      "appliedDiscount": false
+    }
+  ],
+  "subtotal": 460,
+  "tax": 0,
+  "discount": 40,
+  "total": 420,
+  "status": "shipped",
+  "note": "",
+  "discountType": "flat",
+  "discountValue": 40,
+  "createdAt": {
+    "$date": "2025-12-01T20:21:43.034Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-01T21:41:07.484Z"
+  },
+  "orderNumber": 45,
+  "__v": 0,
+  "deliveryDate": "2025-12-02"
+},
+{
+  "_id": {
+    "$oid": "692e247abc07644a4c185695"
+  },
+  "store": {
+    "$oid": "692452b64af7d6b4bed7cbd0"
+  },
+  "rep": {
+    "$oid": "692421070e46984ac310858a"
+  },
+  "items": [
+    {
+      "product": {
+        "$oid": "690721d3faed4017da517d0c"
+      },
+      "name": "Fruity",
+      "unitLabel": "hybrid",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721e5faed4017da517d0f"
+      },
+      "name": "Chocolate",
+      "unitLabel": "indica",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "69072200faed4017da517d15"
+      },
+      "name": "Peanut Butter & Chocolate",
+      "unitLabel": "indica",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721f3faed4017da517d12"
+      },
+      "name": "Cookies & Cream",
+      "unitLabel": "sativa",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    }
+  ],
+  "subtotal": 250,
+  "tax": 0,
+  "discount": 0,
+  "total": 250,
+  "status": "accepted",
+  "note": "said to \"feel free to bring any goodies or merch\" because the employees are fans. Might be a good idea to sample 5150 and Bliss",
+  "discountType": "flat",
+  "discountValue": 0,
+  "createdAt": {
+    "$date": "2025-12-01T23:27:54.009Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T04:43:47.496Z"
+  },
+  "orderNumber": 46,
+  "__v": 0,
+  "deliveryDate": "2025-12-02"
+},
+{
+  "_id": {
+    "$oid": "692f2c3890f8c16a174bf667"
+  },
+  "store": {
+    "$oid": "692721940f04707fa1c1dc1a"
+  },
+  "rep": {
+    "$oid": "692421070e46984ac310858a"
+  },
+  "items": [
+    {
+      "product": {
+        "$oid": "6907220cfaed4017da517d18"
+      },
+      "name": "Strawberry",
+      "unitLabel": "sativa",
+      "unitPrice": 62.5,
+      "discountPrice": 62.5,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "69072200faed4017da517d15"
+      },
+      "name": "Peanut Butter & Chocolate",
+      "unitLabel": "indica",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721f3faed4017da517d12"
+      },
+      "name": "Cookies & Cream",
+      "unitLabel": "hybrid",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721e5faed4017da517d0f"
+      },
+      "name": "Chocolate",
+      "unitLabel": "indica",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721d3faed4017da517d0c"
+      },
+      "name": "Fruity",
+      "unitLabel": "sativa",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721b3faed4017da517d09"
+      },
+      "name": "Original",
+      "unitLabel": "hybrid",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690723b8c81f6a37e30a5c27"
+      },
+      "name": "100mg THC",
+      "unitLabel": null,
+      "unitPrice": 125,
+      "discountPrice": 105,
+      "qty": 3,
+      "lineTotal": 315,
+      "appliedDiscount": true
+    }
+  ],
+  "subtotal": 690,
+  "tax": 0,
+  "discount": 0,
+  "total": 690,
+  "status": "shipped",
+  "note": "",
+  "discountType": "flat",
+  "discountValue": 0,
+  "createdAt": {
+    "$date": "2025-12-02T18:13:12.113Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T03:03:17.870Z"
+  },
+  "orderNumber": 47,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f2ca93d93930196895af8"
+  },
+  "store": {
+    "$oid": "692452b64af7d6b4bed7ca71"
+  },
+  "rep": {
+    "$oid": "692421070e46984ac310858a"
+  },
+  "items": [
+    {
+      "product": {
+        "$oid": "69072200faed4017da517d15"
+      },
+      "name": "Peanut Butter & Chocolate",
+      "unitLabel": "indica",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    }
+  ],
+  "subtotal": 62.5,
+  "tax": 0,
+  "discount": 0,
+  "total": 62.5,
+  "status": "accepted",
+  "note": "",
+  "discountType": "flat",
+  "discountValue": 0,
+  "createdAt": {
+    "$date": "2025-12-02T18:15:05.751Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T04:43:44.422Z"
+  },
+  "orderNumber": 48,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f3291827d7a0e1e9d5505"
+  },
+  "store": {
+    "$oid": "692452b64af7d6b4bed7cc4a"
+  },
+  "rep": {
+    "$oid": "692421070e46984ac310858a"
+  },
+  "items": [
+    {
+      "product": {
+        "$oid": "690721d3faed4017da517d0c"
+      },
+      "name": "Fruity",
+      "unitLabel": "sativa",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "69072200faed4017da517d15"
+      },
+      "name": "Peanut Butter & Chocolate",
+      "unitLabel": "indica",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "6907220cfaed4017da517d18"
+      },
+      "name": "Strawberry",
+      "unitLabel": "sativa",
+      "unitPrice": 62.5,
+      "discountPrice": 62.5,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690723b8c81f6a37e30a5c27"
+      },
+      "name": "100mg THC",
+      "unitLabel": null,
+      "unitPrice": 125,
+      "discountPrice": 105,
+      "qty": 1,
+      "lineTotal": 125,
+      "appliedDiscount": false
+    }
+  ],
+  "subtotal": 312.5,
+  "tax": 0,
+  "discount": 0,
+  "total": 312.5,
+  "status": "shipped",
+  "note": "",
+  "discountType": "flat",
+  "discountValue": 0,
+  "createdAt": {
+    "$date": "2025-12-02T18:40:17.804Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T03:03:13.906Z"
+  },
+  "orderNumber": 49,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f32b2827d7a0e1e9d5527"
+  },
+  "store": {
+    "$oid": "692452b64af7d6b4bed7cb23"
+  },
+  "rep": {
+    "$oid": "692421070e46984ac310858a"
+  },
+  "items": [
+    {
+      "product": {
+        "$oid": "690721b3faed4017da517d09"
+      },
+      "name": "Original",
+      "unitLabel": "indica",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721b3faed4017da517d09"
+      },
+      "name": "Original",
+      "unitLabel": "sativa",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721d3faed4017da517d0c"
+      },
+      "name": "Fruity",
+      "unitLabel": "hybrid",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    }
+  ],
+  "subtotal": 187.5,
+  "tax": 0,
+  "discount": 0,
+  "total": 187.5,
+  "status": "accepted",
+  "note": "",
+  "discountType": "flat",
+  "discountValue": 0,
+  "createdAt": {
+    "$date": "2025-12-02T18:40:50.795Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T04:43:41.297Z"
+  },
+  "orderNumber": 50,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f32d9827d7a0e1e9d5541"
+  },
+  "store": {
+    "$oid": "692452b64af7d6b4bed7ca03"
+  },
+  "rep": {
+    "$oid": "692421070e46984ac310858a"
+  },
+  "items": [
+    {
+      "product": {
+        "$oid": "690721d3faed4017da517d0c"
+      },
+      "name": "Fruity",
+      "unitLabel": "hybrid",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "69072435c81f6a37e30a5c29"
+      },
+      "name": "Mango",
+      "unitLabel": "300Mg",
+      "unitPrice": 82.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 82.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "69072435c81f6a37e30a5c2a"
+      },
+      "name": "Pineapple",
+      "unitLabel": "300Mg",
+      "unitPrice": 82.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 82.5,
+      "appliedDiscount": false
+    }
+  ],
+  "subtotal": 227.5,
+  "tax": 0,
+  "discount": 0,
+  "total": 227.5,
+  "status": "accepted",
+  "note": "",
+  "discountType": "flat",
+  "discountValue": 0,
+  "createdAt": {
+    "$date": "2025-12-02T18:41:29.321Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T04:43:39.436Z"
+  },
+  "orderNumber": 51,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "692f685d5504e37ff0135e2c"
+  },
+  "store": {
+    "$oid": "692452b64af7d6b4bed7ca99"
+  },
+  "rep": {
+    "$oid": "692421070e46984ac310858a"
+  },
+  "items": [
+    {
+      "product": {
+        "$oid": "6907220cfaed4017da517d18"
+      },
+      "name": "Strawberry",
+      "unitLabel": "sativa",
+      "unitPrice": 62.5,
+      "discountPrice": 62.5,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721b3faed4017da517d09"
+      },
+      "name": "Original",
+      "unitLabel": "hybrid",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721f3faed4017da517d12"
+      },
+      "name": "Cookies & Cream",
+      "unitLabel": "sativa",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690723b8c81f6a37e30a5c27"
+      },
+      "name": "100mg THC",
+      "unitLabel": null,
+      "unitPrice": 125,
+      "discountPrice": 105,
+      "qty": 2,
+      "lineTotal": 250,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690723b8c81f6a37e30a5c24"
+      },
+      "name": "100mg THC + 50mg CBN",
+      "unitLabel": null,
+      "unitPrice": 162.5,
+      "discountPrice": 145,
+      "qty": 2,
+      "lineTotal": 325,
+      "appliedDiscount": false
+    }
+  ],
+  "subtotal": 762.5,
+  "tax": 0,
+  "discount": 0,
+  "total": 762.5,
+  "status": "manifested",
+  "note": "",
+  "discountType": "flat",
+  "discountValue": 0,
+  "createdAt": {
+    "$date": "2025-12-02T22:29:49.088Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T03:08:03.504Z"
+  },
+  "orderNumber": 52,
+  "__v": 0,
+  "deliveryDate": "2025-12-06"
+},
+{
+  "_id": {
+    "$oid": "69311169b5497f2256863cd9"
+  },
+  "store": {
+    "$oid": "692452b64af7d6b4bed7cadc"
+  },
+  "rep": {
+    "$oid": "692421070e46984ac310858a"
+  },
+  "items": [
+    {
+      "product": {
+        "$oid": "6907220cfaed4017da517d18"
+      },
+      "name": "Strawberry",
+      "unitLabel": "hybrid",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "6907220cfaed4017da517d18"
+      },
+      "name": "Strawberry",
+      "unitLabel": "indica",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "6907220cfaed4017da517d18"
+      },
+      "name": "Strawberry",
+      "unitLabel": "sativa",
+      "unitPrice": 62.5,
+      "discountPrice": 62.5,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "69072200faed4017da517d15"
+      },
+      "name": "Peanut Butter & Chocolate",
+      "unitLabel": "hybrid",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "69072200faed4017da517d15"
+      },
+      "name": "Peanut Butter & Chocolate",
+      "unitLabel": "indica",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "69072200faed4017da517d15"
+      },
+      "name": "Peanut Butter & Chocolate",
+      "unitLabel": "sativa",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721f3faed4017da517d12"
+      },
+      "name": "Cookies & Cream",
+      "unitLabel": "hybrid",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721f3faed4017da517d12"
+      },
+      "name": "Cookies & Cream",
+      "unitLabel": "indica",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721f3faed4017da517d12"
+      },
+      "name": "Cookies & Cream",
+      "unitLabel": "sativa",
+      "unitPrice": 62.5,
+      "discountPrice": 55,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721e5faed4017da517d0f"
+      },
+      "name": "Chocolate",
+      "unitLabel": "hybrid",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721e5faed4017da517d0f"
+      },
+      "name": "Chocolate",
+      "unitLabel": "indica",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721e5faed4017da517d0f"
+      },
+      "name": "Chocolate",
+      "unitLabel": "sativa",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721d3faed4017da517d0c"
+      },
+      "name": "Fruity",
+      "unitLabel": "hybrid",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721d3faed4017da517d0c"
+      },
+      "name": "Fruity",
+      "unitLabel": "indica",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721d3faed4017da517d0c"
+      },
+      "name": "Fruity",
+      "unitLabel": "sativa",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721b3faed4017da517d09"
+      },
+      "name": "Original",
+      "unitLabel": "hybrid",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721b3faed4017da517d09"
+      },
+      "name": "Original",
+      "unitLabel": "indica",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    },
+    {
+      "product": {
+        "$oid": "690721b3faed4017da517d09"
+      },
+      "name": "Original",
+      "unitLabel": "sativa",
+      "unitPrice": 62.5,
+      "discountPrice": 0,
+      "qty": 1,
+      "lineTotal": 62.5,
+      "appliedDiscount": false
+    }
+  ],
+  "subtotal": 1125,
+  "tax": 0,
+  "discount": 0,
+  "total": 1125,
+  "status": "accepted",
+  "note": "",
+  "deliveryDate": "2025-12-06",
+  "discountType": "flat",
+  "discountValue": 0,
+  "createdAt": {
+    "$date": "2025-12-04T04:43:21.124Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T04:43:28.098Z"
+  },
+  "orderNumber": 53,
+  "__v": 0
+}]
