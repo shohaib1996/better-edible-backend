@@ -22,6 +22,7 @@ export type DeliveryStatus =
 export interface IDelivery extends Document {
   storeId: Types.ObjectId;
   assignedTo?: Types.ObjectId;
+  sampleId?: Types.ObjectId;
   disposition: DeliveryDisposition;
   paymentAction: PaymentAction;
   amount: number;
@@ -36,6 +37,7 @@ const DeliverySchema = new Schema<IDelivery>(
   {
     storeId: { type: Schema.Types.ObjectId, ref: "Store", required: true },
     assignedTo: { type: Schema.Types.ObjectId, ref: "Rep" },
+    sampleId: { type: Schema.Types.ObjectId, ref: "Sample" },
     disposition: {
       type: String,
       enum: ["money_pickup", "delivery", "sample_drop", "other"],

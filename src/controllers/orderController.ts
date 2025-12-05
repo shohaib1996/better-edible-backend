@@ -4,6 +4,7 @@ import { Order } from "../models/Order";
 import { Rep } from "../models/Rep";
 import { Store } from "../models/Store";
 import { Product, IProduct } from "../models/Product";
+import Sample from "../models/Sample";
 
 /**
  * Helper: pick price information for a product given a type/label
@@ -308,9 +309,105 @@ export const getAllOrders = async (req: Request, res: Response) => {
       Order.aggregate(countPipeline),
     ]);
 
-    const total = totalResult.length > 0 ? totalResult[0].total : 0;
+    const orderTotal = totalResult.length > 0 ? totalResult[0].total : 0;
 
-    res.json({ total, page: Number(page), limit: Number(limit), orders });
+    // ✅ Fetch samples with the same filters
+    const sampleMatchStage: any = {};
+
+    if (status && typeof status === "string") {
+      sampleMatchStage.status = { $in: status.split(",") };
+    }
+    if (storeId && mongoose.Types.ObjectId.isValid(String(storeId)))
+      sampleMatchStage.store = new mongoose.Types.ObjectId(String(storeId));
+    if (repId && mongoose.Types.ObjectId.isValid(String(repId)))
+      sampleMatchStage.rep = new mongoose.Types.ObjectId(String(repId));
+
+    if (startDate && endDate) {
+      const start = new Date(startDate as string);
+      const end = new Date(endDate as string);
+      end.setHours(23, 59, 59, 999);
+
+      sampleMatchStage.createdAt = {
+        $gte: start,
+        $lte: end,
+      };
+    }
+
+    const samplePipeline: any[] = [
+      { $match: sampleMatchStage },
+      {
+        $lookup: {
+          from: "stores",
+          localField: "store",
+          foreignField: "_id",
+          as: "store",
+        },
+      },
+      { $unwind: { path: "$store", preserveNullAndEmptyArrays: true } },
+      {
+        $lookup: {
+          from: "reps",
+          localField: "rep",
+          foreignField: "_id",
+          as: "rep",
+        },
+      },
+      { $unwind: { path: "$rep", preserveNullAndEmptyArrays: true } },
+    ];
+
+    // Search by store name for samples
+    if (search && typeof search === "string" && search.trim()) {
+      samplePipeline.push({
+        $match: {
+          "store.name": { $regex: search.trim(), $options: "i" },
+        },
+      });
+    }
+
+    // Filter by rep name for samples
+    if (repName && typeof repName === "string" && repName.trim()) {
+      samplePipeline.push({
+        $match: {
+          "rep.name": { $regex: repName.trim(), $options: "i" },
+        },
+      });
+    }
+
+    const sampleCountPipeline = [...samplePipeline, { $count: "total" }];
+
+    samplePipeline.push(
+      { $sort: { createdAt: -1 } },
+      { $skip: (Number(page) - 1) * Number(limit) },
+      { $limit: Number(limit) },
+      {
+        $project: {
+          status: 1,
+          samples: 1,
+          createdAt: 1,
+          store: { _id: 1, name: 1, address: 1, city: 1, blocked: 1 },
+          rep: { _id: 1, name: 1, repType: 1 },
+          isSample: { $literal: true },
+        },
+      }
+    );
+
+    const [samples, sampleTotalResult] = await Promise.all([
+      Sample.aggregate(samplePipeline),
+      Sample.aggregate(sampleCountPipeline),
+    ]);
+
+    const sampleTotal = sampleTotalResult.length > 0 ? sampleTotalResult[0].total : 0;
+
+    // ✅ Combine orders and samples, sort by createdAt
+    const combined = [...orders, ...samples].sort((a, b) => {
+      const dateA = new Date(a.createdAt || 0).getTime();
+      const dateB = new Date(b.createdAt || 0).getTime();
+      return dateB - dateA;
+    });
+
+    const total = orderTotal + sampleTotal;
+
+    res.json({ total, page: Number(page), limit: Number(limit), orders: combined });
   } catch (error) {
     console.error("Error fetching orders:", error);
     res.status(500).json({ message: "Error fetching orders", error });

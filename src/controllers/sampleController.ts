@@ -22,7 +22,7 @@ export const createSample = async (req: Request, res: Response) => {
       store: storeId,
       samples,
       notes,
-      status: "in progress",
+      status: "submitted",
     });
 
     res.status(201).json({
@@ -35,6 +35,23 @@ export const createSample = async (req: Request, res: Response) => {
       message: "Error creating sample",
       error: error.message,
     });
+  }
+};
+
+export const updateSample = async (req: Request, res: Response) => {
+  try {
+    const sample = await Sample.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+
+    if (!sample) return res.status(404).json({ message: "Sample not found" });
+
+    res.json({ message: "Sample updated successfully", sample });
+  } catch (error) {
+    console.error("Error updating sample:", error);
+    res.status(500).json({ message: "Error updating sample", error });
   }
 };
 

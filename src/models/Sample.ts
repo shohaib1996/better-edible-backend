@@ -3,7 +3,13 @@ import mongoose, { Document, Schema } from "mongoose";
 export interface ISample extends Document {
   store: mongoose.Schema.Types.ObjectId;
   rep: mongoose.Schema.Types.ObjectId;
-  status: "in progress" | "delivered";
+  status:
+    | "submitted"
+    | "accepted"
+    | "manifested"
+    | "shipped"
+    | "delivered"
+    | "cancelled";
   samples: {
     cannacrispy?: string;
     // 'holy water'?: string;
@@ -11,6 +17,9 @@ export interface ISample extends Document {
     "bliss cannabis syrup"?: string;
   };
   notes?: string;
+  deliveryDate?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 const SampleSchema: Schema = new Schema(
@@ -23,14 +32,15 @@ const SampleSchema: Schema = new Schema(
     rep: { type: mongoose.Schema.Types.ObjectId, ref: "Rep", required: true },
     status: {
       type: String,
-      enum: ["in progress", "delivered"],
-      default: "in progress",
+      enum: ["submitted", "accepted", "manifested", "shipped", "cancelled"],
+      default: "submitted",
     },
     samples: {
       cannacrispy: { type: String },
       "bliss cannabis syrup": { type: String },
       "fifty one fifty": { type: String },
     },
+    deliveryDate: { type: Date },
   },
   { timestamps: true }
 );
