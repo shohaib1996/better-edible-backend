@@ -24,6 +24,7 @@ export interface IDelivery extends Document {
   assignedTo?: Types.ObjectId;
   sampleId?: Types.ObjectId;
   disposition: DeliveryDisposition;
+  orderId?: Types.ObjectId;
   paymentAction: PaymentAction;
   amount: number;
   scheduledAt: Date;
@@ -38,6 +39,7 @@ const DeliverySchema = new Schema<IDelivery>(
     storeId: { type: Schema.Types.ObjectId, ref: "Store", required: true },
     assignedTo: { type: Schema.Types.ObjectId, ref: "Rep" },
     sampleId: { type: Schema.Types.ObjectId, ref: "Sample" },
+    orderId: { type: Schema.Types.ObjectId, ref: "Order" },
     disposition: {
       type: String,
       enum: ["money_pickup", "delivery", "sample_drop", "other"],

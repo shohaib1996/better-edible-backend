@@ -15,6 +15,8 @@ export const createDelivery = async (req: Request, res: Response) => {
       amount,
       scheduledAt,
       notes,
+      orderId,
+      sampleId,
     } = req.body;
 
     const delivery = await Delivery.create({
@@ -25,6 +27,8 @@ export const createDelivery = async (req: Request, res: Response) => {
       amount,
       scheduledAt,
       notes,
+      orderId,
+      sampleId,
       status: "in_transit",
     });
 
@@ -126,6 +130,7 @@ export const getDeliveryById = async (req: Request, res: Response) => {
 // 🟨 Update delivery
 export const updateDelivery = async (req: Request, res: Response) => {
   try {
+    // Explicitly handle orderId and sampleId in updates too if sent
     const delivery = await Delivery.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
