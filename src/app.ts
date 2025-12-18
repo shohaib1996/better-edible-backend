@@ -40,7 +40,7 @@ app.use("/api/contacts", contactRoutes);
 app.use("/api/followups", followupRoutes);
 
 app.get("/", (_req, res) => {
-  res.send("Rep Order System API is running...");
+  res.send("Rep Order System API is running... yep");
 });
 
 export default app;
