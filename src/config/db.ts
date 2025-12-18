@@ -1,14 +1,22 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 
-dotenv.config();
+// 👉 dotenv should ONLY run in local development
+if (process.env.NODE_ENV === "development") {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  require("dotenv").config();
+}
 
 export const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI!);
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    if (!process.env.MONGO_URI) {
+      throw new Error("❌ MONGO_URI is not defined");
+    }
+
+    const conn = await mongoose.connect(process.env.MONGO_URI);
+
+    console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
-    console.error(`Error: ${(error as Error).message}`);
+    console.error(`❌ MongoDB connection error: ${(error as Error).message}`);
     process.exit(1);
   }
 };
