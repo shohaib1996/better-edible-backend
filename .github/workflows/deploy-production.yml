@@ -1,0 +1,23 @@
+name: Deploy Backend (Production)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.PROD_SSH_KEY }}
+
+      - name: Verify server connection (NO DEPLOY)
+        run: |
+          ssh -o StrictHostKeyChecking=no deploy@143.244.182.86 "echo 'PRODUCTION SSH OK'"
