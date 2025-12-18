@@ -22,5 +22,6 @@ jobs:
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "
             cd /opt/apps/better-edibles/staging/backend &&
             git pull origin staging &&
-            docker compose -f /opt/apps/better-edibles/docker-compose.staging.yml up -d --build backend
+            docker compose -f /opt/apps/better-edibles/docker-compose.staging.yml up -d --build staging-backend
+
           "
