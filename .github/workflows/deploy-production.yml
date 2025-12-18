@@ -18,6 +18,11 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.PROD_SSH_KEY }}
 
-      - name: Verify server connection (NO DEPLOY)
+      - name: Deploy production backend
         run: |
-          ssh -o StrictHostKeyChecking=no deploy@143.244.182.86 "echo 'PRODUCTION SSH OK'"
+          ssh -o StrictHostKeyChecking=no deploy@143.244.182.86 "
+            cd /opt/apps/better-edibles/production/backend &&
+            git pull origin main &&
+            docker compose -f /opt/apps/better-edibles/docker-compose.production.yml \
+              up -d --build production-backend
+          "
