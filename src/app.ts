@@ -22,22 +22,27 @@ if (process.env.NODE_ENV === "development") {
 
 const app = express();
 
-app.use(express.json());
+// ✅ CORS must come FIRST - before any other middleware
 app.use(
   cors({
     origin: [
       "https://better-edibles.com",
       "https://staging.better-edibles.com",
-      "http://localhost:3000", // for local development
+      "http://localhost:3000",
     ],
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
+// ✅ Handle preflight explicitly
+app.options("*", cors());
+
+app.use(express.json());
 app.use(morgan("dev"));
 
+// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/reps", repRoutes);
