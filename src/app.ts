@@ -23,7 +23,19 @@ if (process.env.NODE_ENV === "development") {
 const app = express();
 
 app.use(express.json());
-app.use(cors({ origin: "*" }));
+app.use(
+  cors({
+    origin: [
+      "https://better-edibles.com",
+      "https://staging.better-edibles.com",
+      "http://localhost:3000", // for local development
+    ],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
 app.use(morgan("dev"));
 
 app.use("/api/auth", authRoutes);
