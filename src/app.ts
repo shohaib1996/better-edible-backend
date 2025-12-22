@@ -16,13 +16,12 @@ import followupRoutes from "./routes/followupRoutes";
 
 // 👉 dotenv ONLY for local development
 if (process.env.NODE_ENV === "development") {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
   require("dotenv").config();
 }
 
 const app = express();
 
-// ✅ CORS must come FIRST - before any other middleware
+// ✅ CORS first
 app.use(
   cors({
     origin: [
@@ -35,9 +34,6 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
-// ✅ Handle preflight explicitly
-app.options("*", cors());
 
 app.use(express.json());
 app.use(morgan("dev"));
