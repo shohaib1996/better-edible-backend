@@ -13,6 +13,7 @@ export const getAllStores = async (req: Request, res: Response) => {
       repId,
       paymentStatus,
       isDue,
+      sortOrder = "asc", // asc or desc
     } = req.query;
     const query: any = {};
 
@@ -50,10 +51,8 @@ export const getAllStores = async (req: Request, res: Response) => {
       }
     }
 
-    const stores = await Store.find(query)
-      .skip((+page - 1) * +limit)
-      .limit(+limit)
-      .sort({ createdAt: -1, _id: 1 })
+    // Fetch all stores matching the query (we'll sort in-memory for complex sorting)
+    const allStores = await Store.find(query)
       .populate("rep", "name repType territory")
       .populate({
         path: "contacts",
@@ -61,7 +60,35 @@ export const getAllStores = async (req: Request, res: Response) => {
       })
       .lean(); // ← return plain JS objects (recommended)
 
-    const total = await Store.countDocuments(query);
+    // Sort stores alphabetically (numbers first, then A-Z)
+    const sortedStores = allStores.sort((a: any, b: any) => {
+      const nameA = (a.name || "").toLowerCase();
+      const nameB = (b.name || "").toLowerCase();
+
+      // Check if names start with numbers
+      const startsWithNumberA = /^\d/.test(nameA);
+      const startsWithNumberB = /^\d/.test(nameB);
+
+      // Numbers come first in ascending, last in descending
+      if (sortOrder === "asc") {
+        if (startsWithNumberA && !startsWithNumberB) return -1;
+        if (!startsWithNumberA && startsWithNumberB) return 1;
+        // Both are numbers or both are letters, sort alphabetically
+        return nameA.localeCompare(nameB, undefined, { numeric: true });
+      } else {
+        if (startsWithNumberA && !startsWithNumberB) return 1;
+        if (!startsWithNumberA && startsWithNumberB) return -1;
+        // Both are numbers or both are letters, sort reverse alphabetically
+        return nameB.localeCompare(nameA, undefined, { numeric: true });
+      }
+    });
+
+    // Apply pagination after sorting
+    const startIndex = (+page - 1) * +limit;
+    const endIndex = startIndex + +limit;
+    const stores = sortedStores.slice(startIndex, endIndex);
+
+    const total = allStores.length;
 
     res.json({ total, page: +page, limit: +limit, stores });
   } catch (error) {
