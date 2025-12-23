@@ -16,16 +16,29 @@ import followupRoutes from "./routes/followupRoutes";
 
 // 👉 dotenv ONLY for local development
 if (process.env.NODE_ENV === "development") {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
   require("dotenv").config();
 }
 
 const app = express();
 
+// ✅ CORS first
+app.use(
+  cors({
+    origin: [
+      "https://better-edibles.com",
+      "https://staging.better-edibles.com",
+      "http://localhost:3000",
+    ],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
 app.use(express.json());
-app.use(cors({ origin: "*" }));
 app.use(morgan("dev"));
 
+// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/reps", repRoutes);
