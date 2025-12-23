@@ -18,6 +18,7 @@ export interface ISample extends Document {
   };
   notes?: string;
   deliveryDate?: Date;
+  shippedDate?: Date;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -41,6 +42,7 @@ const SampleSchema: Schema = new Schema(
       "fifty one fifty": { type: String },
     },
     deliveryDate: { type: Date },
+    shippedDate: { type: Date },
   },
   { timestamps: true }
 );

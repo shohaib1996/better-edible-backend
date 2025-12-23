@@ -44,6 +44,7 @@ export interface IOrder extends Document {
   status: OrderStatus;
   note?: string;
   deliveryDate?: string; // ISO date format: YYYY-MM-DD
+  shippedDate?: string; // ISO date format: YYYY-MM-DD when marked as shipped
   dueDate?: string; // ISO date format: YYYY-MM-DD
   discountType?: "flat" | "percent";
   discountValue?: number;
@@ -113,6 +114,7 @@ const OrderSchema = new Schema<IOrder>(
     },
     note: String,
     deliveryDate: String, // ISO date format: YYYY-MM-DD
+    shippedDate: String, // ISO date format: YYYY-MM-DD when marked as shipped
     dueDate: String, // ISO date format: YYYY-MM-DD
     discountType: { type: String, enum: ["flat", "percent"], default: "flat" },
     discountValue: { type: Number, default: 0 },
