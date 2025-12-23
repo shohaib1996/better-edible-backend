@@ -62,24 +62,31 @@ export const getAllStores = async (req: Request, res: Response) => {
 
     // Sort stores alphabetically (numbers first, then A-Z)
     const sortedStores = allStores.sort((a: any, b: any) => {
-      const nameA = (a.name || "").toLowerCase();
-      const nameB = (b.name || "").toLowerCase();
+      // Trim and clean the names to remove extra spaces
+      const nameA = (a.name || "").trim();
+      const nameB = (b.name || "").trim();
 
-      // Check if names start with numbers
-      const startsWithNumberA = /^\d/.test(nameA);
-      const startsWithNumberB = /^\d/.test(nameB);
+      // Check if names start with numbers (0-9)
+      const startsWithNumberA = /^[0-9]/.test(nameA);
+      const startsWithNumberB = /^[0-9]/.test(nameB);
 
       // Numbers come first in ascending, last in descending
       if (sortOrder === "asc") {
         if (startsWithNumberA && !startsWithNumberB) return -1;
         if (!startsWithNumberA && startsWithNumberB) return 1;
-        // Both are numbers or both are letters, sort alphabetically
-        return nameA.localeCompare(nameB, undefined, { numeric: true });
+        // Both are numbers or both are letters, sort alphabetically (case-insensitive)
+        return nameA.localeCompare(nameB, undefined, {
+          numeric: true,
+          sensitivity: "base",
+        });
       } else {
         if (startsWithNumberA && !startsWithNumberB) return 1;
         if (!startsWithNumberA && startsWithNumberB) return -1;
-        // Both are numbers or both are letters, sort reverse alphabetically
-        return nameB.localeCompare(nameA, undefined, { numeric: true });
+        // Both are numbers or both are letters, sort reverse alphabetically (case-insensitive)
+        return nameB.localeCompare(nameA, undefined, {
+          numeric: true,
+          sensitivity: "base",
+        });
       }
     });
 
