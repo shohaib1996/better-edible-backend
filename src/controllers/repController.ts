@@ -1,6 +1,7 @@
 // src/controllers/repController.ts
 import { Request, Response } from "express";
 import { Rep } from "../models/Rep";
+import { Store } from "../models/Store";
 import { TimeLog } from "../models/TimeLog";
 import bcrypt from "bcryptjs";
 
@@ -12,11 +13,22 @@ export const getAllReps = async (req: Request, res: Response) => {
     // 1. Get the total count
     const totalReps = reps.length;
 
-    // 2. Send back a structured JSON response
+    // 2. Add storeCount to each rep by counting from Store collection
+    const repsWithStoreCount = await Promise.all(
+      reps.map(async (rep) => {
+        const storeCount = await Store.countDocuments({ rep: rep._id });
+        return {
+          ...rep.toObject(),
+          storeCount,
+        };
+      })
+    );
+
+    // 3. Send back a structured JSON response
     res.json({
       message: "All reps retrieved successfully.",
       totalReps: totalReps,
-      data: reps, // Use a key like 'data' or 'reps' for the actual list
+      data: repsWithStoreCount, // Use a key like 'data' or 'reps' for the actual list
     });
   } catch (error) {
     // Keep the error handling for robustness
