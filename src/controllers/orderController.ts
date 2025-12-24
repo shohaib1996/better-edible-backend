@@ -384,6 +384,8 @@ export const getAllOrders = async (req: Request, res: Response) => {
         $project: {
           status: 1,
           samples: 1,
+          description: 1,
+          notes: 1,
           deliveryDate: 1,
           shippedDate: 1,
           createdAt: 1,
