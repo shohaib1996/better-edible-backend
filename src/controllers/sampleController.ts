@@ -5,7 +5,7 @@ import { Store } from "../models/Store";
 
 export const createSample = async (req: Request, res: Response) => {
   try {
-    const { repId, storeId, samples, notes } = req.body;
+    const { repId, storeId, description, notes } = req.body;
 
     // ✅ Validate Rep
     const rep = await Rep.findById(repId);
@@ -20,7 +20,7 @@ export const createSample = async (req: Request, res: Response) => {
     const sample = await Sample.create({
       rep: repId,
       store: storeId,
-      samples,
+      description,
       notes,
       status: "submitted",
     });

@@ -10,12 +10,7 @@ export interface ISample extends Document {
     | "shipped"
     | "delivered"
     | "cancelled";
-  samples: {
-    cannacrispy?: string;
-    // 'holy water'?: string;
-    "fifty one fifty": string;
-    "bliss cannabis syrup"?: string;
-  };
+  description?: string;
   notes?: string;
   deliveryDate?: Date;
   shippedDate?: Date;
@@ -36,11 +31,8 @@ const SampleSchema: Schema = new Schema(
       enum: ["submitted", "accepted", "manifested", "shipped", "cancelled"],
       default: "submitted",
     },
-    samples: {
-      cannacrispy: { type: String },
-      "bliss cannabis syrup": { type: String },
-      "fifty one fifty": { type: String },
-    },
+    description: { type: String },
+    notes: { type: String },
     deliveryDate: { type: Date },
     shippedDate: { type: Date },
   },
