@@ -66,15 +66,8 @@ export const getAllNotes = async (req: Request, res: Response) => {
     }
 
     if (date) {
-      // Create start and end of the specific date
-      const queryDate = new Date(date as string);
-      const startOfDay = new Date(queryDate.setHours(0, 0, 0, 0));
-      const endOfDay = new Date(queryDate.setHours(23, 59, 59, 999));
-
-      query.date = {
-        $gte: startOfDay,
-        $lte: endOfDay,
-      };
+      // Date is stored as YYYY-MM-DD string, so we can match directly
+      query.date = date as string;
     }
 
     // Ensure at least one filter is provided to prevent fetching all notes blindly
