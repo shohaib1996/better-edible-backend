@@ -5,12 +5,6 @@ import { Rep } from "../models/Rep";
 import { Store } from "../models/Store";
 import { Product, IProduct } from "../models/Product";
 import Sample from "../models/Sample";
-import {
-  uploadMultipleToCloudinary,
-  deleteFromCloudinary,
-} from "../utils/cloudinaryUpload";
-import { cleanupTempFiles } from "../middleware/uploadMiddleware";
-import fs from "fs";
 
 /**
  * Helper: pick price information for a product given a type/label
@@ -307,12 +301,6 @@ export const getAllOrders = async (req: Request, res: Response) => {
           store: { _id: 1, name: 1, address: 1, city: 1, blocked: 1 },
           rep: { _id: 1, name: 1, repType: 1 },
           items: 1,
-          // 🆕 Private Label Fields
-          isPrivateLabel: 1,
-          privateLabelType: 1,
-          flavor: 1,
-          quantity: 1,
-          labelImages: 1,
         },
       }
     );
@@ -605,134 +593,5 @@ export const collectPayment = async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Error collecting payment:", error);
     res.status(500).json({ message: "Error collecting payment", error });
-  }
-};
-
-// ─────────────────────────────
-// 🆕 PRIVATE LABEL PRICING CONFIG
-// ─────────────────────────────
-
-const PRIVATE_LABEL_PRICING = {
-  BIOMAX: {
-    unitPrice: 45.0, // TODO: Update with actual price
-    defaultQuantity: 100,
-  },
-  Rosin: {
-    unitPrice: 55.0, // TODO: Update with actual price
-    defaultQuantity: 100,
-  },
-};
-
-// ─────────────────────────────
-// 🆕 Create Private Label Order
-// ─────────────────────────────
-
-export const createPrivateLabelOrder = async (req: Request, res: Response) => {
-  try {
-    const {
-      repId,
-      storeId,
-      privateLabelType, // "BIOMAX" or "Rosin"
-      flavor,
-      quantity,
-      note,
-      deliveryDate,
-      discount = 0,
-    } = req.body;
-
-    // ✅ Validate required fields
-    if (!privateLabelType || !["BIOMAX", "Rosin"].includes(privateLabelType)) {
-      return res.status(400).json({
-        message: 'Invalid product type. Must be "BIOMAX" or "Rosin"',
-      });
-    }
-
-    if (!flavor || flavor.trim() === "") {
-      return res.status(400).json({ message: "Flavor is required" });
-    }
-
-    // ✅ Validate Rep
-    const rep = await Rep.findById(repId);
-    if (!rep) return res.status(404).json({ message: "Rep not found" });
-
-    // ✅ Validate Store
-    const store = await Store.findById(storeId);
-    if (!store) return res.status(404).json({ message: "Store not found" });
-    if (store.blocked)
-      return res.status(400).json({ message: "Store is blocked" });
-
-    // ✅ Handle label image uploads
-    const files = (req as any).files as any[];
-    let labelImages: any[] = [];
-
-    if (files && files.length > 0) {
-      try {
-        // Upload to Cloudinary
-        const uploadResults = await uploadMultipleToCloudinary(
-          files,
-          "private-labels"
-        );
-
-        labelImages = uploadResults.map((result) => ({
-          url: result.url,
-          secureUrl: result.secureUrl,
-          publicId: result.publicId,
-          format: result.format,
-          bytes: result.bytes,
-          originalFilename: result.originalFilename,
-        }));
-
-        // Clean up temporary files
-        cleanupTempFiles(files);
-      } catch (uploadError: any) {
-        // Clean up temp files even if upload fails
-        cleanupTempFiles(files);
-        return res.status(500).json({
-          message: "Failed to upload label images",
-          error: uploadError.message,
-        });
-      }
-    }
-
-    // ✅ Get pricing for selected product type
-    const pricing = PRIVATE_LABEL_PRICING[privateLabelType as keyof typeof PRIVATE_LABEL_PRICING];
-    const qty = Number(quantity) || pricing.defaultQuantity;
-    const unitPrice = pricing.unitPrice;
-    const subtotal = Number((qty * unitPrice).toFixed(2));
-    const discountAmount = Number(discount || 0);
-    const total = Number(Math.max(0, subtotal - discountAmount).toFixed(2));
-
-    // ✅ Create the private label order
-    const order = await Order.create({
-      store: store._id,
-      rep: rep._id,
-      isPrivateLabel: true,
-      privateLabelType,
-      flavor: flavor.trim(),
-      labelImages,
-      quantity: qty,
-      items: [], // Empty for private label orders
-      subtotal,
-      discount: discountAmount,
-      total,
-      note,
-      deliveryDate,
-      status: "submitted",
-    });
-
-    // Populate store and rep details
-    await order.populate("store", "name address city");
-    await order.populate("rep", "name email");
-
-    res.status(201).json({
-      message: "Private label order created successfully",
-      order,
-    });
-  } catch (error: any) {
-    console.error("Error creating private label order:", error);
-    res.status(500).json({
-      message: "Error creating private label order",
-      error: error.message,
-    });
   }
 };

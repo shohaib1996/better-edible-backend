@@ -1,4 +1,4 @@
-import { Schema, model, Document, Types } from "mongoose";
+import { Schema, model, models, Document, Types } from "mongoose";
 
 // ─────────────────────────────
 // TYPES
@@ -31,18 +31,6 @@ export interface IPayment {
   note?: string;
 }
 
-// 🆕 PRIVATE LABEL TYPES
-export interface ILabelImage {
-  url: string;
-  secureUrl: string;
-  publicId: string;
-  format: string;
-  bytes: number;
-  originalFilename: string;
-}
-
-export type PrivateLabelType = "BIOMAX" | "Rosin";
-
 export interface IOrder extends Document {
   orderNumber: number;
   store: Types.ObjectId;
@@ -60,13 +48,6 @@ export interface IOrder extends Document {
   dueDate?: string; // ISO date format: YYYY-MM-DD
   discountType?: "flat" | "percent";
   discountValue?: number;
-
-  // 🆕 PRIVATE LABEL FIELDS
-  isPrivateLabel?: boolean;
-  privateLabelType?: PrivateLabelType;
-  flavor?: string;
-  labelImages?: ILabelImage[];
-  quantity?: number; // For private label orders
 
   createdAt: Date;
   updatedAt: Date;
@@ -108,19 +89,6 @@ const PaymentSchema = new Schema<IPayment>(
   { _id: false }
 );
 
-// 🆕 PRIVATE LABEL IMAGE SCHEMA
-const LabelImageSchema = new Schema<ILabelImage>(
-  {
-    url: { type: String, required: true },
-    secureUrl: { type: String, required: true },
-    publicId: { type: String, required: true },
-    format: { type: String, required: true },
-    bytes: { type: Number, required: true },
-    originalFilename: { type: String, required: true },
-  },
-  { _id: false }
-);
-
 const OrderSchema = new Schema<IOrder>(
   {
     orderNumber: { type: Number, unique: true, index: true },
@@ -151,13 +119,6 @@ const OrderSchema = new Schema<IOrder>(
     dueDate: String, // ISO date format: YYYY-MM-DD
     discountType: { type: String, enum: ["flat", "percent"], default: "flat" },
     discountValue: { type: Number, default: 0 },
-
-    // 🆕 PRIVATE LABEL FIELDS
-    isPrivateLabel: { type: Boolean, default: false },
-    privateLabelType: { type: String, enum: ["BIOMAX", "Rosin"] },
-    flavor: String,
-    labelImages: { type: [LabelImageSchema], default: [] },
-    quantity: Number,
   },
   { timestamps: true }
 );
@@ -168,13 +129,18 @@ OrderSchema.index({ store: 1, status: 1, createdAt: -1 });
 // AUTO-INCREMENT LOGIC
 // ─────────────────────────────
 
+interface ICounter {
+  _id: string;
+  seq: number;
+}
+
 // Separate collection to track the last used order number
-const CounterSchema = new Schema({
+const CounterSchema = new Schema<ICounter>({
   _id: { type: String, required: true },
   seq: { type: Number, default: 0 },
 });
 
-const Counter = model("Counter", CounterSchema);
+const Counter = models.Counter || model("Counter", CounterSchema);
 
 OrderSchema.pre<IOrder>("save", async function (next) {
   if (this.isNew) {
@@ -183,7 +149,7 @@ OrderSchema.pre<IOrder>("save", async function (next) {
       { $inc: { seq: 1 } },
       { new: true, upsert: true }
     );
-    this.orderNumber = counter.seq;
+    this.orderNumber = counter!.seq;
   }
   next();
 });

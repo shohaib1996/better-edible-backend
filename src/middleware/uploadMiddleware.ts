@@ -42,8 +42,12 @@ export const upload = multer({
   },
 });
 
-// Middleware to handle multiple label uploads
+// Middleware to handle multiple label uploads (single field)
 export const uploadLabels = upload.array('labelImages', 5); // Max 5 files
+
+// Middleware to handle multiple label uploads with indexed field names (for private labels)
+// Accepts labelImages_0, labelImages_1, labelImages_2, etc.
+export const uploadPrivateLabelImages = upload.any(); // Accept any field names
 
 // Middleware to handle single label upload
 export const uploadSingleLabel = upload.single('labelImage');
