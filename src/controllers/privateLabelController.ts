@@ -28,9 +28,10 @@ export const createPrivateLabelOrder = async (req: Request, res: Response) => {
     // ✅ Parse items from JSON string (sent via FormData)
     let items: any[] = [];
     try {
-      items = typeof req.body.items === 'string'
-        ? JSON.parse(req.body.items)
-        : (req.body.items || []);
+      items =
+        typeof req.body.items === "string"
+          ? JSON.parse(req.body.items)
+          : req.body.items || [];
     } catch (parseError) {
       return res.status(400).json({
         message: "Invalid items format. Items must be a valid JSON array.",
@@ -47,7 +48,10 @@ export const createPrivateLabelOrder = async (req: Request, res: Response) => {
     // ✅ Get all active products for validation and pricing
     const activeProducts = await PrivateLabelProduct.find({ isActive: true });
     const productMap = new Map(
-      activeProducts.map((p) => [p.name, { unitPrice: p.unitPrice, _id: p._id }])
+      activeProducts.map((p) => [
+        p.name,
+        { unitPrice: p.unitPrice, _id: p._id },
+      ])
     );
 
     // ✅ Validate each item
@@ -167,9 +171,7 @@ export const createPrivateLabelOrder = async (req: Request, res: Response) => {
 
     // ✅ Calculate totals
     const subtotal = Number(
-      processedItems
-        .reduce((sum, item) => sum + item.lineTotal, 0)
-        .toFixed(2)
+      processedItems.reduce((sum, item) => sum + item.lineTotal, 0).toFixed(2)
     );
 
     const discountValue = Number(discount || 0);
@@ -313,6 +315,8 @@ export const getAllPrivateLabels = async (req: Request, res: Response) => {
           total: 1,
           subtotal: 1,
           discount: 1,
+          discountType: 1,
+          discountAmount: 1,
           note: 1,
           deliveryDate: 1,
           shippedDate: 1,
@@ -373,7 +377,37 @@ export const updatePrivateLabel = async (req: Request, res: Response) => {
     if (!order)
       return res.status(404).json({ message: "Private label order not found" });
 
-    const { items, discount, discountType, note, deliveryDate } = req.body;
+    const { storeId, repId, discount, discountType, note, deliveryDate } =
+      req.body;
+
+    // ✅ Parse items from JSON string (sent via FormData) or use directly
+    let items: any[] = [];
+    try {
+      items =
+        typeof req.body.items === "string"
+          ? JSON.parse(req.body.items)
+          : req.body.items || [];
+    } catch (parseError) {
+      return res.status(400).json({
+        message: "Invalid items format. Items must be a valid JSON array.",
+      });
+    }
+
+    // ✅ Update store if provided
+    if (storeId && mongoose.Types.ObjectId.isValid(storeId)) {
+      const store = await Store.findById(storeId);
+      if (!store) return res.status(404).json({ message: "Store not found" });
+      if (store.blocked)
+        return res.status(400).json({ message: "Store is blocked" });
+      order.store = new mongoose.Types.ObjectId(storeId);
+    }
+
+    // ✅ Update rep if provided
+    if (repId && mongoose.Types.ObjectId.isValid(repId)) {
+      const rep = await Rep.findById(repId);
+      if (!rep) return res.status(404).json({ message: "Rep not found" });
+      order.rep = new mongoose.Types.ObjectId(repId);
+    }
 
     // Update items if provided
     if (items && Array.isArray(items) && items.length > 0) {
@@ -409,32 +443,108 @@ export const updatePrivateLabel = async (req: Request, res: Response) => {
         }
       }
 
-      // Process items with pricing
-      const processedItems = items.map((item: any) => {
-        const productData = productMap.get(item.privateLabelType);
-        if (!productData) {
-          throw new Error(`Product "${item.privateLabelType}" not found`);
-        }
+      // ✅ Handle label image uploads (grouped by item index)
+      const files = (req as any).files as any[];
+      const filesByItemIndex: Record<number, any[]> = {};
 
-        const qty = Number(item.quantity);
-        const unitPrice = productData.unitPrice;
-        const lineTotal = Number((qty * unitPrice).toFixed(2));
+      // Group files by their field name pattern: labelImages_0, labelImages_1, etc.
+      if (files && files.length > 0) {
+        files.forEach((file) => {
+          const match = file.fieldname.match(/^labelImages_(\d+)$/);
+          if (match) {
+            const itemIndex = parseInt(match[1], 10);
+            if (!filesByItemIndex[itemIndex]) {
+              filesByItemIndex[itemIndex] = [];
+            }
+            filesByItemIndex[itemIndex].push(file);
+          }
+        });
+      }
 
-        return {
-          privateLabelType: item.privateLabelType,
-          flavor: item.flavor.trim(),
-          quantity: qty,
-          unitPrice,
-          lineTotal,
-          labelImages: item.labelImages || [],
-        };
-      });
+      // ✅ Process items with pricing and their label images
+      const processedItems = await Promise.all(
+        items.map(async (item: any, index: number) => {
+          const productData = productMap.get(item.privateLabelType);
+          if (!productData) {
+            throw new Error(`Product "${item.privateLabelType}" not found`);
+          }
+
+          const qty = Number(item.quantity);
+          const unitPrice = productData.unitPrice;
+          const lineTotal = Number((qty * unitPrice).toFixed(2));
+
+          // ✅ Handle existing images
+          let labelImages: any[] = [];
+          const keepExistingImages = item.keepExistingImages || [];
+
+          // Get existing images for this item from the database
+          const existingItem = order.items[index];
+          if (existingItem && existingItem.labelImages) {
+            // Filter to keep only images that are in keepExistingImages array
+            const imagesToKeep = existingItem.labelImages.filter((img: any) =>
+              keepExistingImages.includes(img.publicId)
+            );
+
+            // Delete images that are being removed
+            const imagesToDelete = existingItem.labelImages.filter(
+              (img: any) => !keepExistingImages.includes(img.publicId)
+            );
+
+            for (const img of imagesToDelete) {
+              try {
+                await deleteFromCloudinary(img.publicId);
+              } catch (err) {
+                console.error(`Failed to delete image ${img.publicId}:`, err);
+              }
+            }
+
+            labelImages = imagesToKeep;
+          }
+
+          // ✅ Upload new label images for this specific item
+          const itemFiles = filesByItemIndex[index] || [];
+          if (itemFiles.length > 0) {
+            try {
+              const uploadResults = await uploadMultipleToCloudinary(
+                itemFiles,
+                "private-labels"
+              );
+
+              const newImages = uploadResults.map((result) => ({
+                url: result.url,
+                secureUrl: result.secureUrl,
+                publicId: result.publicId,
+                format: result.format,
+                bytes: result.bytes,
+                originalFilename: result.originalFilename,
+              }));
+
+              // Combine existing images with new uploads
+              labelImages = [...labelImages, ...newImages];
+
+              cleanupTempFiles(itemFiles);
+            } catch (uploadError: any) {
+              cleanupTempFiles(itemFiles);
+              throw new Error(
+                `Failed to upload label images for item ${index}: ${uploadError.message}`
+              );
+            }
+          }
+
+          return {
+            privateLabelType: item.privateLabelType,
+            flavor: item.flavor.trim(),
+            quantity: qty,
+            unitPrice,
+            lineTotal,
+            labelImages,
+          };
+        })
+      );
 
       order.items = processedItems;
       order.subtotal = Number(
-        processedItems
-          .reduce((sum, item) => sum + item.lineTotal, 0)
-          .toFixed(2)
+        processedItems.reduce((sum, item) => sum + item.lineTotal, 0).toFixed(2)
       );
     }
 
@@ -502,22 +612,24 @@ export const updatePrivateLabel = async (req: Request, res: Response) => {
 // Change Private Label Status
 // ─────────────────────────────
 
-export const changePrivateLabelStatus = async (
-  req: Request,
-  res: Response
-) => {
+export const changePrivateLabelStatus = async (req: Request, res: Response) => {
   try {
     const { status } = req.body;
     if (!status) return res.status(400).json({ message: "Status is required" });
 
-    const order = await PrivateLabel.findByIdAndUpdate(
-      req.params.id,
-      { status },
-      { new: true }
-    );
-
+    const order = await PrivateLabel.findById(req.params.id);
     if (!order)
       return res.status(404).json({ message: "Private label order not found" });
+
+    // Update status
+    order.status = status;
+
+    // Automatically set delivery date if changing to shipped or cancelled and no delivery date exists
+    if ((status === "shipped" || status === "cancelled") && !order.deliveryDate) {
+      order.deliveryDate = new Date().toISOString().split('T')[0]; // Set to current date (YYYY-MM-DD)
+    }
+
+    await order.save();
 
     res.json({ message: `Private label order moved to ${status}`, order });
   } catch (error) {

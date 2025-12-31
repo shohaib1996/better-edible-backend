@@ -3,6 +3,9 @@ import { Request, Response } from "express";
 import { Delivery } from "../models/Delivery";
 import { Rep } from "../models/Rep";
 import { Store } from "../models/Store";
+import { PrivateLabel } from "../models/PrivateLabel";
+import { Order } from "../models/Order";
+import Sample from "../models/Sample";
 
 // 🟩 Create delivery assignment
 export const createDelivery = async (req: Request, res: Response) => {
@@ -17,6 +20,7 @@ export const createDelivery = async (req: Request, res: Response) => {
       notes,
       orderId,
       sampleId,
+      privateLabelOrderId,
     } = req.body;
 
     const delivery = await Delivery.create({
@@ -29,6 +33,7 @@ export const createDelivery = async (req: Request, res: Response) => {
       notes,
       orderId,
       sampleId,
+      privateLabelOrderId,
       status: "in_transit",
     });
 
@@ -160,6 +165,48 @@ export const updateDeliveryStatus = async (req: Request, res: Response) => {
 
     delivery.status = status;
     await delivery.save();
+
+    // Update linked private label order status when delivery is completed or cancelled
+    if (delivery.privateLabelOrderId) {
+      if (status === "completed") {
+        await PrivateLabel.findByIdAndUpdate(delivery.privateLabelOrderId, {
+          status: "shipped",
+          deliveryDate: new Date(),
+        });
+      } else if (status === "cancelled") {
+        await PrivateLabel.findByIdAndUpdate(delivery.privateLabelOrderId, {
+          status: "cancelled",
+        });
+      }
+    }
+
+    // Update linked regular order status when delivery is completed or cancelled
+    if (delivery.orderId) {
+      if (status === "completed") {
+        await Order.findByIdAndUpdate(delivery.orderId, {
+          status: "shipped",
+          deliveryDate: new Date(),
+        });
+      } else if (status === "cancelled") {
+        await Order.findByIdAndUpdate(delivery.orderId, {
+          status: "cancelled",
+        });
+      }
+    }
+
+    // Update linked sample status when delivery is completed or cancelled
+    if (delivery.sampleId) {
+      if (status === "completed") {
+        await Sample.findByIdAndUpdate(delivery.sampleId, {
+          status: "shipped",
+          deliveryDate: new Date(),
+        });
+      } else if (status === "cancelled") {
+        await Sample.findByIdAndUpdate(delivery.sampleId, {
+          status: "cancelled",
+        });
+      }
+    }
 
     res.json({ message: `Delivery marked as ${status}`, delivery });
   } catch (error) {

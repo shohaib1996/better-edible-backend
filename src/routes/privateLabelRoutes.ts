@@ -14,7 +14,7 @@ const router = Router();
 router.post("/", uploadPrivateLabelImages, createPrivateLabelOrder);
 router.get("/", getAllPrivateLabels);
 router.get("/:id", getPrivateLabelById);
-router.put("/:id", updatePrivateLabel);
+router.put("/:id", uploadPrivateLabelImages, updatePrivateLabel);
 router.put("/:id/status", changePrivateLabelStatus);
 router.delete("/:id", deletePrivateLabel);
 
