@@ -27,7 +27,7 @@ export const createDelivery = async (req: Request, res: Response) => {
       storeId,
       assignedTo,
       disposition,
-      paymentAction,
+      paymentAction: paymentAction || undefined,
       amount,
       scheduledAt,
       notes,
@@ -135,6 +135,10 @@ export const getDeliveryById = async (req: Request, res: Response) => {
 // 🟨 Update delivery
 export const updateDelivery = async (req: Request, res: Response) => {
   try {
+    if (req.body.paymentAction === "") {
+      req.body.paymentAction = undefined;
+    }
+
     // Explicitly handle orderId and sampleId in updates too if sent
     const delivery = await Delivery.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
