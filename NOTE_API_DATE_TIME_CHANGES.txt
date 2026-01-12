@@ -1,0 +1,224 @@
+================================================================================
+NOTE API - DATE & TIME IMPLEMENTATION GUIDE FOR FRONTEND
+================================================================================
+
+OVERVIEW:
+---------
+We fixed the timezone issue where notes were being saved with incorrect dates.
+The solution: Client (frontend) MUST send the date and time explicitly from
+the user's device. Backend stores it as a plain string (NO timezone conversion).
+
+================================================================================
+PROBLEM WE SOLVED:
+================================================================================
+
+OLD ISSUE:
+- Rep creates note on Jan 9 at 11 PM PST
+- Backend (in UTC) sees it as Jan 10, 7 AM UTC
+- Note gets saved as Jan 10 instead of Jan 9 ❌
+
+NEW SOLUTION:
+- Rep's device (PST) creates date string: "2026-01-09 23:00"
+- Backend receives: "2026-01-09 23:00"
+- MongoDB stores: "2026-01-09 23:00" (exactly as received)
+- No timezone conversion = No problems! ✅
+
+================================================================================
+WHAT CHANGED IN THE BACKEND:
+================================================================================
+
+1. DATE FIELD FORMAT:
+   - Field name: "date"
+   - Type: String
+   - Format: "YYYY-MM-DD HH:MM" (24-hour format)
+   - Example: "2026-01-12 14:30"
+   - Timezone: PST (as sent from client device)
+
+2. VALIDATION:
+   - "date" field is now REQUIRED when creating notes
+   - Format must be: "YYYY-MM-DD HH:MM"
+   - Backend validates the format when updating notes
+
+================================================================================
+FRONTEND IMPLEMENTATION REQUIRED:
+================================================================================
+
+WHEN CREATING A NOTE:
+---------------------
+
+The frontend MUST send the "date" field in this format: "YYYY-MM-DD HH:MM"
+
+JavaScript/React Example:
+```javascript
+// Get current date and time from user's device
+const now = new Date();
+const year = now.getFullYear();
+const month = String(now.getMonth() + 1).padStart(2, '0');
+const day = String(now.getDate()).padStart(2, '0');
+const hour = String(now.getHours()).padStart(2, '0');
+const minute = String(now.getMinutes()).padStart(2, '0');
+
+// Create date string in format: "YYYY-MM-DD HH:MM"
+const dateString = `${year}-${month}-${day} ${hour}:${minute}`;
+
+// Example result: "2026-01-12 14:30"
+```
+
+React Native Example:
+```javascript
+import { format } from 'date-fns';
+
+// Using date-fns library (recommended)
+const dateString = format(new Date(), 'yyyy-MM-dd HH:mm');
+// Result: "2026-01-12 14:30"
+```
+
+================================================================================
+API REQUEST EXAMPLES:
+================================================================================
+
+CREATE NOTE (POST /api/notes):
+-------------------------------
+{
+  "entityId": "6926fb0a6fd51959f10e8229",
+  "author": "692420a60e46984ac3108584",
+  "content": "Good drop",
+  "date": "2026-01-12 14:30",  // ← REQUIRED! Send from client device
+  "disposition": "Friendly",
+  "visitType": "Regular",
+  "sample": false,
+  "delivery": true,
+  "payment": {
+    "cash": true,
+    "check": false,
+    "noPay": false,
+    "amount": "250"
+  }
+}
+
+UPDATE NOTE (PUT /api/notes/:id):
+----------------------------------
+{
+  "content": "Updated content",
+  "date": "2026-01-12 15:45",  // ← Optional, but must be in correct format
+  "delivery": false
+}
+
+GET NOTES (GET /api/notes):
+---------------------------
+Query params:
+- entityId: Filter by store ID
+- repId: Filter by rep ID (author)
+- date: Filter by date (can be full "YYYY-MM-DD HH:MM" or just "YYYY-MM-DD")
+- page: Page number (default: 1)
+- limit: Items per page (default: 20, max: 100)
+
+Example: GET /api/notes?entityId=xxx&date=2026-01-12
+
+================================================================================
+DISPLAYING DATES IN FRONTEND:
+================================================================================
+
+The date comes back as: "2026-01-12 14:30"
+
+You can parse and display it however you want:
+
+JavaScript Example:
+```javascript
+const dateFromServer = "2026-01-12 14:30";
+
+// Split date and time
+const [datePart, timePart] = dateFromServer.split(' ');
+// datePart: "2026-01-12"
+// timePart: "14:30"
+
+// Convert to 12-hour format if needed
+const [hours, minutes] = timePart.split(':');
+const hour12 = hours % 12 || 12;
+const ampm = hours >= 12 ? 'PM' : 'AM';
+const time12hr = `${hour12}:${minutes} ${ampm}`;
+// Result: "2:30 PM"
+
+// Format date nicely
+const date = new Date(`${datePart}T${timePart}`);
+const formattedDate = date.toLocaleDateString('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric'
+});
+// Result: "Jan 12, 2026"
+```
+
+Using date-fns:
+```javascript
+import { parse, format } from 'date-fns';
+
+const dateFromServer = "2026-01-12 14:30";
+const date = parse(dateFromServer, 'yyyy-MM-dd HH:mm', new Date());
+
+// Display as you want
+const formatted = format(date, 'MMM dd, yyyy h:mm a');
+// Result: "Jan 12, 2026 2:30 PM"
+```
+
+================================================================================
+IMPORTANT NOTES FOR FRONTEND:
+================================================================================
+
+1. ✅ ALWAYS send date from the client device (user's local time)
+   - Use JavaScript's Date object on the device
+   - Format it as "YYYY-MM-DD HH:MM"
+   - DO NOT rely on backend to generate the date
+
+2. ✅ The date is stored as PST timezone (your reps' timezone)
+   - No conversion needed
+   - What you send is what gets stored
+
+3. ✅ Use 24-hour format when sending to backend
+   - Backend expects: "14:30" (not "2:30 PM")
+   - You can display in 12-hour format to users, but send 24-hour to API
+
+4. ✅ Date field is REQUIRED when creating notes
+   - API will return 400 error if date is missing
+   - Error message: "date is required (format: YYYY-MM-DD HH:MM)"
+
+5. ✅ Date format validation on updates
+   - If you send a date when updating, it must be in correct format
+   - Error message: "Invalid date format. Use YYYY-MM-DD HH:MM"
+
+================================================================================
+TESTING CHECKLIST:
+================================================================================
+
+□ Create note with current date/time from device
+□ Verify date stored in DB matches device time (check in MongoDB)
+□ Create note at 11:59 PM - verify it doesn't switch to next day
+□ Update note with new date/time
+□ Filter notes by date
+□ Display dates correctly in UI (12hr/24hr format)
+□ Test on different devices in PST timezone
+
+================================================================================
+BACKEND FILES MODIFIED:
+================================================================================
+
+1. src/models/Note.ts
+   - Updated date field to store "YYYY-MM-DD HH:MM" string format
+   - Made date field required
+
+2. src/controllers/noteController.ts
+   - Added date validation in createNote
+   - Added date format validation in updateNote
+   - Date is required when creating notes
+
+================================================================================
+QUESTIONS OR ISSUES?
+================================================================================
+
+Contact backend team if:
+- Date validation is too strict
+- You need a different date format
+- You encounter timezone issues
+- API returns unexpected errors
+
+================================================================================

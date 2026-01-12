@@ -3,7 +3,7 @@ import { Schema, model, Document, Types } from "mongoose";
 export interface INote extends Document {
   entityId: Types.ObjectId;
   author: Types.ObjectId;
-  date: string; // Store as YYYY-MM-DD string to avoid timezone issues
+  date: string; // Client sends "YYYY-MM-DD HH:MM" from their device (PST timezone, 24hr format)
   disposition?: string;
   visitType?: string;
   content?: string;
@@ -36,8 +36,8 @@ const NoteSchema = new Schema<INote>(
     date: {
       type: String,
       required: true,
-      // Store in YYYY-MM-DD format to avoid timezone issues
-      default: function() { return new Date().toISOString().split('T')[0]; },
+      // Format: "YYYY-MM-DD HH:MM" (24hr) - Client MUST send from their device
+      // Example: "2026-01-12 14:30"
     },
 
     disposition: { type: String, trim: true },

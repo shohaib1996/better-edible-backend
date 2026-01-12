@@ -23,6 +23,12 @@ export const createNote = async (req: Request, res: Response) => {
       });
     }
 
+    if (!date) {
+      return res.status(400).json({
+        message: "date is required (format: YYYY-MM-DD HH:MM)",
+      });
+    }
+
     const note = await Note.create({
       entityId,
       author,
@@ -66,8 +72,17 @@ export const getAllNotes = async (req: Request, res: Response) => {
     }
 
     if (date) {
-      // Date is stored as YYYY-MM-DD string, so we can match directly
-      query.date = date as string;
+      // Date can be either "YYYY-MM-DD" or "YYYY-MM-DD HH:MM"
+      // If only date is provided (10 chars), match any time on that date
+      // If full datetime is provided, match exactly
+      const dateStr = date as string;
+      if (dateStr.length === 10) {
+        // Match any note that starts with "YYYY-MM-DD"
+        query.date = { $regex: `^${dateStr}` };
+      } else {
+        // Exact match for full datetime
+        query.date = dateStr;
+      }
     }
 
     // Ensure at least one filter is provided to prevent fetching all notes blindly
@@ -139,6 +154,13 @@ export const updateNote = async (req: Request, res: Response) => {
     // Only allow updating these fields (do not allow changing entityId or author)
     const { disposition, visitType, content, sample, delivery, payment, date } =
       req.body;
+
+    // Validate date format if provided
+    if (date && !/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(date)) {
+      return res.status(400).json({
+        message: "Invalid date format. Use YYYY-MM-DD HH:MM",
+      });
+    }
 
     const updates: any = {};
 
