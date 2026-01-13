@@ -1,5 +1,5 @@
 // src/models/Product.ts
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, Types } from 'mongoose';
 
 interface IHybridBreakdown {
   hybrid?: number;
@@ -25,7 +25,7 @@ interface IVariantPrice {
 }
 
 export interface IProduct extends Document {
-  productLine: string;
+  productLine: Types.ObjectId | string; // Reference to ProductLine or legacy string
   subProductLine?: string;
   itemName?: string;
   hybridBreakdown?: IHybridBreakdown;
@@ -81,7 +81,11 @@ const VariantPriceSchema = new Schema<IVariantPrice>(
 // 🔹 Main schema
 const ProductSchema = new Schema<IProduct>(
   {
-    productLine: { type: String, required: true },
+    productLine: {
+      type: Schema.Types.ObjectId,
+      ref: 'ProductLine',
+      required: true
+    },
     subProductLine: String,
     itemName: String,
     hybridBreakdown: HybridBreakdownSchema,
