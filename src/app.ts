@@ -27,7 +27,7 @@ const app = express();
 app.use(
   cors({
     origin: [
-      "https://better-edibles.com",
+      "https://www.better-edibles.com",
       "https://staging.better-edibles.com",
       "http://localhost:3000",
     ],
