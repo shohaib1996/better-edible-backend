@@ -2,6 +2,7 @@
 import app from "./app";
 import { connectDB } from "./config/db";
 import { updateStoreStatuses } from "./jobs/updateStoreStatus";
+import { runDailyClientOrderJobs } from "./jobs/clientOrderJobs";
 import cron from "node-cron";
 
 // 👉 dotenv is ONLY for local development
@@ -26,6 +27,14 @@ connectDB()
     cron.schedule("0 0 * * *", async () => {
       console.log("⏰ Running scheduled store status update...");
       await updateStoreStatuses();
+    });
+
+    // 🕒 Run client order jobs daily at 6 AM (server time)
+    // - Auto-push orders to production when productionStartDate arrives
+    // - Send 7-day reminder emails
+    cron.schedule("0 6 * * *", async () => {
+      console.log("⏰ Running scheduled client order jobs...");
+      await runDailyClientOrderJobs();
     });
 
     app.listen(PORT, () => {

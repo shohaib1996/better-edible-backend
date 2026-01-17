@@ -23,14 +23,6 @@ export const LABEL_STAGES: LabelStage[] = [
   "ready_for_production",
 ];
 
-export type ProductType = "BIOMAX Gummies" | "Rosin Gummies";
-
-// Fixed pricing per product type
-export const PRODUCT_PRICES: Record<ProductType, number> = {
-  "BIOMAX Gummies": 1.75,
-  "Rosin Gummies": 2.5,
-};
-
 // -------------------
 // Sub-Interfaces
 // -------------------
@@ -57,7 +49,7 @@ export interface IStageHistoryEntry {
 export interface ILabel extends Document {
   client: Types.ObjectId;
   flavorName: string;
-  productType: ProductType;
+  productType: string; // Dynamic - fetched from PrivateLabelProduct collection
   currentStage: LabelStage;
   stageHistory: IStageHistoryEntry[];
   labelImages: ILabelImage[];
@@ -69,7 +61,6 @@ export interface ILabel extends Document {
     notes?: string
   ): Promise<void>;
   isReadyForProduction(): boolean;
-  getUnitPrice(): number;
 }
 
 // -------------------
@@ -126,8 +117,8 @@ const LabelSchema = new Schema<ILabel>(
     },
     productType: {
       type: String,
-      enum: ["BIOMAX Gummies", "Rosin Gummies"],
       required: true,
+      trim: true,
     },
     currentStage: {
       type: String,
@@ -190,11 +181,6 @@ LabelSchema.methods.isReadyForProduction = function () {
   return this.currentStage === "ready_for_production";
 };
 
-// Get unit price based on product type
-LabelSchema.methods.getUnitPrice = function () {
-  return PRODUCT_PRICES[this.productType as ProductType];
-};
-
 // -------------------
 // Pre-save Hook: Auto-add initial stage history on creation
 // -------------------
@@ -214,10 +200,3 @@ LabelSchema.pre("save", function (next) {
 // Model Export
 // -------------------
 export const Label = model<ILabel>("Label", LabelSchema);
-
-// -------------------
-// Helper function for use in controllers
-// -------------------
-export const getUnitPriceByProductType = (productType: string): number => {
-  return PRODUCT_PRICES[productType as ProductType] || 0;
-};
