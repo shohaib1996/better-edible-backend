@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "set NODE_ENV=development&& ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "swagger": "ts-node src/scripts/generateSwagger.ts"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +29,7 @@
     "node-cron": "^4.2.1",
     "puppeteer": "^24.31.0",
     "resend": "^6.7.0",
+    "swagger-autogen": "^2.23.7",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "tough-cookie": "^6.0.0"
