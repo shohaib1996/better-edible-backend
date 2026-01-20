@@ -1,0 +1,2393 @@
+# ===================================================
+# AUTH ROUTES
+# ===================================================
+paths:
+  /api/auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register a new rep
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+      responses:
+        "201":
+          description: Rep registered successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  rep:
+                    $ref: "#/components/schemas/Rep"
+        "400":
+          description: Validation error
+
+  /api/auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login a rep
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  token:
+                    type: string
+                  rep:
+                    $ref: "#/components/schemas/Rep"
+        "401":
+          description: Invalid credentials
+
+  /api/auth/logout:
+    post:
+      tags:
+        - Auth
+      summary: Logout a rep
+      responses:
+        "200":
+          description: Logout successful
+
+# ===================================================
+# ADMIN ROUTES
+# ===================================================
+  /api/admin/register:
+    post:
+      tags:
+        - Admin
+      summary: Register a new admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - password
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                role:
+                  type: string
+                  enum: [superadmin, manager]
+      responses:
+        "201":
+          description: Admin registered successfully
+
+  /api/admin/login:
+    post:
+      tags:
+        - Admin
+      summary: Login an admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: Login successful
+
+  /api/admin/logout:
+    post:
+      tags:
+        - Admin
+      summary: Logout an admin
+      responses:
+        "200":
+          description: Logout successful
+
+# ===================================================
+# REP ROUTES
+# ===================================================
+  /api/reps:
+    get:
+      tags:
+        - Reps
+      summary: Get all reps
+      responses:
+        "200":
+          description: List of reps
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Rep"
+
+  /api/reps/{id}:
+    get:
+      tags:
+        - Reps
+      summary: Get rep by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Rep details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Rep"
+        "404":
+          description: Rep not found
+
+    put:
+      tags:
+        - Reps
+      summary: Update rep
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                phone:
+                  type: string
+                repType:
+                  type: string
+                  enum: [rep, delivery, both]
+                territory:
+                  type: string
+                status:
+                  type: string
+                  enum: [active, inactive, suspended]
+      responses:
+        "200":
+          description: Rep updated
+
+    delete:
+      tags:
+        - Reps
+      summary: Delete rep
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Rep deleted
+
+  /api/reps/checkin:
+    post:
+      tags:
+        - Reps
+      summary: Check in a rep
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CheckInRequest"
+      responses:
+        "200":
+          description: Check-in successful
+
+  /api/reps/checkout:
+    post:
+      tags:
+        - Reps
+      summary: Check out a rep
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - repId
+              properties:
+                repId:
+                  type: string
+      responses:
+        "200":
+          description: Check-out successful
+
+  /api/reps/{id}/reset-password:
+    post:
+      tags:
+        - Reps
+      summary: Reset rep password
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - newPassword
+              properties:
+                newPassword:
+                  type: string
+      responses:
+        "200":
+          description: Password reset successful
+
+  /api/reps/{id}/reset-pin:
+    post:
+      tags:
+        - Reps
+      summary: Reset rep PIN
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - newPin
+              properties:
+                newPin:
+                  type: string
+      responses:
+        "200":
+          description: PIN reset successful
+
+# ===================================================
+# STORE ROUTES
+# ===================================================
+  /api/stores:
+    get:
+      tags:
+        - Stores
+      summary: Get all stores
+      parameters:
+        - name: territory
+          in: query
+          schema:
+            type: string
+        - name: paymentStatus
+          in: query
+          schema:
+            type: string
+            enum: [green, yellow, red]
+        - name: blocked
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: List of stores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Store"
+
+    post:
+      tags:
+        - Stores
+      summary: Create a new store
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateStoreRequest"
+      responses:
+        "201":
+          description: Store created
+
+  /api/stores/{id}:
+    get:
+      tags:
+        - Stores
+      summary: Get store by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Store details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Store"
+
+    put:
+      tags:
+        - Stores
+      summary: Update store
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateStoreRequest"
+      responses:
+        "200":
+          description: Store updated
+
+    delete:
+      tags:
+        - Stores
+      summary: Delete store
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Store deleted
+
+  /api/stores/{id}/block:
+    put:
+      tags:
+        - Stores
+      summary: Toggle store block status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Block status toggled
+
+  /api/stores/assign-rep:
+    post:
+      tags:
+        - Stores
+      summary: Assign rep to multiple stores
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - repId
+                - storeIds
+              properties:
+                repId:
+                  type: string
+                storeIds:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        "200":
+          description: Rep assigned to stores
+
+  /api/stores/toggle-block:
+    post:
+      tags:
+        - Stores
+      summary: Toggle block status for multiple stores
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - storeIds
+                - blocked
+              properties:
+                storeIds:
+                  type: array
+                  items:
+                    type: string
+                blocked:
+                  type: boolean
+      responses:
+        "200":
+          description: Block status updated
+
+# ===================================================
+# PRODUCT LINE ROUTES
+# ===================================================
+  /api/product-lines:
+    get:
+      tags:
+        - Product Lines
+      summary: Get all product lines
+      responses:
+        "200":
+          description: List of product lines
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductLine"
+
+    post:
+      tags:
+        - Product Lines
+      summary: Create a new product line
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - pricingStructure
+              properties:
+                name:
+                  type: string
+                displayOrder:
+                  type: number
+                pricingStructure:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      enum: [simple, variants, multi-type]
+                    variantLabels:
+                      type: array
+                      items:
+                        type: string
+                    typeLabels:
+                      type: array
+                      items:
+                        type: string
+                fields:
+                  type: array
+                  items:
+                    type: object
+                description:
+                  type: string
+      responses:
+        "201":
+          description: Product line created
+
+  /api/product-lines/active:
+    get:
+      tags:
+        - Product Lines
+      summary: Get active product lines only
+      responses:
+        "200":
+          description: List of active product lines
+
+  /api/product-lines/by-name/{name}:
+    get:
+      tags:
+        - Product Lines
+      summary: Get product line by name
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Product line details
+
+  /api/product-lines/{id}:
+    get:
+      tags:
+        - Product Lines
+      summary: Get product line by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Product line details
+
+    put:
+      tags:
+        - Product Lines
+      summary: Update product line
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Product line updated
+
+    delete:
+      tags:
+        - Product Lines
+      summary: Delete product line
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Product line deleted
+
+  /api/product-lines/{id}/status:
+    put:
+      tags:
+        - Product Lines
+      summary: Toggle product line active status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Status toggled
+
+  /api/product-lines/reorder:
+    post:
+      tags:
+        - Product Lines
+      summary: Reorder product lines
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - orderedIds
+              properties:
+                orderedIds:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        "200":
+          description: Product lines reordered
+
+# ===================================================
+# PRODUCT ROUTES
+# ===================================================
+  /api/products:
+    get:
+      tags:
+        - Products
+      summary: Get all products
+      parameters:
+        - name: productLine
+          in: query
+          schema:
+            type: string
+        - name: active
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: List of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+
+    post:
+      tags:
+        - Products
+      summary: Create a new product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateProductRequest"
+      responses:
+        "201":
+          description: Product created
+
+  /api/products/{id}:
+    get:
+      tags:
+        - Products
+      summary: Get product by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Product details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+
+    put:
+      tags:
+        - Products
+      summary: Update product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateProductRequest"
+      responses:
+        "200":
+          description: Product updated
+
+    delete:
+      tags:
+        - Products
+      summary: Delete product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Product deleted
+
+  /api/products/{id}/status:
+    put:
+      tags:
+        - Products
+      summary: Toggle product active status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Product status toggled
+
+# ===================================================
+# ORDER ROUTES
+# ===================================================
+  /api/orders:
+    get:
+      tags:
+        - Orders
+      summary: Get all orders
+      parameters:
+        - name: store
+          in: query
+          schema:
+            type: string
+        - name: rep
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [submitted, accepted, manifested, shipped, delivered, cancelled, returned]
+      responses:
+        "200":
+          description: List of orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Order"
+
+    post:
+      tags:
+        - Orders
+      summary: Create a new order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOrderRequest"
+      responses:
+        "201":
+          description: Order created
+
+  /api/orders/{id}:
+    get:
+      tags:
+        - Orders
+      summary: Get order by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Order details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+
+    put:
+      tags:
+        - Orders
+      summary: Update order
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Order updated
+
+  /api/orders/{id}/status:
+    put:
+      tags:
+        - Orders
+      summary: Change order status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - status
+              properties:
+                status:
+                  type: string
+                  enum: [submitted, accepted, manifested, shipped, delivered, cancelled, returned]
+      responses:
+        "200":
+          description: Order status updated
+
+  /api/orders/{id}/payment:
+    post:
+      tags:
+        - Orders
+      summary: Collect payment for order
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - amount
+              properties:
+                method:
+                  type: string
+                  enum: [cash, card, bank, stripe]
+                amount:
+                  type: number
+                collectedBy:
+                  type: string
+                note:
+                  type: string
+      responses:
+        "200":
+          description: Payment collected
+
+# ===================================================
+# CLIENT ORDER ROUTES
+# ===================================================
+  /api/client-orders:
+    get:
+      tags:
+        - Client Orders
+      summary: Get all client orders
+      parameters:
+        - name: client
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [waiting, stage_1, stage_2, stage_3, stage_4, ready_to_ship, shipped]
+      responses:
+        "200":
+          description: List of client orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ClientOrder"
+
+    post:
+      tags:
+        - Client Orders
+      summary: Create a new client order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - client
+                - assignedRep
+                - deliveryDate
+                - items
+              properties:
+                client:
+                  type: string
+                assignedRep:
+                  type: string
+                deliveryDate:
+                  type: string
+                  format: date-time
+                items:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/ClientOrderItem"
+                discountType:
+                  type: string
+                  enum: [flat, percentage]
+                discount:
+                  type: number
+                note:
+                  type: string
+                isRecurring:
+                  type: boolean
+      responses:
+        "201":
+          description: Client order created
+
+  /api/client-orders/{id}:
+    get:
+      tags:
+        - Client Orders
+      summary: Get client order by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Client order details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientOrder"
+
+    put:
+      tags:
+        - Client Orders
+      summary: Update client order
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Client order updated
+
+    patch:
+      tags:
+        - Client Orders
+      summary: Update client order (partial)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Client order updated
+
+    delete:
+      tags:
+        - Client Orders
+      summary: Delete client order
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Client order deleted
+
+  /api/client-orders/{id}/status:
+    patch:
+      tags:
+        - Client Orders
+      summary: Update client order status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - status
+              properties:
+                status:
+                  type: string
+                  enum: [waiting, stage_1, stage_2, stage_3, stage_4, ready_to_ship, shipped]
+      responses:
+        "200":
+          description: Status updated
+
+  /api/client-orders/{id}/push-to-pps:
+    patch:
+      tags:
+        - Client Orders
+      summary: Push order to production (PPS)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Order pushed to production
+
+  /api/client-orders/{id}/delivery-date:
+    patch:
+      tags:
+        - Client Orders
+      summary: Update delivery date
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - deliveryDate
+              properties:
+                deliveryDate:
+                  type: string
+                  format: date-time
+      responses:
+        "200":
+          description: Delivery date updated
+
+  /api/client-orders/{id}/ship-asap:
+    patch:
+      tags:
+        - Client Orders
+      summary: Toggle ship ASAP flag
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Ship ASAP toggled
+
+# ===================================================
+# PRIVATE LABEL ROUTES
+# ===================================================
+  /api/private-labels:
+    get:
+      tags:
+        - Private Labels
+      summary: Get all private label orders
+      responses:
+        "200":
+          description: List of private label orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PrivateLabel"
+
+    post:
+      tags:
+        - Private Labels
+      summary: Create a private label order
+      description: Supports file uploads for label images (multipart/form-data)
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - store
+                - rep
+                - items
+              properties:
+                store:
+                  type: string
+                rep:
+                  type: string
+                items:
+                  type: string
+                  description: JSON array of items
+                discountType:
+                  type: string
+                  enum: [flat, percentage]
+                discount:
+                  type: number
+                note:
+                  type: string
+                deliveryDate:
+                  type: string
+                labelImages:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        "201":
+          description: Private label order created
+
+  /api/private-labels/{id}:
+    get:
+      tags:
+        - Private Labels
+      summary: Get private label order by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Private label order details
+
+    put:
+      tags:
+        - Private Labels
+      summary: Update private label order
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Private label order updated
+
+    delete:
+      tags:
+        - Private Labels
+      summary: Delete private label order
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Private label order deleted
+
+  /api/private-labels/{id}/status:
+    put:
+      tags:
+        - Private Labels
+      summary: Change private label order status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - status
+              properties:
+                status:
+                  type: string
+                  enum: [submitted, accepted, manifested, shipped, cancelled]
+      responses:
+        "200":
+          description: Status updated
+
+# ===================================================
+# PRIVATE LABEL PRODUCT ROUTES
+# ===================================================
+  /api/private-label-products:
+    get:
+      tags:
+        - Private Label Products
+      summary: Get all private label products
+      responses:
+        "200":
+          description: List of private label products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PrivateLabelProduct"
+
+    post:
+      tags:
+        - Private Label Products
+      summary: Create a private label product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - unitPrice
+              properties:
+                name:
+                  type: string
+                unitPrice:
+                  type: number
+                description:
+                  type: string
+      responses:
+        "201":
+          description: Product created
+
+  /api/private-label-products/{id}:
+    get:
+      tags:
+        - Private Label Products
+      summary: Get private label product by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Product details
+
+    put:
+      tags:
+        - Private Label Products
+      summary: Update private label product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Product updated
+
+    delete:
+      tags:
+        - Private Label Products
+      summary: Delete private label product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Product deleted
+
+  /api/private-label-products/{id}/toggle:
+    put:
+      tags:
+        - Private Label Products
+      summary: Toggle product active status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Status toggled
+
+# ===================================================
+# PRIVATE LABEL CLIENT ROUTES
+# ===================================================
+  /api/private-label-clients:
+    get:
+      tags:
+        - Private Label Clients
+      summary: Get all private label clients
+      responses:
+        "200":
+          description: List of clients
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PrivateLabelClient"
+
+    post:
+      tags:
+        - Private Label Clients
+      summary: Create a private label client
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - store
+                - contactEmail
+                - assignedRep
+              properties:
+                store:
+                  type: string
+                contactEmail:
+                  type: string
+                assignedRep:
+                  type: string
+                recurringSchedule:
+                  type: object
+                  properties:
+                    enabled:
+                      type: boolean
+                    interval:
+                      type: string
+                      enum: [monthly, bimonthly, quarterly]
+      responses:
+        "201":
+          description: Client created
+
+  /api/private-label-clients/with-approved-labels:
+    get:
+      tags:
+        - Private Label Clients
+      summary: Get clients with approved labels
+      responses:
+        "200":
+          description: List of clients with approved labels
+
+  /api/private-label-clients/{id}:
+    get:
+      tags:
+        - Private Label Clients
+      summary: Get client by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Client details
+
+    put:
+      tags:
+        - Private Label Clients
+      summary: Update client
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Client updated
+
+    patch:
+      tags:
+        - Private Label Clients
+      summary: Update client (partial)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Client updated
+
+    delete:
+      tags:
+        - Private Label Clients
+      summary: Delete client
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Client deleted
+
+  /api/private-label-clients/{id}/schedule:
+    patch:
+      tags:
+        - Private Label Clients
+      summary: Update client recurring schedule
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+                interval:
+                  type: string
+                  enum: [monthly, bimonthly, quarterly]
+      responses:
+        "200":
+          description: Schedule updated
+
+# ===================================================
+# LABEL ROUTES
+# ===================================================
+  /api/labels:
+    get:
+      tags:
+        - Labels
+      summary: Get all labels
+      parameters:
+        - name: client
+          in: query
+          schema:
+            type: string
+        - name: currentStage
+          in: query
+          schema:
+            type: string
+            enum: [design_in_progress, awaiting_store_approval, store_approved, submitted_to_olcc, olcc_approved, print_order_submitted, ready_for_production]
+      responses:
+        "200":
+          description: List of labels
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Label"
+
+    post:
+      tags:
+        - Labels
+      summary: Create a new label
+      description: Supports up to 5 image uploads
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - client
+                - flavorName
+                - productType
+              properties:
+                client:
+                  type: string
+                flavorName:
+                  type: string
+                productType:
+                  type: string
+                labelImages:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  maxItems: 5
+      responses:
+        "201":
+          description: Label created
+
+  /api/labels/client/{clientId}/approved:
+    get:
+      tags:
+        - Labels
+      summary: Get approved labels for a client
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of approved labels
+
+  /api/labels/{id}:
+    get:
+      tags:
+        - Labels
+      summary: Get label by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Label details
+
+    patch:
+      tags:
+        - Labels
+      summary: Update label
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Label updated
+
+    put:
+      tags:
+        - Labels
+      summary: Update label
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Label updated
+
+    delete:
+      tags:
+        - Labels
+      summary: Delete label
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Label deleted
+
+  /api/labels/{id}/stage:
+    patch:
+      tags:
+        - Labels
+      summary: Update label stage
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - stage
+                - userId
+              properties:
+                stage:
+                  type: string
+                  enum: [design_in_progress, awaiting_store_approval, store_approved, submitted_to_olcc, olcc_approved, print_order_submitted, ready_for_production]
+                userId:
+                  type: string
+                notes:
+                  type: string
+      responses:
+        "200":
+          description: Stage updated
+
+  /api/labels/bulk/stage:
+    patch:
+      tags:
+        - Labels
+      summary: Bulk update label stages
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - labelIds
+                - stage
+                - userId
+              properties:
+                labelIds:
+                  type: array
+                  items:
+                    type: string
+                stage:
+                  type: string
+                  enum: [design_in_progress, awaiting_store_approval, store_approved, submitted_to_olcc, olcc_approved, print_order_submitted, ready_for_production]
+                userId:
+                  type: string
+                notes:
+                  type: string
+      responses:
+        "200":
+          description: Stages updated
+
+# ===================================================
+# DELIVERY ROUTES
+# ===================================================
+  /api/deliveries:
+    get:
+      tags:
+        - Deliveries
+      summary: Get all deliveries
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, assigned, completed, cancelled, in_transit]
+        - name: assignedTo
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of deliveries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Delivery"
+
+    post:
+      tags:
+        - Deliveries
+      summary: Create a delivery
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - storeId
+                - scheduledAt
+              properties:
+                storeId:
+                  type: string
+                assignedTo:
+                  type: string
+                sampleId:
+                  type: string
+                orderId:
+                  type: string
+                privateLabelOrderId:
+                  type: string
+                disposition:
+                  type: string
+                  enum: [money_pickup, delivery, sample_drop, other]
+                paymentAction:
+                  type: string
+                  enum: [collect_payment, no_payment, may_not_collect]
+                amount:
+                  type: number
+                scheduledAt:
+                  type: string
+                  format: date-time
+                notes:
+                  type: string
+      responses:
+        "201":
+          description: Delivery created
+
+  /api/deliveries/{id}:
+    get:
+      tags:
+        - Deliveries
+      summary: Get delivery by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Delivery details
+
+    put:
+      tags:
+        - Deliveries
+      summary: Update delivery
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Delivery updated
+
+    delete:
+      tags:
+        - Deliveries
+      summary: Delete delivery
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Delivery deleted
+
+  /api/deliveries/{id}/status:
+    put:
+      tags:
+        - Deliveries
+      summary: Update delivery status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - status
+              properties:
+                status:
+                  type: string
+                  enum: [pending, assigned, completed, cancelled, in_transit]
+      responses:
+        "200":
+          description: Status updated
+
+# ===================================================
+# NOTE ROUTES
+# ===================================================
+  /api/notes:
+    get:
+      tags:
+        - Notes
+      summary: Get all notes
+      parameters:
+        - name: entityId
+          in: query
+          schema:
+            type: string
+          description: Filter by store ID
+      responses:
+        "200":
+          description: List of notes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Note"
+
+    post:
+      tags:
+        - Notes
+      summary: Create a note
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - entityId
+                - author
+                - date
+              properties:
+                entityId:
+                  type: string
+                  description: Store ObjectId
+                author:
+                  type: string
+                  description: Rep ObjectId
+                date:
+                  type: string
+                  description: "Format: YYYY-MM-DD HH:MM (24hr)"
+                  example: "2026-01-12 14:30"
+                disposition:
+                  type: string
+                visitType:
+                  type: string
+                content:
+                  type: string
+                sample:
+                  type: boolean
+                delivery:
+                  type: boolean
+                payment:
+                  type: object
+                  properties:
+                    cash:
+                      type: boolean
+                    check:
+                      type: boolean
+                    noPay:
+                      type: boolean
+                    amount:
+                      type: string
+      responses:
+        "201":
+          description: Note created
+
+  /api/notes/{id}:
+    get:
+      tags:
+        - Notes
+      summary: Get note by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Note details
+
+    put:
+      tags:
+        - Notes
+      summary: Update note
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Note updated
+
+    delete:
+      tags:
+        - Notes
+      summary: Delete note
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Note deleted
+
+# ===================================================
+# TIME LOG ROUTES
+# ===================================================
+  /api/timelogs:
+    get:
+      tags:
+        - Time Logs
+      summary: Get all time logs
+      responses:
+        "200":
+          description: List of time logs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TimeLog"
+
+  /api/timelogs/summary:
+    get:
+      tags:
+        - Time Logs
+      summary: Get time logs summary
+      responses:
+        "200":
+          description: Time logs summary
+
+  /api/timelogs/summary/rep/{repId}:
+    get:
+      tags:
+        - Time Logs
+      summary: Get time logs summary for a rep
+      parameters:
+        - name: repId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Rep time logs summary
+
+  /api/timelogs/rep/{repId}:
+    get:
+      tags:
+        - Time Logs
+      summary: Get time logs by rep ID
+      parameters:
+        - name: repId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Rep time logs
+
+  /api/timelogs/{id}:
+    get:
+      tags:
+        - Time Logs
+      summary: Get time log by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Time log details
+
+# ===================================================
+# SAMPLE ROUTES
+# ===================================================
+  /api/samples:
+    get:
+      tags:
+        - Samples
+      summary: Get all samples
+      responses:
+        "200":
+          description: List of samples
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Sample"
+
+    post:
+      tags:
+        - Samples
+      summary: Create a sample
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - store
+                - rep
+              properties:
+                store:
+                  type: string
+                rep:
+                  type: string
+                description:
+                  type: string
+                notes:
+                  type: string
+                deliveryDate:
+                  type: string
+                  format: date-time
+      responses:
+        "201":
+          description: Sample created
+
+  /api/samples/{id}:
+    get:
+      tags:
+        - Samples
+      summary: Get sample by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Sample details
+
+    put:
+      tags:
+        - Samples
+      summary: Update sample
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Sample updated
+
+    delete:
+      tags:
+        - Samples
+      summary: Delete sample
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Sample deleted
+
+  /api/samples/{id}/status:
+    put:
+      tags:
+        - Samples
+      summary: Update sample status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - status
+              properties:
+                status:
+                  type: string
+                  enum: [submitted, accepted, manifested, shipped, cancelled]
+      responses:
+        "200":
+          description: Status updated
+
+# ===================================================
+# CONTACT ROUTES
+# ===================================================
+  /api/contacts:
+    get:
+      tags:
+        - Contacts
+      summary: Get all contacts
+      parameters:
+        - name: store
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of contacts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Contact"
+
+    post:
+      tags:
+        - Contacts
+      summary: Create a contact
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                role:
+                  type: string
+                email:
+                  type: string
+                phone:
+                  type: string
+                importantToKnow:
+                  type: string
+                store:
+                  type: string
+      responses:
+        "201":
+          description: Contact created
+
+  /api/contacts/{id}:
+    get:
+      tags:
+        - Contacts
+      summary: Get contact by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Contact details
+
+    put:
+      tags:
+        - Contacts
+      summary: Update contact
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Contact updated
+
+    delete:
+      tags:
+        - Contacts
+      summary: Delete contact
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Contact deleted
+
+# ===================================================
+# FOLLOWUP ROUTES
+# ===================================================
+  /api/followups:
+    get:
+      tags:
+        - Followups
+      summary: Get all followups
+      parameters:
+        - name: store
+          in: query
+          schema:
+            type: string
+        - name: rep
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of followups
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Followup"
+
+    post:
+      tags:
+        - Followups
+      summary: Create a followup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - followupDate
+                - store
+                - rep
+              properties:
+                followupDate:
+                  type: string
+                  description: "Format: YYYY-MM-DD"
+                  example: "2026-01-15"
+                interestLevel:
+                  type: string
+                comments:
+                  type: string
+                store:
+                  type: string
+                rep:
+                  type: string
+      responses:
+        "201":
+          description: Followup created
+
+  /api/followups/{id}:
+    get:
+      tags:
+        - Followups
+      summary: Get followup by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Followup details
+
+    put:
+      tags:
+        - Followups
+      summary: Update followup
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: Followup updated
+
+    delete:
+      tags:
+        - Followups
+      summary: Delete followup
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Followup deleted
