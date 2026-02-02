@@ -28,6 +28,43 @@ async function isValidProductType(productType: string): Promise<boolean> {
   return !!product;
 }
 
+// Helper function to populate stageHistory.changedBy from Admin or Rep collections
+async function populateStageHistory(labels: any[]) {
+  const { Admin } = await import("../models/Admin");
+  const { Rep } = await import("../models/Rep");
+
+  return Promise.all(
+    labels.map(async (label) => {
+      const labelObj = label.toObject ? label.toObject() : label;
+
+      const populatedHistory = await Promise.all(
+        labelObj.stageHistory.map(async (entry: any) => {
+          if (!entry.changedBy) {
+            return entry;
+          }
+
+          let user = null;
+          if (entry.changedByType === "Admin") {
+            user = await Admin.findById(entry.changedBy).select("name email");
+          } else if (entry.changedByType === "Rep") {
+            user = await Rep.findById(entry.changedBy).select("name email");
+          }
+
+          return {
+            ...entry,
+            changedBy: user ? { _id: user._id, name: user.name, email: user.email } : entry.changedBy,
+          };
+        })
+      );
+
+      return {
+        ...labelObj,
+        stageHistory: populatedHistory,
+      };
+    })
+  );
+}
+
 // GET ALL LABELS
 export const getAllLabels = async (req: Request, res: Response) => {
   try {
@@ -64,9 +101,12 @@ export const getAllLabels = async (req: Request, res: Response) => {
       Label.countDocuments(filter),
     ]);
 
+    // Populate stageHistory.changedBy from Admin or Rep collections
+    const populatedLabels = await populateStageHistory(labels);
+
     res.json({
       total,
-      labels,
+      labels: populatedLabels,
       page: Number(page),
       limit: Number(limit),
     });
@@ -89,17 +129,16 @@ export const getLabelById = async (req: Request, res: Response) => {
           path: "store",
           select: "name address city state zip",
         },
-      })
-      .populate({
-        path: "stageHistory.changedBy",
-        select: "name email",
       });
 
     if (!label) {
       return res.status(404).json({ message: "Label not found" });
     }
 
-    res.json(label);
+    // Populate stageHistory.changedBy from Admin or Rep collections
+    const [populatedLabel] = await populateStageHistory([label]);
+
+    res.json(populatedLabel);
   } catch (error: any) {
     console.error("Error fetching label:", error);
     res.status(500).json({
@@ -147,7 +186,7 @@ export const getApprovedLabelsByClient = async (
 // CREATE LABEL
 export const createLabel = async (req: Request, res: Response) => {
   try {
-    const { clientId, flavorName, productType } = req.body;
+    const { clientId, flavorName, productType, userId, userType } = req.body;
 
     // Validate client exists
     const client = await PrivateLabelClient.findById(clientId);
@@ -164,6 +203,11 @@ export const createLabel = async (req: Request, res: Response) => {
     if (!productType || !(await isValidProductType(productType))) {
       return res.status(400).json({ message: "Invalid or inactive product type" });
     }
+
+    // Normalize userType if provided
+    const normalizedUserType = userType
+      ? (userType.charAt(0).toUpperCase() + userType.slice(1).toLowerCase()) as "Admin" | "Rep"
+      : undefined;
 
     // Handle image uploads
     const files = (req as any).files as Express.Multer.File[];
@@ -193,6 +237,15 @@ export const createLabel = async (req: Request, res: Response) => {
       }
     }
 
+    // Create initial stage history with user info
+    const initialStageHistory = {
+      stage: "design_in_progress",
+      changedBy: userId || undefined,
+      changedByType: normalizedUserType || undefined,
+      changedAt: new Date(),
+      notes: "Label created",
+    };
+
     // Create label (starts at design_in_progress)
     const label = await Label.create({
       client: clientId,
@@ -200,6 +253,7 @@ export const createLabel = async (req: Request, res: Response) => {
       productType,
       currentStage: "design_in_progress",
       labelImages,
+      stageHistory: [initialStageHistory], // Set initial history to skip pre-save hook
     });
 
     await label.populate({
@@ -326,7 +380,7 @@ export const updateLabelStage = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "Label not found" });
     }
 
-    const { stage, notes } = req.body;
+    const { stage, notes, userId, userType } = req.body;
 
     // Validate stage
     const validStages = [
@@ -343,13 +397,17 @@ export const updateLabelStage = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Invalid stage" });
     }
 
-    // Get user ID from auth
-    const userId = (req as any).user?.id || (req as any).user?._id;
-    if (!userId) {
-      return res.status(401).json({ message: "User not authenticated" });
+    // Validate userType if provided
+    const validUserTypes = ["admin", "rep"];
+    const normalizedUserType = userType
+      ? (userType.charAt(0).toUpperCase() + userType.slice(1).toLowerCase()) as "Admin" | "Rep"
+      : undefined;
+
+    if (userType && !validUserTypes.includes(userType.toLowerCase())) {
+      return res.status(400).json({ message: "Invalid user type" });
     }
 
-    await label.updateStage(stage, userId, notes);
+    await label.updateStage(stage, userId || undefined, normalizedUserType, notes);
 
     await label.populate({
       path: "client",
@@ -376,7 +434,7 @@ export const updateLabelStage = async (req: Request, res: Response) => {
 // Labels are treated as a GROUP - update all at once
 export const bulkUpdateLabelStages = async (req: Request, res: Response) => {
   try {
-    const { clientId, stage, notes } = req.body;
+    const { clientId, stage, notes, userId, userType } = req.body;
 
     if (!clientId || !mongoose.Types.ObjectId.isValid(clientId)) {
       return res.status(400).json({ message: "Valid client ID is required" });
@@ -397,10 +455,14 @@ export const bulkUpdateLabelStages = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Invalid stage" });
     }
 
-    // Get user ID from auth
-    const userId = (req as any).user?.id || (req as any).user?._id;
-    if (!userId) {
-      return res.status(401).json({ message: "User not authenticated" });
+    // Validate userType if provided
+    const validUserTypes = ["admin", "rep"];
+    const normalizedUserType = userType
+      ? (userType.charAt(0).toUpperCase() + userType.slice(1).toLowerCase()) as "Admin" | "Rep"
+      : undefined;
+
+    if (userType && !validUserTypes.includes(userType.toLowerCase())) {
+      return res.status(400).json({ message: "Invalid user type" });
     }
 
     // Get all labels for this client that are not already at this stage
@@ -411,7 +473,7 @@ export const bulkUpdateLabelStages = async (req: Request, res: Response) => {
 
     // Update each label
     for (const label of labels) {
-      await label.updateStage(stage, userId, notes);
+      await label.updateStage(stage, userId || undefined, normalizedUserType, notes);
     }
 
     res.json({

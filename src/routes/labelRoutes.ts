@@ -23,9 +23,9 @@ router.get("/:id", getLabelById);
 router.post("/", upload.array("labelImages", 5), createLabel);
 
 // PATCH routes
+router.patch("/bulk/stage", bulkUpdateLabelStages); // Must be before /:id routes
 router.patch("/:id", upload.array("labelImages", 5), updateLabel);
 router.patch("/:id/stage", updateLabelStage);
-router.patch("/bulk/stage", bulkUpdateLabelStages);
 
 // PUT routes (alias for PATCH)
 router.put("/:id", upload.array("labelImages", 5), updateLabel);

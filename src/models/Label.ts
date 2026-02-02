@@ -38,7 +38,8 @@ export interface ILabelImage {
 
 export interface IStageHistoryEntry {
   stage: LabelStage;
-  changedBy: Types.ObjectId;
+  changedBy?: Types.ObjectId;
+  changedByType?: "Admin" | "Rep";
   changedAt: Date;
   notes?: string;
 }
@@ -57,7 +58,8 @@ export interface ILabel extends Document {
   updatedAt: Date;
   updateStage(
     newStage: LabelStage,
-    userId: Types.ObjectId,
+    userId?: Types.ObjectId,
+    userType?: "Admin" | "Rep",
     notes?: string
   ): Promise<void>;
   isReadyForProduction(): boolean;
@@ -88,8 +90,13 @@ const StageHistorySchema = new Schema<IStageHistoryEntry>(
     },
     changedBy: {
       type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
+      refPath: "stageHistory.changedByType",
+      required: false,
+    },
+    changedByType: {
+      type: String,
+      enum: ["Admin", "Rep"],
+      required: false,
     },
     changedAt: {
       type: Date,
@@ -153,13 +160,15 @@ LabelSchema.index({ client: 1, currentStage: 1 });
 // Update stage with history tracking
 LabelSchema.methods.updateStage = async function (
   newStage: LabelStage,
-  userId: Types.ObjectId,
+  userId?: Types.ObjectId,
+  userType?: "Admin" | "Rep",
   notes?: string
 ) {
   this.currentStage = newStage;
   this.stageHistory.push({
     stage: newStage,
-    changedBy: userId,
+    changedBy: userId || undefined,
+    changedByType: userType || undefined,
     changedAt: new Date(),
     notes,
   });
