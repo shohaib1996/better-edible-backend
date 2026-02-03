@@ -1,5 +1,5 @@
 // src/models/ClientOrder.ts
-import { Schema, model, Document, Types } from "mongoose";
+import mongoose, { Schema, model, Document, Types } from "mongoose";
 
 // -------------------
 // Types
@@ -112,7 +112,6 @@ const ClientOrderSchema = new Schema<IClientOrder>(
     orderNumber: {
       type: String,
       unique: true,
-      required: true,
     },
     client: {
       type: Schema.Types.ObjectId,
@@ -213,13 +212,20 @@ ClientOrderSchema.index({ isRecurring: 1 });
 ClientOrderSchema.index({ orderNumber: 1 });
 
 // -------------------
-// Pre-save Hook: Auto-generate order number
+// Pre-save Hook: Auto-generate order number using counters collection
 // -------------------
 ClientOrderSchema.pre("save", async function (next) {
   if (this.isNew && !this.orderNumber) {
-    const year = new Date().getFullYear();
-    const count = await model("ClientOrder").countDocuments();
-    this.orderNumber = `CO-${year}-${String(count + 1).padStart(4, "0")}`;
+    const Counter = mongoose.connection.collection("counters");
+
+    const result = await Counter.findOneAndUpdate(
+      { _id: "clientOrderNumber" } as any,
+      { $inc: { seq: 1 } },
+      { upsert: true, returnDocument: "after" }
+    );
+
+    const seq = result?.seq || 1;
+    this.orderNumber = `CO-${String(seq).padStart(4, "0")}`;
   }
   next();
 });
