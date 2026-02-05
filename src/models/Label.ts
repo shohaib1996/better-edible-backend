@@ -1,5 +1,6 @@
 // src/models/Label.ts
 import { Schema, model, Document, Types } from "mongoose";
+import crypto from "crypto";
 
 // -------------------
 // Types
@@ -54,6 +55,8 @@ export interface ILabel extends Document {
   currentStage: LabelStage;
   stageHistory: IStageHistoryEntry[];
   labelImages: ILabelImage[];
+  approvalToken?: string;
+  approvalTokenExpiry?: Date;
   createdAt: Date;
   updatedAt: Date;
   updateStage(
@@ -63,6 +66,7 @@ export interface ILabel extends Document {
     notes?: string
   ): Promise<void>;
   isReadyForProduction(): boolean;
+  generateApprovalToken(): string;
 }
 
 // -------------------
@@ -141,6 +145,14 @@ const LabelSchema = new Schema<ILabel>(
       type: [LabelImageSchema],
       default: [],
     },
+    approvalToken: {
+      type: String,
+      default: null,
+    },
+    approvalTokenExpiry: {
+      type: Date,
+      default: null,
+    },
   },
   { timestamps: true }
 );
@@ -188,6 +200,14 @@ LabelSchema.methods.updateStage = async function (
 // Check if ready for production
 LabelSchema.methods.isReadyForProduction = function () {
   return this.currentStage === "ready_for_production";
+};
+
+// Generate approval token (valid for 7 days)
+LabelSchema.methods.generateApprovalToken = function () {
+  const token = crypto.randomBytes(32).toString("hex");
+  this.approvalToken = crypto.createHash("sha256").update(token).digest("hex");
+  this.approvalTokenExpiry = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
+  return token; // Return unhashed token for the URL
 };
 
 // -------------------

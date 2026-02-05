@@ -5,6 +5,8 @@ import {
   sendSevenDayReminderEmail,
   sendReadyToShipEmail,
   sendRecurringOrderCreatedEmail,
+  sendOrderShippedEmail,
+  sendOrderShippedRepEmail,
 } from "../services/emailService";
 
 // -------------------
@@ -172,7 +174,77 @@ export const sendReadyToShipNotification = async (
 };
 
 // -------------------
-// Job 4: Create recurring order after shipment
+// Job 4: Send shipped notifications to client and rep
+// Triggered when order status changes to shipped
+// (Called from controller, not scheduled)
+// -------------------
+export const sendShippedNotification = async (
+  order: IClientOrder
+): Promise<void> => {
+  try {
+    if (order.emailsSent.shippedNotification) return;
+
+    const populatedOrder = await ClientOrder.findById(order._id)
+      .populate({
+        path: "client",
+        populate: { path: "store", select: "name address city state zip" },
+      })
+      .populate("assignedRep", "name email");
+
+    if (!populatedOrder) return;
+
+    const client = populatedOrder.client as any;
+    const rep = populatedOrder.assignedRep as any;
+    const store = client?.store;
+
+    if (!client || !rep || !store) return;
+
+    // Send email to client
+    const clientEmailSent = await sendOrderShippedEmail({
+      clientName: store.name,
+      contactEmail: client.contactEmail,
+      orderNumber: populatedOrder.orderNumber,
+      deliveryDate: formatDate(populatedOrder.deliveryDate),
+      items: populatedOrder.items.map((item) => ({
+        flavorName: item.flavorName,
+        productType: item.productType,
+        quantity: item.quantity,
+      })),
+      total: populatedOrder.total,
+      repName: rep.name,
+      repEmail: rep.email,
+      shippingAddress: {
+        name: store.name,
+        address: store.address || "",
+        city: store.city || "",
+        state: store.state || "",
+        zip: store.zip || "",
+      },
+      trackingNumber: populatedOrder.trackingNumber,
+    });
+
+    // Send email to rep
+    const repEmailSent = await sendOrderShippedRepEmail({
+      repEmail: rep.email,
+      repName: rep.name,
+      clientName: store.name,
+      orderNumber: populatedOrder.orderNumber,
+      deliveryDate: formatDate(populatedOrder.deliveryDate),
+      total: populatedOrder.total,
+      trackingNumber: populatedOrder.trackingNumber,
+    });
+
+    if (clientEmailSent && repEmailSent) {
+      populatedOrder.emailsSent.shippedNotification = true;
+      await populatedOrder.save();
+    }
+  } catch (err) {
+    console.error("❌ Error sending shipped notification:", err);
+  }
+};
+
+// -------------------
+// Job 5: Create recurring order after shipment
 // Called when an order is marked as shipped
 // -------------------
 export const createRecurringOrder = async (

@@ -378,7 +378,7 @@ export const updateClientOrderStatus = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "Order not found" });
     }
 
-    const { status } = req.body;
+    const { status, trackingNumber } = req.body;
 
     const validStatuses = [
       "waiting",
@@ -409,7 +409,14 @@ export const updateClientOrderStatus = async (req: Request, res: Response) => {
     // Handle shipped status
     if (status === "shipped") {
       order.actualShipDate = new Date();
+      if (trackingNumber) {
+        order.trackingNumber = trackingNumber;
+      }
       await order.save();
+      // Send shipped notification to client and rep (async, don't block response)
+      import("../jobs/clientOrderJobs").then(({ sendShippedNotification }) => {
+        sendShippedNotification(order);
+      });
       // Create recurring order if applicable (async, don't block response)
       import("../jobs/clientOrderJobs").then(({ createRecurringOrder }) => {
         createRecurringOrder(order);

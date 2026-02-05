@@ -1,6 +1,7 @@
 // src/controllers/labelController.ts
 import { Request, Response } from "express";
 import mongoose from "mongoose";
+import crypto from "crypto";
 import { Label } from "../models/Label";
 import { PrivateLabelClient } from "../models/PrivateLabelClient";
 import { PrivateLabelProduct } from "../models/PrivateLabelProduct";
@@ -52,16 +53,18 @@ async function populateStageHistory(labels: any[]) {
 
           return {
             ...entry,
-            changedBy: user ? { _id: user._id, name: user.name, email: user.email } : entry.changedBy,
+            changedBy: user
+              ? { _id: user._id, name: user.name, email: user.email }
+              : entry.changedBy,
           };
-        })
+        }),
       );
 
       return {
         ...labelObj,
         stageHistory: populatedHistory,
       };
-    })
+    }),
   );
 }
 
@@ -122,14 +125,13 @@ export const getAllLabels = async (req: Request, res: Response) => {
 // GET LABEL BY ID
 export const getLabelById = async (req: Request, res: Response) => {
   try {
-    const label = await Label.findById(req.params.id)
-      .populate({
-        path: "client",
-        populate: {
-          path: "store",
-          select: "name address city state zip",
-        },
-      });
+    const label = await Label.findById(req.params.id).populate({
+      path: "client",
+      populate: {
+        path: "store",
+        select: "name address city state zip",
+      },
+    });
 
     if (!label) {
       return res.status(404).json({ message: "Label not found" });
@@ -151,7 +153,7 @@ export const getLabelById = async (req: Request, res: Response) => {
 // GET APPROVED LABELS BY CLIENT (for order creation)
 export const getApprovedLabelsByClient = async (
   req: Request,
-  res: Response
+  res: Response,
 ) => {
   try {
     const { clientId } = req.params;
@@ -170,7 +172,7 @@ export const getApprovedLabelsByClient = async (
       labels.map(async (label) => ({
         ...label.toObject(),
         unitPrice: await getUnitPriceByProductType(label.productType),
-      }))
+      })),
     );
 
     res.json(labelsWithPricing);
@@ -201,12 +203,15 @@ export const createLabel = async (req: Request, res: Response) => {
 
     // Validate product type exists in database
     if (!productType || !(await isValidProductType(productType))) {
-      return res.status(400).json({ message: "Invalid or inactive product type" });
+      return res
+        .status(400)
+        .json({ message: "Invalid or inactive product type" });
     }
 
     // Normalize userType if provided
     const normalizedUserType = userType
-      ? (userType.charAt(0).toUpperCase() + userType.slice(1).toLowerCase()) as "Admin" | "Rep"
+      ? ((userType.charAt(0).toUpperCase() +
+          userType.slice(1).toLowerCase()) as "Admin" | "Rep")
       : undefined;
 
     // Handle image uploads
@@ -217,7 +222,7 @@ export const createLabel = async (req: Request, res: Response) => {
       try {
         const uploadResults = await uploadMultipleToCloudinary(
           files,
-          "private-labels"
+          "private-labels",
         );
 
         labelImages = uploadResults.map((result) => ({
@@ -298,7 +303,9 @@ export const updateLabel = async (req: Request, res: Response) => {
     // Update product type
     if (productType !== undefined) {
       if (!(await isValidProductType(productType))) {
-        return res.status(400).json({ message: "Invalid or inactive product type" });
+        return res
+          .status(400)
+          .json({ message: "Invalid or inactive product type" });
       }
       label.productType = productType;
     }
@@ -315,7 +322,7 @@ export const updateLabel = async (req: Request, res: Response) => {
 
     // Remove images not in keepExistingImages from Cloudinary
     const imagesToDelete = updatedImages.filter(
-      (img: any) => !imagesToKeep.includes(img.publicId)
+      (img: any) => !imagesToKeep.includes(img.publicId),
     );
 
     for (const img of imagesToDelete) {
@@ -327,7 +334,7 @@ export const updateLabel = async (req: Request, res: Response) => {
     }
 
     updatedImages = updatedImages.filter((img: any) =>
-      imagesToKeep.includes(img.publicId)
+      imagesToKeep.includes(img.publicId),
     );
 
     // Upload new images
@@ -335,7 +342,7 @@ export const updateLabel = async (req: Request, res: Response) => {
       try {
         const uploadResults = await uploadMultipleToCloudinary(
           files,
-          "private-labels"
+          "private-labels",
         );
 
         const newImages = uploadResults.map((result) => ({
@@ -381,6 +388,7 @@ export const updateLabelStage = async (req: Request, res: Response) => {
     }
 
     const { stage, notes, userId, userType } = req.body;
+    const previousStage = label.currentStage;
 
     // Validate stage
     const validStages = [
@@ -400,14 +408,20 @@ export const updateLabelStage = async (req: Request, res: Response) => {
     // Validate userType if provided
     const validUserTypes = ["admin", "rep"];
     const normalizedUserType = userType
-      ? (userType.charAt(0).toUpperCase() + userType.slice(1).toLowerCase()) as "Admin" | "Rep"
+      ? ((userType.charAt(0).toUpperCase() +
+          userType.slice(1).toLowerCase()) as "Admin" | "Rep")
       : undefined;
 
     if (userType && !validUserTypes.includes(userType.toLowerCase())) {
       return res.status(400).json({ message: "Invalid user type" });
     }
 
-    await label.updateStage(stage, userId || undefined, normalizedUserType, notes);
+    await label.updateStage(
+      stage,
+      userId || undefined,
+      normalizedUserType,
+      notes,
+    );
 
     await label.populate({
       path: "client",
@@ -416,6 +430,52 @@ export const updateLabelStage = async (req: Request, res: Response) => {
         select: "name",
       },
     });
+
+    // Send email if stage changed to awaiting_store_approval
+    if (
+      stage === "awaiting_store_approval" &&
+      previousStage !== "awaiting_store_approval"
+    ) {
+      // Get client with store and rep info for email
+      const client = await PrivateLabelClient.findById(label.client)
+        .populate("store", "name")
+        .populate("assignedRep", "name email");
+
+      if (client && client.contactEmail) {
+        const store = client.store as any;
+        const rep = client.assignedRep as any;
+        const labelImage = label.labelImages?.[0];
+
+        if (labelImage && rep) {
+          // Generate approval token
+          const approvalToken = label.generateApprovalToken();
+          await label.save();
+
+          // Build approval URL
+          const frontendUrl =
+            process.env.FRONTEND_URL ||
+            "https://www.better-edibles.com" ||
+            "https://staging.better-edibles.com";
+          const approvalLink = `${frontendUrl}/label-approval/${approvalToken}`;
+
+          // Send email asynchronously (don't block response)
+          import("../services/emailService").then(
+            ({ sendLabelApprovalRequestEmail }) => {
+              sendLabelApprovalRequestEmail({
+                storeEmail: client.contactEmail,
+                storeName: store?.name || "Store Owner",
+                flavorName: label.flavorName,
+                productType: label.productType,
+                labelImageUrl: labelImage.secureUrl || labelImage.url,
+                repName: rep.name,
+                repEmail: rep.email,
+                approvalLink,
+              });
+            },
+          );
+        }
+      }
+    }
 
     res.json({
       message: `Label stage updated to ${stage}`,
@@ -458,7 +518,8 @@ export const bulkUpdateLabelStages = async (req: Request, res: Response) => {
     // Validate userType if provided
     const validUserTypes = ["admin", "rep"];
     const normalizedUserType = userType
-      ? (userType.charAt(0).toUpperCase() + userType.slice(1).toLowerCase()) as "Admin" | "Rep"
+      ? ((userType.charAt(0).toUpperCase() +
+          userType.slice(1).toLowerCase()) as "Admin" | "Rep")
       : undefined;
 
     if (userType && !validUserTypes.includes(userType.toLowerCase())) {
@@ -473,7 +534,57 @@ export const bulkUpdateLabelStages = async (req: Request, res: Response) => {
 
     // Update each label
     for (const label of labels) {
-      await label.updateStage(stage, userId || undefined, normalizedUserType, notes);
+      await label.updateStage(
+        stage,
+        userId || undefined,
+        normalizedUserType,
+        notes,
+      );
+    }
+
+    // Send emails if stage changed to awaiting_store_approval
+    if (stage === "awaiting_store_approval" && labels.length > 0) {
+      const client = await PrivateLabelClient.findById(clientId)
+        .populate("store", "name")
+        .populate("assignedRep", "name email");
+
+      if (client && client.contactEmail) {
+        const store = client.store as any;
+        const rep = client.assignedRep as any;
+
+        if (rep) {
+          const frontendUrl =
+            process.env.FRONTEND_URL || "https://www.better-edibles.com";
+
+          // Generate tokens and send emails for each label
+          for (const label of labels) {
+            const labelImage = label.labelImages?.[0];
+            if (labelImage) {
+              // Generate approval token
+              const approvalToken = label.generateApprovalToken();
+              await label.save();
+
+              const approvalLink = `${frontendUrl}/label-approval/${approvalToken}`;
+
+              // Send email asynchronously
+              import("../services/emailService").then(
+                ({ sendLabelApprovalRequestEmail }) => {
+                  sendLabelApprovalRequestEmail({
+                    storeEmail: client.contactEmail,
+                    storeName: store?.name || "Store Owner",
+                    flavorName: label.flavorName,
+                    productType: label.productType,
+                    labelImageUrl: labelImage.secureUrl || labelImage.url,
+                    repName: rep.name,
+                    repEmail: rep.email,
+                    approvalLink,
+                  });
+                },
+              );
+            }
+          }
+        }
+      }
     }
 
     res.json({
@@ -525,6 +636,132 @@ export const deleteLabel = async (req: Request, res: Response) => {
     console.error("Error deleting label:", error);
     res.status(500).json({
       message: "Error deleting label",
+      error: error.message,
+    });
+  }
+};
+
+// PUBLIC: GET LABEL FOR APPROVAL (no auth required)
+export const getLabelForApproval = async (req: Request, res: Response) => {
+  try {
+    const { token } = req.params;
+
+    // Hash the token to compare with stored hash
+    const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+
+    const label = await Label.findOne({
+      approvalToken: hashedToken,
+      approvalTokenExpiry: { $gt: new Date() },
+    }).populate({
+      path: "client",
+      populate: {
+        path: "store",
+        select: "name",
+      },
+    });
+
+    if (!label) {
+      return res.status(404).json({
+        message: "Invalid or expired approval link",
+      });
+    }
+
+    // Return label info for the approval page
+    res.json({
+      _id: label._id,
+      flavorName: label.flavorName,
+      productType: label.productType,
+      currentStage: label.currentStage,
+      labelImages: label.labelImages,
+      storeName: (label.client as any)?.store?.name || "Unknown Store",
+      isAlreadyApproved: label.currentStage !== "awaiting_store_approval",
+    });
+  } catch (error: any) {
+    console.error("Error getting label for approval:", error);
+    res.status(500).json({
+      message: "Error getting label",
+      error: error.message,
+    });
+  }
+};
+
+// PUBLIC: APPROVE LABEL (no auth required)
+export const approveLabelPublic = async (req: Request, res: Response) => {
+  try {
+    const { token } = req.params;
+
+    // Hash the token to compare with stored hash
+    const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+
+    const label = await Label.findOne({
+      approvalToken: hashedToken,
+      approvalTokenExpiry: { $gt: new Date() },
+    });
+
+    if (!label) {
+      return res.status(404).json({
+        message: "Invalid or expired approval link",
+      });
+    }
+
+    // Check if already approved
+    if (label.currentStage !== "awaiting_store_approval") {
+      return res.status(400).json({
+        message:
+          "Label has already been approved or is no longer awaiting approval",
+        currentStage: label.currentStage,
+      });
+    }
+
+    // Update stage to store_approved
+    label.currentStage = "store_approved";
+    label.stageHistory.push({
+      stage: "store_approved",
+      changedAt: new Date(),
+      notes: "Approved by store owner via email link",
+    });
+
+    // Clear the approval token after use
+    label.approvalToken = undefined;
+    label.approvalTokenExpiry = undefined;
+
+    await label.save();
+
+    // Send email notification to rep (async, don't block response)
+    const client = await PrivateLabelClient.findById(label.client)
+      .populate("store", "name")
+      .populate("assignedRep", "name email");
+
+    if (client) {
+      const store = client.store as any;
+      const rep = client.assignedRep as any;
+      const labelImage = label.labelImages?.[0];
+
+      if (rep && rep.email) {
+        import("../services/emailService").then(
+          ({ sendLabelApprovedByStoreEmail }) => {
+            sendLabelApprovedByStoreEmail({
+              repEmail: rep.email,
+              repName: rep.name,
+              storeName: store?.name || "Store",
+              flavorName: label.flavorName,
+              productType: label.productType,
+              labelImageUrl: labelImage?.secureUrl || labelImage?.url,
+            });
+          }
+        );
+      }
+    }
+
+    res.json({
+      message: "Label approved successfully!",
+      flavorName: label.flavorName,
+      productType: label.productType,
+    });
+  } catch (error: any) {
+    console.error("Error approving label:", error);
+    res.status(500).json({
+      message: "Error approving label",
       error: error.message,
     });
   }

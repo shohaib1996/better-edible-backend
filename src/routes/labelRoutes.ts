@@ -9,10 +9,16 @@ import {
   updateLabelStage,
   bulkUpdateLabelStages,
   deleteLabel,
+  getLabelForApproval,
+  approveLabelPublic,
 } from "../controllers/labelController";
 import { upload } from "../middleware/uploadMiddleware";
 
 const router = Router();
+
+// PUBLIC routes (no auth required) - must be before other routes
+router.get("/public/approve/:token", getLabelForApproval);
+router.post("/public/approve/:token", approveLabelPublic);
 
 // GET routes
 router.get("/", getAllLabels);

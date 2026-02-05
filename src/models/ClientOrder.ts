@@ -56,9 +56,11 @@ export interface IClientOrder extends Document {
   isRecurring: boolean;
   parentOrder?: Types.ObjectId;
   shipASAP: boolean;
+  trackingNumber?: string;
   emailsSent: {
     sevenDayReminder: boolean;
     readyToShipNotification: boolean;
+    shippedNotification: boolean;
   };
   createdAt: Date;
   updatedAt: Date;
@@ -186,12 +188,20 @@ const ClientOrderSchema = new Schema<IClientOrder>(
       type: Boolean,
       default: false,
     },
+    trackingNumber: {
+      type: String,
+      default: null,
+    },
     emailsSent: {
       sevenDayReminder: {
         type: Boolean,
         default: false,
       },
       readyToShipNotification: {
+        type: Boolean,
+        default: false,
+      },
+      shippedNotification: {
         type: Boolean,
         default: false,
       },
