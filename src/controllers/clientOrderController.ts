@@ -246,6 +246,11 @@ export const createClientOrder = async (req: Request, res: Response) => {
     });
     await order.populate("assignedRep", "name email");
 
+    // Send order created email to client (async, don't block response)
+    import("../jobs/clientOrderJobs").then(({ sendOrderCreatedNotification }) => {
+      sendOrderCreatedNotification(order, false);
+    });
+
     res.status(201).json({
       message: "Order created successfully",
       order,
@@ -397,6 +402,15 @@ export const updateClientOrderStatus = async (req: Request, res: Response) => {
     const previousStatus = order.status;
     order.status = status;
 
+    // Handle stage_1 (production started) - send notification email
+    if (status === "stage_1" && previousStatus !== "stage_1") {
+      await order.save();
+      // Send production started notification (async, don't block response)
+      import("../jobs/clientOrderJobs").then(({ sendProductionStartedNotification }) => {
+        sendProductionStartedNotification(order);
+      });
+    }
+
     // Handle ready_to_ship - send notification email
     if (status === "ready_to_ship" && previousStatus !== "ready_to_ship") {
       await order.save();
@@ -454,6 +468,11 @@ export const pushOrderToPPS = async (req: Request, res: Response) => {
 
     order.status = "stage_1";
     await order.save();
+
+    // Send production started email to client (async, don't block response)
+    import("../jobs/clientOrderJobs").then(({ sendProductionStartedNotification }) => {
+      sendProductionStartedNotification(order);
+    });
 
     // TODO: Actually push to PPS system
 

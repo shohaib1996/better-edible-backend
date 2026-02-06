@@ -58,6 +58,8 @@ export interface IClientOrder extends Document {
   shipASAP: boolean;
   trackingNumber?: string;
   emailsSent: {
+    orderCreatedNotification: boolean;
+    productionStartedNotification: boolean;
     sevenDayReminder: boolean;
     readyToShipNotification: boolean;
     shippedNotification: boolean;
@@ -193,6 +195,14 @@ const ClientOrderSchema = new Schema<IClientOrder>(
       default: null,
     },
     emailsSent: {
+      orderCreatedNotification: {
+        type: Boolean,
+        default: false,
+      },
+      productionStartedNotification: {
+        type: Boolean,
+        default: false,
+      },
       sevenDayReminder: {
         type: Boolean,
         default: false,

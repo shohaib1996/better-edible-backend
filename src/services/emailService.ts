@@ -461,3 +461,127 @@ export const sendLabelApprovalRequestEmail = async (data: {
     return false;
   }
 };
+
+// Order Created Confirmation Email (to client)
+export const sendOrderCreatedClientEmail = async (
+  data: OrderEmailData & { isRecurring?: boolean }
+): Promise<boolean> => {
+  try {
+    const itemsList = data.items
+      .map(
+        (item) =>
+          `• ${item.flavorName} ${item.productType} - ${item.quantity} units`
+      )
+      .join("\n");
+
+    const recurringNote = data.isRecurring
+      ? `<p style="background-color: #fff3cd; padding: 10px; border-radius: 4px; margin: 15px 0;"><strong>Note:</strong> This is a recurring order that was automatically created based on your subscription schedule.</p>`
+      : "";
+
+    const { error } = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: data.contactEmail,
+      subject: `Order Confirmed! (${data.orderNumber})`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #2d5016;">Hi ${data.clientName},</h2>
+
+          <p>Thank you for your order! We're excited to confirm that your Better Edibles private label order has been received.</p>
+
+          ${recurringNote}
+
+          <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <p style="margin: 0;"><strong>Order Number:</strong> ${data.orderNumber}</p>
+            <p style="margin: 10px 0 0;"><strong>Scheduled Delivery:</strong> ${data.deliveryDate}</p>
+          </div>
+
+          <h3>Order Details:</h3>
+          <pre style="background-color: #f9f9f9; padding: 15px; border-radius: 4px;">${itemsList}</pre>
+
+          <p><strong>Total:</strong> $${data.total.toFixed(2)}</p>
+
+          <p>Your order is currently in the queue and will enter production soon. We'll notify you when production begins.</p>
+
+          <p>If you have any questions, contact your rep:</p>
+
+          <p>
+            <strong>${data.repName}</strong><br>
+            <a href="mailto:${data.repEmail}">${data.repEmail}</a>
+          </p>
+
+          <p style="margin-top: 30px;">Thanks for choosing Better Edibles!</p>
+        </div>
+      `,
+    });
+
+    if (error) {
+      console.error("Failed to send order created email:", error);
+      return false;
+    }
+
+    console.log(
+      `✅ Order created confirmation sent to ${data.contactEmail} for ${data.orderNumber}`
+    );
+    return true;
+  } catch (err) {
+    console.error("Error sending order created email:", err);
+    return false;
+  }
+};
+
+// Order In Production Email (to client)
+export const sendOrderInProductionEmail = async (
+  data: OrderEmailData
+): Promise<boolean> => {
+  try {
+    const itemsList = data.items
+      .map(
+        (item) =>
+          `• ${item.flavorName} ${item.productType} - ${item.quantity} units`
+      )
+      .join("\n");
+
+    const { error } = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: data.contactEmail,
+      subject: `Your order is now in production! (${data.orderNumber})`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #2d5016;">Great news, ${data.clientName}!</h2>
+
+          <p>Your Better Edibles private label order has entered <strong>production</strong>!</p>
+
+          <div style="background-color: #e8f5e9; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #2d5016;">
+            <p style="margin: 0;"><strong>Order Number:</strong> ${data.orderNumber}</p>
+            <p style="margin: 10px 0 0;"><strong>Scheduled Delivery:</strong> ${data.deliveryDate}</p>
+            <p style="margin: 10px 0 0;"><strong>Status:</strong> In Production</p>
+          </div>
+
+          <h3>Order Details:</h3>
+          <pre style="background-color: #f9f9f9; padding: 15px; border-radius: 4px;">${itemsList}</pre>
+
+          <p><strong>Total:</strong> $${data.total.toFixed(2)}</p>
+
+          <p>We're now crafting your products with care. You'll receive another notification when your order is ready to ship.</p>
+
+          <p>Questions? Contact ${data.repName} at <a href="mailto:${data.repEmail}">${data.repEmail}</a></p>
+
+          <p style="margin-top: 30px;">Thanks for choosing Better Edibles!</p>
+        </div>
+      `,
+    });
+
+    if (error) {
+      console.error("Failed to send order in production email:", error);
+      return false;
+    }
+
+    console.log(
+      `✅ Order in production email sent to ${data.contactEmail} for ${data.orderNumber}`
+    );
+    return true;
+  } catch (err) {
+    console.error("Error sending order in production email:", err);
+    return false;
+  }
+};

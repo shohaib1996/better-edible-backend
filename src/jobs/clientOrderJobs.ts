@@ -7,6 +7,8 @@ import {
   sendRecurringOrderCreatedEmail,
   sendOrderShippedEmail,
   sendOrderShippedRepEmail,
+  sendOrderCreatedClientEmail,
+  sendOrderInProductionEmail,
 } from "../services/emailService";
 
 // -------------------
@@ -45,11 +47,115 @@ export const autoPushOrdersToProduction = async () => {
       console.log(
         `📦 Order ${order.orderNumber} pushed to production (Stage 1)`
       );
+      // Send production started notification to client
+      await sendProductionStartedNotification(order);
     }
 
     console.log(`✅ Auto-push complete: ${pushed} orders pushed to production`);
   } catch (err) {
     console.error("❌ Error in autoPushOrdersToProduction:", err);
+  }
+};
+
+// -------------------
+// Send Order Created Notification (to client)
+// Triggered when a new order is created
+// (Called from controller, not scheduled)
+// -------------------
+export const sendOrderCreatedNotification = async (
+  order: IClientOrder,
+  isRecurring: boolean = false
+): Promise<void> => {
+  try {
+    if (order.emailsSent.orderCreatedNotification) return;
+
+    const populatedOrder = await ClientOrder.findById(order._id)
+      .populate({
+        path: "client",
+        populate: { path: "store", select: "name address city state zip" },
+      })
+      .populate("assignedRep", "name email");
+
+    if (!populatedOrder) return;
+
+    const client = populatedOrder.client as any;
+    const rep = populatedOrder.assignedRep as any;
+    const store = client?.store;
+
+    if (!client || !rep || !store) return;
+
+    const emailSent = await sendOrderCreatedClientEmail({
+      clientName: store.name,
+      contactEmail: client.contactEmail,
+      orderNumber: populatedOrder.orderNumber,
+      deliveryDate: formatDate(populatedOrder.deliveryDate),
+      items: populatedOrder.items.map((item) => ({
+        flavorName: item.flavorName,
+        productType: item.productType,
+        quantity: item.quantity,
+      })),
+      total: populatedOrder.total,
+      repName: rep.name,
+      repEmail: rep.email,
+      isRecurring,
+    });
+
+    if (emailSent) {
+      populatedOrder.emailsSent.orderCreatedNotification = true;
+      await populatedOrder.save();
+    }
+  } catch (err) {
+    console.error("❌ Error sending order created notification:", err);
+  }
+};
+
+// -------------------
+// Send Production Started Notification (to client)
+// Triggered when order status changes to stage_1
+// (Called from controller, not scheduled)
+// -------------------
+export const sendProductionStartedNotification = async (
+  order: IClientOrder
+): Promise<void> => {
+  try {
+    if (order.emailsSent.productionStartedNotification) return;
+
+    const populatedOrder = await ClientOrder.findById(order._id)
+      .populate({
+        path: "client",
+        populate: { path: "store", select: "name address city state zip" },
+      })
+      .populate("assignedRep", "name email");
+
+    if (!populatedOrder) return;
+
+    const client = populatedOrder.client as any;
+    const rep = populatedOrder.assignedRep as any;
+    const store = client?.store;
+
+    if (!client || !rep || !store) return;
+
+    const emailSent = await sendOrderInProductionEmail({
+      clientName: store.name,
+      contactEmail: client.contactEmail,
+      orderNumber: populatedOrder.orderNumber,
+      deliveryDate: formatDate(populatedOrder.deliveryDate),
+      items: populatedOrder.items.map((item) => ({
+        flavorName: item.flavorName,
+        productType: item.productType,
+        quantity: item.quantity,
+      })),
+      total: populatedOrder.total,
+      repName: rep.name,
+      repEmail: rep.email,
+    });
+
+    if (emailSent) {
+      populatedOrder.emailsSent.productionStartedNotification = true;
+      await populatedOrder.save();
+    }
+  } catch (err) {
+    console.error("❌ Error sending production started notification:", err);
   }
 };
 
@@ -320,6 +426,9 @@ export const createRecurringOrder = async (
     console.log(
       `🔄 Recurring order ${newOrder.orderNumber} created from ${shippedOrder.orderNumber}`
     );
+
+    // Notify the client (order created confirmation)
+    await sendOrderCreatedNotification(newOrder, true);
 
     // Notify the rep
     const rep = client.assignedRep as any;
