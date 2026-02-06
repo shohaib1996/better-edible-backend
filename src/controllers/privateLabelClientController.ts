@@ -105,16 +105,31 @@ export const getClientsWithApprovedLabels = async (
   res: Response
 ) => {
   try {
+    const { search, limit = 10 } = req.query;
+
     // Find clients that have at least one label ready for production
     const clientsWithLabels = await Label.distinct("client", {
       currentStage: "ready_for_production",
     });
 
-    const clients = await PrivateLabelClient.find({
+    // Build filter
+    const filter: any = {
       _id: { $in: clientsWithLabels },
-    })
+    };
+
+    // If search is provided, find matching stores first
+    if (search && typeof search === "string" && search.trim()) {
+      const stores = await Store.find({
+        name: { $regex: search.trim(), $options: "i" },
+      }).select("_id");
+      const storeIds = stores.map((s) => s._id);
+      filter.store = { $in: storeIds };
+    }
+
+    const clients = await PrivateLabelClient.find(filter)
       .populate("store", "name city state")
-      .select("_id store status");
+      .select("_id store status")
+      .limit(Number(limit));
 
     res.json(clients);
   } catch (error: any) {
