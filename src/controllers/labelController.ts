@@ -459,7 +459,7 @@ export const updateLabelStage = async (req: Request, res: Response) => {
           const approvalLink = `${frontendUrl}/label-approval/${approvalToken}`;
 
           // Send email asynchronously (don't block response)
-          import("../services/emailService").then(
+          import("../services/email").then(
             ({ sendLabelApprovalRequestEmail }) => {
               sendLabelApprovalRequestEmail({
                 storeEmail: client.contactEmail,
@@ -567,7 +567,7 @@ export const bulkUpdateLabelStages = async (req: Request, res: Response) => {
               const approvalLink = `${frontendUrl}/label-approval/${approvalToken}`;
 
               // Send email asynchronously
-              import("../services/emailService").then(
+              import("../services/email").then(
                 ({ sendLabelApprovalRequestEmail }) => {
                   sendLabelApprovalRequestEmail({
                     storeEmail: client.contactEmail,
@@ -738,7 +738,7 @@ export const approveLabelPublic = async (req: Request, res: Response) => {
       const labelImage = label.labelImages?.[0];
 
       if (rep && rep.email) {
-        import("../services/emailService").then(
+        import("../services/email").then(
           ({ sendLabelApprovedByStoreEmail }) => {
             sendLabelApprovedByStoreEmail({
               repEmail: rep.email,

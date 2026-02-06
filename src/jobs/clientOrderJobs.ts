@@ -9,7 +9,7 @@ import {
   sendOrderShippedRepEmail,
   sendOrderCreatedClientEmail,
   sendOrderInProductionEmail,
-} from "../services/emailService";
+} from "../services/email";
 
 // -------------------
 // Helper: Format date
