@@ -20,6 +20,7 @@ import timeLogRoutes from "./routes/timeLogRoutes";
 import sampleRoutes from "./routes/sampleRoutes";
 import contactRoutes from "./routes/contactRoutes";
 import followupRoutes from "./routes/followupRoutes";
+import deliveryOrderRoutes from "./routes/deliveryOrderRoutes";
 
 // 👉 dotenv ONLY for local development
 if (process.env.NODE_ENV === "development") {
@@ -70,6 +71,7 @@ app.use("/api/timelogs", timeLogRoutes);
 app.use("/api/samples", sampleRoutes);
 app.use("/api/contacts", contactRoutes);
 app.use("/api/followups", followupRoutes);
+app.use("/api/delivery-order", deliveryOrderRoutes);
 
 app.get("/", (_req, res) => {
   res.send("Rep Order System API is running... yep 4th time");
