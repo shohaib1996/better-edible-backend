@@ -64,6 +64,7 @@ export const loginRep = async (req: Request, res: Response) => {
         loginName: rep.loginName,
         repType: rep.repType,
         territory: rep.territory,
+        email: rep.email,
       },
     });
   } catch (error) {
