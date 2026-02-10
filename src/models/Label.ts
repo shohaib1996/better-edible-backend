@@ -52,6 +52,7 @@ export interface ILabel extends Document {
   client: Types.ObjectId;
   flavorName: string;
   productType: string; // Dynamic - fetched from PrivateLabelProduct collection
+  specialInstructions?: string;
   currentStage: LabelStage;
   stageHistory: IStageHistoryEntry[];
   labelImages: ILabelImage[];
@@ -130,6 +131,11 @@ const LabelSchema = new Schema<ILabel>(
       type: String,
       required: true,
       trim: true,
+    },
+    specialInstructions: {
+      type: String,
+      trim: true,
+      default: "",
     },
     currentStage: {
       type: String,

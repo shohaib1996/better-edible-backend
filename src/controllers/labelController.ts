@@ -188,7 +188,7 @@ export const getApprovedLabelsByClient = async (
 // CREATE LABEL
 export const createLabel = async (req: Request, res: Response) => {
   try {
-    const { clientId, flavorName, productType, userId, userType } = req.body;
+    const { clientId, flavorName, productType, specialInstructions, userId, userType } = req.body;
 
     // Validate client exists
     const client = await PrivateLabelClient.findById(clientId);
@@ -256,6 +256,7 @@ export const createLabel = async (req: Request, res: Response) => {
       client: clientId,
       flavorName: flavorName.trim(),
       productType,
+      specialInstructions: specialInstructions?.trim() || "",
       currentStage: "design_in_progress",
       labelImages,
       stageHistory: [initialStageHistory], // Set initial history to skip pre-save hook
@@ -290,7 +291,7 @@ export const updateLabel = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "Label not found" });
     }
 
-    const { flavorName, productType, keepExistingImages } = req.body;
+    const { flavorName, productType, specialInstructions, keepExistingImages } = req.body;
 
     // Update flavor name
     if (flavorName !== undefined) {
@@ -308,6 +309,11 @@ export const updateLabel = async (req: Request, res: Response) => {
           .json({ message: "Invalid or inactive product type" });
       }
       label.productType = productType;
+    }
+
+    // Update special instructions
+    if (specialInstructions !== undefined) {
+      label.specialInstructions = specialInstructions.trim();
     }
 
     // Handle image updates
