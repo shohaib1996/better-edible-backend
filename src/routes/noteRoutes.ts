@@ -10,10 +10,10 @@ import {
 
 const router = Router();
 
-router.post("/", createNote);
-router.get("/", getAllNotes);
-router.get("/:id", getNoteById);
-router.put("/:id", updateNote);    // <-- edit note endpoint
-router.delete("/:id", deleteNote);
+router.post("/", createNote /* #swagger.tags = ['Notes'] */);
+router.get("/", getAllNotes /* #swagger.tags = ['Notes'] */);
+router.get("/:id", getNoteById /* #swagger.tags = ['Notes'] */);
+router.put("/:id", updateNote /* #swagger.tags = ['Notes'] */);    // <-- edit note endpoint
+router.delete("/:id", deleteNote /* #swagger.tags = ['Notes'] */);
 
 export default router;

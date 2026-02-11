@@ -14,14 +14,14 @@ import {
 
 const router = Router();
 
-router.get("/", getAllReps);
-router.get("/:id", getRepById);
+router.get("/", getAllReps /* #swagger.tags = ['Reps'] */);
+router.get("/:id", getRepById /* #swagger.tags = ['Reps'] */);
 // router.post('/', createRep);
-router.put("/:id", updateRep);
-router.delete("/:id", deleteRep);
-router.post("/checkin", checkInRep);
-router.post("/checkout", checkOutRep);
-router.post("/:id/reset-password", resetPassword);
-router.post("/:id/reset-pin", resetPin);
+router.put("/:id", updateRep /* #swagger.tags = ['Reps'] */);
+router.delete("/:id", deleteRep /* #swagger.tags = ['Reps'] */);
+router.post("/checkin", checkInRep /* #swagger.tags = ['Reps'] */);
+router.post("/checkout", checkOutRep /* #swagger.tags = ['Reps'] */);
+router.post("/:id/reset-password", resetPassword /* #swagger.tags = ['Reps'] */);
+router.post("/:id/reset-pin", resetPin /* #swagger.tags = ['Reps'] */);
 
 export default router;

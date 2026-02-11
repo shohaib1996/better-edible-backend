@@ -124,6 +124,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "responses": {
           "201": {
@@ -180,6 +183,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -224,6 +230,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -237,6 +246,9 @@
     },
     "/api/admin/register": {
       "post": {
+        "tags": [
+          "Admin"
+        ],
         "description": "",
         "responses": {
           "201": {
@@ -276,6 +288,9 @@
     },
     "/api/admin/login": {
       "post": {
+        "tags": [
+          "Admin"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -312,6 +327,9 @@
     },
     "/api/admin/logout": {
       "post": {
+        "tags": [
+          "Admin"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -325,6 +343,9 @@
     },
     "/api/reps/": {
       "get": {
+        "tags": [
+          "Reps"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -338,6 +359,9 @@
     },
     "/api/reps/{id}": {
       "get": {
+        "tags": [
+          "Reps"
+        ],
         "description": "",
         "parameters": [
           {
@@ -362,6 +386,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Reps"
+        ],
         "description": "",
         "parameters": [
           {
@@ -386,6 +413,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Reps"
+        ],
         "description": "",
         "parameters": [
           {
@@ -412,6 +442,9 @@
     },
     "/api/reps/checkin": {
       "post": {
+        "tags": [
+          "Reps"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -454,6 +487,9 @@
     },
     "/api/reps/checkout": {
       "post": {
+        "tags": [
+          "Reps"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -496,6 +532,9 @@
     },
     "/api/reps/{id}/reset-password": {
       "post": {
+        "tags": [
+          "Reps"
+        ],
         "description": "",
         "parameters": [
           {
@@ -539,6 +578,9 @@
     },
     "/api/reps/{id}/reset-pin": {
       "post": {
+        "tags": [
+          "Reps"
+        ],
         "description": "",
         "parameters": [
           {
@@ -582,6 +624,9 @@
     },
     "/api/stores/": {
       "get": {
+        "tags": [
+          "Stores"
+        ],
         "description": "",
         "parameters": [
           {
@@ -644,6 +689,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Stores"
+        ],
         "description": "",
         "responses": {
           "201": {
@@ -695,6 +743,9 @@
     },
     "/api/stores/{id}": {
       "get": {
+        "tags": [
+          "Stores"
+        ],
         "description": "",
         "parameters": [
           {
@@ -719,6 +770,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Stores"
+        ],
         "description": "",
         "parameters": [
           {
@@ -743,6 +797,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Stores"
+        ],
         "description": "",
         "parameters": [
           {
@@ -769,6 +826,9 @@
     },
     "/api/stores/assign-rep": {
       "post": {
+        "tags": [
+          "Stores"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -799,6 +859,9 @@
     },
     "/api/stores/toggle-block": {
       "post": {
+        "tags": [
+          "Stores"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -829,6 +892,9 @@
     },
     "/api/stores/{id}/block": {
       "put": {
+        "tags": [
+          "Stores"
+        ],
         "description": "",
         "parameters": [
           {
@@ -869,6 +935,9 @@
     },
     "/api/products/": {
       "get": {
+        "tags": [
+          "Products"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -880,6 +949,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Products"
+        ],
         "description": "",
         "responses": {
           "201": {
@@ -958,6 +1030,9 @@
     },
     "/api/products/{id}": {
       "get": {
+        "tags": [
+          "Products"
+        ],
         "description": "",
         "parameters": [
           {
@@ -982,6 +1057,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Products"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1047,6 +1125,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Products"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1073,6 +1154,9 @@
     },
     "/api/products/{id}/status": {
       "put": {
+        "tags": [
+          "Products"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1113,6 +1197,9 @@
     },
     "/api/product-lines/": {
       "get": {
+        "tags": [
+          "Product Lines"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -1124,6 +1211,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Product Lines"
+        ],
         "description": "",
         "responses": {
           "201": {
@@ -1169,6 +1259,9 @@
     },
     "/api/product-lines/active": {
       "get": {
+        "tags": [
+          "Product Lines"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -1182,6 +1275,9 @@
     },
     "/api/product-lines/by-name/{name}": {
       "get": {
+        "tags": [
+          "Product Lines"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1208,6 +1304,9 @@
     },
     "/api/product-lines/{id}": {
       "get": {
+        "tags": [
+          "Product Lines"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1232,6 +1331,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Product Lines"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1288,6 +1390,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Product Lines"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1314,6 +1419,9 @@
     },
     "/api/product-lines/{id}/status": {
       "put": {
+        "tags": [
+          "Product Lines"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1354,6 +1462,9 @@
     },
     "/api/product-lines/reorder": {
       "post": {
+        "tags": [
+          "Product Lines"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -1384,6 +1495,9 @@
     },
     "/api/orders/": {
       "post": {
+        "tags": [
+          "Orders"
+        ],
         "description": "",
         "responses": {
           "201": {
@@ -1436,6 +1550,9 @@
         }
       },
       "get": {
+        "tags": [
+          "Orders"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1514,6 +1631,9 @@
     },
     "/api/orders/{id}": {
       "get": {
+        "tags": [
+          "Orders"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1538,6 +1658,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Orders"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1587,6 +1710,9 @@
     },
     "/api/orders/{id}/status": {
       "put": {
+        "tags": [
+          "Orders"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1630,6 +1756,9 @@
     },
     "/api/orders/{id}/payment": {
       "post": {
+        "tags": [
+          "Orders"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1679,6 +1808,9 @@
     },
     "/api/private-label-products/": {
       "get": {
+        "tags": [
+          "Private Label Products"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1699,6 +1831,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Private Label Products"
+        ],
         "description": "",
         "responses": {
           "201": {
@@ -1738,6 +1873,9 @@
     },
     "/api/private-label-products/{id}": {
       "get": {
+        "tags": [
+          "Private Label Products"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1762,6 +1900,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Private Label Products"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1812,6 +1953,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Private Label Products"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1838,6 +1982,9 @@
     },
     "/api/private-label-products/{id}/toggle": {
       "put": {
+        "tags": [
+          "Private Label Products"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1864,6 +2011,9 @@
     },
     "/api/private-label-clients/": {
       "get": {
+        "tags": [
+          "Private Label Clients"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1912,6 +2062,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Private Label Clients"
+        ],
         "description": "",
         "responses": {
           "201": {
@@ -1954,6 +2107,9 @@
     },
     "/api/private-label-clients/with-approved-labels": {
       "get": {
+        "tags": [
+          "Private Label Clients"
+        ],
         "description": "",
         "parameters": [
           {
@@ -1983,6 +2139,9 @@
     },
     "/api/private-label-clients/{id}": {
       "get": {
+        "tags": [
+          "Private Label Clients"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2007,6 +2166,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Private Label Clients"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2054,6 +2216,9 @@
         }
       },
       "patch": {
+        "tags": [
+          "Private Label Clients"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2101,6 +2266,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Private Label Clients"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2130,6 +2298,9 @@
     },
     "/api/private-label-clients/{id}/schedule": {
       "patch": {
+        "tags": [
+          "Private Label Clients"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2173,6 +2344,9 @@
     },
     "/api/labels/public/approve/{token}": {
       "get": {
+        "tags": [
+          "Labels"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2197,6 +2371,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Labels"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2226,6 +2403,9 @@
     },
     "/api/labels/": {
       "get": {
+        "tags": [
+          "Labels"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2274,6 +2454,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Labels"
+        ],
         "description": "",
         "responses": {
           "201": {
@@ -2304,6 +2487,9 @@
                   "productType": {
                     "example": "any"
                   },
+                  "specialInstructions": {
+                    "example": "any"
+                  },
                   "userId": {
                     "example": "any"
                   },
@@ -2319,6 +2505,9 @@
     },
     "/api/labels/client/{clientId}/approved": {
       "get": {
+        "tags": [
+          "Labels"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2345,6 +2534,9 @@
     },
     "/api/labels/{id}": {
       "get": {
+        "tags": [
+          "Labels"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2369,6 +2561,9 @@
         }
       },
       "patch": {
+        "tags": [
+          "Labels"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2404,6 +2599,9 @@
                     "example": "any"
                   },
                   "productType": {
+                    "example": "any"
+                  },
+                  "specialInstructions": {
                     "example": "any"
                   },
                   "keepExistingImages": {
@@ -2416,6 +2614,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Labels"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2453,6 +2654,9 @@
                   "productType": {
                     "example": "any"
                   },
+                  "specialInstructions": {
+                    "example": "any"
+                  },
                   "keepExistingImages": {
                     "example": "any"
                   }
@@ -2463,6 +2667,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Labels"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2492,6 +2699,9 @@
     },
     "/api/labels/bulk/stage": {
       "patch": {
+        "tags": [
+          "Labels"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -2534,6 +2744,9 @@
     },
     "/api/labels/{id}/stage": {
       "patch": {
+        "tags": [
+          "Labels"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2586,6 +2799,9 @@
     },
     "/api/client-orders/": {
       "get": {
+        "tags": [
+          "Client Orders"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2655,6 +2871,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Client Orders"
+        ],
         "description": "",
         "responses": {
           "201": {
@@ -2706,6 +2925,9 @@
     },
     "/api/client-orders/{id}": {
       "get": {
+        "tags": [
+          "Client Orders"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2730,6 +2952,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Client Orders"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2786,6 +3011,9 @@
         }
       },
       "patch": {
+        "tags": [
+          "Client Orders"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2842,6 +3070,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Client Orders"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2871,6 +3102,9 @@
     },
     "/api/client-orders/{id}/status": {
       "patch": {
+        "tags": [
+          "Client Orders"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2917,6 +3151,9 @@
     },
     "/api/client-orders/{id}/push-to-pps": {
       "patch": {
+        "tags": [
+          "Client Orders"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2946,6 +3183,9 @@
     },
     "/api/client-orders/{id}/delivery-date": {
       "patch": {
+        "tags": [
+          "Client Orders"
+        ],
         "description": "",
         "parameters": [
           {
@@ -2989,6 +3229,9 @@
     },
     "/api/client-orders/{id}/ship-asap": {
       "patch": {
+        "tags": [
+          "Client Orders"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3029,6 +3272,9 @@
     },
     "/api/deliveries/": {
       "post": {
+        "tags": [
+          "Deliveries"
+        ],
         "description": "",
         "responses": {
           "201": {
@@ -3078,6 +3324,9 @@
         }
       },
       "get": {
+        "tags": [
+          "Deliveries"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3156,6 +3405,9 @@
     },
     "/api/deliveries/{id}": {
       "get": {
+        "tags": [
+          "Deliveries"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3180,6 +3432,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Deliveries"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3218,6 +3473,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Deliveries"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3244,6 +3502,9 @@
     },
     "/api/deliveries/{id}/status": {
       "put": {
+        "tags": [
+          "Deliveries"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3287,6 +3548,9 @@
     },
     "/api/notes/": {
       "post": {
+        "tags": [
+          "Notes"
+        ],
         "description": "",
         "responses": {
           "201": {
@@ -3339,6 +3603,9 @@
         }
       },
       "get": {
+        "tags": [
+          "Notes"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3392,6 +3659,9 @@
     },
     "/api/notes/{id}": {
       "get": {
+        "tags": [
+          "Notes"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3416,6 +3686,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Notes"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3475,6 +3748,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Notes"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3501,6 +3777,9 @@
     },
     "/api/timelogs/": {
       "get": {
+        "tags": [
+          "Time Logs"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -3514,6 +3793,9 @@
     },
     "/api/timelogs/summary": {
       "get": {
+        "tags": [
+          "Time Logs"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3543,6 +3825,9 @@
     },
     "/api/timelogs/summary/rep/{repId}": {
       "get": {
+        "tags": [
+          "Time Logs"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3580,6 +3865,9 @@
     },
     "/api/timelogs/rep/{repId}": {
       "get": {
+        "tags": [
+          "Time Logs"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3617,6 +3905,9 @@
     },
     "/api/timelogs/{id}": {
       "get": {
+        "tags": [
+          "Time Logs"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3643,6 +3934,9 @@
     },
     "/api/samples/": {
       "post": {
+        "tags": [
+          "Samples"
+        ],
         "description": "",
         "responses": {
           "201": {
@@ -3683,6 +3977,9 @@
         }
       },
       "get": {
+        "tags": [
+          "Samples"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3733,6 +4030,9 @@
     },
     "/api/samples/{id}": {
       "get": {
+        "tags": [
+          "Samples"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3757,6 +4057,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Samples"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3781,6 +4084,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Samples"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3807,6 +4113,9 @@
     },
     "/api/samples/{id}/status": {
       "put": {
+        "tags": [
+          "Samples"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3850,6 +4159,9 @@
     },
     "/api/contacts/": {
       "get": {
+        "tags": [
+          "Contacts"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3870,6 +4182,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Contacts"
+        ],
         "description": "",
         "responses": {
           "201": {
@@ -3883,6 +4198,9 @@
     },
     "/api/contacts/{id}": {
       "get": {
+        "tags": [
+          "Contacts"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3907,6 +4225,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Contacts"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3931,6 +4252,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Contacts"
+        ],
         "description": "",
         "parameters": [
           {
@@ -3957,6 +4281,9 @@
     },
     "/api/followups/": {
       "get": {
+        "tags": [
+          "Followups"
+        ],
         "description": "",
         "parameters": [
           {
@@ -4015,6 +4342,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Followups"
+        ],
         "description": "",
         "responses": {
           "201": {
@@ -4057,6 +4387,9 @@
     },
     "/api/followups/{id}": {
       "get": {
+        "tags": [
+          "Followups"
+        ],
         "description": "",
         "parameters": [
           {
@@ -4081,6 +4414,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Followups"
+        ],
         "description": "",
         "parameters": [
           {
@@ -4108,6 +4444,9 @@
         }
       },
       "delete": {
+        "tags": [
+          "Followups"
+        ],
         "description": "",
         "parameters": [
           {
@@ -4128,6 +4467,78 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/delivery-order/": {
+      "get": {
+        "tags": [
+          "Delivery Orders"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "repId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Delivery Orders"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "repId": {
+                    "example": "any"
+                  },
+                  "date": {
+                    "example": "any"
+                  },
+                  "order": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }

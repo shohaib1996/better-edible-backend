@@ -11,11 +11,11 @@ import {
 
 const router = Router();
 
-router.post('/', createOrder);
-router.get('/', getAllOrders);
-router.get('/:id', getOrderById);
-router.put('/:id', updateOrder);
-router.put('/:id/status', changeOrderStatus);
-router.post('/:id/payment', collectPayment);
+router.post('/', createOrder /* #swagger.tags = ['Orders'] */);
+router.get('/', getAllOrders /* #swagger.tags = ['Orders'] */);
+router.get('/:id', getOrderById /* #swagger.tags = ['Orders'] */);
+router.put('/:id', updateOrder /* #swagger.tags = ['Orders'] */);
+router.put('/:id/status', changeOrderStatus /* #swagger.tags = ['Orders'] */);
+router.post('/:id/payment', collectPayment /* #swagger.tags = ['Orders'] */);
 
 export default router;

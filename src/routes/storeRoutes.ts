@@ -13,13 +13,13 @@ import {
 
 const router = Router();
 
-router.get('/', getAllStores);
-router.get('/:id', getStoreById);
-router.post('/', createStore);
-router.post('/assign-rep', assignRepToStores);
-router.post('/toggle-block', toggleBlockStores);
-router.put('/:id', updateStore);
-router.put('/:id/block', toggleBlockStore);
-router.delete('/:id', deleteStore);
+router.get('/', getAllStores /* #swagger.tags = ['Stores'] */);
+router.get('/:id', getStoreById /* #swagger.tags = ['Stores'] */);
+router.post('/', createStore /* #swagger.tags = ['Stores'] */);
+router.post('/assign-rep', assignRepToStores /* #swagger.tags = ['Stores'] */);
+router.post('/toggle-block', toggleBlockStores /* #swagger.tags = ['Stores'] */);
+router.put('/:id', updateStore /* #swagger.tags = ['Stores'] */);
+router.put('/:id/block', toggleBlockStore /* #swagger.tags = ['Stores'] */);
+router.delete('/:id', deleteStore /* #swagger.tags = ['Stores'] */);
 
 export default router;

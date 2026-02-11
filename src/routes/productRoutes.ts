@@ -11,11 +11,11 @@ import {
 
 const router = Router();
 
-router.get('/', getAllProducts);
-router.get('/:id', getProductById);
-router.post('/', createProduct);
-router.put('/:id', updateProduct);
-router.put('/:id/status', toggleProductStatus);
-router.delete('/:id', deleteProduct);
+router.get('/', getAllProducts /* #swagger.tags = ['Products'] */);
+router.get('/:id', getProductById /* #swagger.tags = ['Products'] */);
+router.post('/', createProduct /* #swagger.tags = ['Products'] */);
+router.put('/:id', updateProduct /* #swagger.tags = ['Products'] */);
+router.put('/:id/status', toggleProductStatus /* #swagger.tags = ['Products'] */);
+router.delete('/:id', deleteProduct /* #swagger.tags = ['Products'] */);
 
 export default router;

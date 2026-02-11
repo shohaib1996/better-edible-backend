@@ -7,7 +7,7 @@ import {
 
 const router = Router();
 
-router.get("/", getDeliveryOrder);
-router.put("/", saveDeliveryOrder);
+router.get("/", getDeliveryOrder /* #swagger.tags = ['Delivery Orders'] */);
+router.put("/", saveDeliveryOrder /* #swagger.tags = ['Delivery Orders'] */);
 
 export default router;

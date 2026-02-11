@@ -4,8 +4,8 @@ import { registerAdmin, loginAdmin, logoutAdmin } from '../controllers/adminAuth
 
 const router = Router();
 
-router.post('/register', registerAdmin);
-router.post('/login', loginAdmin);
-router.post('/logout', logoutAdmin);
+router.post('/register', registerAdmin /* #swagger.tags = ['Admin'] */);
+router.post('/login', loginAdmin /* #swagger.tags = ['Admin'] */);
+router.post('/logout', logoutAdmin /* #swagger.tags = ['Admin'] */);
 
 export default router;

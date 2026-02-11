@@ -11,11 +11,11 @@ import {
 
 const router = Router();
 
-router.post('/', createSample);
-router.get('/', getAllSamples);
-router.get('/:id', getSampleById);
-router.put('/:id', updateSample);
-router.put('/:id/status', updateSampleStatus);
-router.delete('/:id', deleteSample);
+router.post('/', createSample /* #swagger.tags = ['Samples'] */);
+router.get('/', getAllSamples /* #swagger.tags = ['Samples'] */);
+router.get('/:id', getSampleById /* #swagger.tags = ['Samples'] */);
+router.put('/:id', updateSample /* #swagger.tags = ['Samples'] */);
+router.put('/:id/status', updateSampleStatus /* #swagger.tags = ['Samples'] */);
+router.delete('/:id', deleteSample /* #swagger.tags = ['Samples'] */);
 
 export default router;

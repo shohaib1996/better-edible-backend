@@ -11,11 +11,11 @@ import {
 
 const router = Router();
 
-router.post('/', createDelivery);
-router.get('/', getAllDeliveries);
-router.get('/:id', getDeliveryById);
-router.put('/:id', updateDelivery);
-router.put('/:id/status', updateDeliveryStatus);
-router.delete('/:id', deleteDelivery);
+router.post('/', createDelivery /* #swagger.tags = ['Deliveries'] */);
+router.get('/', getAllDeliveries /* #swagger.tags = ['Deliveries'] */);
+router.get('/:id', getDeliveryById /* #swagger.tags = ['Deliveries'] */);
+router.put('/:id', updateDelivery /* #swagger.tags = ['Deliveries'] */);
+router.put('/:id/status', updateDeliveryStatus /* #swagger.tags = ['Deliveries'] */);
+router.delete('/:id', deleteDelivery /* #swagger.tags = ['Deliveries'] */);
 
 export default router;

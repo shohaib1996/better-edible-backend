@@ -10,10 +10,10 @@ import {
 
 const router = Router();
 
-router.get('/', getAllFollowups);
-router.get('/:id', getFollowupById);
-router.post('/', createFollowup);
-router.put('/:id', updateFollowup);
-router.delete('/:id', deleteFollowup);
+router.get('/', getAllFollowups /* #swagger.tags = ['Followups'] */);
+router.get('/:id', getFollowupById /* #swagger.tags = ['Followups'] */);
+router.post('/', createFollowup /* #swagger.tags = ['Followups'] */);
+router.put('/:id', updateFollowup /* #swagger.tags = ['Followups'] */);
+router.delete('/:id', deleteFollowup /* #swagger.tags = ['Followups'] */);
 
 export default router;

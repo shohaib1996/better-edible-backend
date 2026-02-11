@@ -10,10 +10,10 @@ import {
 
 const router = Router();
 
-router.get('/', getAllTimeLogs);
-router.get('/summary', getTimeLogsSummary);
-router.get('/summary/rep/:repId', getTimeLogsSummaryByRepId);
-router.get('/rep/:repId', getTimeLogsByRepId);
-router.get('/:id', getTimeLogById);
+router.get('/', getAllTimeLogs /* #swagger.tags = ['Time Logs'] */);
+router.get('/summary', getTimeLogsSummary /* #swagger.tags = ['Time Logs'] */);
+router.get('/summary/rep/:repId', getTimeLogsSummaryByRepId /* #swagger.tags = ['Time Logs'] */);
+router.get('/rep/:repId', getTimeLogsByRepId /* #swagger.tags = ['Time Logs'] */);
+router.get('/:id', getTimeLogById /* #swagger.tags = ['Time Logs'] */);
 
 export default router;

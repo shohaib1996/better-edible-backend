@@ -10,10 +10,10 @@ import {
 
 const router = Router();
 
-router.get('/', getAllContacts);
-router.get('/:id', getContactById);
-router.post('/', createContact);
-router.put('/:id', updateContact);
-router.delete('/:id', deleteContact);
+router.get('/', getAllContacts /* #swagger.tags = ['Contacts'] */);
+router.get('/:id', getContactById /* #swagger.tags = ['Contacts'] */);
+router.post('/', createContact /* #swagger.tags = ['Contacts'] */);
+router.put('/:id', updateContact /* #swagger.tags = ['Contacts'] */);
+router.delete('/:id', deleteContact /* #swagger.tags = ['Contacts'] */);
 
 export default router;

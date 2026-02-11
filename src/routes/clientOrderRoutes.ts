@@ -15,21 +15,21 @@ import {
 const router = Router();
 
 // GET routes
-router.get("/", getAllClientOrders);
-router.get("/:id", getClientOrderById);
+router.get("/", getAllClientOrders /* #swagger.tags = ['Client Orders'] */);
+router.get("/:id", getClientOrderById /* #swagger.tags = ['Client Orders'] */);
 
 // POST routes
-router.post("/", createClientOrder);
+router.post("/", createClientOrder /* #swagger.tags = ['Client Orders'] */);
 
 // PUT/PATCH routes
-router.put("/:id", updateClientOrder);
-router.patch("/:id", updateClientOrder);
-router.patch("/:id/status", updateClientOrderStatus);
-router.patch("/:id/push-to-pps", pushOrderToPPS);
-router.patch("/:id/delivery-date", updateDeliveryDate);
-router.patch("/:id/ship-asap", toggleShipASAP);
+router.put("/:id", updateClientOrder /* #swagger.tags = ['Client Orders'] */);
+router.patch("/:id", updateClientOrder /* #swagger.tags = ['Client Orders'] */);
+router.patch("/:id/status", updateClientOrderStatus /* #swagger.tags = ['Client Orders'] */);
+router.patch("/:id/push-to-pps", pushOrderToPPS /* #swagger.tags = ['Client Orders'] */);
+router.patch("/:id/delivery-date", updateDeliveryDate /* #swagger.tags = ['Client Orders'] */);
+router.patch("/:id/ship-asap", toggleShipASAP /* #swagger.tags = ['Client Orders'] */);
 
 // DELETE routes
-router.delete("/:id", deleteClientOrder);
+router.delete("/:id", deleteClientOrder /* #swagger.tags = ['Client Orders'] */);
 
 export default router;

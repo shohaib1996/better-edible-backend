@@ -13,8 +13,8 @@ router.options("/register", cors());
 router.options("/login", cors());
 router.options("/logout", cors());
 
-router.post("/register", registerRep);
-router.post("/login", loginRep);
-router.post("/logout", logoutRep);
+router.post("/register", registerRep /* #swagger.tags = ['Auth'] */);
+router.post("/login", loginRep /* #swagger.tags = ['Auth'] */);
+router.post("/logout", logoutRep /* #swagger.tags = ['Auth'] */);
 
 export default router;

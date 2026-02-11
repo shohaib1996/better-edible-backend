@@ -13,19 +13,19 @@ import {
 const router = Router();
 
 // GET routes
-router.get("/", getAllClients);
-router.get("/with-approved-labels", getClientsWithApprovedLabels);
-router.get("/:id", getClientById);
+router.get("/", getAllClients /* #swagger.tags = ['Private Label Clients'] */);
+router.get("/with-approved-labels", getClientsWithApprovedLabels /* #swagger.tags = ['Private Label Clients'] */);
+router.get("/:id", getClientById /* #swagger.tags = ['Private Label Clients'] */);
 
 // POST routes
-router.post("/", createClient);
+router.post("/", createClient /* #swagger.tags = ['Private Label Clients'] */);
 
 // PUT/PATCH routes
-router.put("/:id", updateClient);
-router.patch("/:id", updateClient);
-router.patch("/:id/schedule", updateClientSchedule);
+router.put("/:id", updateClient /* #swagger.tags = ['Private Label Clients'] */);
+router.patch("/:id", updateClient /* #swagger.tags = ['Private Label Clients'] */);
+router.patch("/:id/schedule", updateClientSchedule /* #swagger.tags = ['Private Label Clients'] */);
 
 // DELETE routes
-router.delete("/:id", deleteClient);
+router.delete("/:id", deleteClient /* #swagger.tags = ['Private Label Clients'] */);
 
 export default router;
