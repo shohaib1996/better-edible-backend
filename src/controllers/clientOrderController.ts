@@ -54,7 +54,7 @@ export const getAllClientOrders = async (req: Request, res: Response) => {
     if (search && typeof search === "string" && search.trim()) {
       const searchRegex = { $regex: search.trim(), $options: "i" };
 
-      if (search.toUpperCase().startsWith("CO-")) {
+      if (search.toUpperCase().startsWith("PL")) {
         filter.orderNumber = searchRegex;
       } else {
         const clients = await PrivateLabelClient.find().populate("store");

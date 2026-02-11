@@ -15,7 +15,7 @@ export const BRAND_COLORS = {
 };
 
 export const LOGO_URL =
-  "https://res.cloudinary.com/dsn66l0iv/image/upload/v1766512506/Better_Edibles_logo_tqs1pm.png";
+  "https://www.better-edibles.com/assets/logo.png";
 
 export const labelImageBlock = (
   imageUrl: string,
