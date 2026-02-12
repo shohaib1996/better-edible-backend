@@ -48,6 +48,10 @@ export interface IOrder extends Document {
   dueDate?: string; // ISO date format: YYYY-MM-DD
   discountType?: "flat" | "percent";
   discountValue?: number;
+  createdBy?: {
+    user: Types.ObjectId;
+    userType: "admin" | "rep";
+  };
 
   createdAt: Date;
   updatedAt: Date;
@@ -119,6 +123,10 @@ const OrderSchema = new Schema<IOrder>(
     dueDate: String, // ISO date format: YYYY-MM-DD
     discountType: { type: String, enum: ["flat", "percent"], default: "flat" },
     discountValue: { type: Number, default: 0 },
+    createdBy: {
+      user: { type: Schema.Types.ObjectId },
+      userType: { type: String, enum: ["admin", "rep"] },
+    },
   },
   { timestamps: true }
 );

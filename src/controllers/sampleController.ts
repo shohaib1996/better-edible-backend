@@ -2,10 +2,11 @@ import { Request, Response } from "express";
 import Sample from "../models/Sample";
 import { Rep } from "../models/Rep";
 import { Store } from "../models/Store";
+import { Admin } from "../models/Admin";
 
 export const createSample = async (req: Request, res: Response) => {
   try {
-    const { repId, storeId, description, notes } = req.body;
+    const { repId, storeId, description, notes, userId, userType } = req.body;
 
     // ✅ Validate Rep
     const rep = await Rep.findById(repId);
@@ -23,6 +24,9 @@ export const createSample = async (req: Request, res: Response) => {
       description,
       notes,
       status: "submitted",
+      ...(userId && userType && {
+        createdBy: { user: userId, userType },
+      }),
     });
 
     res.status(201).json({
@@ -94,15 +98,35 @@ export const getAllSamples = async (req: Request, res: Response) => {
       query.store = { $in: storeIds };
     }
 
-    const [samples, total] = await Promise.all([
+    const [rawSamples, total] = await Promise.all([
       Sample.find(query)
         .populate("rep", "name")
         .populate("store", "name address")
         .skip((Number(page) - 1) * Number(limit))
         .limit(Number(limit))
-        .sort({ status: -1, createdAt: -1 }),
+        .sort({ status: -1, createdAt: -1 })
+        .lean(),
       Sample.countDocuments(query),
     ]);
+
+    // Populate createdBy.user from the correct collection
+    const samples = await Promise.all(
+      rawSamples.map(async (sample: any) => {
+        if (sample.createdBy?.user && sample.createdBy?.userType) {
+          const creator =
+            sample.createdBy.userType === "admin"
+              ? await Admin.findById(sample.createdBy.user).select("name").lean()
+              : await Rep.findById(sample.createdBy.user).select("name").lean();
+          if (creator) {
+            sample.createdBy = {
+              user: { _id: creator._id, name: creator.name },
+              userType: sample.createdBy.userType,
+            };
+          }
+        }
+        return sample;
+      })
+    );
 
     res.json({
       total,
@@ -122,6 +146,21 @@ export const getSampleById = async (req: Request, res: Response) => {
       .populate("rep", "name")
       .populate("store", "name");
     if (!sample) return res.status(404).json({ message: "Sample not found" });
+
+    // Populate createdBy.user from the correct collection
+    if (sample.createdBy?.user && sample.createdBy?.userType) {
+      const creator =
+        sample.createdBy.userType === "admin"
+          ? await Admin.findById(sample.createdBy.user).select("name").lean()
+          : await Rep.findById(sample.createdBy.user).select("name").lean();
+      if (creator) {
+        (sample as any).createdBy = {
+          user: { _id: creator._id, name: creator.name },
+          userType: sample.createdBy.userType,
+        };
+      }
+    }
+
     res.json(sample);
   } catch (error) {
     console.error("Error fetching sample:", error);

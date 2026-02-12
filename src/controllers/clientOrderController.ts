@@ -5,6 +5,7 @@ import { ClientOrder, IClientOrderItem } from "../models/ClientOrder";
 import { PrivateLabelClient } from "../models/PrivateLabelClient";
 import { Label } from "../models/Label";
 import { PrivateLabelProduct } from "../models/PrivateLabelProduct";
+import { Admin } from "../models/Admin";
 
 // Helper to get unit price by product type from database
 async function getUnitPriceByProductType(productType: string): Promise<number> {
@@ -69,7 +70,7 @@ export const getAllClientOrders = async (req: Request, res: Response) => {
 
     const skip = (Number(page) - 1) * Number(limit);
 
-    const [orders, total] = await Promise.all([
+    const [rawOrders, total] = await Promise.all([
       ClientOrder.find(filter)
         .populate({
           path: "client",
@@ -82,9 +83,27 @@ export const getAllClientOrders = async (req: Request, res: Response) => {
         .populate("items.label", "flavorName productType labelImages")
         .sort({ createdAt: -1 })
         .skip(skip)
-        .limit(Number(limit)),
+        .limit(Number(limit))
+        .lean(),
       ClientOrder.countDocuments(filter),
     ]);
+
+    // Populate createdBy user name
+    const { Rep } = await import("../models/Rep");
+    const orders = await Promise.all(
+      rawOrders.map(async (order: any) => {
+        if (order.createdBy?.user) {
+          const creator = order.createdBy.userType === "admin"
+            ? await Admin.findById(order.createdBy.user).select("name").lean()
+            : await Rep.findById(order.createdBy.user).select("name").lean();
+          order.createdBy = {
+            user: { _id: order.createdBy.user, name: creator?.name || "Unknown" },
+            userType: order.createdBy.userType,
+          };
+        }
+        return order;
+      })
+    );
 
     res.json({
       total,
@@ -104,7 +123,7 @@ export const getAllClientOrders = async (req: Request, res: Response) => {
 // GET CLIENT ORDER BY ID
 export const getClientOrderById = async (req: Request, res: Response) => {
   try {
-    const order = await ClientOrder.findById(req.params.id)
+    const order: any = await ClientOrder.findById(req.params.id)
       .populate({
         path: "client",
         populate: {
@@ -113,10 +132,23 @@ export const getClientOrderById = async (req: Request, res: Response) => {
         },
       })
       .populate("assignedRep", "name email")
-      .populate("items.label", "flavorName productType labelImages");
+      .populate("items.label", "flavorName productType labelImages")
+      .lean();
 
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
+    }
+
+    // Populate createdBy user name
+    if (order.createdBy?.user) {
+      const { Rep } = await import("../models/Rep");
+      const creator = order.createdBy.userType === "admin"
+        ? await Admin.findById(order.createdBy.user).select("name").lean()
+        : await Rep.findById(order.createdBy.user).select("name").lean();
+      order.createdBy = {
+        user: { _id: order.createdBy.user, name: creator?.name || "Unknown" },
+        userType: order.createdBy.userType,
+      };
     }
 
     res.json(order);
@@ -141,6 +173,8 @@ export const createClientOrder = async (req: Request, res: Response) => {
       discountType = "flat",
       note,
       shipASAP = false, // Can be set at order creation
+      userId,
+      userType,
     } = req.body;
 
     // Validate client
@@ -235,6 +269,7 @@ export const createClientOrder = async (req: Request, res: Response) => {
       note,
       isRecurring: false,
       shipASAP, // Set at order creation time
+      createdBy: userId ? { user: userId, userType } : undefined,
     });
 
     order.calculateProductionStart();
@@ -246,6 +281,19 @@ export const createClientOrder = async (req: Request, res: Response) => {
     });
     await order.populate("assignedRep", "name email");
 
+    // Populate createdBy user name before returning
+    const orderObj: any = order.toObject();
+    if (orderObj.createdBy?.user) {
+      const { Rep } = await import("../models/Rep");
+      const creator = orderObj.createdBy.userType === "admin"
+        ? await Admin.findById(orderObj.createdBy.user).select("name").lean()
+        : await Rep.findById(orderObj.createdBy.user).select("name").lean();
+      orderObj.createdBy = {
+        user: { _id: orderObj.createdBy.user, name: creator?.name || "Unknown" },
+        userType: orderObj.createdBy.userType,
+      };
+    }
+
     // Send order created email to client (async, don't block response)
     import("../jobs/clientOrderJobs").then(({ sendOrderCreatedNotification }) => {
       sendOrderCreatedNotification(order, false);
@@ -253,7 +301,7 @@ export const createClientOrder = async (req: Request, res: Response) => {
 
     res.status(201).json({
       message: "Order created successfully",
-      order,
+      order: orderObj,
     });
   } catch (error: any) {
     console.error("Error creating order:", error);

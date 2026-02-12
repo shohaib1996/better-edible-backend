@@ -4,6 +4,7 @@ import { Order } from "../models/Order";
 import { Rep } from "../models/Rep";
 import { Store } from "../models/Store";
 import { Product, IProduct } from "../models/Product";
+import { Admin } from "../models/Admin";
 import Sample from "../models/Sample";
 
 /**
@@ -84,6 +85,8 @@ export const createOrder = async (req: Request, res: Response) => {
       discountType,
       discountValue,
       tax,
+      userId,
+      userType,
     } = req.body;
 
     // ✅ Validate Rep
@@ -186,6 +189,9 @@ export const createOrder = async (req: Request, res: Response) => {
       note,
       deliveryDate,
       status: "submitted",
+      ...(userId && userType && {
+        createdBy: { user: userId, userType },
+      }),
     });
 
     res.status(201).json({
@@ -259,6 +265,49 @@ export const getAllOrders = async (req: Request, res: Response) => {
         },
       },
       { $unwind: { path: "$rep", preserveNullAndEmptyArrays: true } },
+
+      // Lookup createdBy from admins
+      {
+        $lookup: {
+          from: "admins",
+          localField: "createdBy.user",
+          foreignField: "_id",
+          as: "_createdByAdmin",
+        },
+      },
+      // Lookup createdBy from reps
+      {
+        $lookup: {
+          from: "reps",
+          localField: "createdBy.user",
+          foreignField: "_id",
+          as: "_createdByRep",
+        },
+      },
+      // Merge createdBy with populated user name
+      {
+        $addFields: {
+          createdBy: {
+            $cond: {
+              if: { $gt: [{ $size: { $ifNull: ["$_createdByAdmin", []] } }, 0] },
+              then: {
+                user: { $arrayElemAt: ["$_createdByAdmin", 0] },
+                userType: "admin",
+              },
+              else: {
+                $cond: {
+                  if: { $gt: [{ $size: { $ifNull: ["$_createdByRep", []] } }, 0] },
+                  then: {
+                    user: { $arrayElemAt: ["$_createdByRep", 0] },
+                    userType: "rep",
+                  },
+                  else: null,
+                },
+              },
+            },
+          },
+        },
+      },
     ];
 
     // Search by store name
@@ -301,6 +350,10 @@ export const getAllOrders = async (req: Request, res: Response) => {
           store: { _id: 1, name: 1, address: 1, city: 1, blocked: 1 },
           rep: { _id: 1, name: 1, repType: 1 },
           items: 1,
+          createdBy: {
+            user: { _id: 1, name: 1 },
+            userType: 1,
+          },
         },
       }
     );
@@ -354,6 +407,49 @@ export const getAllOrders = async (req: Request, res: Response) => {
         },
       },
       { $unwind: { path: "$rep", preserveNullAndEmptyArrays: true } },
+
+      // Lookup createdBy from admins
+      {
+        $lookup: {
+          from: "admins",
+          localField: "createdBy.user",
+          foreignField: "_id",
+          as: "_createdByAdmin",
+        },
+      },
+      // Lookup createdBy from reps
+      {
+        $lookup: {
+          from: "reps",
+          localField: "createdBy.user",
+          foreignField: "_id",
+          as: "_createdByRep",
+        },
+      },
+      // Merge createdBy with populated user name
+      {
+        $addFields: {
+          createdBy: {
+            $cond: {
+              if: { $gt: [{ $size: { $ifNull: ["$_createdByAdmin", []] } }, 0] },
+              then: {
+                user: { $arrayElemAt: ["$_createdByAdmin", 0] },
+                userType: "admin",
+              },
+              else: {
+                $cond: {
+                  if: { $gt: [{ $size: { $ifNull: ["$_createdByRep", []] } }, 0] },
+                  then: {
+                    user: { $arrayElemAt: ["$_createdByRep", 0] },
+                    userType: "rep",
+                  },
+                  else: null,
+                },
+              },
+            },
+          },
+        },
+      },
     ];
 
     // Search by store name for samples
@@ -391,6 +487,10 @@ export const getAllOrders = async (req: Request, res: Response) => {
           createdAt: 1,
           store: { _id: 1, name: 1, address: 1, city: 1, blocked: 1 },
           rep: { _id: 1, name: 1, repType: 1 },
+          createdBy: {
+            user: { _id: 1, name: 1 },
+            userType: 1,
+          },
           isSample: { $literal: true },
         },
       }
@@ -432,6 +532,20 @@ export const getOrderById = async (req: Request, res: Response) => {
       .populate("items.product", "productLine subProductLine itemName");
 
     if (!order) return res.status(404).json({ message: "Order not found" });
+
+    // Manually populate createdBy.user from the correct collection
+    if (order.createdBy?.user && order.createdBy?.userType) {
+      const creator =
+        order.createdBy.userType === "admin"
+          ? await Admin.findById(order.createdBy.user).select("name").lean()
+          : await Rep.findById(order.createdBy.user).select("name").lean();
+      if (creator) {
+        (order as any).createdBy = {
+          user: { _id: creator._id, name: creator.name },
+          userType: order.createdBy.userType,
+        };
+      }
+    }
 
     res.json(order);
   } catch (error) {

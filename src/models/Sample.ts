@@ -14,6 +14,10 @@ export interface ISample extends Document {
   notes?: string;
   deliveryDate?: Date;
   shippedDate?: Date;
+  createdBy?: {
+    user: mongoose.Schema.Types.ObjectId;
+    userType: "admin" | "rep";
+  };
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -35,6 +39,10 @@ const SampleSchema: Schema = new Schema(
     notes: { type: String },
     deliveryDate: { type: Date },
     shippedDate: { type: Date },
+    createdBy: {
+      user: { type: mongoose.Schema.Types.ObjectId },
+      userType: { type: String, enum: ["admin", "rep"] },
+    },
   },
   { timestamps: true }
 );

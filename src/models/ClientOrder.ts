@@ -57,6 +57,10 @@ export interface IClientOrder extends Document {
   parentOrder?: Types.ObjectId;
   shipASAP: boolean;
   trackingNumber?: string;
+  createdBy?: {
+    user: Types.ObjectId;
+    userType: "admin" | "rep";
+  };
   emailsSent: {
     orderCreatedNotification: boolean;
     productionStartedNotification: boolean;
@@ -193,6 +197,10 @@ const ClientOrderSchema = new Schema<IClientOrder>(
     trackingNumber: {
       type: String,
       default: null,
+    },
+    createdBy: {
+      user: { type: Schema.Types.ObjectId },
+      userType: { type: String, enum: ["admin", "rep"] },
     },
     emailsSent: {
       orderCreatedNotification: {
