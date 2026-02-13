@@ -5,6 +5,7 @@ import { Rep } from "../models/Rep";
 import { Store } from "../models/Store";
 import { Order } from "../models/Order";
 import Sample from "../models/Sample";
+import { ClientOrder } from "../models/ClientOrder";
 
 // 🟩 Create delivery assignment
 export const createDelivery = async (req: Request, res: Response) => {
@@ -19,6 +20,7 @@ export const createDelivery = async (req: Request, res: Response) => {
       notes,
       orderId,
       sampleId,
+      clientOrderId,
     } = req.body;
 
     const delivery = await Delivery.create({
@@ -31,6 +33,7 @@ export const createDelivery = async (req: Request, res: Response) => {
       notes,
       orderId,
       sampleId,
+      clientOrderId,
       status: "in_transit",
     });
 
@@ -190,6 +193,19 @@ export const updateDeliveryStatus = async (req: Request, res: Response) => {
         });
       } else if (status === "cancelled") {
         await Sample.findByIdAndUpdate(delivery.sampleId, {
+          status: "cancelled",
+        });
+      }
+    }
+
+    // Update linked client order status when delivery is completed or cancelled
+    if (delivery.clientOrderId) {
+      if (status === "completed") {
+        await ClientOrder.findByIdAndUpdate(delivery.clientOrderId, {
+          status: "shipped",
+        });
+      } else if (status === "cancelled") {
+        await ClientOrder.findByIdAndUpdate(delivery.clientOrderId, {
           status: "cancelled",
         });
       }

@@ -475,13 +475,10 @@ export const updateClientOrderStatus = async (req: Request, res: Response) => {
         order.trackingNumber = trackingNumber;
       }
       await order.save();
-      // Send shipped notification to client and rep (async, don't block response)
-      import("../jobs/clientOrderJobs").then(({ sendShippedNotification }) => {
-        sendShippedNotification(order);
-      });
-      // Create recurring order if applicable (async, don't block response)
-      import("../jobs/clientOrderJobs").then(({ createRecurringOrder }) => {
-        createRecurringOrder(order);
+      // Send shipped notification then create recurring order (sequential to avoid Resend rate limits)
+      import("../jobs/clientOrderJobs").then(async ({ sendShippedNotification, createRecurringOrder }) => {
+        await sendShippedNotification(order);
+        await createRecurringOrder(order);
       });
     } else {
       await order.save();

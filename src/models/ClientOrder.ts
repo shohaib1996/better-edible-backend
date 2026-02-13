@@ -11,7 +11,8 @@ export type ClientOrderStatus =
   | "stage_3"
   | "stage_4"
   | "ready_to_ship"
-  | "shipped";
+  | "shipped"
+  | "cancelled";
 
 export const CLIENT_ORDER_STATUSES: ClientOrderStatus[] = [
   "waiting",
@@ -21,6 +22,7 @@ export const CLIENT_ORDER_STATUSES: ClientOrderStatus[] = [
   "stage_4",
   "ready_to_ship",
   "shipped",
+  "cancelled",
 ];
 
 // -------------------
@@ -273,11 +275,14 @@ ClientOrderSchema.methods.isInProduction = function () {
 };
 
 // Calculate production start date (2 weeks before delivery)
+// If the calculated date is in the past, use today instead
 ClientOrderSchema.methods.calculateProductionStart = function () {
   const delivery = new Date(this.deliveryDate);
   const production = new Date(delivery);
   production.setDate(production.getDate() - 14);
-  this.productionStartDate = production;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  this.productionStartDate = production < today ? today : production;
 };
 
 // -------------------

@@ -23,6 +23,7 @@ export interface IDelivery extends Document {
   storeId: Types.ObjectId;
   assignedTo?: Types.ObjectId;
   sampleId?: Types.ObjectId;
+  clientOrderId?: Types.ObjectId;
   disposition: DeliveryDisposition;
   orderId?: Types.ObjectId;
   paymentAction: PaymentAction;
@@ -39,6 +40,7 @@ const DeliverySchema = new Schema<IDelivery>(
     storeId: { type: Schema.Types.ObjectId, ref: "Store", required: true },
     assignedTo: { type: Schema.Types.ObjectId, ref: "Rep" },
     sampleId: { type: Schema.Types.ObjectId, ref: "Sample" },
+    clientOrderId: { type: Schema.Types.ObjectId, ref: "ClientOrder" },
     orderId: { type: Schema.Types.ObjectId, ref: "Order" },
     disposition: {
       type: String,

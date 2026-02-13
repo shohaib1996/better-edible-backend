@@ -12,6 +12,11 @@ import {
 } from "../services/email";
 
 // -------------------
+// Helper: Delay between emails to avoid Resend rate limits (2 req/sec)
+// -------------------
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// -------------------
 // Helper: Format date
 // -------------------
 const formatDate = (date: Date): string => {
@@ -329,6 +334,9 @@ export const sendShippedNotification = async (
       trackingNumber: populatedOrder.trackingNumber,
     });
 
+    // Delay to avoid Resend rate limit
+    await delay(600);
+
     // Send email to rep
     const repEmailSent = await sendOrderShippedRepEmail({
       repEmail: rep.email,
@@ -429,6 +437,9 @@ export const createRecurringOrder = async (
 
     // Notify the client (order created confirmation)
     await sendOrderCreatedNotification(newOrder, true);
+
+    // Delay to avoid Resend rate limit
+    await delay(600);
 
     // Notify the rep
     const rep = client.assignedRep as any;
