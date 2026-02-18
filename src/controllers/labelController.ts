@@ -165,7 +165,7 @@ export const getApprovedLabelsByClient = async (
     const labels = await Label.find({
       client: new mongoose.Types.ObjectId(clientId),
       currentStage: "ready_for_production",
-    }).select("_id flavorName productType labelImages");
+    }).select("_id flavorName productType cannabinoidMix color flavorComponents colorComponents labelImages");
 
     // Add unit price based on product type (from database)
     const labelsWithPricing = await Promise.all(
@@ -188,7 +188,7 @@ export const getApprovedLabelsByClient = async (
 // CREATE LABEL
 export const createLabel = async (req: Request, res: Response) => {
   try {
-    const { clientId, flavorName, productType, specialInstructions, userId, userType } = req.body;
+    const { clientId, flavorName, productType, specialInstructions, cannabinoidMix, color, flavorComponents, colorComponents, userId, userType } = req.body;
 
     // Validate client exists
     const client = await PrivateLabelClient.findById(clientId);
@@ -213,6 +213,36 @@ export const createLabel = async (req: Request, res: Response) => {
       ? ((userType.charAt(0).toUpperCase() +
           userType.slice(1).toLowerCase()) as "Admin" | "Rep")
       : undefined;
+
+    // Parse formulation components (sent as JSON strings via FormData)
+    let parsedFlavorComponents: any[] = [];
+    let parsedColorComponents: any[] = [];
+    try {
+      if (flavorComponents) parsedFlavorComponents = JSON.parse(flavorComponents);
+      if (colorComponents) parsedColorComponents = JSON.parse(colorComponents);
+    } catch {
+      return res.status(400).json({ message: "Invalid formulation data format" });
+    }
+
+    // Validate flavor components
+    for (const comp of parsedFlavorComponents) {
+      if (!comp.name || comp.name.trim() === "") {
+        return res.status(400).json({ message: "Each flavor component must have a name" });
+      }
+      if (comp.percentage === undefined || comp.percentage === null) {
+        return res.status(400).json({ message: "Each flavor component must have a percentage" });
+      }
+    }
+
+    // Validate color components
+    for (const comp of parsedColorComponents) {
+      if (!comp.name || comp.name.trim() === "") {
+        return res.status(400).json({ message: "Each color component must have a name" });
+      }
+      if (comp.percentage === undefined || comp.percentage === null) {
+        return res.status(400).json({ message: "Each color component must have a percentage" });
+      }
+    }
 
     // Handle image uploads
     const files = (req as any).files as Express.Multer.File[];
@@ -257,6 +287,10 @@ export const createLabel = async (req: Request, res: Response) => {
       flavorName: flavorName.trim(),
       productType,
       specialInstructions: specialInstructions?.trim() || "",
+      cannabinoidMix: cannabinoidMix?.trim() || "",
+      color: color?.trim() || "",
+      flavorComponents: parsedFlavorComponents,
+      colorComponents: parsedColorComponents,
       currentStage: "design_in_progress",
       labelImages,
       stageHistory: [initialStageHistory], // Set initial history to skip pre-save hook
@@ -291,7 +325,7 @@ export const updateLabel = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "Label not found" });
     }
 
-    const { flavorName, productType, specialInstructions, keepExistingImages } = req.body;
+    const { flavorName, productType, specialInstructions, cannabinoidMix, color, flavorComponents, colorComponents, keepExistingImages } = req.body;
 
     // Update flavor name
     if (flavorName !== undefined) {
@@ -314,6 +348,34 @@ export const updateLabel = async (req: Request, res: Response) => {
     // Update special instructions
     if (specialInstructions !== undefined) {
       label.specialInstructions = specialInstructions.trim();
+    }
+
+    // Update cannabinoid mix
+    if (cannabinoidMix !== undefined) {
+      label.cannabinoidMix = cannabinoidMix.trim();
+    }
+
+    // Update color
+    if (color !== undefined) {
+      label.color = color.trim();
+    }
+
+    // Update flavor components
+    if (flavorComponents !== undefined) {
+      let parsed;
+      try { parsed = JSON.parse(flavorComponents); } catch {
+        return res.status(400).json({ message: "Invalid flavor components format" });
+      }
+      label.flavorComponents = parsed;
+    }
+
+    // Update color components
+    if (colorComponents !== undefined) {
+      let parsed;
+      try { parsed = JSON.parse(colorComponents); } catch {
+        return res.status(400).json({ message: "Invalid color components format" });
+      }
+      label.colorComponents = parsed;
     }
 
     // Handle image updates

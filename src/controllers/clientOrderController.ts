@@ -80,7 +80,7 @@ export const getAllClientOrders = async (req: Request, res: Response) => {
           },
         })
         .populate("assignedRep", "name email")
-        .populate("items.label", "flavorName productType labelImages")
+        .populate("items.label", "flavorName productType cannabinoidMix color flavorComponents colorComponents labelImages")
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(Number(limit))
@@ -132,7 +132,7 @@ export const getClientOrderById = async (req: Request, res: Response) => {
         },
       })
       .populate("assignedRep", "name email")
-      .populate("items.label", "flavorName productType labelImages")
+      .populate("items.label", "flavorName productType cannabinoidMix color flavorComponents colorComponents labelImages")
       .lean();
 
     if (!order) {

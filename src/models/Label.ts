@@ -37,6 +37,11 @@ export interface ILabelImage {
   uploadedAt: Date;
 }
 
+export interface IFormulationComponent {
+  name: string;
+  percentage: number;
+}
+
 export interface IStageHistoryEntry {
   stage: LabelStage;
   changedBy?: Types.ObjectId;
@@ -53,8 +58,12 @@ export interface ILabel extends Document {
   flavorName: string;
   productType: string; // Dynamic - fetched from PrivateLabelProduct collection
   specialInstructions?: string;
+  cannabinoidMix?: string;
+  color?: string;
   currentStage: LabelStage;
   stageHistory: IStageHistoryEntry[];
+  flavorComponents: IFormulationComponent[];
+  colorComponents: IFormulationComponent[];
   labelImages: ILabelImage[];
   approvalToken?: string;
   approvalTokenExpiry?: Date;
@@ -82,6 +91,14 @@ const LabelImageSchema = new Schema<ILabelImage>(
     bytes: Number,
     originalFilename: String,
     uploadedAt: { type: Date, default: Date.now },
+  },
+  { _id: false }
+);
+
+const FormulationComponentSchema = new Schema(
+  {
+    name: { type: String, required: true, trim: true },
+    percentage: { type: Number, required: true },
   },
   { _id: false }
 );
@@ -137,6 +154,18 @@ const LabelSchema = new Schema<ILabel>(
       trim: true,
       default: "",
     },
+    cannabinoidMix: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+    color: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+    flavorComponents: { type: [FormulationComponentSchema], default: [] },
+    colorComponents: { type: [FormulationComponentSchema], default: [] },
     currentStage: {
       type: String,
       enum: LABEL_STAGES,
