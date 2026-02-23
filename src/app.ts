@@ -21,6 +21,11 @@ import sampleRoutes from "./routes/sampleRoutes";
 import contactRoutes from "./routes/contactRoutes";
 import followupRoutes from "./routes/followupRoutes";
 import deliveryOrderRoutes from "./routes/deliveryOrderRoutes";
+import cookItemRoutes from "./routes/cookItemRoutes";
+import moldRoutes from "./routes/moldRoutes";
+import dehydratorTrayRoutes from "./routes/dehydratorTrayRoutes";
+import dehydratorUnitRoutes from "./routes/dehydratorUnitRoutes";
+import caseRoutes from "./routes/caseRoutes";
 
 // 👉 dotenv ONLY for local development
 if (process.env.NODE_ENV === "development") {
@@ -72,6 +77,11 @@ app.use("/api/samples", sampleRoutes);
 app.use("/api/contacts", contactRoutes);
 app.use("/api/followups", followupRoutes);
 app.use("/api/delivery-order", deliveryOrderRoutes);
+app.use("/api/cook-items", cookItemRoutes);
+app.use("/api/molds", moldRoutes);
+app.use("/api/dehydrator-trays", dehydratorTrayRoutes);
+app.use("/api/dehydrator-units", dehydratorUnitRoutes);
+app.use("/api/cases", caseRoutes);
 
 app.get("/", (_req, res) => {
   res.send("Rep Order System API is running... yep 4th time");
