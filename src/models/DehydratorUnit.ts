@@ -67,12 +67,6 @@ DehydratorUnitSchema.pre("save", function (next) {
 });
 
 // ─────────────────────────────
-// INDEXES
-// ─────────────────────────────
-
-DehydratorUnitSchema.index({ unitId: 1 }, { unique: true });
-
-// ─────────────────────────────
 // EXPORT
 // ─────────────────────────────
 

@@ -51,7 +51,6 @@ const CaseSchema = new Schema<ICase>(
 // INDEXES
 // ─────────────────────────────
 
-CaseSchema.index({ caseId: 1 }, { unique: true });
 CaseSchema.index({ cookItemId: 1 });
 CaseSchema.index({ orderId: 1 });
 CaseSchema.index({ status: 1 });

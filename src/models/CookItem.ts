@@ -7,10 +7,10 @@ import { Schema, model, Document, Types } from "mongoose";
 export type CookItemStatus =
   | "pending"
   | "in-progress"
-  | "stage_1_complete"
-  | "stage_2_complete"
-  | "stage_3_complete"
-  | "stage_4_complete";
+  | "molding_complete"
+  | "dehydrating_complete"
+  | "demolding_labeling_complete"
+  | "packaging_casing_complete";
 
 // ─────────────────────────────
 // SUB-INTERFACES
@@ -65,24 +65,24 @@ export interface ICookItem extends Document {
   // Status
   status: CookItemStatus;
 
-  // Stage 1 Data
+  // Molding Stage Data
   assignedMoldIds: string[];
-  stage1StartTimestamp?: Date;
-  stage1CompletionTimestamp?: Date;
+  moldingStartTimestamp?: Date;
+  moldingCompletionTimestamp?: Date;
   moldingTimestamps: IMoldingTimestamp[];
 
-  // Stage 2 Data
+  // Dehydrating Stage Data
   dehydratorTrayIds: string[];
   dehydratorAssignments: IDehydratorAssignment[];
-  stage2CompletionTimestamp?: Date;
+  dehydratingCompletionTimestamp?: Date;
 
-  // Stage 3 Data
+  // Demolding & Labeling Stage Data
   trayRemovalTimestamps: ITrayRemoval[];
   containerPackedTimestamp?: Date;
   labelPrintTimestamp?: Date;
-  stage3CompletionTimestamp?: Date;
+  demoldingLabelingCompletionTimestamp?: Date;
 
-  // Stage 4 Data
+  // Packaging & Casing Stage Data
   packagingStartTimestamp?: Date;
   expectedCount: number;
   actualCount?: number;
@@ -166,32 +166,32 @@ const CookItemSchema = new Schema<ICookItem>(
       enum: [
         "pending",
         "in-progress",
-        "stage_1_complete",
-        "stage_2_complete",
-        "stage_3_complete",
-        "stage_4_complete",
+        "molding_complete",
+        "dehydrating_complete",
+        "demolding_labeling_complete",
+        "packaging_casing_complete",
       ],
       default: "pending",
     },
 
-    // Stage 1 Data
+    // Molding Stage Data
     assignedMoldIds: { type: [String], default: [] },
-    stage1StartTimestamp: Date,
-    stage1CompletionTimestamp: Date,
+    moldingStartTimestamp: Date,
+    moldingCompletionTimestamp: Date,
     moldingTimestamps: { type: [MoldingTimestampSchema], default: [] },
 
-    // Stage 2 Data
+    // Dehydrating Stage Data
     dehydratorTrayIds: { type: [String], default: [] },
     dehydratorAssignments: { type: [DehydratorAssignmentSchema], default: [] },
-    stage2CompletionTimestamp: Date,
+    dehydratingCompletionTimestamp: Date,
 
-    // Stage 3 Data
+    // Demolding & Labeling Stage Data
     trayRemovalTimestamps: { type: [TrayRemovalSchema], default: [] },
     containerPackedTimestamp: Date,
     labelPrintTimestamp: Date,
-    stage3CompletionTimestamp: Date,
+    demoldingLabelingCompletionTimestamp: Date,
 
-    // Stage 4 Data
+    // Packaging & Casing Stage Data
     packagingStartTimestamp: Date,
     expectedCount: { type: Number, default: 0 },
     actualCount: Number,
@@ -209,7 +209,6 @@ const CookItemSchema = new Schema<ICookItem>(
 // INDEXES
 // ─────────────────────────────
 
-CookItemSchema.index({ cookItemId: 1 }, { unique: true });
 CookItemSchema.index({ status: 1 });
 CookItemSchema.index({ orderId: 1 });
 CookItemSchema.index({ customerId: 1 });

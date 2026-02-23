@@ -435,10 +435,10 @@ export const updateClientOrderStatus = async (req: Request, res: Response) => {
 
     const validStatuses = [
       "waiting",
-      "stage_1",
-      "stage_2",
-      "stage_3",
-      "stage_4",
+      "molding",
+      "dehydrating",
+      "demolding_labeling",
+      "packaging_casing",
       "ready_to_ship",
       "shipped",
     ];
@@ -450,8 +450,8 @@ export const updateClientOrderStatus = async (req: Request, res: Response) => {
     const previousStatus = order.status;
     order.status = status;
 
-    // Handle stage_1 (production started) - send notification email
-    if (status === "stage_1" && previousStatus !== "stage_1") {
+    // Handle molding (production started) - send notification email
+    if (status === "molding" && previousStatus !== "molding") {
       await order.save();
       // Send production started notification (async, don't block response)
       import("../jobs/clientOrderJobs").then(({ sendProductionStartedNotification }) => {
@@ -511,7 +511,7 @@ export const pushOrderToPPS = async (req: Request, res: Response) => {
       });
     }
 
-    order.status = "stage_1";
+    order.status = "molding";
     await order.save();
 
     // Send production started email to client (async, don't block response)

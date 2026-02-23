@@ -41,7 +41,6 @@ const DehydratorTraySchema = new Schema<IDehydratorTray>(
 // INDEXES
 // ─────────────────────────────
 
-DehydratorTraySchema.index({ trayId: 1 }, { unique: true });
 DehydratorTraySchema.index({ status: 1 });
 DehydratorTraySchema.index({ currentCookItemId: 1 });
 DehydratorTraySchema.index({ currentDehydratorUnitId: 1 });

@@ -74,8 +74,8 @@ interface OldPrivateLabelOrder {
 // -------------------
 const STATUS_MAP: Record<string, string> = {
   submitted: "waiting",
-  accepted: "stage_1",
-  manifested: "stage_2",
+  accepted: "molding",
+  manifested: "dehydrating",
   shipped: "shipped",
   cancelled: "shipped", // Treat cancelled as shipped for migration (or skip them)
 };

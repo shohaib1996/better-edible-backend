@@ -95,7 +95,7 @@ const PaymentSchema = new Schema<IPayment>(
 
 const OrderSchema = new Schema<IOrder>(
   {
-    orderNumber: { type: Number, unique: true, index: true },
+    orderNumber: { type: Number, unique: true },
     store: { type: Schema.Types.ObjectId, ref: "Store", required: true },
     rep: { type: Schema.Types.ObjectId, ref: "Rep", required: true },
     items: { type: [OrderItemSchema], default: [] },

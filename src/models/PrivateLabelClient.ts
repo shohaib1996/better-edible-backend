@@ -64,7 +64,6 @@ const PrivateLabelClientSchema = new Schema<IPrivateLabelClient>(
 // -------------------
 // Indexes
 // -------------------
-PrivateLabelClientSchema.index({ store: 1 });
 PrivateLabelClientSchema.index({ status: 1 });
 PrivateLabelClientSchema.index({ assignedRep: 1 });
 

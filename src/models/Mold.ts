@@ -39,7 +39,6 @@ const MoldSchema = new Schema<IMold>(
 // INDEXES
 // ─────────────────────────────
 
-MoldSchema.index({ moldId: 1 }, { unique: true });
 MoldSchema.index({ status: 1 });
 MoldSchema.index({ currentCookItemId: 1 });
 

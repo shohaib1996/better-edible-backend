@@ -6,20 +6,20 @@ import mongoose, { Schema, model, Document, Types } from "mongoose";
 // -------------------
 export type ClientOrderStatus =
   | "waiting"
-  | "stage_1"
-  | "stage_2"
-  | "stage_3"
-  | "stage_4"
+  | "molding"
+  | "dehydrating"
+  | "demolding_labeling"
+  | "packaging_casing"
   | "ready_to_ship"
   | "shipped"
   | "cancelled";
 
 export const CLIENT_ORDER_STATUSES: ClientOrderStatus[] = [
   "waiting",
-  "stage_1",
-  "stage_2",
-  "stage_3",
-  "stage_4",
+  "molding",
+  "dehydrating",
+  "demolding_labeling",
+  "packaging_casing",
   "ready_to_ship",
   "shipped",
   "cancelled",
@@ -239,7 +239,6 @@ ClientOrderSchema.index({ deliveryDate: 1 });
 ClientOrderSchema.index({ productionStartDate: 1 });
 ClientOrderSchema.index({ assignedRep: 1 });
 ClientOrderSchema.index({ isRecurring: 1 });
-ClientOrderSchema.index({ orderNumber: 1 });
 
 // -------------------
 // Pre-save Hook: Auto-generate order number using counters collection
@@ -271,7 +270,7 @@ ClientOrderSchema.methods.canEdit = function () {
 
 // Check if order is currently in production
 ClientOrderSchema.methods.isInProduction = function () {
-  return ["stage_1", "stage_2", "stage_3", "stage_4"].includes(this.status);
+  return ["molding", "dehydrating", "demolding_labeling", "packaging_casing"].includes(this.status);
 };
 
 // Calculate production start date (2 weeks before delivery)
