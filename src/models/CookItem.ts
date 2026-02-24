@@ -7,9 +7,9 @@ import { Schema, model, Document, Types } from "mongoose";
 export type CookItemStatus =
   | "pending"
   | "in-progress"
-  | "molding_complete"
+  | "cooking_molding_complete"
   | "dehydrating_complete"
-  | "demolding_labeling_complete"
+  | "demolding_complete"
   | "packaging_casing_complete";
 
 // ─────────────────────────────
@@ -65,10 +65,10 @@ export interface ICookItem extends Document {
   // Status
   status: CookItemStatus;
 
-  // Molding Stage Data
+  // Cooking & Molding Stage Data
   assignedMoldIds: string[];
-  moldingStartTimestamp?: Date;
-  moldingCompletionTimestamp?: Date;
+  cookingMoldingStartTimestamp?: Date;
+  cookingMoldingCompletionTimestamp?: Date;
   moldingTimestamps: IMoldingTimestamp[];
 
   // Dehydrating Stage Data
@@ -76,11 +76,11 @@ export interface ICookItem extends Document {
   dehydratorAssignments: IDehydratorAssignment[];
   dehydratingCompletionTimestamp?: Date;
 
-  // Demolding & Labeling Stage Data
+  // Demolding Stage Data
   trayRemovalTimestamps: ITrayRemoval[];
   containerPackedTimestamp?: Date;
   labelPrintTimestamp?: Date;
-  demoldingLabelingCompletionTimestamp?: Date;
+  demoldingCompletionTimestamp?: Date;
 
   // Packaging & Casing Stage Data
   packagingStartTimestamp?: Date;
@@ -166,18 +166,18 @@ const CookItemSchema = new Schema<ICookItem>(
       enum: [
         "pending",
         "in-progress",
-        "molding_complete",
+        "cooking_molding_complete",
         "dehydrating_complete",
-        "demolding_labeling_complete",
+        "demolding_complete",
         "packaging_casing_complete",
       ],
       default: "pending",
     },
 
-    // Molding Stage Data
+    // Cooking & Molding Stage Data
     assignedMoldIds: { type: [String], default: [] },
-    moldingStartTimestamp: Date,
-    moldingCompletionTimestamp: Date,
+    cookingMoldingStartTimestamp: Date,
+    cookingMoldingCompletionTimestamp: Date,
     moldingTimestamps: { type: [MoldingTimestampSchema], default: [] },
 
     // Dehydrating Stage Data
@@ -185,11 +185,11 @@ const CookItemSchema = new Schema<ICookItem>(
     dehydratorAssignments: { type: [DehydratorAssignmentSchema], default: [] },
     dehydratingCompletionTimestamp: Date,
 
-    // Demolding & Labeling Stage Data
+    // Demolding Stage Data
     trayRemovalTimestamps: { type: [TrayRemovalSchema], default: [] },
     containerPackedTimestamp: Date,
     labelPrintTimestamp: Date,
-    demoldingLabelingCompletionTimestamp: Date,
+    demoldingCompletionTimestamp: Date,
 
     // Packaging & Casing Stage Data
     packagingStartTimestamp: Date,

@@ -46,11 +46,11 @@ export const autoPushOrdersToProduction = async () => {
     let pushed = 0;
 
     for (const order of ordersToStart) {
-      order.status = "molding";
+      order.status = "cooking_molding";
       await order.save();
       pushed++;
       console.log(
-        `📦 Order ${order.orderNumber} pushed to production (Molding)`
+        `📦 Order ${order.orderNumber} pushed to production (Cooking & Molding)`
       );
       // Send production started notification to client
       await sendProductionStartedNotification(order);
@@ -116,7 +116,7 @@ export const sendOrderCreatedNotification = async (
 
 // -------------------
 // Send Production Started Notification (to client)
-// Triggered when order status changes to molding
+// Triggered when order status changes to cooking_molding
 // (Called from controller, not scheduled)
 // -------------------
 export const sendProductionStartedNotification = async (
@@ -179,7 +179,7 @@ export const sendSevenDayReminders = async () => {
 
     // Find orders delivering in 7 days that haven't received reminder
     const orders = await ClientOrder.find({
-      status: { $in: ["molding", "dehydrating", "demolding_labeling", "packaging_casing"] },
+      status: { $in: ["cooking_molding", "dehydrating", "demolding", "packaging_casing"] },
       deliveryDate: { $gte: targetDate, $lt: nextDay },
       "emailsSent.sevenDayReminder": false,
     })

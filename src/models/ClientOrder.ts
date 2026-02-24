@@ -6,9 +6,9 @@ import mongoose, { Schema, model, Document, Types } from "mongoose";
 // -------------------
 export type ClientOrderStatus =
   | "waiting"
-  | "molding"
+  | "cooking_molding"
   | "dehydrating"
-  | "demolding_labeling"
+  | "demolding"
   | "packaging_casing"
   | "ready_to_ship"
   | "shipped"
@@ -16,9 +16,9 @@ export type ClientOrderStatus =
 
 export const CLIENT_ORDER_STATUSES: ClientOrderStatus[] = [
   "waiting",
-  "molding",
+  "cooking_molding",
   "dehydrating",
-  "demolding_labeling",
+  "demolding",
   "packaging_casing",
   "ready_to_ship",
   "shipped",
@@ -270,7 +270,7 @@ ClientOrderSchema.methods.canEdit = function () {
 
 // Check if order is currently in production
 ClientOrderSchema.methods.isInProduction = function () {
-  return ["molding", "dehydrating", "demolding_labeling", "packaging_casing"].includes(this.status);
+  return ["cooking_molding", "dehydrating", "demolding", "packaging_casing"].includes(this.status);
 };
 
 // Calculate production start date (2 weeks before delivery)

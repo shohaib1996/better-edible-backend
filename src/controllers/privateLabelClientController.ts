@@ -251,7 +251,7 @@ export const deleteClient = async (req: Request, res: Response) => {
     const { ClientOrder } = await import("../models/ClientOrder");
     const activeOrders = await ClientOrder.find({
       client: client._id,
-      status: { $in: ["waiting", "molding", "dehydrating", "demolding_labeling", "packaging_casing"] },
+      status: { $in: ["waiting", "cooking_molding", "dehydrating", "demolding", "packaging_casing"] },
     });
 
     if (activeOrders.length > 0) {
