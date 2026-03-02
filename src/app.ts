@@ -89,4 +89,9 @@ app.get("/", (_req, res) => {
   res.send("Rep Order System API is running... yep 4th time");
 });
 
+// 404 - catch-all for unmatched routes
+app.use((_req, res) => {
+  res.status(404).json({ message: "Route not found" });
+});
+
 export default app;
