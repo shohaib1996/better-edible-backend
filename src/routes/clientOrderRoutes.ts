@@ -10,6 +10,7 @@ import {
   updateDeliveryDate,
   toggleShipASAP,
   deleteClientOrder,
+  completeProductionCallback,
 } from "../controllers/clientOrderController";
 
 const router = Router();
@@ -28,6 +29,7 @@ router.patch("/:id/status", updateClientOrderStatus /* #swagger.tags = ['Client 
 router.patch("/:id/push-to-pps", pushOrderToPPS /* #swagger.tags = ['Client Orders'] */);
 router.patch("/:id/delivery-date", updateDeliveryDate /* #swagger.tags = ['Client Orders'] */);
 router.patch("/:id/ship-asap", toggleShipASAP /* #swagger.tags = ['Client Orders'] */);
+router.patch("/:id/complete-production", completeProductionCallback /* #swagger.tags = ['Client Orders'] */);
 
 // DELETE routes
 router.delete("/:id", deleteClientOrder /* #swagger.tags = ['Client Orders'] */);

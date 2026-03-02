@@ -6,6 +6,7 @@ import { PrivateLabelClient } from "../models/PrivateLabelClient";
 import { Label } from "../models/Label";
 import { PrivateLabelProduct } from "../models/PrivateLabelProduct";
 import { Admin } from "../models/Admin";
+import { CookItem } from "../models/CookItem";
 
 // Helper to get unit price by product type from database
 async function getUnitPriceByProductType(productType: string): Promise<number> {
@@ -500,7 +501,10 @@ export const updateClientOrderStatus = async (req: Request, res: Response) => {
 // PUSH ORDER TO PPS (Production Planning System)
 export const pushOrderToPPS = async (req: Request, res: Response) => {
   try {
-    const order = await ClientOrder.findById(req.params.id);
+    const order = await ClientOrder.findById(req.params.id)
+      .populate({ path: "items.label", select: "flavorName productType flavorComponents colorComponents" })
+      .populate({ path: "client", populate: { path: "store", select: "name _id" } });
+
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
     }
@@ -511,6 +515,38 @@ export const pushOrderToPPS = async (req: Request, res: Response) => {
       });
     }
 
+    const storeId = (order.client as any)?.store?._id;
+    const storeName = (order.client as any)?.store?.name;
+
+    if (!storeId || !storeName) {
+      return res.status(400).json({ message: "Order client/store data is missing" });
+    }
+
+    // Build cook item documents — one per order item, using label._id as itemId
+    const cookItemDocs = order.items.map((item: any) => {
+      const label = item.label as any;
+      const labelId = String(label._id);
+      return {
+        cookItemId: `${storeId}-${order.orderNumber}-${labelId}`,
+        customerId: storeId,
+        orderId: order.orderNumber,
+        itemId: labelId,
+        labelId: label._id,
+        privateLabOrderId: order._id,
+        storeName,
+        flavor: label.flavorName,
+        quantity: item.quantity,
+        flavorComponents: label.flavorComponents || [],
+        colorComponents: label.colorComponents || [],
+        productType: label.productType,
+        specialFormulation: false,
+        status: "pending",
+        expectedCount: item.quantity,
+      };
+    });
+
+    await CookItem.insertMany(cookItemDocs);
+
     order.status = "cooking_molding";
     await order.save();
 
@@ -519,10 +555,9 @@ export const pushOrderToPPS = async (req: Request, res: Response) => {
       sendProductionStartedNotification(order);
     });
 
-    // TODO: Actually push to PPS system
-
     res.json({
       message: "Order pushed to production",
+      cookItemsCreated: cookItemDocs.length,
       order,
     });
   } catch (error: any) {
@@ -621,5 +656,30 @@ export const deleteClientOrder = async (req: Request, res: Response) => {
       message: "Error deleting order",
       error: error.message,
     });
+  }
+};
+
+
+// COMPLETE PRODUCTION CALLBACK
+// Fallback API endpoint — PPS calls completeProduction() internally,
+// but this allows external/future service separation.
+export const completeProductionCallback = async (req: Request, res: Response) => {
+  try {
+    const order = await ClientOrder.findById(req.params.id);
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    order.status = "ready_to_ship";
+    await order.save();
+
+    import("../jobs/clientOrderJobs").then(({ sendReadyToShipNotification }) => {
+      sendReadyToShipNotification(order);
+    });
+
+    res.json({ success: true, order });
+  } catch (error: any) {
+    console.error("Error completing production:", error);
+    res.status(500).json({ message: "Error completing production", error: error.message });
   }
 };
