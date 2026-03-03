@@ -11,7 +11,7 @@ export const createSampleSchema = z.object({
 });
 
 export const updateSampleStatusSchema = z.object({
-  status: z.enum(["submitted", "approved", "rejected", "delivered"]),
+  status: z.enum(["submitted", "accepted", "manifested", "shipped", "delivered", "cancelled"]),
 });
 
 export const getAllSamplesQuery = paginationQuery.extend({
