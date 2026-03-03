@@ -12,8 +12,8 @@ export interface ISample extends Document {
     | "cancelled";
   description?: string;
   notes?: string;
-  deliveryDate?: Date;
-  shippedDate?: Date;
+  deliveryDate?: string; // YYYY-MM-DD string
+  shippedDate?: string; // YYYY-MM-DD string
   createdBy?: {
     user: mongoose.Schema.Types.ObjectId;
     userType: "admin" | "rep";
@@ -37,8 +37,8 @@ const SampleSchema: Schema = new Schema(
     },
     description: { type: String },
     notes: { type: String },
-    deliveryDate: { type: Date },
-    shippedDate: { type: Date },
+    deliveryDate: { type: String }, // YYYY-MM-DD string
+    shippedDate: { type: String }, // YYYY-MM-DD string
     createdBy: {
       user: { type: mongoose.Schema.Types.ObjectId },
       userType: { type: String, enum: ["admin", "rep"] },

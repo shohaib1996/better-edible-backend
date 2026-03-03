@@ -133,7 +133,7 @@ export const updateDelivery = asyncHandler(async (req, res) => {
 
 // 🟧 Update delivery status
 export const updateDeliveryStatus = asyncHandler(async (req, res) => {
-  const { status } = req.body;
+  const { status, today } = req.body;
   const validStatuses = ["pending", "assigned", "completed", "cancelled"];
   if (!validStatuses.includes(status)) throw new AppError("Invalid status", 400);
 
@@ -143,12 +143,15 @@ export const updateDeliveryStatus = asyncHandler(async (req, res) => {
   delivery.status = status;
   await delivery.save();
 
+  // Use today's date string sent from the frontend (device local date, YYYY-MM-DD)
+  const todayStr = today && /^\d{4}-\d{2}-\d{2}$/.test(today) ? today : new Date().toISOString().slice(0, 10);
+
   // Update linked regular order status when delivery is completed or cancelled
   if (delivery.orderId) {
     if (status === "completed") {
       await Order.findByIdAndUpdate(delivery.orderId, {
         status: "shipped",
-        deliveryDate: new Date(),
+        deliveryDate: todayStr,
       });
     } else if (status === "cancelled") {
       await Order.findByIdAndUpdate(delivery.orderId, {
@@ -162,7 +165,7 @@ export const updateDeliveryStatus = asyncHandler(async (req, res) => {
     if (status === "completed") {
       await Sample.findByIdAndUpdate(delivery.sampleId, {
         status: "shipped",
-        deliveryDate: new Date(),
+        deliveryDate: todayStr,
       });
     } else if (status === "cancelled") {
       await Sample.findByIdAndUpdate(delivery.sampleId, {
@@ -176,6 +179,7 @@ export const updateDeliveryStatus = asyncHandler(async (req, res) => {
     if (status === "completed") {
       await ClientOrder.findByIdAndUpdate(delivery.clientOrderId, {
         status: "shipped",
+        actualShipDate: new Date(todayStr), // ClientOrder uses Date type for actualShipDate
       });
     } else if (status === "cancelled") {
       await ClientOrder.findByIdAndUpdate(delivery.clientOrderId, {

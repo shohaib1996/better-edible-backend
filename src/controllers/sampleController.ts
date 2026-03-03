@@ -35,6 +35,17 @@ export const createSample = asyncHandler(async (req, res) => {
 });
 
 export const updateSample = asyncHandler(async (req, res) => {
+  // Normalize date fields to YYYY-MM-DD — if already correct format keep as-is,
+  // otherwise parse using PST (app timezone) to avoid UTC day-shift
+  const toDateStr = (val: string) => {
+    if (/^\d{4}-\d{2}-\d{2}$/.test(val)) return val;
+    return new Date(val).toLocaleDateString("en-CA", {
+      timeZone: "America/Los_Angeles",
+    });
+  };
+  if (req.body.deliveryDate) req.body.deliveryDate = toDateStr(req.body.deliveryDate);
+  if (req.body.shippedDate) req.body.shippedDate = toDateStr(req.body.shippedDate);
+
   const sample = await Sample.findByIdAndUpdate(
     req.params.id,
     req.body,

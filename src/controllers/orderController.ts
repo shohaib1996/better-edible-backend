@@ -223,12 +223,42 @@ export const getAllOrders = asyncHandler(async (req, res) => {
   if (repId && mongoose.Types.ObjectId.isValid(String(repId)))
     matchStage.rep = new mongoose.Types.ObjectId(String(repId));
 
-  // ✅ Filter by deliveryDate (now stored as string in YYYY-MM-DD format)
+  // ✅ Filter by date range — use shippedDate if filtering shipped orders, else deliveryDate
   if (startDate && endDate) {
-    matchStage.deliveryDate = {
-      $gte: String(startDate),
-      $lte: String(endDate),
-    };
+    const startStr = String(startDate);
+    const endStr = String(endDate);
+    // Also support legacy records where deliveryDate was saved as a full Date object
+    const startDate_ = new Date(startStr);
+    startDate_.setUTCHours(0, 0, 0, 0);
+    const endDate_ = new Date(endStr);
+    endDate_.setUTCHours(23, 59, 59, 999);
+
+    const statuses = typeof status === "string" ? status.split(",") : [];
+    const isShippedFilter =
+      statuses.length > 0 &&
+      statuses.every((s) => s === "shipped" || s === "cancelled");
+
+    if (isShippedFilter) {
+      // Primary: shippedDate in range (string format)
+      // Fallback 1: no shippedDate but deliveryDate string in range
+      // Fallback 2: no shippedDate but deliveryDate is a legacy Date object in range
+      matchStage.$or = [
+        { shippedDate: { $gte: startStr, $lte: endStr } },
+        {
+          shippedDate: { $exists: false },
+          deliveryDate: { $gte: startStr, $lte: endStr },
+        },
+        {
+          shippedDate: { $exists: false },
+          deliveryDate: { $gte: startDate_, $lte: endDate_ },
+        },
+      ];
+    } else {
+      matchStage.$or = [
+        { deliveryDate: { $gte: startStr, $lte: endStr } },
+        { deliveryDate: { $gte: startDate_, $lte: endDate_ } },
+      ];
+    }
   }
 
   const pipeline: any[] = [
@@ -365,14 +395,24 @@ export const getAllOrders = asyncHandler(async (req, res) => {
     sampleMatchStage.rep = new mongoose.Types.ObjectId(String(repId));
 
   if (startDate && endDate) {
-    const start = new Date(startDate as string);
-    const end = new Date(endDate as string);
-    end.setHours(23, 59, 59, 999);
+    const startStr = String(startDate);
+    const endStr = String(endDate);
+    const statuses_ = typeof status === "string" ? status.split(",") : [];
+    const isShippedFilter_ =
+      statuses_.length > 0 &&
+      statuses_.every((s) => s === "shipped" || s === "cancelled");
 
-    sampleMatchStage.createdAt = {
-      $gte: start,
-      $lte: end,
-    };
+    if (isShippedFilter_) {
+      sampleMatchStage.$or = [
+        { shippedDate: { $gte: startStr, $lte: endStr } },
+        {
+          shippedDate: { $exists: false },
+          deliveryDate: { $gte: startStr, $lte: endStr },
+        },
+      ];
+    } else {
+      sampleMatchStage.deliveryDate = { $gte: startStr, $lte: endStr };
+    }
   }
 
   const samplePipeline: any[] = [
@@ -540,6 +580,17 @@ export const getOrderById = asyncHandler(async (req, res) => {
 export const updateOrder = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id);
   if (!order) throw new AppError("Order not found", 404);
+
+  // Normalize date fields to YYYY-MM-DD — if already correct format keep as-is,
+  // otherwise parse using PST (app timezone) to avoid UTC day-shift
+  const toDateStr = (val: string) => {
+    if (/^\d{4}-\d{2}-\d{2}$/.test(val)) return val;
+    return new Date(val).toLocaleDateString("en-CA", {
+      timeZone: "America/Los_Angeles",
+    });
+  };
+  if (req.body.deliveryDate) req.body.deliveryDate = toDateStr(req.body.deliveryDate);
+  if (req.body.shippedDate) req.body.shippedDate = toDateStr(req.body.shippedDate);
 
   // Apply top-level fields (storeId, repId, note, deliveryDate, etc.)
   Object.assign(order, req.body);
