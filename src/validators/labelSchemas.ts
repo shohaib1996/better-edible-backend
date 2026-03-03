@@ -2,10 +2,12 @@ import { z } from "zod";
 import { objectId, paginationQuery } from "./commonSchemas";
 
 const labelStages = [
-  "draft",
-  "in_review",
-  "revision_requested",
-  "approved",
+  "design_in_progress",
+  "awaiting_store_approval",
+  "store_approved",
+  "submitted_to_olcc",
+  "olcc_approved",
+  "print_order_submitted",
   "ready_for_production",
 ] as const;
 

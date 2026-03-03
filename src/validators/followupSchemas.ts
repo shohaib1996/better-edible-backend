@@ -5,7 +5,7 @@ export const createFollowupSchema = z.object({
   followupDate: dateString,
   store: objectId,
   rep: objectId,
-  interestLevel: z.number().int().min(1).max(5).optional(),
+  interestLevel: z.string().optional(),
   comments: z.string().optional(),
 });
 
@@ -13,7 +13,7 @@ export const updateFollowupSchema = z.object({
   followupDate: dateString.optional(),
   store: objectId.optional(),
   rep: objectId.optional(),
-  interestLevel: z.number().int().min(1).max(5).optional(),
+  interestLevel: z.string().optional(),
   comments: z.string().optional(),
 });
 
