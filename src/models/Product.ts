@@ -2,9 +2,7 @@
 import { Schema, model, Document, Types } from 'mongoose';
 
 interface IHybridBreakdown {
-  hybrid?: number;
-  indica?: number;
-  sativa?: number;
+  [key: string]: number | undefined;
 }
 
 interface IPriceGroup {
@@ -13,9 +11,7 @@ interface IPriceGroup {
 }
 
 interface IPricesByType {
-  hybrid?: IPriceGroup;
-  indica?: IPriceGroup;
-  sativa?: IPriceGroup;
+  [key: string]: IPriceGroup | undefined;
 }
 
 interface IVariantPrice {
@@ -43,28 +39,10 @@ export interface IProduct extends Document {
 }
 
 // 🔹 Subschemas
-const HybridBreakdownSchema = new Schema<IHybridBreakdown>(
-  {
-    hybrid: Number,
-    indica: Number,
-    sativa: Number,
-  },
-  { _id: false }
-);
-
 const PriceGroupSchema = new Schema<IPriceGroup>(
   {
     price: Number,
     discountPrice: Number,
-  },
-  { _id: false }
-);
-
-const PricesByTypeSchema = new Schema<IPricesByType>(
-  {
-    hybrid: PriceGroupSchema,
-    indica: PriceGroupSchema,
-    sativa: PriceGroupSchema,
   },
   { _id: false }
 );
@@ -88,8 +66,8 @@ const ProductSchema = new Schema<IProduct>(
     },
     subProductLine: String,
     itemName: String,
-    hybridBreakdown: HybridBreakdownSchema,
-    prices: PricesByTypeSchema,       // ✅ Unified per-type pricing
+    hybridBreakdown: { type: Schema.Types.Mixed, default: undefined },
+    prices: { type: Schema.Types.Mixed, default: undefined },
     price: Number,
     discountPrice: Number,
     variants: [VariantPriceSchema],

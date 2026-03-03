@@ -1,242 +1,192 @@
 // src/controllers/repController.ts
-import { Request, Response } from "express";
 import { Rep } from "../models/Rep";
 import { Store } from "../models/Store";
 import { TimeLog } from "../models/TimeLog";
 import bcrypt from "bcryptjs";
+import { asyncHandler } from "../utils/asyncHandler";
+import { AppError } from "../utils/AppError";
 
 // GET all reps
-export const getAllReps = async (req: Request, res: Response) => {
-  try {
-    const reps = await Rep.find().populate("territory assignedStores");
+export const getAllReps = asyncHandler(async (_req, res) => {
+  const reps = await Rep.find().populate("territory assignedStores");
 
-    // 1. Get the total count
-    const totalReps = reps.length;
+  // 1. Get the total count
+  const totalReps = reps.length;
 
-    // 2. Add storeCount to each rep by counting from Store collection
-    const repsWithStoreCount = await Promise.all(
-      reps.map(async (rep) => {
-        const storeCount = await Store.countDocuments({ rep: rep._id });
-        return {
-          ...rep.toObject(),
-          storeCount,
-        };
-      })
-    );
+  // 2. Add storeCount to each rep by counting from Store collection
+  const repsWithStoreCount = await Promise.all(
+    reps.map(async (rep) => {
+      const storeCount = await Store.countDocuments({ rep: rep._id });
+      return {
+        ...rep.toObject(),
+        storeCount,
+      };
+    })
+  );
 
-    // 3. Send back a structured JSON response
-    res.json({
-      message: "All reps retrieved successfully.",
-      totalReps: totalReps,
-      data: repsWithStoreCount, // Use a key like 'data' or 'reps' for the actual list
-    });
-  } catch (error) {
-    // Keep the error handling for robustness
-    res.status(500).json({ message: "Error fetching reps", error });
-  }
-};
+  // 3. Send back a structured JSON response
+  res.json({
+    message: "All reps retrieved successfully.",
+    totalReps: totalReps,
+    data: repsWithStoreCount,
+  });
+});
 
 // GET one rep
-export const getRepById = async (req: Request, res: Response) => {
-  try {
-    const rep = await Rep.findById(req.params.id).populate(
-      "territory assignedStores"
-    );
-    if (!rep) return res.status(404).json({ message: "Rep not found" });
-    res.json(rep);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching rep", error });
-  }
-};
+export const getRepById = asyncHandler(async (req, res) => {
+  const rep = await Rep.findById(req.params.id).populate(
+    "territory assignedStores"
+  );
+  if (!rep) throw new AppError("Rep not found", 404);
+  res.json(rep);
+});
 
 // CREATE rep
-// export const createRep = async (req: Request, res: Response) => {
-//   try {
-//     const { name, loginName, password, repType, territory } = req.body;
+// export const createRep = asyncHandler(async (req, res) => {
+//   const { name, loginName, password, repType, territory } = req.body;
 
-//     const existing = await Rep.findOne({ loginName });
-//     if (existing) return res.status(400).json({ message: 'Login name already taken' });
+//   const existing = await Rep.findOne({ loginName });
+//   if (existing) throw new AppError('Login name already taken', 400);
 
-//     const hashedPassword = await bcrypt.hash(password, 10);
-//     const rep = await Rep.create({
-//       name,
-//       loginName,
-//       passwordHash: hashedPassword,
-//       repType,
-//       territory,
-//     });
+//   const hashedPassword = await bcrypt.hash(password, 10);
+//   const rep = await Rep.create({
+//     name,
+//     loginName,
+//     passwordHash: hashedPassword,
+//     repType,
+//     territory,
+//   });
 
-//     res.status(201).json(rep);
-//   } catch (error) {
-//     res.status(500).json({ message: 'Error creating rep', error });
-//   }
-// };
+//   res.status(201).json(rep);
+// });
 
 // UPDATE rep
-export const updateRep = async (req: Request, res: Response) => {
-  try {
-    const rep = await Rep.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-    if (!rep) return res.status(404).json({ message: "Rep not found" });
-    res.json(rep);
-  } catch (error) {
-    res.status(500).json({ message: "Error updating rep", error });
-  }
-};
+export const updateRep = asyncHandler(async (req, res) => {
+  const rep = await Rep.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+  if (!rep) throw new AppError("Rep not found", 404);
+  res.json(rep);
+});
 
 // DELETE rep
-export const deleteRep = async (req: Request, res: Response) => {
-  try {
-    const rep = await Rep.findByIdAndDelete(req.params.id);
-    if (!rep) return res.status(404).json({ message: "Rep not found" });
-    res.json({ message: "Rep deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Error deleting rep", error });
-  }
-};
+export const deleteRep = asyncHandler(async (req, res) => {
+  const rep = await Rep.findByIdAndDelete(req.params.id);
+  if (!rep) throw new AppError("Rep not found", 404);
+  res.json({ message: "Rep deleted successfully" });
+});
 
 // CHECK-IN / CHECK-OUT
 // ✅ SECURE CHECK-IN
-export const checkInRep = async (req: Request, res: Response) => {
-  try {
-    const { loginName, pin } = req.body; // ⬅️ loginName & pin in body
+export const checkInRep = asyncHandler(async (req, res) => {
+  const { loginName, pin } = req.body;
 
-    // 1. Find rep by loginName
-    const rep = await Rep.findOne({ loginName });
-    if (!rep) {
-      return res.status(404).json({ message: "Rep not found" });
-    }
+  // 1. Find rep by loginName
+  const rep = await Rep.findOne({ loginName });
+  if (!rep) throw new AppError("Rep not found", 404);
 
-    // 2. Verify PIN
-    if (rep.pin !== pin) {
-      return res.status(401).json({ message: "Invalid PIN" });
-    }
+  // 2. Verify PIN
+  if (rep.pin !== pin) throw new AppError("Invalid PIN", 401);
 
-    // 3. Check rep status
-    if (rep.status === "inactive" || rep.status === "suspended") {
-      return res.status(403).json({
-        message: `Check-in denied. You are ${rep.status} from the system.`,
-      });
-    }
-
-    // 4. Already checked in?
-    if (rep.checkin) {
-      return res.status(400).json({ message: "You are already checked in." });
-    }
-
-    // 5. Update checkin flag and create time log
-    rep.checkin = true;
-    await rep.save();
-    await TimeLog.create({ rep: rep._id, checkinTime: new Date() });
-
-    res.json({
-      message: "Checked in successfully",
-      rep: {
-        id: rep._id,
-        name: rep.name,
-        loginName: rep.loginName,
-        repType: rep.repType,
-        checkin: rep.checkin,
-      },
-    });
-  } catch (error) {
-    res.status(500).json({ message: "Error during check-in", error });
+  // 3. Check rep status
+  if (rep.status === "inactive" || rep.status === "suspended") {
+    throw new AppError(
+      `Check-in denied. You are ${rep.status} from the system.`,
+      403
+    );
   }
-};
+
+  // 4. Already checked in?
+  if (rep.checkin) throw new AppError("You are already checked in.", 400);
+
+  // 5. Update checkin flag and create time log
+  rep.checkin = true;
+  await rep.save();
+  await TimeLog.create({ rep: rep._id, checkinTime: new Date() });
+
+  res.json({
+    message: "Checked in successfully",
+    rep: {
+      id: rep._id,
+      name: rep.name,
+      loginName: rep.loginName,
+      repType: rep.repType,
+      checkin: rep.checkin,
+    },
+  });
+});
 
 // ✅ SECURE CHECK-OUT
-export const checkOutRep = async (req: Request, res: Response) => {
-  try {
-    const { loginName, pin } = req.body;
+export const checkOutRep = asyncHandler(async (req, res) => {
+  const { loginName, pin } = req.body;
 
-    // 1. Find rep by loginName
-    const rep = await Rep.findOne({ loginName });
-    if (!rep) {
-      return res.status(404).json({ message: "Rep not found" });
-    }
+  // 1. Find rep by loginName
+  const rep = await Rep.findOne({ loginName });
+  if (!rep) throw new AppError("Rep not found", 404);
 
-    // 2. Verify PIN
-    if (rep.pin !== pin) {
-      return res.status(401).json({ message: "Invalid PIN" });
-    }
+  // 2. Verify PIN
+  if (rep.pin !== pin) throw new AppError("Invalid PIN", 401);
 
-    // 3. Check rep status
-    if (rep.status === "inactive" || rep.status === "suspended") {
-      return res.status(403).json({
-        message: `Check-out denied. You are ${rep.status} from the system.`,
-      });
-    }
-
-    // 4. Already checked out?
-    if (!rep.checkin) {
-      return res.status(400).json({ message: "You are already checked out." });
-    }
-
-    // 5. Update checkin flag and time log
-    rep.checkin = false;
-    await rep.save();
-    const timeLog = await TimeLog.findOne({ rep: rep._id, checkoutTime: null });
-    if (timeLog) {
-      timeLog.checkoutTime = new Date();
-      await timeLog.save();
-    }
-
-    res.json({
-      message: "Checked out successfully",
-      rep: {
-        id: rep._id,
-        name: rep.name,
-        loginName: rep.loginName,
-        checkin: rep.checkin,
-      },
-    });
-  } catch (error) {
-    res.status(500).json({ message: "Error during check-out", error });
+  // 3. Check rep status
+  if (rep.status === "inactive" || rep.status === "suspended") {
+    throw new AppError(
+      `Check-out denied. You are ${rep.status} from the system.`,
+      403
+    );
   }
-};
+
+  // 4. Already checked out?
+  if (!rep.checkin) throw new AppError("You are already checked out.", 400);
+
+  // 5. Update checkin flag and time log
+  rep.checkin = false;
+  await rep.save();
+  const timeLog = await TimeLog.findOne({ rep: rep._id, checkoutTime: null });
+  if (timeLog) {
+    timeLog.checkoutTime = new Date();
+    await timeLog.save();
+  }
+
+  res.json({
+    message: "Checked out successfully",
+    rep: {
+      id: rep._id,
+      name: rep.name,
+      loginName: rep.loginName,
+      checkin: rep.checkin,
+    },
+  });
+});
 
 // RESET Password
-export const resetPassword = async (req: Request, res: Response) => {
-  try {
-    const { password } = req.body;
-    if (!password) {
-      return res.status(400).json({ message: "New password is required" });
-    }
+export const resetPassword = asyncHandler(async (req, res) => {
+  const { password } = req.body;
+  if (!password) throw new AppError("New password is required", 400);
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const rep = await Rep.findByIdAndUpdate(
-      req.params.id,
-      { passwordHash: hashedPassword },
-      { new: true }
-    );
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const rep = await Rep.findByIdAndUpdate(
+    req.params.id,
+    { passwordHash: hashedPassword },
+    { new: true }
+  );
 
-    if (!rep) return res.status(404).json({ message: "Rep not found" });
+  if (!rep) throw new AppError("Rep not found", 404);
 
-    res.json({ message: "Password reset successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Error resetting password", error });
-  }
-};
+  res.json({ message: "Password reset successfully" });
+});
 
 // RESET PIN
-export const resetPin = async (req: Request, res: Response) => {
-  try {
-    const { pin } = req.body;
-    if (!pin) {
-      return res.status(400).json({ message: "New PIN is required" });
-    }
+export const resetPin = asyncHandler(async (req, res) => {
+  const { pin } = req.body;
+  if (!pin) throw new AppError("New PIN is required", 400);
 
-    const rep = await Rep.findByIdAndUpdate(
-      req.params.id,
-      { pin: pin },
-      { new: true }
-    );
+  const rep = await Rep.findByIdAndUpdate(
+    req.params.id,
+    { pin: pin },
+    { new: true }
+  );
 
-    if (!rep) return res.status(404).json({ message: "Rep not found" });
+  if (!rep) throw new AppError("Rep not found", 404);
 
-    res.json({ message: "PIN reset successfully", pin: rep.pin });
-  } catch (error) {
-    res.status(500).json({ message: "Error resetting PIN", error });
-  }
-};
+  res.json({ message: "PIN reset successfully", pin: rep.pin });
+});

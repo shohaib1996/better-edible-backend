@@ -3,6 +3,8 @@ import cors from "cors";
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./config/swagger";
+import { AppError } from "./utils/AppError";
+import { errorHandler } from "./middleware/errorHandler";
 import repRoutes from "./routes/repRoutes";
 import storeRoutes from "./routes/storeRoutes";
 import productRoutes from "./routes/productRoutes";
@@ -90,8 +92,9 @@ app.get("/", (_req, res) => {
 });
 
 // 404 - catch-all for unmatched routes
-app.use((_req, res) => {
-  res.status(404).json({ message: "Route not found" });
-});
+app.use((_req, _res, next) => next(new AppError("Route not found", 404)));
+
+// Global error handler — must be last
+app.use(errorHandler);
 
 export default app;

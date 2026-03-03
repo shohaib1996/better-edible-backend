@@ -1,6 +1,16 @@
 // src/server.ts
 import app from "./app";
 import { connectDB } from "./config/db";
+
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught Exception:", err);
+  process.exit(1);
+});
+
+process.on("unhandledRejection", (reason) => {
+  console.error("Unhandled Rejection:", reason);
+  process.exit(1);
+});
 import { updateStoreStatuses } from "./jobs/updateStoreStatus";
 import { runDailyClientOrderJobs } from "./jobs/clientOrderJobs";
 import cron from "node-cron";
