@@ -15,11 +15,7 @@ export const getAllMolds = asyncHandler(async (req, res) => {
   const skip = (Number(page) - 1) * Number(limit);
 
   const [molds, total] = await Promise.all([
-    Mold.find(query)
-      .sort({ moldId: 1 })
-      .skip(skip)
-      .limit(Number(limit))
-      .lean(),
+    Mold.find(query).sort({ moldId: 1 }).skip(skip).limit(Number(limit)).lean(),
     Mold.countDocuments(query),
   ]);
 
@@ -75,7 +71,7 @@ export const updateMold = asyncHandler(async (req, res) => {
 });
 
 // ─────────────────────────────
-// Delete Mold
+// Delete Mold funtions
 // ─────────────────────────────
 
 export const deleteMold = asyncHandler(async (req, res) => {
