@@ -236,6 +236,7 @@ export const processMold = asyncHandler(async (req, res) => {
   if (allProcessed) {
     cookItem.status = "dehydrating_complete";
     cookItem.dehydratingCompletionTimestamp = now;
+    await ClientOrder.findByIdAndUpdate(cookItem.privateLabOrderId, { status: "dehydrating" });
   }
 
   await Promise.all([mold.save(), tray.save(), unit.save(), cookItem.save()]);
@@ -587,6 +588,7 @@ export const completeStage3 = asyncHandler(async (req, res) => {
   cookItem.labelPrintTimestamp = now;
   cookItem.demoldingCompletionTimestamp = now;
   cookItem.status = "demolding_complete";
+  await ClientOrder.findByIdAndUpdate(cookItem.privateLabOrderId, { status: "demolding" });
 
   // Collect units to update (group assignments by dehydratorUnitId)
   const unitMap = new Map<string, IDehydratorUnit>();

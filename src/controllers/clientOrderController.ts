@@ -409,6 +409,18 @@ export const updateClientOrderStatus = asyncHandler(async (req, res) => {
   }
 
   const previousStatus = order.status;
+
+  // Block reverting to waiting once production has started (Stage 1 or beyond)
+  const productionStatuses = ["cooking_molding", "dehydrating", "demolding", "packaging_casing", "ready_to_ship"];
+  if (status === "waiting" && productionStatuses.includes(previousStatus)) {
+    throw new AppError("Cannot revert order to waiting once production has started", 400);
+  }
+
+  // If reverting to waiting, delete all associated CookItems so PPS is reset
+  if (status === "waiting" && previousStatus !== "waiting") {
+    await CookItem.deleteMany({ privateLabOrderId: order._id });
+  }
+
   order.status = status;
 
   // Handle cooking_molding (production started) - send notification email
