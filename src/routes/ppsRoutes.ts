@@ -18,6 +18,7 @@ import {
   completeStage3,
   scanContainer,
   confirmCount,
+  getCookItemHistory,
 } from "../controllers/ppsController";
 import { validate } from "../middleware/validate";
 import {
@@ -37,6 +38,7 @@ const router = Router();
 
 // Integration
 router.post("/cook-items/bulk", validate({ body: bulkCreateCookItemsSchema }), bulkCreateCookItems /* #swagger.tags = ['PPS'] */);
+router.get("/cook-items/:cookItemId/history", getCookItemHistory /* #swagger.tags = ['PPS'] */);
 
 // Stage 1 - Cooking & Molding
 router.get("/stage-1/cook-items", validate({ query: getStage1Query }), getStage1CookItems /* #swagger.tags = ['PPS'] */);

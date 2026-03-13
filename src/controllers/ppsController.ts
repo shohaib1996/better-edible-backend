@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import { CookItem, ICookItem } from "../models/CookItem";
+import { CookItem, ICookItem, IHistoryEntry } from "../models/CookItem";
 import { Mold } from "../models/Mold";
 import { DehydratorTray } from "../models/DehydratorTray";
 import { DehydratorUnit, IDehydratorUnit } from "../models/DehydratorUnit";
@@ -7,6 +7,19 @@ import { Case } from "../models/Case";
 import { ClientOrder } from "../models/ClientOrder";
 import { asyncHandler } from "../utils/asyncHandler";
 import { AppError } from "../utils/AppError";
+
+// ─────────────────────────────────────────────────────────
+// HELPER: extractPerformedBy
+// ─────────────────────────────────────────────────────────
+
+function extractPerformedBy(body: any): IHistoryEntry["performedBy"] {
+  const p = body?.performedBy;
+  return {
+    userId: p?.userId || "unknown",
+    userName: p?.userName || "Unknown",
+    repType: p?.repType || "unknown",
+  };
+}
 
 // ─────────────────────────────────────────────────────────
 // ENDPOINT 1: bulkCreateCookItems
@@ -77,6 +90,7 @@ export const getStage1CookItems = asyncHandler(async (req, res) => {
 
 export const assignMold = asyncHandler(async (req, res) => {
   const { cookItemId, moldId } = req.body;
+  const performedBy = extractPerformedBy(req.body);
 
   if (!cookItemId || !moldId) {
     throw new AppError("cookItemId and moldId are required", 400);
@@ -107,6 +121,13 @@ export const assignMold = asyncHandler(async (req, res) => {
     cookItem.cookingMoldingStartTimestamp = now;
   }
 
+  cookItem.history.push({
+    action: "mold_assigned",
+    performedBy,
+    detail: `Mold ${moldId} assigned`,
+    timestamp: now,
+  });
+
   await cookItem.save();
 
   res.json({ success: true, cookItem, mold });
@@ -119,6 +140,7 @@ export const assignMold = asyncHandler(async (req, res) => {
 
 export const completeStage1 = asyncHandler(async (req, res) => {
   const { cookItemId } = req.body;
+  const performedBy = extractPerformedBy(req.body);
 
   if (!cookItemId) throw new AppError("cookItemId is required", 400);
 
@@ -141,6 +163,13 @@ export const completeStage1 = asyncHandler(async (req, res) => {
   }));
 
   cookItem.status = "cooking_molding_complete";
+
+  cookItem.history.push({
+    action: "stage_1_complete",
+    performedBy,
+    timestamp: now,
+  });
+
   await cookItem.save();
 
   res.json({ success: true, cookItem });
@@ -166,6 +195,7 @@ export const getStage2CookItems = asyncHandler(async (_req, res) => {
 
 export const processMold = asyncHandler(async (req, res) => {
   const { cookItemId, moldId, trayId, dehydratorUnitId, shelfPosition } = req.body;
+  const performedBy = extractPerformedBy(req.body);
 
   if (!cookItemId || !moldId || !trayId || !dehydratorUnitId || shelfPosition == null) {
     throw new AppError("cookItemId, moldId, trayId, dehydratorUnitId, and shelfPosition are required", 400);
@@ -237,6 +267,20 @@ export const processMold = asyncHandler(async (req, res) => {
     cookItem.status = "dehydrating_complete";
     cookItem.dehydratingCompletionTimestamp = now;
     await ClientOrder.findByIdAndUpdate(cookItem.privateLabOrderId, { status: "dehydrating" });
+  }
+
+  cookItem.history.push({
+    action: "mold_processed",
+    performedBy,
+    detail: `Mold ${moldId} → Tray ${trayId} on ${dehydratorUnitId} shelf ${shelfPosition}`,
+    timestamp: now,
+  });
+  if (allProcessed) {
+    cookItem.history.push({
+      action: "stage_2_complete",
+      performedBy,
+      timestamp: now,
+    });
   }
 
   await Promise.all([mold.save(), tray.save(), unit.save(), cookItem.save()]);
@@ -538,6 +582,7 @@ export const getStage3CookItems = asyncHandler(async (_req, res) => {
 
 export const removeTray = asyncHandler(async (req, res) => {
   const { cookItemId, trayId } = req.body;
+  const performedBy = extractPerformedBy(req.body);
 
   if (!cookItemId || !trayId) throw new AppError("cookItemId and trayId are required", 400);
 
@@ -555,6 +600,14 @@ export const removeTray = asyncHandler(async (req, res) => {
 
   const removalTimestamp = new Date();
   cookItem.trayRemovalTimestamps.push({ trayId, removalTimestamp });
+
+  cookItem.history.push({
+    action: "tray_removed",
+    performedBy,
+    detail: `Tray ${trayId} removed`,
+    timestamp: removalTimestamp,
+  });
+
   await cookItem.save();
 
   res.json({ success: true, timestamp: removalTimestamp });
@@ -567,6 +620,7 @@ export const removeTray = asyncHandler(async (req, res) => {
 
 export const completeStage3 = asyncHandler(async (req, res) => {
   const { cookItemId } = req.body;
+  const performedBy = extractPerformedBy(req.body);
 
   if (!cookItemId) throw new AppError("cookItemId is required", 400);
 
@@ -588,6 +642,11 @@ export const completeStage3 = asyncHandler(async (req, res) => {
   cookItem.labelPrintTimestamp = now;
   cookItem.demoldingCompletionTimestamp = now;
   cookItem.status = "demolding_complete";
+  cookItem.history.push({
+    action: "stage_3_complete",
+    performedBy,
+    timestamp: now,
+  });
   await ClientOrder.findByIdAndUpdate(cookItem.privateLabOrderId, { status: "demolding" });
 
   // Collect units to update (group assignments by dehydratorUnitId)
@@ -648,6 +707,7 @@ export const completeStage3 = asyncHandler(async (req, res) => {
 
 export const scanContainer = asyncHandler(async (req, res) => {
   const { qrCodeData } = req.body;
+  const performedBy = extractPerformedBy(req.body);
 
   if (!qrCodeData) throw new AppError("qrCodeData is required", 400);
 
@@ -667,7 +727,13 @@ export const scanContainer = asyncHandler(async (req, res) => {
     throw new AppError(`Cook item status is "${cookItem.status}", must be demolding_complete`, 400);
   }
 
-  cookItem.packagingStartTimestamp = new Date();
+  const packagingStartTime = new Date();
+  cookItem.packagingStartTimestamp = packagingStartTime;
+  cookItem.history.push({
+    action: "packaging_started",
+    performedBy,
+    timestamp: packagingStartTime,
+  });
   await cookItem.save();
 
   res.json({
@@ -688,8 +754,32 @@ export const scanContainer = asyncHandler(async (req, res) => {
 // POST /api/pps/stage-4/confirm-count
 // ─────────────────────────────────────────────────────────
 
+// ─────────────────────────────────────────────────────────
+// ENDPOINT 19: getCookItemHistory
+// GET /api/pps/cook-items/:cookItemId/history
+// ─────────────────────────────────────────────────────────
+
+export const getCookItemHistory = asyncHandler(async (req, res) => {
+  const { cookItemId } = req.params;
+
+  const cookItem = await CookItem.findOne({ cookItemId }).lean();
+  if (!cookItem) throw new AppError("Cook item not found", 404);
+
+  const history = (cookItem.history || []).sort(
+    (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+  );
+
+  res.json({ cookItemId, history });
+});
+
+// ─────────────────────────────────────────────────────────
+// ENDPOINT 18: confirmCount
+// POST /api/pps/stage-4/confirm-count
+// ─────────────────────────────────────────────────────────
+
 export const confirmCount = asyncHandler(async (req, res) => {
   const { cookItemId, actualCount } = req.body;
+  const performedBy = extractPerformedBy(req.body);
 
   if (!cookItemId || actualCount == null) {
     throw new AppError("cookItemId and actualCount are required", 400);
@@ -742,6 +832,12 @@ export const confirmCount = asyncHandler(async (req, res) => {
   cookItem.caseIds = createdCases.map((c) => c.caseId);
   cookItem.packagingCompletionTimestamp = now;
   cookItem.status = "packaging_casing_complete";
+  cookItem.history.push({
+    action: "packaging_complete",
+    performedBy,
+    detail: `Actual: ${actualCount} → ${totalCases} case(s)`,
+    timestamp: now,
+  });
   await cookItem.save();
 
   // Check if all cook items for this order are complete
