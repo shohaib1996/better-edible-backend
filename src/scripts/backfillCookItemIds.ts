@@ -84,9 +84,9 @@ async function run() {
         continue;
       }
 
-      // Build new cookItemId: storeId + orderNumber without dash + label.itemId
+      // Build new cookItemId: S10001-PL10154-B001
       const orderNumber = (order.orderNumber as string).replace("-", ""); // PL-10154 → PL10154
-      const newCookItemId = `${store.storeId}${orderNumber}${label.itemId}`;
+      const newCookItemId = `${store.storeId}-${orderNumber}-${label.itemId}`;
 
       if (item.cookItemId === newCookItemId) {
         skipped++;

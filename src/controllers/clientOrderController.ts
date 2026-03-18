@@ -492,7 +492,7 @@ export const pushOrderToPPS = asyncHandler(async (req, res) => {
     const labelId = String(label._id);
     if (!label.itemId) throw new AppError(`Label itemId missing for label ${labelId} — run backfillLabelItemIds script`, 400);
     return {
-      cookItemId: `${storeId}${normalizedOrderNumber}${label.itemId}`,
+      cookItemId: `${storeId}-${normalizedOrderNumber}-${label.itemId}`,
       customerId: storeMongoId,
       orderId: order.orderNumber,
       itemId: labelId,
