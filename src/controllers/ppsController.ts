@@ -5,6 +5,7 @@ import { DehydratorTray } from "../models/DehydratorTray";
 import { DehydratorUnit, IDehydratorUnit } from "../models/DehydratorUnit";
 import { Case } from "../models/Case";
 import { ClientOrder } from "../models/ClientOrder";
+import { Label } from "../models/Label";
 import { asyncHandler } from "../utils/asyncHandler";
 import { AppError } from "../utils/AppError";
 
@@ -29,27 +30,69 @@ function extractPerformedBy(body: any): IHistoryEntry["performedBy"] {
 export const bulkCreateCookItems = asyncHandler(async (req, res) => {
   const { orderId, orderNumber, customerId, items } = req.body;
 
-  if (!orderId || !orderNumber || !customerId || !Array.isArray(items) || items.length === 0) {
-    throw new AppError("orderId, orderNumber, customerId, and a non-empty items array are required", 400);
+  if (
+    !orderId ||
+    !orderNumber ||
+    !customerId ||
+    !Array.isArray(items) ||
+    items.length === 0
+  ) {
+    throw new AppError(
+      "orderId, orderNumber, customerId, and a non-empty items array are required",
+      400,
+    );
   }
 
-  const cookItemDocs = items.map((item: any) => ({
-    cookItemId: item.cookItemId,
-    customerId,
-    orderId: orderNumber,
-    itemId: item.labelId,
-    labelId: item.labelId,
-    privateLabOrderId: orderId,
-    storeName: item.storeName,
-    flavor: item.flavor,
-    quantity: item.quantity,
-    flavorComponents: item.flavorComponents || [],
-    colorComponents: item.colorComponents || [],
-    productType: item.productType,
-    specialFormulation: false,
-    status: "pending",
-    expectedCount: item.quantity,
-  }));
+  // Load the order with client → store to get storeId
+  const order = (await ClientOrder.findById(orderId)
+    .populate({
+      path: "client",
+      populate: { path: "store", select: "storeId" },
+    })
+    .lean()) as any;
+
+  if (!order) throw new AppError("Order not found", 404);
+
+  const storeId: string | undefined = order.client?.store?.storeId;
+  if (!storeId)
+    throw new AppError("Store storeId missing — run backfill script", 400);
+
+  // Normalise orderNumber: remove dash (PL-10154 → PL10154)
+  const normalizedOrderNumber = (order.orderNumber as string).replace("-", "");
+
+  const cookItemDocs = await Promise.all(
+    items.map(async (item: any) => {
+      // Look up label to get its itemId (e.g. B003)
+      const label = (await Label.findById(item.labelId)
+        .select("itemId")
+        .lean()) as any;
+      if (!label?.itemId)
+        throw new AppError(
+          `Label itemId missing for label ${item.labelId}`,
+          400,
+        );
+
+      const cookItemId = `${storeId}${normalizedOrderNumber}${label.itemId}`;
+
+      return {
+        cookItemId,
+        customerId,
+        orderId: order.orderNumber,
+        itemId: item.labelId,
+        labelId: item.labelId,
+        privateLabOrderId: orderId,
+        storeName: item.storeName,
+        flavor: item.flavor,
+        quantity: item.quantity,
+        flavorComponents: item.flavorComponents || [],
+        colorComponents: item.colorComponents || [],
+        productType: item.productType,
+        specialFormulation: false,
+        status: "pending",
+        expectedCount: item.quantity,
+      };
+    }),
+  );
 
   const cookItems = await CookItem.insertMany(cookItemDocs);
 
@@ -68,7 +111,9 @@ export const bulkCreateCookItems = asyncHandler(async (req, res) => {
 export const getStage1CookItems = asyncHandler(async (req, res) => {
   const { status = "pending,in-progress", page = 1, limit = 20 } = req.query;
 
-  const statusArray = String(status).split(",").map((s) => s.trim());
+  const statusArray = String(status)
+    .split(",")
+    .map((s) => s.trim());
   const skip = (Number(page) - 1) * Number(limit);
 
   const [cookItems, total] = await Promise.all([
@@ -99,14 +144,17 @@ export const assignMold = asyncHandler(async (req, res) => {
   const cookItem = await CookItem.findOne({ cookItemId });
   if (!cookItem) throw new AppError("Cook item not found", 404);
   if (!["pending", "in-progress"].includes(cookItem.status)) {
-    throw new AppError(`Cook item status is "${cookItem.status}", must be pending or in-progress`, 400);
+    throw new AppError(
+      `Cook item status is "${cookItem.status}", must be pending or in-progress`,
+      400,
+    );
   }
 
   // Atomic update to prevent race conditions — only succeeds if still "available"
   const mold = await Mold.findOneAndUpdate(
     { moldId, status: "available" },
     { status: "in-use", currentCookItemId: cookItemId },
-    { new: true }
+    { new: true },
   );
 
   if (!mold) throw new AppError("Mold not found or already in use", 400);
@@ -147,7 +195,10 @@ export const completeStage1 = asyncHandler(async (req, res) => {
   const cookItem = await CookItem.findOne({ cookItemId });
   if (!cookItem) throw new AppError("Cook item not found", 404);
   if (cookItem.status !== "in-progress") {
-    throw new AppError(`Cook item status is "${cookItem.status}", must be in-progress`, 400);
+    throw new AppError(
+      `Cook item status is "${cookItem.status}", must be in-progress`,
+      400,
+    );
   }
   if (!cookItem.assignedMoldIds || cookItem.assignedMoldIds.length === 0) {
     throw new AppError("No molds assigned to this cook item", 400);
@@ -194,17 +245,34 @@ export const getStage2CookItems = asyncHandler(async (_req, res) => {
 // ─────────────────────────────────────────────────────────
 
 export const processMold = asyncHandler(async (req, res) => {
-  const { cookItemId, moldId, trayId, dehydratorUnitId, shelfPosition } = req.body;
+  const { cookItemId, moldId, trayId, dehydratorUnitId, shelfPosition } =
+    req.body;
   const performedBy = extractPerformedBy(req.body);
 
-  if (!cookItemId || !moldId || !trayId || !dehydratorUnitId || shelfPosition == null) {
-    throw new AppError("cookItemId, moldId, trayId, dehydratorUnitId, and shelfPosition are required", 400);
+  if (
+    !cookItemId ||
+    !moldId ||
+    !trayId ||
+    !dehydratorUnitId ||
+    shelfPosition == null
+  ) {
+    throw new AppError(
+      "cookItemId, moldId, trayId, dehydratorUnitId, and shelfPosition are required",
+      400,
+    );
   }
 
   const cookItem = await CookItem.findOne({ cookItemId });
   if (!cookItem) throw new AppError("Cook item not found", 404);
-  if (!["cooking_molding_complete", "dehydrating_complete"].includes(cookItem.status)) {
-    throw new AppError(`Cook item status is "${cookItem.status}", must be cooking_molding_complete or dehydrating_complete`, 400);
+  if (
+    !["cooking_molding_complete", "dehydrating_complete"].includes(
+      cookItem.status,
+    )
+  ) {
+    throw new AppError(
+      `Cook item status is "${cookItem.status}", must be cooking_molding_complete or dehydrating_complete`,
+      400,
+    );
   }
 
   // Validate mold is in-use for this cook item
@@ -217,15 +285,18 @@ export const processMold = asyncHandler(async (req, res) => {
   // Validate tray is available
   const tray = await DehydratorTray.findOne({ trayId });
   if (!tray) throw new AppError("Dehydrator tray not found", 404);
-  if (tray.status !== "available") throw new AppError("Dehydrator tray is not available", 400);
+  if (tray.status !== "available")
+    throw new AppError("Dehydrator tray is not available", 400);
 
   // Validate shelf is free
   const unit = await DehydratorUnit.findOne({ unitId: dehydratorUnitId });
   if (!unit) throw new AppError("Dehydrator unit not found", 404);
 
   const shelf = unit.shelves.get(String(shelfPosition));
-  if (!shelf) throw new AppError(`Shelf position ${shelfPosition} does not exist`, 400);
-  if (shelf.occupied) throw new AppError(`Shelf ${shelfPosition} is already occupied`, 400);
+  if (!shelf)
+    throw new AppError(`Shelf position ${shelfPosition} does not exist`, 400);
+  if (shelf.occupied)
+    throw new AppError(`Shelf ${shelfPosition} is already occupied`, 400);
 
   const now = new Date();
   const dehydrationEndTime = new Date(now.getTime() + 2 * 60 * 1000); // TODO: change to 12 * 60 * 60 * 1000 for production (12 hours)
@@ -262,11 +333,15 @@ export const processMold = asyncHandler(async (req, res) => {
 
   // Auto-complete Stage 2 if all molds have been processed
   const processedMoldIds = cookItem.dehydratorAssignments.map((a) => a.moldId);
-  const allProcessed = cookItem.assignedMoldIds.every((id) => processedMoldIds.includes(id));
+  const allProcessed = cookItem.assignedMoldIds.every((id) =>
+    processedMoldIds.includes(id),
+  );
   if (allProcessed) {
     cookItem.status = "dehydrating_complete";
     cookItem.dehydratingCompletionTimestamp = now;
-    await ClientOrder.findByIdAndUpdate(cookItem.privateLabOrderId, { status: "dehydrating" });
+    await ClientOrder.findByIdAndUpdate(cookItem.privateLabOrderId, {
+      status: "dehydrating",
+    });
   }
 
   cookItem.history.push({
@@ -287,7 +362,9 @@ export const processMold = asyncHandler(async (req, res) => {
 
   res.json({
     success: true,
-    message: allProcessed ? "All molds processed — cook item moved to dehydrating_complete" : "Mold processed successfully",
+    message: allProcessed
+      ? "All molds processed — cook item moved to dehydrating_complete"
+      : "Mold processed successfully",
     mold,
     tray,
     dehydrationEndTime,
@@ -351,7 +428,12 @@ export const getDehydratorUnits = asyncHandler(async (_req, res) => {
 // ─────────────────────────────────────────────────────────
 
 export const bulkCreateMolds = asyncHandler(async (req, res) => {
-  const { startNumber, endNumber, prefix = "MOLD", unitsPerMold = 104 } = req.body;
+  const {
+    startNumber,
+    endNumber,
+    prefix = "MOLD",
+    unitsPerMold = 104,
+  } = req.body;
 
   if (startNumber == null || endNumber == null) {
     throw new AppError("startNumber and endNumber are required", 400);
@@ -365,8 +447,13 @@ export const bulkCreateMolds = asyncHandler(async (req, res) => {
 
   const docs = [];
   for (let i = startNumber; i <= endNumber; i++) {
-    const moldId = `${prefix}-${i}`;
-    docs.push({ moldId, barcodeValue: moldId, unitsPerMold, status: "available" });
+    const moldId = `${prefix}${String(i).padStart(3, "0")}`;
+    docs.push({
+      moldId,
+      barcodeValue: moldId,
+      unitsPerMold,
+      status: "available",
+    });
   }
 
   let created = 0;
@@ -414,7 +501,7 @@ export const bulkCreateTrays = asyncHandler(async (req, res) => {
 
   const docs = [];
   for (let i = startNumber; i <= endNumber; i++) {
-    const trayId = `${prefix}-${i}`;
+    const trayId = `${prefix}${String(i).padStart(3, "0")}`;
     docs.push({ trayId, qrCodeValue: trayId, status: "available" });
   }
 
@@ -457,7 +544,10 @@ export const bulkCreateDehydratorUnits = asyncHandler(async (req, res) => {
     throw new AppError("startNumber must be <= endNumber", 400);
   }
   if (endNumber - startNumber + 1 > 20) {
-    throw new AppError("Cannot create more than 20 dehydrator units at once", 400);
+    throw new AppError(
+      "Cannot create more than 20 dehydrator units at once",
+      400,
+    );
   }
 
   const results = [];
@@ -507,7 +597,7 @@ function formatTimestamp(date: Date): string {
 
 async function completeProduction(
   privateLabOrderId: Types.ObjectId,
-  _cookItems: ICookItem[]
+  _cookItems: ICookItem[],
 ) {
   const order = await ClientOrder.findById(privateLabOrderId).populate({
     path: "client",
@@ -520,7 +610,8 @@ async function completeProduction(
   await order.save();
 
   try {
-    const { sendReadyToShipNotification } = await import("../jobs/clientOrderJobs");
+    const { sendReadyToShipNotification } =
+      await import("../jobs/clientOrderJobs");
     await sendReadyToShipNotification(order);
   } catch (err) {
     console.error("Error sending ready to ship notification:", err);
@@ -584,12 +675,16 @@ export const removeTray = asyncHandler(async (req, res) => {
   const { cookItemId, trayId } = req.body;
   const performedBy = extractPerformedBy(req.body);
 
-  if (!cookItemId || !trayId) throw new AppError("cookItemId and trayId are required", 400);
+  if (!cookItemId || !trayId)
+    throw new AppError("cookItemId and trayId are required", 400);
 
   const cookItem = await CookItem.findOne({ cookItemId });
   if (!cookItem) throw new AppError("Cook item not found", 404);
   if (cookItem.status !== "dehydrating_complete") {
-    throw new AppError(`Cook item status is "${cookItem.status}", must be dehydrating_complete`, 400);
+    throw new AppError(
+      `Cook item status is "${cookItem.status}", must be dehydrating_complete`,
+      400,
+    );
   }
 
   const tray = await DehydratorTray.findOne({ trayId });
@@ -627,13 +722,19 @@ export const completeStage3 = asyncHandler(async (req, res) => {
   const cookItem = await CookItem.findOne({ cookItemId });
   if (!cookItem) throw new AppError("Cook item not found", 404);
   if (cookItem.status !== "dehydrating_complete") {
-    throw new AppError(`Cook item status is "${cookItem.status}", must be dehydrating_complete`, 400);
+    throw new AppError(
+      `Cook item status is "${cookItem.status}", must be dehydrating_complete`,
+      400,
+    );
   }
 
-  if (cookItem.trayRemovalTimestamps.length < cookItem.dehydratorAssignments.length) {
+  if (
+    cookItem.trayRemovalTimestamps.length <
+    cookItem.dehydratorAssignments.length
+  ) {
     throw new AppError(
       `Not all trays have been scanned. Expected ${cookItem.dehydratorAssignments.length}, got ${cookItem.trayRemovalTimestamps.length}`,
-      400
+      400,
     );
   }
 
@@ -647,13 +748,16 @@ export const completeStage3 = asyncHandler(async (req, res) => {
     performedBy,
     timestamp: now,
   });
-  await ClientOrder.findByIdAndUpdate(cookItem.privateLabOrderId, { status: "demolding" });
+  await ClientOrder.findByIdAndUpdate(cookItem.privateLabOrderId, {
+    status: "demolding",
+  });
 
   // Collect units to update (group assignments by dehydratorUnitId)
   const unitMap = new Map<string, IDehydratorUnit>();
 
   const releasedTrays: string[] = [];
-  const releasedShelves: { dehydratorUnitId: string; shelfPosition: number }[] = [];
+  const releasedShelves: { dehydratorUnitId: string; shelfPosition: number }[] =
+    [];
 
   for (const assignment of cookItem.dehydratorAssignments) {
     // Release tray
@@ -670,7 +774,9 @@ export const completeStage3 = asyncHandler(async (req, res) => {
 
     // Release shelf — batch by unit
     if (!unitMap.has(assignment.dehydratorUnitId)) {
-      const unit = await DehydratorUnit.findOne({ unitId: assignment.dehydratorUnitId });
+      const unit = await DehydratorUnit.findOne({
+        unitId: assignment.dehydratorUnitId,
+      });
       if (unit) unitMap.set(assignment.dehydratorUnitId, unit as any);
     }
     const unit = unitMap.get(assignment.dehydratorUnitId);
@@ -681,7 +787,10 @@ export const completeStage3 = asyncHandler(async (req, res) => {
         cookItemId: null,
       });
       (unit as any).markModified("shelves");
-      releasedShelves.push({ dehydratorUnitId: assignment.dehydratorUnitId, shelfPosition: assignment.shelfPosition });
+      releasedShelves.push({
+        dehydratorUnitId: assignment.dehydratorUnitId,
+        shelfPosition: assignment.shelfPosition,
+      });
     }
   }
 
@@ -713,18 +822,23 @@ export const scanContainer = asyncHandler(async (req, res) => {
 
   let parsed: any;
   try {
-    parsed = typeof qrCodeData === "string" ? JSON.parse(qrCodeData) : qrCodeData;
+    parsed =
+      typeof qrCodeData === "string" ? JSON.parse(qrCodeData) : qrCodeData;
   } catch {
     throw new AppError("Invalid qrCodeData — must be valid JSON", 400);
   }
 
   const { cookItemId } = parsed;
-  if (!cookItemId) throw new AppError("qrCodeData must contain cookItemId", 400);
+  if (!cookItemId)
+    throw new AppError("qrCodeData must contain cookItemId", 400);
 
   const cookItem = await CookItem.findOne({ cookItemId });
   if (!cookItem) throw new AppError("Cook item not found", 404);
   if (cookItem.status !== "demolding_complete") {
-    throw new AppError(`Cook item status is "${cookItem.status}", must be demolding_complete`, 400);
+    throw new AppError(
+      `Cook item status is "${cookItem.status}", must be demolding_complete`,
+      400,
+    );
   }
 
   const packagingStartTime = new Date();
@@ -766,7 +880,7 @@ export const getCookItemHistory = asyncHandler(async (req, res) => {
   if (!cookItem) throw new AppError("Cook item not found", 404);
 
   const history = (cookItem.history || []).sort(
-    (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+    (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime(),
   );
 
   res.json({ cookItemId, history });
@@ -788,7 +902,10 @@ export const confirmCount = asyncHandler(async (req, res) => {
   const cookItem = await CookItem.findOne({ cookItemId });
   if (!cookItem) throw new AppError("Cook item not found", 404);
   if (cookItem.status !== "demolding_complete") {
-    throw new AppError(`Cook item status is "${cookItem.status}", must be demolding_complete`, 400);
+    throw new AppError(
+      `Cook item status is "${cookItem.status}", must be demolding_complete`,
+      400,
+    );
   }
 
   const now = new Date();
@@ -842,7 +959,9 @@ export const confirmCount = asyncHandler(async (req, res) => {
 
   // Check if all cook items for this order are complete
   const allItemsForOrder = await CookItem.find({ orderId: cookItem.orderId });
-  const completedCount = allItemsForOrder.filter((i) => i.status === "packaging_casing_complete").length;
+  const completedCount = allItemsForOrder.filter(
+    (i) => i.status === "packaging_casing_complete",
+  ).length;
   const allComplete = completedCount === allItemsForOrder.length;
 
   if (allComplete) {

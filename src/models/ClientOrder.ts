@@ -254,7 +254,7 @@ ClientOrderSchema.pre("save", async function (next) {
     );
 
     const seq = result?.seq || 1;
-    this.orderNumber = `PL-${seq}`;
+    this.orderNumber = `PL${seq}`;
   }
   next();
 });

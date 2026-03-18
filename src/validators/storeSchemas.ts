@@ -12,7 +12,9 @@ export const createStoreSchema = z.object({
   groups: z.array(z.string()).optional(),
 });
 
-export const updateStoreSchema = createStoreSchema.partial();
+export const updateStoreSchema = createStoreSchema.partial().extend({
+  storeId: z.string().optional(),
+});
 
 export const getAllStoresQuery = paginationQuery.extend({
   search: z.string().optional(),
