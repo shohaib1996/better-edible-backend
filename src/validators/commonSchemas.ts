@@ -9,9 +9,9 @@ export const paginationQuery = z.object({
   limit: z.coerce.number().int().min(1).max(9999).optional().default(20),
 });
 
-// Reusable date string (YYYY-MM-DD or ISO)
+// Reusable date string (YYYY-MM-DD or ISO). Empty string is treated as absent.
 export const dateString = z.string().refine(
-  (val) => !isNaN(Date.parse(val)),
+  (val) => val === "" || !isNaN(Date.parse(val)),
   { message: "Invalid date format" }
 );
 

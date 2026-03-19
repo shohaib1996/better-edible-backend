@@ -590,7 +590,9 @@ export const updateOrder = asyncHandler(async (req, res) => {
     });
   };
   if (req.body.deliveryDate) req.body.deliveryDate = toDateStr(req.body.deliveryDate);
+  else if ("deliveryDate" in req.body) req.body.deliveryDate = null;
   if (req.body.shippedDate) req.body.shippedDate = toDateStr(req.body.shippedDate);
+  else if ("shippedDate" in req.body) req.body.shippedDate = null;
 
   // Apply top-level fields (storeId, repId, note, deliveryDate, etc.)
   Object.assign(order, req.body);
