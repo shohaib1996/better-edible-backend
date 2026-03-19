@@ -264,6 +264,70 @@ export const getAllOrders = asyncHandler(async (req, res) => {
   const pipeline: any[] = [
     { $match: matchStage },
 
+    // Populate items.product with productLine populated
+    {
+      $lookup: {
+        from: "products",
+        localField: "items.product",
+        foreignField: "_id",
+        as: "_products",
+        pipeline: [
+          {
+            $lookup: {
+              from: "productlines",
+              localField: "productLine",
+              foreignField: "_id",
+              as: "_productLine",
+            },
+          },
+          {
+            $addFields: {
+              productLine: { $arrayElemAt: ["$_productLine", 0] },
+            },
+          },
+          { $unset: "_productLine" },
+          {
+            $project: {
+              _id: 1,
+              productLine: { _id: 1, name: 1 },
+              subProductLine: 1,
+              itemName: 1,
+            },
+          },
+        ],
+      },
+    },
+    {
+      $addFields: {
+        items: {
+          $map: {
+            input: "$items",
+            as: "item",
+            in: {
+              $mergeObjects: [
+                "$$item",
+                {
+                  product: {
+                    $arrayElemAt: [
+                      {
+                        $filter: {
+                          input: "$_products",
+                          as: "p",
+                          cond: { $eq: ["$$p._id", "$$item.product"] },
+                        },
+                      },
+                      0,
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        },
+      },
+    },
+    { $unset: "_products" },
+
     {
       $lookup: {
         from: "stores",
