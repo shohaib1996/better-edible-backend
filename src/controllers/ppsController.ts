@@ -820,17 +820,24 @@ export const scanContainer = asyncHandler(async (req, res) => {
 
   if (!qrCodeData) throw new AppError("qrCodeData is required", 400);
 
-  let parsed: any;
-  try {
-    parsed =
-      typeof qrCodeData === "string" ? JSON.parse(qrCodeData) : qrCodeData;
-  } catch {
-    throw new AppError("Invalid qrCodeData — must be valid JSON", 400);
+  let cookItemId: string;
+  if (typeof qrCodeData === "string") {
+    // Accept either a raw cookItemId string or JSON containing cookItemId
+    try {
+      const parsed = JSON.parse(qrCodeData);
+      cookItemId = parsed.cookItemId;
+    } catch {
+      // Not JSON — treat the raw string as the cookItemId directly
+      cookItemId = qrCodeData.trim();
+    }
+  } else if (typeof qrCodeData === "object" && qrCodeData.cookItemId) {
+    cookItemId = qrCodeData.cookItemId;
+  } else {
+    throw new AppError("Invalid qrCodeData", 400);
   }
 
-  const { cookItemId } = parsed;
   if (!cookItemId)
-    throw new AppError("qrCodeData must contain cookItemId", 400);
+    throw new AppError("Could not extract cookItemId from qrCodeData", 400);
 
   const cookItem = await CookItem.findOne({ cookItemId });
   if (!cookItem) throw new AppError("Cook item not found", 404);
