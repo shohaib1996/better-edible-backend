@@ -1,5 +1,5 @@
 // src/models/Store.ts
-import { Schema, model, Document, Types } from "mongoose";
+import mongoose, { Schema, model, Document, Types } from "mongoose";
 import { IContact } from "./Contact";
 
 // -------------------
@@ -9,6 +9,7 @@ import { IContact } from "./Contact";
 // Main Store Interface
 // -------------------
 export interface IStore extends Document {
+  storeId?: string;
   name: string;
   address?: string;
   city?: string;
@@ -54,6 +55,7 @@ const ContactSchema = new Schema<IContact>(
 // -------------------
 const StoreSchema = new Schema<IStore>(
   {
+    storeId: { type: String, unique: true, sparse: true },
     name: { type: String, required: true },
     address: String,
     city: String,
@@ -103,6 +105,20 @@ StoreSchema.pre("save", function (next) {
     else this.paymentStatus = "red";
   }
 
+  next();
+});
+
+StoreSchema.pre("save", async function (next) {
+  if (this.isNew && !this.storeId) {
+    const counter = mongoose.connection.collection("counters");
+    const result = await counter.findOneAndUpdate(
+      { _id: "storeNumber" } as any,
+      { $inc: { seq: 1 } },
+      { upsert: true, returnDocument: "after" }
+    );
+    const seq = result?.seq ?? 10001;
+    this.storeId = `S${seq}`;
+  }
   next();
 });
 

@@ -1,5 +1,5 @@
 // src/models/Label.ts
-import { Schema, model, Document, Types } from "mongoose";
+import mongoose, { Schema, model, Document, Types } from "mongoose";
 import crypto from "crypto";
 
 // -------------------
@@ -57,6 +57,7 @@ export interface ILabel extends Document {
   client: Types.ObjectId;
   flavorName: string;
   productType: string; // Dynamic - fetched from PrivateLabelProduct collection
+  itemId?: string; // e.g. B001, R001
   specialInstructions?: string;
   cannabinoidMix?: string;
   color?: string;
@@ -148,6 +149,11 @@ const LabelSchema = new Schema<ILabel>(
       type: String,
       required: true,
       trim: true,
+    },
+    itemId: {
+      type: String,
+      unique: true,
+      sparse: true,
     },
     specialInstructions: {
       type: String,
@@ -244,6 +250,31 @@ LabelSchema.methods.generateApprovalToken = function () {
   this.approvalTokenExpiry = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
   return token; // Return unhashed token for the URL
 };
+
+// -------------------
+// Helpers
+// -------------------
+function getItemPrefix(productType: string): string {
+  const first = productType.trim().charAt(0).toUpperCase();
+  return first || "X";
+}
+
+// -------------------
+// Pre-save Hook: Auto-generate itemId on creation
+// -------------------
+LabelSchema.pre("save", async function (next) {
+  if (this.isNew && !this.itemId) {
+    const prefix = getItemPrefix(this.productType);
+    const counter = mongoose.connection.collection("counters");
+    const result = await counter.findOneAndUpdate(
+      { _id: `itemId_${prefix}` } as any,
+      { $inc: { seq: 1 } },
+      { upsert: true, returnDocument: "after" }
+    );
+    this.itemId = `${prefix}${String(result?.seq ?? 1).padStart(3, "0")}`;
+  }
+  next();
+});
 
 // -------------------
 // Pre-save Hook: Auto-add initial stage history on creation

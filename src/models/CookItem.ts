@@ -41,6 +41,13 @@ export interface ITrayRemoval {
   removalTimestamp: Date;
 }
 
+export interface IHistoryEntry {
+  action: string;
+  performedBy: { userId: string; userName: string; repType: string };
+  detail?: string;
+  timestamp: Date;
+}
+
 // ─────────────────────────────
 // MAIN INTERFACE
 // ─────────────────────────────
@@ -93,6 +100,8 @@ export interface ICookItem extends Document {
   caseIds: string[];
   packagingCompletionTimestamp?: Date;
 
+  history: IHistoryEntry[];
+
   createdAt: Date;
   updatedAt: Date;
 }
@@ -134,6 +143,20 @@ const TrayRemovalSchema = new Schema<ITrayRemoval>(
   {
     trayId: { type: String, required: true },
     removalTimestamp: { type: Date, required: true },
+  },
+  { _id: false }
+);
+
+const HistoryEntrySchema = new Schema<IHistoryEntry>(
+  {
+    action: { type: String, required: true },
+    performedBy: {
+      userId: { type: String, required: true },
+      userName: { type: String, required: true },
+      repType: { type: String, required: true },
+    },
+    detail: { type: String },
+    timestamp: { type: Date, required: true },
   },
   { _id: false }
 );
@@ -201,6 +224,8 @@ const CookItemSchema = new Schema<ICookItem>(
     totalCases: Number,
     caseIds: { type: [String], default: [] },
     packagingCompletionTimestamp: Date,
+
+    history: { type: [HistoryEntrySchema], default: [] },
   },
   { timestamps: true }
 );

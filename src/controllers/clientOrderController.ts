@@ -77,11 +77,11 @@ export const getAllClientOrders = asyncHandler(async (req, res) => {
         path: "client",
         populate: {
           path: "store",
-          select: "name address city state",
+          select: "name address city state storeId",
         },
       })
       .populate("assignedRep", "name email")
-      .populate("items.label", "flavorName productType cannabinoidMix color flavorComponents colorComponents labelImages")
+      .populate("items.label", "flavorName productType cannabinoidMix color flavorComponents colorComponents labelImages itemId")
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(Number(limit))
@@ -121,11 +121,11 @@ export const getClientOrderById = asyncHandler(async (req, res) => {
       path: "client",
       populate: {
         path: "store",
-        select: "name address city state zip",
+        select: "name address city state zip storeId",
       },
     })
     .populate("assignedRep", "name email")
-    .populate("items.label", "flavorName productType cannabinoidMix color flavorComponents colorComponents labelImages")
+    .populate("items.label", "flavorName productType cannabinoidMix color flavorComponents colorComponents labelImages itemId")
     .lean();
 
   if (!order) throw new AppError("Order not found", 404);
@@ -409,6 +409,18 @@ export const updateClientOrderStatus = asyncHandler(async (req, res) => {
   }
 
   const previousStatus = order.status;
+
+  // Block reverting to waiting once production has started (Stage 1 or beyond)
+  const productionStatuses = ["cooking_molding", "dehydrating", "demolding", "packaging_casing", "ready_to_ship"];
+  if (status === "waiting" && productionStatuses.includes(previousStatus)) {
+    throw new AppError("Cannot revert order to waiting once production has started", 400);
+  }
+
+  // If reverting to waiting, delete all associated CookItems so PPS is reset
+  if (status === "waiting" && previousStatus !== "waiting") {
+    await CookItem.deleteMany({ privateLabOrderId: order._id });
+  }
+
   order.status = status;
 
   // Handle cooking_molding (production started) - send notification email
@@ -454,8 +466,8 @@ export const updateClientOrderStatus = asyncHandler(async (req, res) => {
 // PUSH ORDER TO PPS (Production Planning System)
 export const pushOrderToPPS = asyncHandler(async (req, res) => {
   const order = await ClientOrder.findById(req.params.id)
-    .populate({ path: "items.label", select: "flavorName productType flavorComponents colorComponents" })
-    .populate({ path: "client", populate: { path: "store", select: "name _id" } });
+    .populate({ path: "items.label", select: "flavorName productType flavorComponents colorComponents itemId" })
+    .populate({ path: "client", populate: { path: "store", select: "name storeId _id" } });
 
   if (!order) throw new AppError("Order not found", 404);
 
@@ -463,20 +475,25 @@ export const pushOrderToPPS = asyncHandler(async (req, res) => {
     throw new AppError("Order is not in waiting status", 400);
   }
 
-  const storeId = (order.client as any)?.store?._id;
+  const storeMongoId = (order.client as any)?.store?._id;
+  const storeId = (order.client as any)?.store?.storeId;
   const storeName = (order.client as any)?.store?.name;
 
-  if (!storeId || !storeName) {
+  if (!storeMongoId || !storeId || !storeName) {
     throw new AppError("Order client/store data is missing", 400);
   }
 
-  // Build cook item documents — one per order item, using label._id as itemId
+  // Normalise orderNumber: remove dash (PL-10154 → PL10154)
+  const normalizedOrderNumber = (order.orderNumber as string).replace("-", "");
+
+  // Build cook item documents — one per order item
   const cookItemDocs = order.items.map((item: any) => {
     const label = item.label as any;
     const labelId = String(label._id);
+    if (!label.itemId) throw new AppError(`Label itemId missing for label ${labelId} — run backfillLabelItemIds script`, 400);
     return {
-      cookItemId: `${storeId}-${order.orderNumber}-${labelId}`,
-      customerId: storeId,
+      cookItemId: `${storeId}-${normalizedOrderNumber}-${label.itemId}`,
+      customerId: storeMongoId,
       orderId: order.orderNumber,
       itemId: labelId,
       labelId: label._id,

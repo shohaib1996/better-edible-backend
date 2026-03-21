@@ -1,6 +1,12 @@
 import { z } from "zod";
 import { objectId, paginationQuery } from "./commonSchemas";
 
+const performedBySchema = z.object({
+  userId: z.string(),
+  userName: z.string(),
+  repType: z.string(),
+}).optional();
+
 const cookItemInputSchema = z.object({
   cookItemId: z.string().min(1, "cookItemId is required"),
   labelId: z.string().min(1, "labelId is required"),
@@ -22,10 +28,12 @@ export const bulkCreateCookItemsSchema = z.object({
 export const assignMoldSchema = z.object({
   cookItemId: z.string().min(1, "cookItemId is required"),
   moldId: z.string().min(1, "moldId is required"),
+  performedBy: performedBySchema,
 });
 
 export const completeStage1Schema = z.object({
   cookItemId: z.string().min(1, "cookItemId is required"),
+  performedBy: performedBySchema,
 });
 
 export const processMoldSchema = z.object({
@@ -34,24 +42,29 @@ export const processMoldSchema = z.object({
   trayId: z.string().min(1, "trayId is required"),
   dehydratorUnitId: z.string().min(1, "dehydratorUnitId is required"),
   shelfPosition: z.number().int().min(1, "shelfPosition must be at least 1"),
+  performedBy: performedBySchema,
 });
 
 export const removeTraySchema = z.object({
   cookItemId: z.string().min(1, "cookItemId is required"),
   trayId: z.string().min(1, "trayId is required"),
+  performedBy: performedBySchema,
 });
 
 export const completeStage3Schema = z.object({
   cookItemId: z.string().min(1, "cookItemId is required"),
+  performedBy: performedBySchema,
 });
 
 export const scanContainerSchema = z.object({
   qrCodeData: z.string().min(1, "qrCodeData is required"),
+  performedBy: performedBySchema,
 });
 
 export const confirmCountSchema = z.object({
   cookItemId: z.string().min(1, "cookItemId is required"),
   actualCount: z.number().int().min(0, "actualCount must be non-negative"),
+  performedBy: performedBySchema,
 });
 
 export const bulkCreateResourceSchema = z.object({
