@@ -810,7 +810,20 @@ export const completeStage3 = asyncHandler(async (req, res) => {
 });
 
 // ─────────────────────────────────────────────────────────
-// ENDPOINT 17: scanContainer
+// ENDPOINT 17: getStage4CookItems
+// GET /api/pps/stage-4/cook-items
+// ─────────────────────────────────────────────────────────
+
+export const getStage4CookItems = asyncHandler(async (_req, res) => {
+  const cookItems = await CookItem.find({ status: "demolding_complete" })
+    .sort({ createdAt: 1 })
+    .lean();
+
+  res.json({ cookItems });
+});
+
+// ─────────────────────────────────────────────────────────
+// ENDPOINT 18: scanContainer
 // POST /api/pps/stage-4/scan-container
 // ─────────────────────────────────────────────────────────
 
@@ -876,7 +889,19 @@ export const scanContainer = asyncHandler(async (req, res) => {
 // ─────────────────────────────────────────────────────────
 
 // ─────────────────────────────────────────────────────────
-// ENDPOINT 19: getCookItemHistory
+// ENDPOINT 20: getCaseById
+// GET /api/pps/cases/:caseId
+// ─────────────────────────────────────────────────────────
+
+export const getCaseById = asyncHandler(async (req, res) => {
+  const { caseId } = req.params;
+  const caseDoc = await Case.findOne({ caseId }).lean();
+  if (!caseDoc) throw new AppError("Case not found", 404);
+  res.json({ success: true, case: caseDoc });
+});
+
+// ─────────────────────────────────────────────────────────
+// ENDPOINT 21: getCookItemHistory
 // GET /api/pps/cook-items/:cookItemId/history
 // ─────────────────────────────────────────────────────────
 
@@ -987,6 +1012,7 @@ export const confirmCount = asyncHandler(async (req, res) => {
         flavor: c.flavor,
         unitCount: c.unitCount,
         caseId: c.caseId,
+        cookItemId: c.cookItemId,
       },
     })),
     orderStatus: {

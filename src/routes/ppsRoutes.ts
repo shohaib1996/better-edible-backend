@@ -16,8 +16,10 @@ import {
   getStage3CookItems,
   removeTray,
   completeStage3,
+  getStage4CookItems,
   scanContainer,
   confirmCount,
+  getCaseById,
   getCookItemHistory,
 } from "../controllers/ppsController";
 import { validate } from "../middleware/validate";
@@ -66,7 +68,9 @@ router.post("/stage-3/remove-tray", validate({ body: removeTraySchema }), remove
 router.post("/stage-3/complete", validate({ body: completeStage3Schema }), completeStage3 /* #swagger.tags = ['PPS'] */);
 
 // Stage 4 - Packaging & Casing
+router.get("/stage-4/cook-items", getStage4CookItems /* #swagger.tags = ['PPS'] */);
 router.post("/stage-4/scan-container", validate({ body: scanContainerSchema }), scanContainer /* #swagger.tags = ['PPS'] */);
 router.post("/stage-4/confirm-count", validate({ body: confirmCountSchema }), confirmCount /* #swagger.tags = ['PPS'] */);
+router.get("/cases/:caseId", getCaseById /* #swagger.tags = ['PPS'] */);
 
 export default router;
