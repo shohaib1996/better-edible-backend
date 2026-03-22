@@ -10,7 +10,7 @@ import { asyncHandler } from "../utils/asyncHandler";
 import { AppError } from "../utils/AppError";
 
 // ─────────────────────────────────────────────────────────
-// HELPER: extractPerformedBy
+// HELPER: Extract Performed By
 // ─────────────────────────────────────────────────────────
 
 function extractPerformedBy(body: any): IHistoryEntry["performedBy"] {
