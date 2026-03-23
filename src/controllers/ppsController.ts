@@ -299,7 +299,7 @@ export const processMold = asyncHandler(async (req, res) => {
     throw new AppError(`Shelf ${shelfPosition} is already occupied`, 400);
 
   const now = new Date();
-  const dehydrationEndTime = new Date(now.getTime() + 2 * 60 * 1000); // TODO: change to 12 * 60 * 60 * 1000 for production (12 hours)
+  const dehydrationEndTime = new Date(now.getTime() + 12 * 60 * 60 * 1000); // 12 hours
 
   // Release mold
   mold.status = "available";
