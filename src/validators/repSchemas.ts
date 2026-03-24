@@ -18,7 +18,7 @@ export const updateRepSchema = z.object({
   name: z.string().min(1).optional(),
   email: z.string().email().optional(),
   phone: z.string().optional(),
-  repType: z.enum(["rep", "delivery", "both", "pps"]).optional(),
+  repType: z.enum(["rep", "delivery", "both", "pps", "production", "packaging"]).optional(),
   territory: z.string().optional(),
   status: z.enum(["active", "inactive", "suspended"]).optional(),
 }).passthrough(); // allow other fields for flexibility

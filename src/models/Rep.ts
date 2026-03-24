@@ -1,7 +1,7 @@
 // src/models/Rep.ts
 import { Schema, model, Document, Types } from "mongoose";
 
-export type RepType = "rep" | "delivery" | "both" | "pps";
+export type RepType = "rep" | "delivery" | "both" | "pps" | "production" | "packaging";
 export type RepStatus = "active" | "inactive" | "suspended";
 
 export interface IRep extends Document {
@@ -32,7 +32,7 @@ const RepSchema = new Schema<IRep>(
     // repClass: String,
     repType: {
       type: String,
-      enum: ["rep", "delivery", "both", "pps"],
+      enum: ["rep", "delivery", "both", "pps", "production", "packaging"],
       default: "rep",
     },
     territory: { type: String, trim: true }, // 👈 changed
