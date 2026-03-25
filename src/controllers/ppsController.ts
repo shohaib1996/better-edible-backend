@@ -576,6 +576,116 @@ export const bulkCreateDehydratorUnits = asyncHandler(async (req, res) => {
 });
 
 // ─────────────────────────────────────────────────────────
+// ENDPOINT 14: bulkDeleteMolds
+// DELETE /api/pps/molds/bulk
+// ─────────────────────────────────────────────────────────
+
+export const bulkDeleteMolds = asyncHandler(async (req, res) => {
+  const { moldIds } = req.body as { moldIds: string[] };
+
+  const molds = await Mold.find({ moldId: { $in: moldIds } });
+
+  const foundIds = molds.map((m) => m.moldId);
+  const missingIds = moldIds.filter((id) => !foundIds.includes(id));
+  if (missingIds.length > 0) {
+    throw new AppError(`Some mold IDs not found: ${missingIds.join(", ")}`, 404);
+  }
+
+  const inUseIds = molds.filter((m) => m.status === "in-use").map((m) => m.moldId);
+  if (inUseIds.length > 0) {
+    throw new AppError(`Cannot delete in-use molds: ${inUseIds.join(", ")}`, 400);
+  }
+
+  await Mold.deleteMany({ moldId: { $in: moldIds } });
+
+  res.json({
+    success: true,
+    deleted: moldIds.length,
+    message: `${moldIds.length} mold${moldIds.length !== 1 ? "s" : ""} deleted`,
+  });
+});
+
+// ─────────────────────────────────────────────────────────
+// ENDPOINT 15: updateMoldStatus
+// PATCH /api/pps/molds/:moldId/status
+// ─────────────────────────────────────────────────────────
+
+export const updateMoldStatus = asyncHandler(async (req, res) => {
+  const { moldId } = req.params;
+  const { status } = req.body as { status: "available" | "in-use" };
+
+  if (status === "in-use") {
+    throw new AppError("Cannot manually set a mold to in-use", 400);
+  }
+
+  const mold = await Mold.findOne({ moldId });
+  if (!mold) throw new AppError("Mold not found", 404);
+
+  mold.status = "available";
+  mold.currentCookItemId = null;
+  mold.lastUsedAt = new Date();
+  await mold.save();
+
+  res.json({ success: true, mold });
+});
+
+// ─────────────────────────────────────────────────────────
+// ENDPOINT 16: bulkDeleteTrays
+// DELETE /api/pps/dehydrator-trays/bulk
+// ─────────────────────────────────────────────────────────
+
+export const bulkDeleteTrays = asyncHandler(async (req, res) => {
+  const { trayIds } = req.body as { trayIds: string[] };
+
+  const trays = await DehydratorTray.find({ trayId: { $in: trayIds } });
+
+  const foundIds = trays.map((t) => t.trayId);
+  const missingIds = trayIds.filter((id) => !foundIds.includes(id));
+  if (missingIds.length > 0) {
+    throw new AppError(`Some tray IDs not found: ${missingIds.join(", ")}`, 404);
+  }
+
+  const inUseIds = trays.filter((t) => t.status === "in-use").map((t) => t.trayId);
+  if (inUseIds.length > 0) {
+    throw new AppError(`Cannot delete in-use trays: ${inUseIds.join(", ")}`, 400);
+  }
+
+  await DehydratorTray.deleteMany({ trayId: { $in: trayIds } });
+
+  res.json({
+    success: true,
+    deleted: trayIds.length,
+    message: `${trayIds.length} tray${trayIds.length !== 1 ? "s" : ""} deleted`,
+  });
+});
+
+// ─────────────────────────────────────────────────────────
+// ENDPOINT 17: updateTrayStatus
+// PATCH /api/pps/dehydrator-trays/:trayId/status
+// ─────────────────────────────────────────────────────────
+
+export const updateTrayStatus = asyncHandler(async (req, res) => {
+  const { trayId } = req.params;
+  const { status } = req.body as { status: "available" | "in-use" };
+
+  if (status === "in-use") {
+    throw new AppError("Cannot manually set a tray to in-use", 400);
+  }
+
+  const tray = await DehydratorTray.findOne({ trayId });
+  if (!tray) throw new AppError("Tray not found", 404);
+
+  tray.status = "available";
+  tray.currentCookItemId = null;
+  tray.currentDehydratorUnitId = null;
+  tray.currentShelfPosition = null;
+  tray.lastUsedAt = new Date();
+  await tray.save();
+
+  res.json({ success: true, tray });
+});
+
+// ─────────────────────────────────────────────────────────
 // INTERNAL HELPER: formatTimestamp
 // ─────────────────────────────────────────────────────────
 

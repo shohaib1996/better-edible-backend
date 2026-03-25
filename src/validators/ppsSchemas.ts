@@ -83,3 +83,19 @@ export const bulkCreateResourceSchema = z.object({
 export const getStage1Query = paginationQuery.extend({
   status: z.string().optional(),
 });
+
+export const bulkDeleteMoldsSchema = z.object({
+  moldIds: z.array(z.string().min(1)).min(1),
+});
+
+export const updateMoldStatusSchema = z.object({
+  status: z.enum(["available", "in-use"]),
+});
+
+export const bulkDeleteTraysSchema = z.object({
+  trayIds: z.array(z.string().min(1)).min(1),
+});
+
+export const updateTrayStatusSchema = z.object({
+  status: z.enum(["available", "in-use"]),
+});

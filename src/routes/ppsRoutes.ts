@@ -13,6 +13,10 @@ import {
   bulkCreateMolds,
   bulkCreateTrays,
   bulkCreateDehydratorUnits,
+  bulkDeleteMolds,
+  updateMoldStatus,
+  bulkDeleteTrays,
+  updateTrayStatus,
   getStage3CookItems,
   removeTray,
   completeStage3,
@@ -34,6 +38,10 @@ import {
   confirmCountSchema,
   bulkCreateResourceSchema,
   getStage1Query,
+  bulkDeleteMoldsSchema,
+  updateMoldStatusSchema,
+  bulkDeleteTraysSchema,
+  updateTrayStatusSchema,
 } from "../validators/ppsSchemas";
 
 const router = Router();
@@ -59,7 +67,11 @@ router.get("/dehydrator-units", getDehydratorUnits /* #swagger.tags = ['PPS'] */
 
 // Bulk Resource Creation
 router.post("/molds/bulk", validate({ body: bulkCreateResourceSchema }), bulkCreateMolds /* #swagger.tags = ['PPS'] */);
+router.delete("/molds/bulk", validate({ body: bulkDeleteMoldsSchema }), bulkDeleteMolds /* #swagger.tags = ['PPS'] */);
+router.patch("/molds/:moldId/status", validate({ body: updateMoldStatusSchema }), updateMoldStatus /* #swagger.tags = ['PPS'] */);
 router.post("/dehydrator-trays/bulk", validate({ body: bulkCreateResourceSchema }), bulkCreateTrays /* #swagger.tags = ['PPS'] */);
+router.delete("/dehydrator-trays/bulk", validate({ body: bulkDeleteTraysSchema }), bulkDeleteTrays /* #swagger.tags = ['PPS'] */);
+router.patch("/dehydrator-trays/:trayId/status", validate({ body: updateTrayStatusSchema }), updateTrayStatus /* #swagger.tags = ['PPS'] */);
 router.post("/dehydrator-units/bulk", validate({ body: bulkCreateResourceSchema }), bulkCreateDehydratorUnits /* #swagger.tags = ['PPS'] */);
 
 // Stage 3 - Demolding
