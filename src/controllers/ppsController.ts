@@ -6,6 +6,7 @@ import { DehydratorUnit, IDehydratorUnit } from "../models/DehydratorUnit";
 import { Case } from "../models/Case";
 import { ClientOrder } from "../models/ClientOrder";
 import { Label } from "../models/Label";
+import LabelInventory from "../models/LabelInventory";
 import { asyncHandler } from "../utils/asyncHandler";
 import { AppError } from "../utils/AppError";
 
@@ -1098,6 +1099,12 @@ export const confirmCount = asyncHandler(async (req, res) => {
     timestamp: now,
   });
   await cookItem.save();
+
+  // Deduct consumed bags from LabelInventory.printed
+  await LabelInventory.findOneAndUpdate(
+    { labelId: cookItem.labelId, storeName: cookItem.storeName },
+    [{ $set: { printed: { $max: [0, { $subtract: ["$printed", actualCount] }] } } }]
+  );
 
   // Check if all cook items for this order are complete
   const allItemsForOrder = await CookItem.find({ orderId: cookItem.orderId });
