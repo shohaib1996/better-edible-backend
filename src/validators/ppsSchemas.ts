@@ -28,6 +28,13 @@ export const bulkCreateCookItemsSchema = z.object({
 export const assignMoldSchema = z.object({
   cookItemId: z.string().min(1, "cookItemId is required"),
   moldId: z.string().min(1, "moldId is required"),
+  unitsPerMold: z.number().int().min(1).optional(),
+  performedBy: performedBySchema,
+});
+
+export const unassignMoldSchema = z.object({
+  cookItemId: z.string().min(1, "cookItemId is required"),
+  moldId: z.string().min(1, "moldId is required"),
   performedBy: performedBySchema,
 });
 

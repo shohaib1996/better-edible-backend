@@ -162,8 +162,10 @@ export const assignMold = asyncHandler(async (req, res) => {
 
   // Update cook item
   const now = new Date();
+  const { unitsPerMold } = req.body;
+  const units = typeof unitsPerMold === "number" ? unitsPerMold : (mold.unitsPerMold ?? 70);
   cookItem.assignedMoldIds.push(moldId);
-  cookItem.moldingTimestamps.push({ moldId, startTimestamp: now });
+  cookItem.moldingTimestamps.push({ moldId, unitsPerMold: units, startTimestamp: now });
 
   if (cookItem.status === "pending") {
     cookItem.status = "in-progress";
@@ -173,8 +175,60 @@ export const assignMold = asyncHandler(async (req, res) => {
   cookItem.history.push({
     action: "mold_assigned",
     performedBy,
-    detail: `Mold ${moldId} assigned`,
+    detail: `Mold ${moldId} assigned (${units} units)`,
     timestamp: now,
+  });
+
+  await cookItem.save();
+
+  res.json({ success: true, cookItem, mold });
+});
+
+// ─────────────────────────────────────────────────────────
+// ENDPOINT: unassignMold
+// DELETE /api/pps/stage-1/unassign-mold
+// ─────────────────────────────────────────────────────────
+
+export const unassignMold = asyncHandler(async (req, res) => {
+  const { cookItemId, moldId } = req.body;
+  const performedBy = extractPerformedBy(req.body);
+
+  if (!cookItemId || !moldId) {
+    throw new AppError("cookItemId and moldId are required", 400);
+  }
+
+  const cookItem = await CookItem.findOne({ cookItemId });
+  if (!cookItem) throw new AppError("Cook item not found", 404);
+  if (!["pending", "in-progress"].includes(cookItem.status)) {
+    throw new AppError(
+      `Cook item status is "${cookItem.status}", must be pending or in-progress to unassign a mold`,
+      400,
+    );
+  }
+
+  // Free the mold
+  const mold = await Mold.findOneAndUpdate(
+    { moldId },
+    { status: "available", currentCookItemId: null },
+    { new: true },
+  );
+  if (!mold) throw new AppError("Mold not found", 404);
+
+  // Remove mold from cook item
+  cookItem.assignedMoldIds = cookItem.assignedMoldIds.filter((id) => id !== moldId);
+  cookItem.moldingTimestamps = cookItem.moldingTimestamps.filter((t) => t.moldId !== moldId);
+
+  // If no molds left, revert to pending
+  if (cookItem.assignedMoldIds.length === 0) {
+    cookItem.status = "pending";
+    cookItem.cookingMoldingStartTimestamp = undefined;
+  }
+
+  cookItem.history.push({
+    action: "mold_unassigned",
+    performedBy,
+    detail: `Mold ${moldId} removed`,
+    timestamp: new Date(),
   });
 
   await cookItem.save();

@@ -3,6 +3,7 @@ import {
   bulkCreateCookItems,
   getStage1CookItems,
   assignMold,
+  unassignMold,
   completeStage1,
   getStage2CookItems,
   processMold,
@@ -30,6 +31,7 @@ import { validate } from "../middleware/validate";
 import {
   bulkCreateCookItemsSchema,
   assignMoldSchema,
+  unassignMoldSchema,
   completeStage1Schema,
   processMoldSchema,
   removeTraySchema,
@@ -53,6 +55,7 @@ router.get("/cook-items/:cookItemId/history", getCookItemHistory /* #swagger.tag
 // Stage 1 - Cooking & Molding
 router.get("/stage-1/cook-items", validate({ query: getStage1Query }), getStage1CookItems /* #swagger.tags = ['PPS'] */);
 router.post("/stage-1/assign-mold", validate({ body: assignMoldSchema }), assignMold /* #swagger.tags = ['PPS'] */);
+router.delete("/stage-1/unassign-mold", validate({ body: unassignMoldSchema }), unassignMold /* #swagger.tags = ['PPS'] */);
 router.patch("/stage-1/complete", validate({ body: completeStage1Schema }), completeStage1 /* #swagger.tags = ['PPS'] */);
 
 // Stage 2 - Dehydrating

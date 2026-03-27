@@ -23,6 +23,7 @@ export interface IFormulationComponent {
 
 export interface IMoldingTimestamp {
   moldId: string;
+  unitsPerMold: number;
   startTimestamp: Date;
   completionTimestamp?: Date;
 }
@@ -121,6 +122,7 @@ const FormulationComponentSchema = new Schema<IFormulationComponent>(
 const MoldingTimestampSchema = new Schema<IMoldingTimestamp>(
   {
     moldId: { type: String, required: true },
+    unitsPerMold: { type: Number, required: true, default: 70 },
     startTimestamp: { type: Date, required: true },
     completionTimestamp: Date,
   },

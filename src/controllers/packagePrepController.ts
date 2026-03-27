@@ -21,7 +21,19 @@ export const getActiveLabelOrders = async (
       orderedAt: -1,
     });
 
-    res.json({ success: true, orders });
+    // Attach label image URL by looking up each labelId
+    const labelIds = [...new Set(orders.map((o) => o.labelId.toString()))];
+    const labels = await Label.find({ _id: { $in: labelIds } }).select("labelImages");
+    const labelImageMap = new Map(
+      labels.map((l) => [(l._id as any).toString(), (l as any).labelImages?.[0]?.secureUrl ?? null])
+    );
+
+    const ordersWithImage = orders.map((o) => ({
+      ...o.toObject(),
+      labelImageUrl: labelImageMap.get(o.labelId.toString()) ?? null,
+    }));
+
+    res.json({ success: true, orders: ordersWithImage });
   } catch (err) {
     next(err);
   }
@@ -133,7 +145,14 @@ export const getLabelInventory = async (
       labelName: 1,
     });
 
-    // Annotate each with belowThreshold flag
+    // Attach label image URLs
+    const labelIds = [...new Set(docs.map((d) => d.labelId.toString()))];
+    const labels = await Label.find({ _id: { $in: labelIds } }).select("labelImages");
+    const labelImageMap = new Map(
+      labels.map((l) => [(l._id as any).toString(), (l as any).labelImages?.[0]?.secureUrl ?? null])
+    );
+
+    // Annotate each with belowThreshold flag and labelImageUrl
     const inventory = docs.map((doc) => {
       const obj = doc.toObject();
       const totalStock = doc.unprocessed + doc.labeled + doc.printed;
@@ -142,6 +161,7 @@ export const getLabelInventory = async (
         totalStock,
         belowThreshold:
           doc.reorderThreshold > 0 && totalStock < doc.reorderThreshold,
+        labelImageUrl: labelImageMap.get(doc.labelId.toString()) ?? null,
       };
     });
 
