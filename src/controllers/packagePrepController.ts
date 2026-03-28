@@ -14,18 +14,23 @@ import { AppError } from "../utils/AppError";
 export const getActiveLabelOrders = async (
   _req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const orders = await LabelOrder.find({ status: "on_order" }).sort({
       orderedAt: -1,
     });
 
-    // Attach label image URL by looking up each labelId
+    // Attach label image URL by looking up each
     const labelIds = [...new Set(orders.map((o) => o.labelId.toString()))];
-    const labels = await Label.find({ _id: { $in: labelIds } }).select("labelImages");
+    const labels = await Label.find({ _id: { $in: labelIds } }).select(
+      "labelImages",
+    );
     const labelImageMap = new Map(
-      labels.map((l) => [(l._id as any).toString(), (l as any).labelImages?.[0]?.secureUrl ?? null])
+      labels.map((l) => [
+        (l._id as any).toString(),
+        (l as any).labelImages?.[0]?.secureUrl ?? null,
+      ]),
     );
 
     const ordersWithImage = orders.map((o) => ({
@@ -47,7 +52,7 @@ export const getActiveLabelOrders = async (
 export const createLabelOrder = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const { storeId, labelId, quantityOrdered, notes } = req.body;
@@ -87,7 +92,7 @@ export const createLabelOrder = async (
 export const receiveLabelOrder = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const { orderId } = req.params;
@@ -115,7 +120,7 @@ export const receiveLabelOrder = async (
           itemId: order.itemId,
         },
       },
-      { upsert: true, new: true }
+      { upsert: true, new: true },
     );
 
     res.json({ success: true, order, inventory });
@@ -132,7 +137,7 @@ export const receiveLabelOrder = async (
 export const getLabelInventory = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const { storeId } = req.query as { storeId?: string };
@@ -147,9 +152,14 @@ export const getLabelInventory = async (
 
     // Attach label image URLs
     const labelIds = [...new Set(docs.map((d) => d.labelId.toString()))];
-    const labels = await Label.find({ _id: { $in: labelIds } }).select("labelImages");
+    const labels = await Label.find({ _id: { $in: labelIds } }).select(
+      "labelImages",
+    );
     const labelImageMap = new Map(
-      labels.map((l) => [(l._id as any).toString(), (l as any).labelImages?.[0]?.secureUrl ?? null])
+      labels.map((l) => [
+        (l._id as any).toString(),
+        (l as any).labelImages?.[0]?.secureUrl ?? null,
+      ]),
     );
 
     // Annotate each with belowThreshold flag and labelImageUrl
@@ -180,7 +190,7 @@ export const getLabelInventory = async (
 export const applyLabels = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const { storeId, labelId, quantity } = req.body;
@@ -195,8 +205,8 @@ export const applyLabels = async (
       return next(
         new AppError(
           `Cannot apply ${quantity} — only ${inv.unprocessed} unprocessed labels available`,
-          400
-        )
+          400,
+        ),
       );
     }
 
@@ -219,7 +229,7 @@ export const applyLabels = async (
 export const printLabels = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const { storeId, labelId, quantity, lotNumber, thcPercent, testDate } =
@@ -235,8 +245,8 @@ export const printLabels = async (
       return next(
         new AppError(
           `Cannot print ${quantity} — only ${inv.labeled} labeled bags available`,
-          400
-        )
+          400,
+        ),
       );
     }
 
@@ -259,10 +269,13 @@ export const printLabels = async (
 export const getInventorySummary = async (
   _req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
-    const docs = await LabelInventory.find().sort({ storeName: 1, labelName: 1 });
+    const docs = await LabelInventory.find().sort({
+      storeName: 1,
+      labelName: 1,
+    });
 
     let totalUnprocessed = 0;
     let totalLabeled = 0;
@@ -331,7 +344,7 @@ export const getInventorySummary = async (
 export const setReorderThreshold = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const { inventoryId } = req.params;
@@ -340,7 +353,7 @@ export const setReorderThreshold = async (
     const inv = await LabelInventory.findByIdAndUpdate(
       inventoryId,
       { reorderThreshold },
-      { new: true }
+      { new: true },
     );
 
     if (!inv) return next(new AppError("Inventory record not found", 404));
