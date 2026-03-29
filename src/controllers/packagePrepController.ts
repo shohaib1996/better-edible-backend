@@ -47,7 +47,6 @@ export const getActiveLabelOrders = async (
 // ─────────────────────────────────────────────
 // ENDPOINT 2: createLabelOrder (ADMIN ONLY)
 // POST /api/pps/package-prep/orders
-// Body: { storeId, labelId, quantityOrdered, notes? }
 // ─────────────────────────────────────────────
 export const createLabelOrder = async (
   req: Request,
