@@ -56,7 +56,7 @@ export const createLabelOrder = async (
   try {
     const { storeId, labelId, quantityOrdered, notes } = req.body;
 
-    // Fetch store and label for denormalization
+    // Fetch store and label for
     const [store, label] = await Promise.all([
       Store.findById(storeId),
       Label.findById(labelId),
