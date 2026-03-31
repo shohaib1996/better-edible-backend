@@ -5,6 +5,7 @@ export type DeliveryDisposition =
   | "money_pickup"
   | "delivery"
   | "sample_drop"
+  | "sales_call"
   | "other";
 
 export type PaymentAction =
@@ -24,7 +25,7 @@ export interface IDelivery extends Document {
   assignedTo?: Types.ObjectId;
   sampleId?: Types.ObjectId;
   clientOrderId?: Types.ObjectId;
-  disposition: DeliveryDisposition;
+  disposition: DeliveryDisposition[];
   orderId?: Types.ObjectId;
   paymentAction: PaymentAction;
   amount: number;
@@ -43,9 +44,9 @@ const DeliverySchema = new Schema<IDelivery>(
     clientOrderId: { type: Schema.Types.ObjectId, ref: "ClientOrder" },
     orderId: { type: Schema.Types.ObjectId, ref: "Order" },
     disposition: {
-      type: String,
-      enum: ["money_pickup", "delivery", "sample_drop", "other"],
-      default: "delivery",
+      type: [String],
+      enum: ["money_pickup", "delivery", "sample_drop", "sales_call", "other"],
+      default: ["delivery"],
     },
     paymentAction: {
       type: String,

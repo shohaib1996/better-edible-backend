@@ -4,7 +4,7 @@ import { objectId, paginationQuery, dateString } from "./commonSchemas";
 export const createDeliverySchema = z.object({
   storeId: objectId,
   assignedTo: objectId,
-  disposition: z.string().min(1, "Disposition is required"),
+  disposition: z.array(z.string()).min(1, "At least one disposition is required"),
   paymentAction: z.string().optional(),
   amount: z.number().min(0).optional(),
   scheduledAt: dateString,
