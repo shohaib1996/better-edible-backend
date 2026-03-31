@@ -43,8 +43,20 @@ async function run() {
     return;
   }
 
-  // Group by prefix and track per-prefix seq
+  // Find the highest existing itemId per prefix so we don't collide
+  const existingLabels = await labelsCol
+    .find({ itemId: { $exists: true } })
+    .project({ itemId: 1 })
+    .toArray();
+
   const seqMap: Record<string, number> = {};
+  for (const l of existingLabels) {
+    const match = String(l.itemId).match(/^([A-Z]+)(\d+)$/);
+    if (!match) continue;
+    const [, prefix, numStr] = match;
+    const num = parseInt(numStr, 10);
+    if (!seqMap[prefix] || num > seqMap[prefix]) seqMap[prefix] = num;
+  }
 
   const ops = labels.map((label) => {
     const prefix = getItemPrefix(label.productType ?? "");
