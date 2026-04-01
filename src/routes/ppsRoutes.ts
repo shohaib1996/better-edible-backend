@@ -7,6 +7,7 @@ import {
   completeStage1,
   getStage2CookItems,
   processMold,
+  unprocessMold,
   getNextAvailableShelf,
   getMolds,
   getDehydratorTrays,
@@ -34,6 +35,7 @@ import {
   unassignMoldSchema,
   completeStage1Schema,
   processMoldSchema,
+  unprocessMoldSchema,
   removeTraySchema,
   completeStage3Schema,
   scanContainerSchema,
@@ -61,6 +63,7 @@ router.patch("/stage-1/complete", validate({ body: completeStage1Schema }), comp
 // Stage 2 - Dehydrating
 router.get("/stage-2/cook-items", getStage2CookItems /* #swagger.tags = ['PPS'] */);
 router.post("/stage-2/process-mold", validate({ body: processMoldSchema }), processMold /* #swagger.tags = ['PPS'] */);
+router.delete("/stage-2/unprocess-mold", validate({ body: unprocessMoldSchema }), unprocessMold /* #swagger.tags = ['PPS'] */);
 router.get("/stage-2/next-available-shelf", getNextAvailableShelf /* #swagger.tags = ['PPS'] */);
 
 // Resources

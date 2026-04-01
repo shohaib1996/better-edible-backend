@@ -428,6 +428,81 @@ export const processMold = asyncHandler(async (req, res) => {
 });
 
 // ─────────────────────────────────────────────────────────
+// ENDPOINT: unprocessMold
+// DELETE /api/pps/stage-2/unprocess-mold
+// ─────────────────────────────────────────────────────────
+
+export const unprocessMold = asyncHandler(async (req, res) => {
+  const { cookItemId, moldId } = req.body;
+  const performedBy = extractPerformedBy(req.body);
+
+  if (!cookItemId || !moldId) {
+    throw new AppError("cookItemId and moldId are required", 400);
+  }
+
+  const cookItem = await CookItem.findOne({ cookItemId });
+  if (!cookItem) throw new AppError("Cook item not found", 404);
+  if (!["cooking_molding_complete", "dehydrating_complete"].includes(cookItem.status)) {
+    throw new AppError(
+      `Cook item status is "${cookItem.status}", cannot unprocess mold`,
+      400,
+    );
+  }
+
+  // Find the assignment for this mold
+  const assignment = cookItem.dehydratorAssignments.find((a) => a.moldId === moldId);
+  if (!assignment) throw new AppError("Mold assignment not found for this cook item", 404);
+
+  const { trayId, dehydratorUnitId, shelfPosition } = assignment;
+
+  // Release tray back to available
+  const tray = await DehydratorTray.findOne({ trayId });
+  if (tray) {
+    tray.status = "available";
+    tray.currentCookItemId = null;
+    tray.currentDehydratorUnitId = null;
+    tray.currentShelfPosition = null;
+    tray.lastUsedAt = new Date();
+    await tray.save();
+  }
+
+  // Free the shelf on the dehydrator unit
+  const unit = await DehydratorUnit.findOne({ unitId: dehydratorUnitId });
+  if (unit) {
+    unit.shelves.set(String(shelfPosition), { occupied: false, trayId: null, cookItemId: null });
+    await unit.save();
+  }
+
+  // Re-assign mold back to in-use for this cook item (it was released during processMold)
+  await Mold.findOneAndUpdate(
+    { moldId },
+    { status: "in-use", currentCookItemId: cookItemId },
+  );
+
+  // Remove assignment from cookItem
+  cookItem.dehydratorAssignments = cookItem.dehydratorAssignments.filter(
+    (a) => a.moldId !== moldId,
+  );
+
+  // Revert status back to cooking_molding_complete if it was dehydrating_complete
+  if (cookItem.status === "dehydrating_complete") {
+    cookItem.status = "cooking_molding_complete";
+    cookItem.dehydratingCompletionTimestamp = undefined;
+  }
+
+  cookItem.history.push({
+    action: "mold_unprocessed",
+    performedBy,
+    detail: `Tray ${trayId} removed from ${dehydratorUnitId} shelf ${shelfPosition}`,
+    timestamp: new Date(),
+  });
+
+  await cookItem.save();
+
+  res.json({ success: true, cookItem, tray, assignment });
+});
+
+// ─────────────────────────────────────────────────────────
 // ENDPOINT 7: getNextAvailableShelf
 // GET /api/pps/stage-2/next-available-shelf
 // ─────────────────────────────────────────────────────────
@@ -898,17 +973,20 @@ export const completeStage3 = asyncHandler(async (req, res) => {
     );
   }
 
-  if (
-    cookItem.trayRemovalTimestamps.length <
-    cookItem.dehydratorAssignments.length
-  ) {
-    throw new AppError(
-      `Not all trays have been scanned. Expected ${cookItem.dehydratorAssignments.length}, got ${cookItem.trayRemovalTimestamps.length}`,
-      400,
-    );
-  }
-
   const now = new Date();
+
+  // Auto-fill tray removal timestamps for any trays not already logged
+  const existingRemovedTrayIds = new Set(
+    cookItem.trayRemovalTimestamps.map((t) => t.trayId),
+  );
+  for (const assignment of cookItem.dehydratorAssignments) {
+    if (!existingRemovedTrayIds.has(assignment.trayId)) {
+      cookItem.trayRemovalTimestamps.push({
+        trayId: assignment.trayId,
+        removalTimestamp: now,
+      });
+    }
+  }
   cookItem.containerPackedTimestamp = now;
   cookItem.labelPrintTimestamp = now;
   cookItem.demoldingCompletionTimestamp = now;

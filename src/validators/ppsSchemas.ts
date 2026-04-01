@@ -43,6 +43,12 @@ export const completeStage1Schema = z.object({
   performedBy: performedBySchema,
 });
 
+export const unprocessMoldSchema = z.object({
+  cookItemId: z.string().min(1, "cookItemId is required"),
+  moldId: z.string().min(1, "moldId is required"),
+  performedBy: performedBySchema,
+});
+
 export const processMoldSchema = z.object({
   cookItemId: z.string().min(1, "cookItemId is required"),
   moldId: z.string().min(1, "moldId is required"),
