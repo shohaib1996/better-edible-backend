@@ -29,10 +29,10 @@ export const getAllStores = asyncHandler(async (req, res) => {
         ? { $regex: digitsOnly.split("").join("\\D*"), $options: "i" }
         : null;
 
-    const contactOrConditions: any[] = [{ email: textRegex }];
+    const contactOrConditions: any[] = [{ name: textRegex }, { email: textRegex }];
     if (phoneRegex) contactOrConditions.push({ phone: phoneRegex });
 
-    // Find store IDs where any contact matches email or phone
+    // Find store IDs where any contact matches name, email, or phone
     const matchingContacts = await Contact.find({
       $or: contactOrConditions,
     }).distinct("store");
