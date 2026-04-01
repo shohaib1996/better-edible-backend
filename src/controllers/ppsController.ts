@@ -433,7 +433,12 @@ export const processMold = asyncHandler(async (req, res) => {
 // ─────────────────────────────────────────────────────────
 
 export const getNextAvailableShelf = asyncHandler(async (_req, res) => {
-  const units = await DehydratorUnit.find().sort({ unitId: 1 });
+  const units = await DehydratorUnit.find();
+  units.sort((a, b) => {
+    const numA = parseInt(a.unitId.replace(/\D/g, ""), 10);
+    const numB = parseInt(b.unitId.replace(/\D/g, ""), 10);
+    return numA - numB;
+  });
 
   for (const unit of units) {
     for (let i = 1; i <= unit.totalShelves; i++) {
@@ -590,7 +595,7 @@ export const bulkCreateTrays = asyncHandler(async (req, res) => {
 // ─────────────────────────────────────────────────────────
 
 export const bulkCreateDehydratorUnits = asyncHandler(async (req, res) => {
-  const { startNumber, endNumber, prefix = "UNIT" } = req.body;
+  const { startNumber, endNumber, prefix = "UNIT", totalShelves = 20 } = req.body;
 
   if (startNumber == null || endNumber == null) {
     throw new AppError("startNumber and endNumber are required", 400);
@@ -598,9 +603,9 @@ export const bulkCreateDehydratorUnits = asyncHandler(async (req, res) => {
   if (startNumber > endNumber) {
     throw new AppError("startNumber must be <= endNumber", 400);
   }
-  if (endNumber - startNumber + 1 > 20) {
+  if (endNumber - startNumber + 1 > 10) {
     throw new AppError(
-      "Cannot create more than 20 dehydrator units at once",
+      "Cannot create more than 10 dehydrators at once",
       400,
     );
   }
@@ -615,8 +620,8 @@ export const bulkCreateDehydratorUnits = asyncHandler(async (req, res) => {
       skipped.push(unitId);
       continue;
     }
-    // Must use .save() to trigger pre-save hook that initializes 20 shelves
-    const unit = new DehydratorUnit({ unitId, totalShelves: 20 });
+    // Must use .save() to trigger pre-save hook that initializes shelves
+    const unit = new DehydratorUnit({ unitId, totalShelves });
     await unit.save();
     results.push(unit);
   }

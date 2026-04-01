@@ -79,6 +79,7 @@ export const bulkCreateResourceSchema = z.object({
   endNumber: z.number().int().min(1, "endNumber must be at least 1"),
   prefix: z.string().optional(),
   unitsPerMold: z.number().int().min(1).optional(),
+  totalShelves: z.number().int().min(1).max(100).optional(),
 }).refine((data) => data.endNumber >= data.startNumber, {
   message: "endNumber must be >= startNumber",
   path: ["endNumber"],
