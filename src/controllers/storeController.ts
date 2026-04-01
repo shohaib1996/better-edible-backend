@@ -1,6 +1,6 @@
 // src/controllers/storeController.ts
 import { Store } from "../models/Store";
-import "../models/Contact"; // Ensure Contact model is registered
+import { Contact } from "../models/Contact";
 import { asyncHandler } from "../utils/asyncHandler";
 import { AppError } from "../utils/AppError";
 
@@ -18,7 +18,30 @@ export const getAllStores = asyncHandler(async (req, res) => {
   const query: any = {};
 
   if (search) {
-    query.name = { $regex: search as string, $options: "i" };
+    const searchStr = search as string;
+    const textRegex = { $regex: searchStr, $options: "i" };
+
+    // Build a phone regex: strip non-digits from input, then allow any non-digit chars between each digit
+    // e.g. "5034774203" matches "503-477-4203", "(503) 477-4203", "+15034774203", "5034774203"
+    const digitsOnly = searchStr.replace(/\D/g, "");
+    const phoneRegex =
+      digitsOnly.length >= 4
+        ? { $regex: digitsOnly.split("").join("\\D*"), $options: "i" }
+        : null;
+
+    const contactOrConditions: any[] = [{ email: textRegex }];
+    if (phoneRegex) contactOrConditions.push({ phone: phoneRegex });
+
+    // Find store IDs where any contact matches email or phone
+    const matchingContacts = await Contact.find({
+      $or: contactOrConditions,
+    }).distinct("store");
+
+    query.$or = [
+      { name: textRegex },
+      { address: textRegex },
+      { _id: { $in: matchingContacts } },
+    ];
   }
   if (repId) query.rep = repId;
   if (paymentStatus) query.paymentStatus = paymentStatus;
