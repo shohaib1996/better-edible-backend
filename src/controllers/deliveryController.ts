@@ -191,6 +191,23 @@ export const updateDeliveryStatus = asyncHandler(async (req, res) => {
   res.json({ message: `Delivery marked as ${status}`, delivery });
 });
 
+// 🔍 Check if a delivery exists for a given order/sample/clientOrder
+export const checkDeliveryExists = asyncHandler(async (req, res) => {
+  const { orderId, sampleId, clientOrderId } = req.query;
+
+  const query: any = {};
+  if (orderId) query.orderId = orderId;
+  else if (sampleId) query.sampleId = sampleId;
+  else if (clientOrderId) query.clientOrderId = clientOrderId;
+  else {
+    res.status(400).json({ message: "Provide orderId, sampleId, or clientOrderId" });
+    return;
+  }
+
+  const delivery = await Delivery.findOne(query).select("_id status scheduledAt").lean();
+  res.json({ exists: !!delivery, delivery: delivery || null });
+});
+
 // 🟥 Delete delivery
 export const deleteDelivery = asyncHandler(async (req, res) => {
   const delivery = await Delivery.findByIdAndDelete(req.params.id);

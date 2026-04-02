@@ -7,6 +7,7 @@ import {
   updateDelivery,
   updateDeliveryStatus,
   deleteDelivery,
+  checkDeliveryExists,
 } from '../controllers/deliveryController';
 import { validate } from '../middleware/validate';
 import { idParam } from '../validators/commonSchemas';
@@ -20,6 +21,7 @@ import {
 const router = Router();
 
 router.post('/', validate({ body: createDeliverySchema }), createDelivery /* #swagger.tags = ['Deliveries'] */);
+router.get('/check', checkDeliveryExists /* #swagger.tags = ['Deliveries'] */);
 router.get('/', validate({ query: getAllDeliveriesQuery }), getAllDeliveries /* #swagger.tags = ['Deliveries'] */);
 router.get('/:id', validate({ params: idParam }), getDeliveryById /* #swagger.tags = ['Deliveries'] */);
 router.put('/:id', validate({ params: idParam, body: updateDeliverySchema }), updateDelivery /* #swagger.tags = ['Deliveries'] */);

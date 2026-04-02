@@ -6,7 +6,6 @@ import { Schema, model, models, Document, Types } from "mongoose";
 
 export type OrderStatus =
   | "submitted"
-  | "accepted"
   | "manifested"
   | "shipped"
   | "cancelled";
@@ -108,7 +107,6 @@ const OrderSchema = new Schema<IOrder>(
       type: String,
       enum: [
         "submitted",
-        "accepted",
         "manifested",
         "shipped",
         "delivered",
