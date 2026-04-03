@@ -74,7 +74,10 @@ export const getAllNotes = asyncHandler(async (req, res) => {
 
   // Ensure at least one filter is provided to prevent fetching all notes blindly
   if (Object.keys(query).length === 0) {
-    throw new AppError("At least one filter (entityId, repId, or date) is required", 400);
+    throw new AppError(
+      "At least one filter (entityId, repId, or date) is required",
+      400,
+    );
   }
 
   const pageNum = Math.max(+page || 1, 1);
@@ -82,7 +85,7 @@ export const getAllNotes = asyncHandler(async (req, res) => {
 
   const notes = await Note.find(query)
     .populate("author", "name role email")
-    .populate("entityId", "name address") // Optional: populate store info if listing across stores
+    .populate("entityId", "name address") // Optional: populate store info if listing
     .sort({ date: -1 })
     .skip((pageNum - 1) * limitNum)
     .limit(limitNum);
@@ -109,7 +112,7 @@ export const getAllNotes = asyncHandler(async (req, res) => {
 export const getNoteById = asyncHandler(async (req, res) => {
   const note = await Note.findById(req.params.id).populate(
     "author",
-    "name email role"
+    "name email role",
   );
 
   if (!note) throw new AppError("Note not found", 404);
