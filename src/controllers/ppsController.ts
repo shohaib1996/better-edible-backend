@@ -282,7 +282,7 @@ export const completeStage1 = asyncHandler(async (req, res) => {
 });
 
 // ─────────────────────────────────────────────────────────
-// ENDPOINT 5: getStage2CookItems
+// ENDPOINT 5: 
 // GET /api/pps/stage-2/cook-items
 // ─────────────────────────────────────────────────────────
 
@@ -1267,6 +1267,7 @@ export const confirmCount = asyncHandler(async (req, res) => {
         unitCount: c.unitCount,
         caseId: c.caseId,
         cookItemId: c.cookItemId,
+        orderId: c.orderId,
       },
     })),
     orderStatus: {
