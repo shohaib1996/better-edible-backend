@@ -69,6 +69,11 @@ export const completeStage3Schema = z.object({
   performedBy: performedBySchema,
 });
 
+export const cookItemIdSchema = z.object({
+  cookItemId: z.string().min(1, "cookItemId is required"),
+  performedBy: performedBySchema,
+});
+
 export const scanContainerSchema = z.object({
   qrCodeData: z.string().min(1, "qrCodeData is required"),
   performedBy: performedBySchema,

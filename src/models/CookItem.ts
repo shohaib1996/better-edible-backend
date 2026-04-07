@@ -10,6 +10,9 @@ export type CookItemStatus =
   | "cooking_molding_complete"
   | "dehydrating_complete"
   | "demolding_complete"
+  | "bagging"
+  | "sealing"
+  | "bag_seal_complete"
   | "packaging_casing_complete";
 
 // ─────────────────────────────
@@ -89,6 +92,10 @@ export interface ICookItem extends Document {
   containerPackedTimestamp?: Date;
   labelPrintTimestamp?: Date;
   demoldingCompletionTimestamp?: Date;
+
+  // Bag & Seal Stage Data
+  baggingStartTimestamp?: Date;
+  sealingStartTimestamp?: Date;
 
   // Packaging & Casing Stage Data
   packagingStartTimestamp?: Date;
@@ -194,6 +201,9 @@ const CookItemSchema = new Schema<ICookItem>(
         "cooking_molding_complete",
         "dehydrating_complete",
         "demolding_complete",
+        "bagging",
+        "sealing",
+        "bag_seal_complete",
         "packaging_casing_complete",
       ],
       default: "pending",
@@ -215,6 +225,10 @@ const CookItemSchema = new Schema<ICookItem>(
     containerPackedTimestamp: Date,
     labelPrintTimestamp: Date,
     demoldingCompletionTimestamp: Date,
+
+    // Bag & Seal Stage Data
+    baggingStartTimestamp: Date,
+    sealingStartTimestamp: Date,
 
     // Packaging & Casing Stage Data
     packagingStartTimestamp: Date,

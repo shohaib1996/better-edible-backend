@@ -22,6 +22,9 @@ import {
   getStage3CookItems,
   removeTray,
   completeStage3,
+  startBagging,
+  startSealing,
+  completeBagSeal,
   getStage4CookItems,
   scanContainer,
   confirmCount,
@@ -38,6 +41,7 @@ import {
   unprocessMoldSchema,
   removeTraySchema,
   completeStage3Schema,
+  cookItemIdSchema,
   scanContainerSchema,
   confirmCountSchema,
   bulkCreateResourceSchema,
@@ -80,10 +84,13 @@ router.delete("/dehydrator-trays/bulk", validate({ body: bulkDeleteTraysSchema }
 router.patch("/dehydrator-trays/:trayId/status", validate({ body: updateTrayStatusSchema }), updateTrayStatus /* #swagger.tags = ['PPS'] */);
 router.post("/dehydrator-units/bulk", validate({ body: bulkCreateResourceSchema }), bulkCreateDehydratorUnits /* #swagger.tags = ['PPS'] */);
 
-// Stage 3 - Demolding
+// Stage 3 - Demolding & Bag/Seal
 router.get("/stage-3/cook-items", getStage3CookItems /* #swagger.tags = ['PPS'] */);
 router.post("/stage-3/remove-tray", validate({ body: removeTraySchema }), removeTray /* #swagger.tags = ['PPS'] */);
 router.post("/stage-3/complete", validate({ body: completeStage3Schema }), completeStage3 /* #swagger.tags = ['PPS'] */);
+router.post("/stage-3/start-bagging", validate({ body: cookItemIdSchema }), startBagging /* #swagger.tags = ['PPS'] */);
+router.post("/stage-3/start-sealing", validate({ body: cookItemIdSchema }), startSealing /* #swagger.tags = ['PPS'] */);
+router.post("/stage-3/bag-seal-complete", validate({ body: cookItemIdSchema }), completeBagSeal /* #swagger.tags = ['PPS'] */);
 
 // Stage 4 - Packaging & Casing
 router.get("/stage-4/cook-items", getStage4CookItems /* #swagger.tags = ['PPS'] */);

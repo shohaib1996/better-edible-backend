@@ -12,6 +12,9 @@ export const updateCookItemStatusSchema = z.object({
     "cooking_molding_complete",
     "dehydrating_complete",
     "demolding_complete",
+    "bagging",
+    "sealing",
+    "bag_seal_complete",
     "packaging_casing_complete",
   ]),
 });
