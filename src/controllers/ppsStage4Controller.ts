@@ -42,7 +42,7 @@ async function completeProduction(
 
 export const getStage4CookItems = asyncHandler(async (_req, res) => {
   const cookItems = await CookItem.find({
-    status: { $in: ["bag_seal_complete", "packaging_casing_complete"] },
+    status: "bag_seal_complete",
   })
     .sort({ createdAt: 1 })
     .lean();
