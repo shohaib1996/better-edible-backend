@@ -7,6 +7,7 @@ import { AppError } from "../utils/AppError";
 export const createNote = asyncHandler(async (req, res) => {
   const {
     entityId,
+    deliveryId,
     author,
     disposition,
     visitType,
@@ -27,6 +28,7 @@ export const createNote = asyncHandler(async (req, res) => {
 
   const note = await Note.create({
     entityId,
+    deliveryId,
     author,
     disposition,
     visitType,
@@ -46,12 +48,16 @@ export const createNote = asyncHandler(async (req, res) => {
 
 // 🟨 Get all notes
 export const getAllNotes = asyncHandler(async (req, res) => {
-  const { entityId, repId, date, page = 1, limit = 20 } = req.query;
+  const { entityId, deliveryId, repId, date, page = 1, limit = 20 } = req.query;
 
   const query: any = {};
 
   if (entityId) {
     query.entityId = entityId;
+  }
+  
+  if (deliveryId) {
+    query.deliveryId = deliveryId;
   }
 
   if (repId) {
@@ -75,7 +81,7 @@ export const getAllNotes = asyncHandler(async (req, res) => {
   // Ensure at least one filter is provided to prevent fetching all notes blindly
   if (Object.keys(query).length === 0) {
     throw new AppError(
-      "At least one filter (entityId, repId, or date) is required",
+      "At least one filter (entityId, deliveryId, repId, or date) is required",
       400,
     );
   }
@@ -129,7 +135,7 @@ export const updateNote = asyncHandler(async (req, res) => {
   if (!noteId) throw new AppError("Note id is required", 400);
 
   // Only allow updating these fields (do not allow changing entityId or author)
-  const { disposition, visitType, content, sample, delivery, payment, date } =
+  const { disposition, visitType, content, sample, delivery, payment, date, deliveryId } =
     req.body;
 
   // Validate date format if provided
@@ -146,6 +152,7 @@ export const updateNote = asyncHandler(async (req, res) => {
   if (delivery !== undefined) updates.delivery = delivery;
   if (payment !== undefined) updates.payment = payment;
   if (date !== undefined) updates.date = date;
+  if (deliveryId !== undefined) updates.deliveryId = deliveryId;
 
   // If no updatable fields present
   if (Object.keys(updates).length === 0) {

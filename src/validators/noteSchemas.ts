@@ -3,6 +3,7 @@ import { objectId, paginationQuery, dateString } from "./commonSchemas";
 
 export const createNoteSchema = z.object({
   entityId: objectId,
+  deliveryId: z.string().optional(),
   author: z.string().min(1, "Author is required"),
   disposition: z.string().optional(),
   visitType: z.string().optional(),
@@ -25,6 +26,7 @@ export const updateNoteSchema = createNoteSchema.partial().omit({ entityId: true
 
 export const getAllNotesQuery = paginationQuery.extend({
   entityId: z.string().optional(),
+  deliveryId: z.string().optional(),
   repId: z.string().optional(),
   date: z.string().optional(),
 });

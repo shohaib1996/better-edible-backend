@@ -2,6 +2,7 @@ import { Schema, model, Document, Types } from "mongoose";
 
 export interface INote extends Document {
   entityId: Types.ObjectId;
+  deliveryId?: Types.ObjectId;
   author: Types.ObjectId;
   date: string; // Client sends "YYYY-MM-DD HH:MM" from their device (PST timezone, 24hr format)
   disposition?: string;
@@ -25,6 +26,12 @@ const NoteSchema = new Schema<INote>(
       type: Schema.Types.ObjectId,
       ref: "Store",
       required: true,
+    },
+
+    deliveryId: {
+      type: Schema.Types.ObjectId,
+      ref: "Delivery",
+      required: false,
     },
 
     author: {
