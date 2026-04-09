@@ -7,7 +7,7 @@ import {
   updateOrder,
   changeOrderStatus,
   collectPayment,
-} from '../controllers/orderController';
+} from '../controllers/order/orderController';
 import { validate } from '../middleware/validate';
 import { idParam } from '../validators/commonSchemas';
 import {
