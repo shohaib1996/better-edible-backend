@@ -192,6 +192,123 @@ export const unprocessMold = asyncHandler(async (req, res) => {
 });
 
 // ─────────────────────────────────────────────────────────
+// getStage2UnloadItems
+// GET /api/pps/stage-2/unload-items
+// ─────────────────────────────────────────────────────────
+
+export const getStage2UnloadItems = asyncHandler(async (_req, res) => {
+  const cookItems = await CookItem.find({ status: "dehydrating_complete" })
+    .sort({ createdAt: 1 })
+    .lean();
+
+  const enriched = cookItems.map((item) => ({
+    ...item,
+    shelves: item.dehydratorAssignments.map((a) => ({
+      shelfLabel: `D${a.dehydratorUnitId.replace(/\D/g, "")}-S${a.shelfPosition}`,
+      trayId: a.trayId,
+      moldId: a.moldId,
+      dehydratorUnitId: a.dehydratorUnitId,
+      shelfPosition: a.shelfPosition,
+    })),
+  }));
+
+  res.json({ cookItems: enriched });
+});
+
+// ─────────────────────────────────────────────────────────
+// completeUnload
+// POST /api/pps/stage-2/unload-complete
+// ─────────────────────────────────────────────────────────
+
+export const completeUnload = asyncHandler(async (req, res) => {
+  const { cookItemId } = req.body;
+  const performedBy = extractPerformedBy(req.body);
+
+  if (!cookItemId) throw new AppError("cookItemId is required", 400);
+
+  const cookItem = await CookItem.findOne({ cookItemId });
+  if (!cookItem) throw new AppError("Cook item not found", 404);
+  if (cookItem.status !== "dehydrating_complete") {
+    throw new AppError(
+      `Cook item status is "${cookItem.status}", must be dehydrating_complete`,
+      400,
+    );
+  }
+
+  const now = new Date();
+
+  // Release all trays and shelves
+  const unitMap = new Map<string, any>();
+  const releasedTrays: string[] = [];
+  const releasedShelves: { dehydratorUnitId: string; shelfPosition: number }[] = [];
+
+  for (const assignment of cookItem.dehydratorAssignments) {
+    const tray = await DehydratorTray.findOne({ trayId: assignment.trayId });
+    if (tray) {
+      tray.status = "available";
+      tray.currentCookItemId = null;
+      tray.currentDehydratorUnitId = null;
+      tray.currentShelfPosition = null;
+      tray.lastUsedAt = now;
+      await tray.save();
+      releasedTrays.push(assignment.trayId);
+    }
+
+    if (!unitMap.has(assignment.dehydratorUnitId)) {
+      const unit = await DehydratorUnit.findOne({ unitId: assignment.dehydratorUnitId });
+      if (unit) unitMap.set(assignment.dehydratorUnitId, unit);
+    }
+    const unit = unitMap.get(assignment.dehydratorUnitId);
+    if (unit) {
+      unit.shelves.set(String(assignment.shelfPosition), {
+        occupied: false,
+        trayId: null,
+        cookItemId: null,
+      });
+      unit.markModified("shelves");
+      releasedShelves.push({
+        dehydratorUnitId: assignment.dehydratorUnitId,
+        shelfPosition: assignment.shelfPosition,
+      });
+    }
+  }
+
+  for (const unit of unitMap.values()) {
+    await unit.save();
+  }
+
+  // Mark all trays as removed if not already
+  const existingRemovedTrayIds = new Set(
+    cookItem.trayRemovalTimestamps.map((t) => t.trayId),
+  );
+  for (const assignment of cookItem.dehydratorAssignments) {
+    if (!existingRemovedTrayIds.has(assignment.trayId)) {
+      cookItem.trayRemovalTimestamps.push({
+        trayId: assignment.trayId,
+        removalTimestamp: now,
+      });
+    }
+  }
+
+  cookItem.status = "demolding_complete";
+  cookItem.demoldingCompletionTimestamp = now;
+  cookItem.labelPrintTimestamp = now;
+  cookItem.containerPackedTimestamp = now;
+
+  cookItem.history.push({
+    action: "unload_complete",
+    performedBy,
+    detail: `Unloaded ${releasedTrays.length} tray(s) from dehydrator`,
+    timestamp: now,
+  });
+
+  await ClientOrder.findByIdAndUpdate(cookItem.privateLabOrderId, { status: "demolding" });
+  await cookItem.save();
+
+  res.json({ success: true, cookItem, releasedTrays, releasedShelves });
+});
+
+// ─────────────────────────────────────────────────────────
 // getNextAvailableShelf
 // GET /api/pps/stage-2/next-available-shelf
 // ─────────────────────────────────────────────────────────

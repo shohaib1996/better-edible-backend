@@ -9,6 +9,8 @@ import {
   processMold,
   unprocessMold,
   getNextAvailableShelf,
+  getStage2UnloadItems,
+  completeUnload,
   getMolds,
   getDehydratorTrays,
   getDehydratorUnits,
@@ -50,6 +52,7 @@ import {
   updateMoldStatusSchema,
   bulkDeleteTraysSchema,
   updateTrayStatusSchema,
+  unloadCompleteSchema,
 } from "../validators/ppsSchemas";
 
 const router = Router();
@@ -69,6 +72,8 @@ router.get("/stage-2/cook-items", getStage2CookItems /* #swagger.tags = ['PPS'] 
 router.post("/stage-2/process-mold", validate({ body: processMoldSchema }), processMold /* #swagger.tags = ['PPS'] */);
 router.delete("/stage-2/unprocess-mold", validate({ body: unprocessMoldSchema }), unprocessMold /* #swagger.tags = ['PPS'] */);
 router.get("/stage-2/next-available-shelf", getNextAvailableShelf /* #swagger.tags = ['PPS'] */);
+router.get("/stage-2/unload-items", getStage2UnloadItems /* #swagger.tags = ['PPS'] */);
+router.post("/stage-2/unload-complete", validate({ body: unloadCompleteSchema }), completeUnload /* #swagger.tags = ['PPS'] */);
 
 // Resources
 router.get("/molds", getMolds /* #swagger.tags = ['PPS'] */);
