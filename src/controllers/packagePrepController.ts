@@ -200,16 +200,10 @@ export const applyLabels = async (
     });
 
     if (!inv) return next(new AppError("Inventory record not found", 404));
-    if (inv.unprocessed < quantity) {
-      return next(
-        new AppError(
-          `Cannot apply ${quantity} — only ${inv.unprocessed} unprocessed labels available`,
-          400,
-        ),
-      );
-    }
 
-    inv.unprocessed -= quantity;
+    // Allow applying any quantity — even if it exceeds current unprocessed stock
+    // (stock may be replenished before physical application completes)
+    inv.unprocessed = Math.max(0, inv.unprocessed - quantity);
     inv.labeled += quantity;
     await inv.save();
 
@@ -251,7 +245,9 @@ export const printLabels = async (
 
     inv.labeled -= quantity;
     inv.printed += quantity;
-    inv.lastPrintData = { lotNumber, thcPercent, testDate };
+    if (lotNumber || thcPercent || testDate) {
+      inv.lastPrintData = { lotNumber: lotNumber ?? "", thcPercent: thcPercent ?? "", testDate: testDate ?? "" };
+    }
     await inv.save();
 
     res.json({ success: true, inventory: inv });
@@ -340,6 +336,59 @@ export const getInventorySummary = async (
 // PATCH /api/pps/package-prep/inventory/:inventoryId/threshold
 // Body: { reorderThreshold }
 // ─────────────────────────────────────────────
+// ─────────────────────────────────────────────
+// ENDPOINT 9: bulkCreateLabelOrders (ADMIN ONLY)
+// POST /api/pps/package-prep/orders/bulk
+// Body: { orders: [{ storeId, labelId, quantityOrdered, notes? }][] }
+// ─────────────────────────────────────────────
+export const bulkCreateLabelOrders = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { orders } = req.body as {
+      orders: { storeId: string; labelId: string; quantityOrdered: number; notes?: string }[];
+    };
+
+    // Fetch all unique stores and labels in parallel
+    const storeIds = [...new Set(orders.map((o) => o.storeId))];
+    const labelIds = [...new Set(orders.map((o) => o.labelId))];
+
+    const [stores, labels] = await Promise.all([
+      Store.find({ _id: { $in: storeIds } }),
+      Label.find({ _id: { $in: labelIds } }),
+    ]);
+
+    const storeMap = new Map(stores.map((s) => [(s._id as any).toString(), s]));
+    const labelMap = new Map(labels.map((l) => [(l._id as any).toString(), l]));
+
+    const created = await Promise.all(
+      orders.map(async (o) => {
+        const store = storeMap.get(o.storeId);
+        const label = labelMap.get(o.labelId);
+        if (!store || !label) return null;
+
+        return LabelOrder.create({
+          storeId: new mongoose.Types.ObjectId(o.storeId),
+          storeName: store.name,
+          labelId: new mongoose.Types.ObjectId(o.labelId),
+          labelName: label.flavorName,
+          itemId: label.itemId || "",
+          quantityOrdered: o.quantityOrdered,
+          notes: o.notes,
+          orderedAt: new Date(),
+        });
+      }),
+    );
+
+    const successful = created.filter(Boolean);
+    res.status(201).json({ success: true, orders: successful, count: successful.length });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const setReorderThreshold = async (
   req: Request,
   res: Response,

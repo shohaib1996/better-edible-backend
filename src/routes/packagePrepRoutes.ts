@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   getActiveLabelOrders,
   createLabelOrder,
+  bulkCreateLabelOrders,
   receiveLabelOrder,
   getLabelInventory,
   applyLabels,
@@ -12,6 +13,7 @@ import {
 import { validate } from "../middleware/validate";
 import {
   createLabelOrderSchema,
+  bulkCreateLabelOrdersSchema,
   receiveLabelOrderSchema,
   applyLabelsSchema,
   printLabelsSchema,
@@ -23,6 +25,11 @@ const router = Router();
 
 // Orders
 router.get("/package-prep/orders", getActiveLabelOrders);
+router.post(
+  "/package-prep/orders/bulk",
+  validate({ body: bulkCreateLabelOrdersSchema }),
+  bulkCreateLabelOrders
+);
 router.post(
   "/package-prep/orders",
   validate({ body: createLabelOrderSchema }),
