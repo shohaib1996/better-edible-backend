@@ -4,6 +4,8 @@ import {
   createLabelOrder,
   bulkCreateLabelOrders,
   receiveLabelOrder,
+  updateLabelOrder,
+  deleteLabelOrder,
   getLabelInventory,
   applyLabels,
   printLabels,
@@ -15,6 +17,7 @@ import {
   createLabelOrderSchema,
   bulkCreateLabelOrdersSchema,
   receiveLabelOrderSchema,
+  updateLabelOrderSchema,
   applyLabelsSchema,
   printLabelsSchema,
   setReorderThresholdSchema,
@@ -40,6 +43,12 @@ router.post(
   validate({ body: receiveLabelOrderSchema }),
   receiveLabelOrder
 );
+router.patch(
+  "/package-prep/orders/:orderId",
+  validate({ body: updateLabelOrderSchema }),
+  updateLabelOrder
+);
+router.delete("/package-prep/orders/:orderId", deleteLabelOrder);
 
 // Inventory
 router.get(

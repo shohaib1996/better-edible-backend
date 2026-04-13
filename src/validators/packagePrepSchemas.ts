@@ -11,6 +11,15 @@ export const receiveLabelOrderSchema = z.object({
   quantityReceived: z.number().int().min(1),
 });
 
+export const updateLabelOrderSchema = z
+  .object({
+    quantityOrdered: z.number().int().min(1).optional(),
+    notes: z.string().optional(),
+  })
+  .refine((d) => d.quantityOrdered !== undefined || d.notes !== undefined, {
+    message: "At least one field must be provided",
+  });
+
 export const applyLabelsSchema = z.object({
   storeId: z.string().min(1),
   labelId: z.string().min(1),

@@ -389,6 +389,63 @@ export const bulkCreateLabelOrders = async (
   }
 };
 
+// ─────────────────────────────────────────────
+// ENDPOINT 10: updateLabelOrder (ADMIN ONLY)
+// PATCH /api/pps/package-prep/orders/:orderId
+// Body: { quantityOrdered?, notes? }
+// Only allowed while status is "on_order"
+// ─────────────────────────────────────────────
+export const updateLabelOrder = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { orderId } = req.params;
+    const { quantityOrdered, notes } = req.body;
+
+    const order = await LabelOrder.findById(orderId);
+    if (!order) return next(new AppError("Label order not found", 404));
+    if (order.status !== "on_order") {
+      return next(new AppError("Only on_order orders can be edited", 400));
+    }
+
+    if (quantityOrdered !== undefined) order.quantityOrdered = quantityOrdered;
+    if (notes !== undefined) order.notes = notes;
+    await order.save();
+
+    res.json({ success: true, order });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// ─────────────────────────────────────────────
+// ENDPOINT 11: deleteLabelOrder (ADMIN ONLY)
+// DELETE /api/pps/package-prep/orders/:orderId
+// Only allowed while status is "on_order"
+// ─────────────────────────────────────────────
+export const deleteLabelOrder = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { orderId } = req.params;
+
+    const order = await LabelOrder.findById(orderId);
+    if (!order) return next(new AppError("Label order not found", 404));
+    if (order.status !== "on_order") {
+      return next(new AppError("Only on_order orders can be deleted", 400));
+    }
+
+    await order.deleteOne();
+    res.json({ success: true });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const setReorderThreshold = async (
   req: Request,
   res: Response,
