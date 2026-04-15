@@ -30,6 +30,7 @@ import dehydratorUnitRoutes from "./routes/dehydratorUnitRoutes";
 import caseRoutes from "./routes/caseRoutes";
 import ppsRoutes from "./routes/ppsRoutes";
 import packagePrepRoutes from "./routes/packagePrepRoutes";
+import oilRoutes from "./routes/oilRoutes";
 
 // 👉 dotenv ONLY for local development
 if (process.env.NODE_ENV === "development") {
@@ -88,6 +89,7 @@ app.use("/api/dehydrator-units", dehydratorUnitRoutes);
 app.use("/api/cases", caseRoutes);
 app.use("/api/pps", ppsRoutes);
 app.use("/api/pps", packagePrepRoutes);
+app.use("/api/oil", oilRoutes);
 
 app.get("/", (_req, res) => {
   res.send("Rep Order System API is running... yep 4th time");
