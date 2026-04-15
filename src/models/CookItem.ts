@@ -93,6 +93,11 @@ export interface ICookItem extends Document {
   labelPrintTimestamp?: Date;
   demoldingCompletionTimestamp?: Date;
 
+  // Oil Usage (Stage 1)
+  oilContainerId?: string;
+  oilCalculatedAmount?: number;
+  oilActualAmount?: number;
+
   // Bag & Seal Stage Data
   baggingStartTimestamp?: Date;
   sealingStartTimestamp?: Date;
@@ -225,6 +230,11 @@ const CookItemSchema = new Schema<ICookItem>(
     containerPackedTimestamp: Date,
     labelPrintTimestamp: Date,
     demoldingCompletionTimestamp: Date,
+
+    // Oil Usage (Stage 1)
+    oilContainerId: { type: String },
+    oilCalculatedAmount: { type: Number },
+    oilActualAmount: { type: Number },
 
     // Bag & Seal Stage Data
     baggingStartTimestamp: Date,

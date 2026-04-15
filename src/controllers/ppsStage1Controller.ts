@@ -1,5 +1,6 @@
 import { CookItem } from "../models/CookItem";
 import { Mold } from "../models/Mold";
+import { OilContainer } from "../models/OilContainer";
 import { asyncHandler } from "../utils/asyncHandler";
 import { AppError } from "../utils/AppError";
 import { extractPerformedBy } from "./ppsHelpers";
@@ -218,7 +219,7 @@ export const unassignMold = asyncHandler(async (req, res) => {
 // ─────────────────────────────────────────────────────────
 
 export const completeStage1 = asyncHandler(async (req, res) => {
-  const { cookItemId } = req.body;
+  const { cookItemId, oilContainerId, oilCalculatedAmount, oilActualAmount } = req.body;
   const performedBy = extractPerformedBy(req.body);
 
   if (!cookItemId) throw new AppError("cookItemId is required", 400);
@@ -233,6 +234,42 @@ export const completeStage1 = asyncHandler(async (req, res) => {
   }
   if (!cookItem.assignedMoldIds || cookItem.assignedMoldIds.length === 0) {
     throw new AppError("No molds assigned to this cook item", 400);
+  }
+
+  // ── Oil drawdown (optional — only if container was selected) ──
+  if (oilContainerId && oilActualAmount) {
+    const container = await OilContainer.findOne({ containerId: oilContainerId });
+    if (!container) throw new AppError(`Oil container "${oilContainerId}" not found`, 404);
+    if (container.status !== "active") {
+      throw new AppError(`Oil container is "${container.status}" — not available`, 400);
+    }
+    if (container.remainingAmount < oilActualAmount) {
+      throw new AppError(
+        `Insufficient oil — container has ${container.remainingAmount}g, need ${oilActualAmount}g`,
+        400,
+      );
+    }
+
+    const balanceBefore = container.remainingAmount;
+    container.remainingAmount = Math.round((container.remainingAmount - oilActualAmount) * 100) / 100;
+    if (container.remainingAmount <= 0) {
+      container.remainingAmount = 0;
+      container.status = "empty";
+    }
+    container.history.push({
+      action: "drawdown",
+      amount: oilActualAmount,
+      balanceBefore,
+      balanceAfter: container.remainingAmount,
+      performedBy: { userId: performedBy.userId, userName: performedBy.userName },
+      note: `CookItem: ${cookItemId}`,
+      timestamp: new Date(),
+    });
+    await container.save();
+
+    cookItem.oilContainerId = oilContainerId;
+    cookItem.oilCalculatedAmount = oilCalculatedAmount;
+    cookItem.oilActualAmount = oilActualAmount;
   }
 
   const now = new Date();

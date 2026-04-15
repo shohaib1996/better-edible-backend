@@ -40,6 +40,9 @@ export const unassignMoldSchema = z.object({
 
 export const completeStage1Schema = z.object({
   cookItemId: z.string().min(1, "cookItemId is required"),
+  oilContainerId: z.string().optional(),
+  oilCalculatedAmount: z.number().min(0).optional(),
+  oilActualAmount: z.number().min(0).optional(),
   performedBy: performedBySchema,
 });
 
