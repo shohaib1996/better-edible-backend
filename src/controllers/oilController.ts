@@ -308,20 +308,47 @@ export const createWasteLog = asyncHandler(async (req, res) => {
   const { date, material, amount, reason, sourceContainerId, notes } = req.body;
   const performedBy = extractPerformedBy(req.body);
 
-  // Verify the source container exists
-  const container = await OilContainer.findOne({ containerId: sourceContainerId }).lean();
+  const container = await OilContainer.findOne({ containerId: sourceContainerId });
   if (!container) throw new AppError("Source container not found", 404);
 
-  const wasteLog = await WasteLog.create({
-    date: new Date(date),
-    material,
+  if (container.remainingAmount < amount) {
+    throw new AppError(
+      `Insufficient oil — container has ${container.remainingAmount}g, cannot log ${amount}g as waste`,
+      400
+    );
+  }
+
+  const balanceBefore = container.remainingAmount;
+  container.remainingAmount = Math.round((container.remainingAmount - amount) * 100) / 100;
+
+  if (container.remainingAmount <= 0) {
+    container.remainingAmount = 0;
+    container.status = "empty";
+  }
+
+  container.history.push({
+    action: "manual_adjustment",
     amount,
-    reason,
-    sourceContainerId,
-    loggedBy: performedBy,
-    notes,
-    isAutomatic: false,
+    balanceBefore,
+    balanceAfter: container.remainingAmount,
+    performedBy,
+    note: `${reason}${notes ? ` — ${notes}` : ""}`,
+    timestamp: new Date(),
   });
+
+  const [wasteLog] = await Promise.all([
+    WasteLog.create({
+      date: new Date(date),
+      material,
+      amount,
+      reason,
+      sourceContainerId,
+      loggedBy: performedBy,
+      notes,
+      isAutomatic: false,
+    }),
+    container.save(),
+  ]);
 
   res.status(201).json({ success: true, wasteLog });
 });
