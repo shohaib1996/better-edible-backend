@@ -1,6 +1,8 @@
 import { CookItem } from "../models/CookItem";
 import { Mold } from "../models/Mold";
 import { OilContainer } from "../models/OilContainer";
+import { Flavor } from "../models/Flavor";
+import { ProductColor } from "../models/ProductColor";
 import { asyncHandler } from "../utils/asyncHandler";
 import { AppError } from "../utils/AppError";
 import { extractPerformedBy } from "./ppsHelpers";
@@ -285,6 +287,132 @@ export const completeStage1 = asyncHandler(async (req, res) => {
   cookItem.history.push({
     action: "stage_1_complete",
     performedBy,
+    timestamp: now,
+  });
+
+  await cookItem.save();
+
+  res.json({ success: true, cookItem });
+});
+
+// ─────────────────────────────────────────────────────────
+// setFlavorColor
+// PATCH /api/pps/stage-1/set-flavor-color
+// First-time flavor & color entry for a cook item
+// ─────────────────────────────────────────────────────────
+
+export const setFlavorColor = asyncHandler(async (req, res) => {
+  const { cookItemId, flavorAmounts, colorAmounts } = req.body;
+  const performedBy = extractPerformedBy(req.body);
+
+  if (!cookItemId) throw new AppError("cookItemId is required", 400);
+  if (!Array.isArray(flavorAmounts) || flavorAmounts.length === 0) {
+    throw new AppError("flavorAmounts must be a non-empty array", 400);
+  }
+  if (!Array.isArray(colorAmounts)) {
+    throw new AppError("colorAmounts must be an array", 400);
+  }
+
+  const cookItem = await CookItem.findOne({ cookItemId });
+  if (!cookItem) throw new AppError("Cook item not found", 404);
+
+  // Validate all flavorIds exist and are active
+  const flavorIds = flavorAmounts.map((f: any) => f.flavorId);
+  const flavors = await Flavor.find({ flavorId: { $in: flavorIds }, isActive: true }).lean();
+  if (flavors.length !== flavorIds.length) {
+    throw new AppError("One or more flavors not found or inactive", 400);
+  }
+
+  // Validate all colorIds exist and are active (if any provided)
+  const colorIds = colorAmounts.map((c: any) => c.colorId);
+  if (colorIds.length > 0) {
+    const colors = await ProductColor.find({ colorId: { $in: colorIds }, isActive: true }).lean();
+    if (colors.length !== colorIds.length) {
+      throw new AppError("One or more colors not found or inactive", 400);
+    }
+  }
+
+  const now = new Date();
+  cookItem.flavorIds = flavorIds;
+  cookItem.flavorAmounts = flavorAmounts;
+  cookItem.colorIds = colorIds;
+  cookItem.colorAmounts = colorAmounts;
+  cookItem.flavorColorSetAt = now;
+  cookItem.flavorColorSetBy = {
+    userId: performedBy.userId,
+    userName: performedBy.userName,
+  };
+
+  cookItem.history.push({
+    action: "flavor_color_set",
+    performedBy,
+    detail: `Flavors: ${flavorIds.join(", ")}${colorIds.length ? ` | Colors: ${colorIds.join(", ")}` : ""}`,
+    timestamp: now,
+  });
+
+  await cookItem.save();
+
+  res.json({ success: true, cookItem });
+});
+
+// ─────────────────────────────────────────────────────────
+// editFlavorColor
+// PATCH /api/pps/stage-1/edit-flavor-color
+// Edit existing flavor & color — records edit history and notifies admin
+// ─────────────────────────────────────────────────────────
+
+export const editFlavorColor = asyncHandler(async (req, res) => {
+  const { cookItemId, flavorAmounts, colorAmounts, note } = req.body;
+  const performedBy = extractPerformedBy(req.body);
+
+  if (!cookItemId) throw new AppError("cookItemId is required", 400);
+  if (!Array.isArray(flavorAmounts) || flavorAmounts.length === 0) {
+    throw new AppError("flavorAmounts must be a non-empty array", 400);
+  }
+  if (!Array.isArray(colorAmounts)) {
+    throw new AppError("colorAmounts must be an array", 400);
+  }
+
+  const cookItem = await CookItem.findOne({ cookItemId });
+  if (!cookItem) throw new AppError("Cook item not found", 404);
+  if (!cookItem.flavorColorSetAt) {
+    throw new AppError("Flavor/color has not been set yet — use set-flavor-color first", 400);
+  }
+
+  // Validate flavors
+  const flavorIds = flavorAmounts.map((f: any) => f.flavorId);
+  const flavors = await Flavor.find({ flavorId: { $in: flavorIds }, isActive: true }).lean();
+  if (flavors.length !== flavorIds.length) {
+    throw new AppError("One or more flavors not found or inactive", 400);
+  }
+
+  // Validate colors
+  const colorIds = colorAmounts.map((c: any) => c.colorId);
+  if (colorIds.length > 0) {
+    const colors = await ProductColor.find({ colorId: { $in: colorIds }, isActive: true }).lean();
+    if (colors.length !== colorIds.length) {
+      throw new AppError("One or more colors not found or inactive", 400);
+    }
+  }
+
+  const now = new Date();
+
+  // Push to edit history before overwriting
+  cookItem.flavorColorEditHistory.push({
+    editedBy: { userId: performedBy.userId, userName: performedBy.userName },
+    editedAt: now,
+    note: note ?? undefined,
+  });
+
+  cookItem.flavorIds = flavorIds;
+  cookItem.flavorAmounts = flavorAmounts;
+  cookItem.colorIds = colorIds;
+  cookItem.colorAmounts = colorAmounts;
+
+  cookItem.history.push({
+    action: "flavor_color_edited",
+    performedBy,
+    detail: `Updated flavors: ${flavorIds.join(", ")}${colorIds.length ? ` | Colors: ${colorIds.join(", ")}` : ""}${note ? ` | Note: ${note}` : ""}`,
     timestamp: now,
   });
 
