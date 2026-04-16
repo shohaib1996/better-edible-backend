@@ -98,6 +98,19 @@ export interface ICookItem extends Document {
   oilCalculatedAmount?: number;
   oilActualAmount?: number;
 
+  // Flavor & Color (Stage 1 — cook entry)
+  flavorIds: string[];
+  flavorAmounts: { flavorId: string; amountGrams: number }[];
+  colorIds: string[];
+  colorAmounts: { colorId: string; amountGrams: number }[];
+  flavorColorSetAt?: Date;
+  flavorColorSetBy?: { userId: string; userName: string };
+  flavorColorEditHistory: {
+    editedBy: { userId: string; userName: string };
+    editedAt: Date;
+    note?: string;
+  }[];
+
   // Bag & Seal Stage Data
   baggingStartTimestamp?: Date;
   sealingStartTimestamp?: Date;
@@ -122,6 +135,34 @@ export interface ICookItem extends Document {
 // ─────────────────────────────
 // SUB-SCHEMAS
 // ─────────────────────────────
+
+const FlavorAmountSchema = new Schema(
+  {
+    flavorId: { type: String, required: true },
+    amountGrams: { type: Number, required: true },
+  },
+  { _id: false }
+);
+
+const ColorAmountSchema = new Schema(
+  {
+    colorId: { type: String, required: true },
+    amountGrams: { type: Number, required: true },
+  },
+  { _id: false }
+);
+
+const FlavorColorEditSchema = new Schema(
+  {
+    editedBy: {
+      userId: { type: String, required: true },
+      userName: { type: String, required: true },
+    },
+    editedAt: { type: Date, required: true },
+    note: { type: String },
+  },
+  { _id: false }
+);
 
 const FormulationComponentSchema = new Schema<IFormulationComponent>(
   {
@@ -235,6 +276,20 @@ const CookItemSchema = new Schema<ICookItem>(
     oilContainerId: { type: String },
     oilCalculatedAmount: { type: Number },
     oilActualAmount: { type: Number },
+
+    // Flavor & Color (Stage 1 — cook entry)
+    flavorIds: { type: [String], default: [] },
+    flavorAmounts: { type: [FlavorAmountSchema], default: [] },
+    colorIds: { type: [String], default: [] },
+    colorAmounts: { type: [ColorAmountSchema], default: [] },
+    flavorColorSetAt: Date,
+    flavorColorSetBy: {
+      type: new Schema(
+        { userId: { type: String }, userName: { type: String } },
+        { _id: false }
+      ),
+    },
+    flavorColorEditHistory: { type: [FlavorColorEditSchema], default: [] },
 
     // Bag & Seal Stage Data
     baggingStartTimestamp: Date,
