@@ -126,3 +126,28 @@ export const bulkDeleteTraysSchema = z.object({
 export const updateTrayStatusSchema = z.object({
   status: z.enum(["available", "in-use"]),
 });
+
+const flavorAmountSchema = z.object({
+  flavorId: z.string().min(1, "flavorId is required"),
+  amountGrams: z.number().min(0, "amountGrams must be >= 0"),
+});
+
+const colorAmountSchema = z.object({
+  colorId: z.string().min(1, "colorId is required"),
+  amountGrams: z.number().min(0, "amountGrams must be >= 0"),
+});
+
+export const setFlavorColorSchema = z.object({
+  cookItemId: z.string().min(1, "cookItemId is required"),
+  flavorAmounts: z.array(flavorAmountSchema).min(1, "at least one flavor is required"),
+  colorAmounts: z.array(colorAmountSchema),
+  performedBy: performedBySchema,
+});
+
+export const editFlavorColorSchema = z.object({
+  cookItemId: z.string().min(1, "cookItemId is required"),
+  flavorAmounts: z.array(flavorAmountSchema).min(1, "at least one flavor is required"),
+  colorAmounts: z.array(colorAmountSchema),
+  note: z.string().optional(),
+  performedBy: performedBySchema,
+});

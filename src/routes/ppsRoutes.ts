@@ -5,6 +5,8 @@ import {
   assignMold,
   unassignMold,
   completeStage1,
+  setFlavorColor,
+  editFlavorColor,
   getStage2CookItems,
   processMold,
   unprocessMold,
@@ -53,6 +55,8 @@ import {
   bulkDeleteTraysSchema,
   updateTrayStatusSchema,
   unloadCompleteSchema,
+  setFlavorColorSchema,
+  editFlavorColorSchema,
 } from "../validators/ppsSchemas";
 
 const router = Router();
@@ -66,6 +70,8 @@ router.get("/stage-1/cook-items", validate({ query: getStage1Query }), getStage1
 router.post("/stage-1/assign-mold", validate({ body: assignMoldSchema }), assignMold /* #swagger.tags = ['PPS'] */);
 router.delete("/stage-1/unassign-mold", validate({ body: unassignMoldSchema }), unassignMold /* #swagger.tags = ['PPS'] */);
 router.patch("/stage-1/complete", validate({ body: completeStage1Schema }), completeStage1 /* #swagger.tags = ['PPS'] */);
+router.patch("/stage-1/set-flavor-color", validate({ body: setFlavorColorSchema }), setFlavorColor /* #swagger.tags = ['PPS'] */);
+router.patch("/stage-1/edit-flavor-color", validate({ body: editFlavorColorSchema }), editFlavorColor /* #swagger.tags = ['PPS'] */);
 
 // Stage 2 - Dehydrating
 router.get("/stage-2/cook-items", getStage2CookItems /* #swagger.tags = ['PPS'] */);

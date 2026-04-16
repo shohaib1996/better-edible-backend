@@ -6,13 +6,20 @@ import {
   toggleFlavor,
   updateFlavor,
 } from "../controllers/flavorController";
+import { validate } from "../middleware/validate";
+import {
+  getFlavorsQuery,
+  createFlavorSchema,
+  findOrCreateBlendSchema,
+  updateFlavorSchema,
+} from "../validators/flavorSchemas";
 
 const router = Router();
 
-router.get("/", getFlavors /* #swagger.tags = ['Flavors'] */);
-router.post("/", createFlavor /* #swagger.tags = ['Flavors'] */);
-router.post("/blend", findOrCreateBlend /* #swagger.tags = ['Flavors'] */);
+router.get("/", validate({ query: getFlavorsQuery }), getFlavors /* #swagger.tags = ['Flavors'] */);
+router.post("/", validate({ body: createFlavorSchema }), createFlavor /* #swagger.tags = ['Flavors'] */);
+router.post("/blend", validate({ body: findOrCreateBlendSchema }), findOrCreateBlend /* #swagger.tags = ['Flavors'] */);
 router.patch("/:flavorId/toggle", toggleFlavor /* #swagger.tags = ['Flavors'] */);
-router.patch("/:flavorId", updateFlavor /* #swagger.tags = ['Flavors'] */);
+router.patch("/:flavorId", validate({ body: updateFlavorSchema }), updateFlavor /* #swagger.tags = ['Flavors'] */);
 
 export default router;
