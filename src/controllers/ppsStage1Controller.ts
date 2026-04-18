@@ -89,7 +89,7 @@ export const bulkCreateCookItems = asyncHandler(async (req, res) => {
 });
 
 // ─────────────────────────────────────────────────────────
-// getStage1CookItems
+// getStage1CookItem
 // GET /api/pps/stage-1/cook-items
 // ─────────────────────────────────────────────────────────
 
