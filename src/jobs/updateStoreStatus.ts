@@ -24,7 +24,6 @@ export const updateStoreStatuses = async () => {
 
       // Skip invalid reps
       if (store.rep === null || store.rep === undefined) {
-        // @ts-expect-error setting rep to undefined to clear populated field
         store.rep = undefined;
       }
 
