@@ -28,17 +28,32 @@ router.get("/public/approve/:token", getLabelForApproval /* #swagger.tags = ['La
 router.post("/public/approve/:token", approveLabelPublic /* #swagger.tags = ['Labels'] */);
 
 // GET routes
-router.get("/", validate({ query: getAllLabelsQuery }), getAllLabels /* #swagger.tags = ['Labels'] */);
-router.get("/client/:clientId/approved", getApprovedLabelsByClient /* #swagger.tags = ['Labels'] */);
+router.get(
+  "/",
+  validate({ query: getAllLabelsQuery }),
+  getAllLabels /* #swagger.tags = ['Labels'] */
+);
+router.get(
+  "/client/:clientId/approved",
+  getApprovedLabelsByClient /* #swagger.tags = ['Labels'] */
+);
 router.get("/:id", validate({ params: idParam }), getLabelById /* #swagger.tags = ['Labels'] */);
 
 // POST routes (with file upload)
 router.post("/", upload.array("labelImages", 5), createLabel /* #swagger.tags = ['Labels'] */);
 
 // PATCH routes
-router.patch("/bulk/stage", validate({ body: bulkUpdateLabelStagesSchema }), bulkUpdateLabelStages /* #swagger.tags = ['Labels'] */); // Must be before /:id routes
+router.patch(
+  "/bulk/stage",
+  validate({ body: bulkUpdateLabelStagesSchema }),
+  bulkUpdateLabelStages /* #swagger.tags = ['Labels'] */
+); // Must be before /:id routes
 router.patch("/:id", upload.array("labelImages", 5), updateLabel /* #swagger.tags = ['Labels'] */);
-router.patch("/:id/stage", validate({ params: idParam, body: updateLabelStageSchema }), updateLabelStage /* #swagger.tags = ['Labels'] */);
+router.patch(
+  "/:id/stage",
+  validate({ params: idParam, body: updateLabelStageSchema }),
+  updateLabelStage /* #swagger.tags = ['Labels'] */
+);
 
 // PUT routes (alias for PATCH)
 router.put("/:id", upload.array("labelImages", 5), updateLabel /* #swagger.tags = ['Labels'] */);

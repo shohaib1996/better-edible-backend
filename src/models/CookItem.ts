@@ -284,10 +284,7 @@ const CookItemSchema = new Schema<ICookItem>(
     colorAmounts: { type: [ColorAmountSchema], default: [] },
     flavorColorSetAt: Date,
     flavorColorSetBy: {
-      type: new Schema(
-        { userId: { type: String }, userName: { type: String } },
-        { _id: false }
-      ),
+      type: new Schema({ userId: { type: String }, userName: { type: String } }, { _id: false }),
     },
     flavorColorEditHistory: { type: [FlavorColorEditSchema], default: [] },
 

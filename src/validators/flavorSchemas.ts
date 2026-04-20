@@ -6,9 +6,7 @@ export const createFlavorSchema = z.object({
 });
 
 export const findOrCreateBlendSchema = z.object({
-  blendOf: z
-    .array(z.string().min(1))
-    .min(2, "blendOf must contain at least 2 flavorIds"),
+  blendOf: z.array(z.string().min(1)).min(2, "blendOf must contain at least 2 flavorIds"),
   name: z.string().min(1).optional(),
   defaultAmount: z.number().min(0).optional(),
 });

@@ -15,10 +15,7 @@ function calcPull(
   moldCount: number
 ): { netPerMold: number; totalPull: number } {
   const potencyDecimal = potency / 100;
-  const netPerMold =
-    cannabisType === "BioMax"
-      ? 14.84 / potencyDecimal
-      : 7 / potencyDecimal;
+  const netPerMold = cannabisType === "BioMax" ? 14.84 / potencyDecimal : 7 / potencyDecimal;
   const totalPull = netPerMold * moldCount + CLING_GRAMS;
   return { netPerMold, totalPull };
 }
@@ -50,7 +47,7 @@ export const getContainers = asyncHandler(async (req, res) => {
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(Number(limit))
-      .select("-history")   // omit history in list view for performance
+      .select("-history") // omit history in list view for performance
       .lean(),
     OilContainer.countDocuments(filter),
   ]);
@@ -288,11 +285,7 @@ export const getWasteLogs = asyncHandler(async (req, res) => {
   const skip = (Number(page) - 1) * Number(limit);
 
   const [wasteLogs, total] = await Promise.all([
-    WasteLog.find(filter)
-      .sort({ date: -1 })
-      .skip(skip)
-      .limit(Number(limit))
-      .lean(),
+    WasteLog.find(filter).sort({ date: -1 }).skip(skip).limit(Number(limit)).lean(),
     WasteLog.countDocuments(filter),
   ]);
 

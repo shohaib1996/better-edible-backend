@@ -20,7 +20,4 @@ const DeliveryOrderSchema = new Schema<IDeliveryOrder>(
 
 DeliveryOrderSchema.index({ repId: 1, date: 1 }, { unique: true });
 
-export const DeliveryOrder = model<IDeliveryOrder>(
-  "DeliveryOrder",
-  DeliveryOrderSchema
-);
+export const DeliveryOrder = model<IDeliveryOrder>("DeliveryOrder", DeliveryOrderSchema);

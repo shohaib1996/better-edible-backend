@@ -57,7 +57,7 @@ const PrivateLabelClientSchema = new Schema<IPrivateLabelClient>(
       },
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 // -------------------
@@ -82,9 +82,7 @@ PrivateLabelClientSchema.methods.hasRecurringSchedule = function () {
 // -------------------
 PrivateLabelClientSchema.pre("save", function (next) {
   if (this.recurringSchedule.enabled && !this.recurringSchedule.interval) {
-    return next(
-      new Error("Interval is required when recurring schedule is enabled"),
-    );
+    return next(new Error("Interval is required when recurring schedule is enabled"));
   }
   next();
 });
@@ -94,5 +92,5 @@ PrivateLabelClientSchema.pre("save", function (next) {
 // -------------------
 export const PrivateLabelClient = model<IPrivateLabelClient>(
   "PrivateLabelClient",
-  PrivateLabelClientSchema,
+  PrivateLabelClientSchema
 );

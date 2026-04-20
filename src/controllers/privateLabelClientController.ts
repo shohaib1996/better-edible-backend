@@ -115,8 +115,7 @@ export const getClientsWithApprovedLabels = asyncHandler(async (req, res) => {
 
 // CREATE CLIENT
 export const createClient = asyncHandler(async (req, res) => {
-  const { storeId, contactEmail, assignedRepId, recurringSchedule } =
-    req.body;
+  const { storeId, contactEmail, assignedRepId, recurringSchedule } = req.body;
 
   // Validate store exists
   const store = await Store.findById(storeId);

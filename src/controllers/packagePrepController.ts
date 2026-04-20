@@ -11,11 +11,7 @@ import { AppError } from "../utils/AppError";
 // GET /api/pps/package-prep/orders
 // Returns all orders with status "on_order" sorted by orderedAt desc
 // ─────────────────────────────────────────────
-export const getActiveLabelOrders = async (
-  _req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+export const getActiveLabelOrders = async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const orders = await LabelOrder.find({ status: "on_order" }).sort({
       orderedAt: -1,
@@ -23,14 +19,9 @@ export const getActiveLabelOrders = async (
 
     // Attach label image URL by looking up each
     const labelIds = [...new Set(orders.map((o) => o.labelId.toString()))];
-    const labels = await Label.find({ _id: { $in: labelIds } }).select(
-      "labelImages",
-    );
+    const labels = await Label.find({ _id: { $in: labelIds } }).select("labelImages");
     const labelImageMap = new Map(
-      labels.map((l) => [
-        (l._id as any).toString(),
-        (l as any).labelImages?.[0]?.secureUrl ?? null,
-      ]),
+      labels.map((l) => [(l._id as any).toString(), (l as any).labelImages?.[0]?.secureUrl ?? null])
     );
 
     const ordersWithImage = orders.map((o) => ({
@@ -48,19 +39,12 @@ export const getActiveLabelOrders = async (
 // ENDPOINT 2: createLabelOrder (ADMIN ONLY)
 // POST /api/pps/package-prep/orders
 // ─────────────────────────────────────────────
-export const createLabelOrder = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+export const createLabelOrder = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { storeId, labelId, quantityOrdered, notes } = req.body;
 
     // Fetch store and label for
-    const [store, label] = await Promise.all([
-      Store.findById(storeId),
-      Label.findById(labelId),
-    ]);
+    const [store, label] = await Promise.all([Store.findById(storeId), Label.findById(labelId)]);
 
     if (!store) return next(new AppError("Store not found", 404));
     if (!label) return next(new AppError("Label not found", 404));
@@ -88,11 +72,7 @@ export const createLabelOrder = async (
 // Body: { quantityReceived }
 // No upper bound — may receive more than ordered
 // ─────────────────────────────────────────────
-export const receiveLabelOrder = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+export const receiveLabelOrder = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { orderId } = req.params;
     const { quantityReceived } = req.body;
@@ -119,7 +99,7 @@ export const receiveLabelOrder = async (
           itemId: order.itemId,
         },
       },
-      { upsert: true, new: true },
+      { upsert: true, new: true }
     );
 
     res.json({ success: true, order, inventory });
@@ -133,11 +113,7 @@ export const receiveLabelOrder = async (
 // GET /api/pps/package-prep/inventory
 // Query: storeId? (optional filter)
 // ─────────────────────────────────────────────
-export const getLabelInventory = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+export const getLabelInventory = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { storeId } = req.query as { storeId?: string };
 
@@ -151,14 +127,9 @@ export const getLabelInventory = async (
 
     // Attach label image URLs
     const labelIds = [...new Set(docs.map((d) => d.labelId.toString()))];
-    const labels = await Label.find({ _id: { $in: labelIds } }).select(
-      "labelImages",
-    );
+    const labels = await Label.find({ _id: { $in: labelIds } }).select("labelImages");
     const labelImageMap = new Map(
-      labels.map((l) => [
-        (l._id as any).toString(),
-        (l as any).labelImages?.[0]?.secureUrl ?? null,
-      ]),
+      labels.map((l) => [(l._id as any).toString(), (l as any).labelImages?.[0]?.secureUrl ?? null])
     );
 
     // Annotate each with belowThreshold flag and labelImageUrl
@@ -168,8 +139,7 @@ export const getLabelInventory = async (
       return {
         ...obj,
         totalStock,
-        belowThreshold:
-          doc.reorderThreshold > 0 && totalStock < doc.reorderThreshold,
+        belowThreshold: doc.reorderThreshold > 0 && totalStock < doc.reorderThreshold,
         labelImageUrl: labelImageMap.get(doc.labelId.toString()) ?? null,
       };
     });
@@ -186,11 +156,7 @@ export const getLabelInventory = async (
 // Body: { storeId, labelId, quantity }
 // Moves units from unprocessed → labeled
 // ─────────────────────────────────────────────
-export const applyLabels = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+export const applyLabels = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { storeId, labelId, quantity } = req.body;
 
@@ -219,14 +185,9 @@ export const applyLabels = async (
 // Body: { storeId, labelId, quantity, lotNumber, thcPercent, testDate }
 // Moves units from labeled → printed
 // ─────────────────────────────────────────────
-export const printLabels = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+export const printLabels = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { storeId, labelId, quantity, lotNumber, thcPercent, testDate } =
-      req.body;
+    const { storeId, labelId, quantity, lotNumber, thcPercent, testDate } = req.body;
 
     const inv = await LabelInventory.findOne({
       storeId: new mongoose.Types.ObjectId(storeId),
@@ -236,17 +197,18 @@ export const printLabels = async (
     if (!inv) return next(new AppError("Inventory record not found", 404));
     if (inv.labeled < quantity) {
       return next(
-        new AppError(
-          `Cannot print ${quantity} — only ${inv.labeled} labeled bags available`,
-          400,
-        ),
+        new AppError(`Cannot print ${quantity} — only ${inv.labeled} labeled bags available`, 400)
       );
     }
 
     inv.labeled -= quantity;
     inv.printed += quantity;
     if (lotNumber || thcPercent || testDate) {
-      inv.lastPrintData = { lotNumber: lotNumber ?? "", thcPercent: thcPercent ?? "", testDate: testDate ?? "" };
+      inv.lastPrintData = {
+        lotNumber: lotNumber ?? "",
+        thcPercent: thcPercent ?? "",
+        testDate: testDate ?? "",
+      };
     }
     await inv.save();
 
@@ -261,11 +223,7 @@ export const printLabels = async (
 // GET /api/pps/package-prep/inventory/summary
 // Returns aggregated totals across all stores
 // ─────────────────────────────────────────────
-export const getInventorySummary = async (
-  _req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+export const getInventorySummary = async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const docs = await LabelInventory.find().sort({
       storeName: 1,
@@ -296,8 +254,7 @@ export const getInventorySummary = async (
       totalPrinted += doc.printed;
 
       const totalStock = doc.unprocessed + doc.labeled + doc.printed;
-      const isBelowThreshold =
-        doc.reorderThreshold > 0 && totalStock < doc.reorderThreshold;
+      const isBelowThreshold = doc.reorderThreshold > 0 && totalStock < doc.reorderThreshold;
       if (isBelowThreshold) belowThresholdCount++;
 
       const storeKey = doc.storeId.toString();
@@ -341,11 +298,7 @@ export const getInventorySummary = async (
 // POST /api/pps/package-prep/orders/bulk
 // Body: { orders: [{ storeId, labelId, quantityOrdered, notes? }][] }
 // ─────────────────────────────────────────────
-export const bulkCreateLabelOrders = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+export const bulkCreateLabelOrders = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { orders } = req.body as {
       orders: { storeId: string; labelId: string; quantityOrdered: number; notes?: string }[];
@@ -379,7 +332,7 @@ export const bulkCreateLabelOrders = async (
           notes: o.notes,
           orderedAt: new Date(),
         });
-      }),
+      })
     );
 
     const successful = created.filter(Boolean);
@@ -395,11 +348,7 @@ export const bulkCreateLabelOrders = async (
 // Body: { quantityOrdered?, notes? }
 // Only allowed while status is "on_order"
 // ─────────────────────────────────────────────
-export const updateLabelOrder = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+export const updateLabelOrder = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { orderId } = req.params;
     const { quantityOrdered, notes } = req.body;
@@ -425,11 +374,7 @@ export const updateLabelOrder = async (
 // DELETE /api/pps/package-prep/orders/:orderId
 // Only allowed while status is "on_order"
 // ─────────────────────────────────────────────
-export const deleteLabelOrder = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+export const deleteLabelOrder = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { orderId } = req.params;
 
@@ -446,11 +391,7 @@ export const deleteLabelOrder = async (
   }
 };
 
-export const setReorderThreshold = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+export const setReorderThreshold = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { inventoryId } = req.params;
     const { reorderThreshold } = req.body;
@@ -458,7 +399,7 @@ export const setReorderThreshold = async (
     const inv = await LabelInventory.findByIdAndUpdate(
       inventoryId,
       { reorderThreshold },
-      { new: true },
+      { new: true }
     );
 
     if (!inv) return next(new AppError("Inventory record not found", 404));

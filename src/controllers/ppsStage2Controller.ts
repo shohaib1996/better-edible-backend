@@ -32,7 +32,7 @@ export const processMold = asyncHandler(async (req, res) => {
   if (!cookItemId || !moldId || !trayId || !dehydratorUnitId || shelfPosition == null) {
     throw new AppError(
       "cookItemId, moldId, trayId, dehydratorUnitId, and shelfPosition are required",
-      400,
+      400
     );
   }
 
@@ -41,7 +41,7 @@ export const processMold = asyncHandler(async (req, res) => {
   if (!["cooking_molding_complete", "dehydrating_complete"].includes(cookItem.status)) {
     throw new AppError(
       `Cook item status is "${cookItem.status}", must be cooking_molding_complete or dehydrating_complete`,
-      400,
+      400
     );
   }
 
@@ -53,17 +53,14 @@ export const processMold = asyncHandler(async (req, res) => {
 
   const tray = await DehydratorTray.findOne({ trayId });
   if (!tray) throw new AppError("Dehydrator tray not found", 404);
-  if (tray.status !== "available")
-    throw new AppError("Dehydrator tray is not available", 400);
+  if (tray.status !== "available") throw new AppError("Dehydrator tray is not available", 400);
 
   const unit = await DehydratorUnit.findOne({ unitId: dehydratorUnitId });
   if (!unit) throw new AppError("Dehydrator unit not found", 404);
 
   const shelf = unit.shelves.get(String(shelfPosition));
-  if (!shelf)
-    throw new AppError(`Shelf position ${shelfPosition} does not exist`, 400);
-  if (shelf.occupied)
-    throw new AppError(`Shelf ${shelfPosition} is already occupied`, 400);
+  if (!shelf) throw new AppError(`Shelf position ${shelfPosition} does not exist`, 400);
+  if (shelf.occupied) throw new AppError(`Shelf ${shelfPosition} is already occupied`, 400);
 
   const now = new Date();
   const dehydrationEndTime = new Date(now.getTime() + 12 * 60 * 60 * 1000);
@@ -138,10 +135,7 @@ export const unprocessMold = asyncHandler(async (req, res) => {
   const cookItem = await CookItem.findOne({ cookItemId });
   if (!cookItem) throw new AppError("Cook item not found", 404);
   if (!["cooking_molding_complete", "dehydrating_complete"].includes(cookItem.status)) {
-    throw new AppError(
-      `Cook item status is "${cookItem.status}", cannot unprocess mold`,
-      400,
-    );
+    throw new AppError(`Cook item status is "${cookItem.status}", cannot unprocess mold`, 400);
   }
 
   const assignment = cookItem.dehydratorAssignments.find((a) => a.moldId === moldId);
@@ -165,13 +159,10 @@ export const unprocessMold = asyncHandler(async (req, res) => {
     await unit.save();
   }
 
-  await Mold.findOneAndUpdate(
-    { moldId },
-    { status: "in-use", currentCookItemId: cookItemId },
-  );
+  await Mold.findOneAndUpdate({ moldId }, { status: "in-use", currentCookItemId: cookItemId });
 
   cookItem.dehydratorAssignments = cookItem.dehydratorAssignments.filter(
-    (a) => a.moldId !== moldId,
+    (a) => a.moldId !== moldId
   );
 
   if (cookItem.status === "dehydrating_complete") {
@@ -231,7 +222,7 @@ export const completeUnload = asyncHandler(async (req, res) => {
   if (cookItem.status !== "dehydrating_complete") {
     throw new AppError(
       `Cook item status is "${cookItem.status}", must be dehydrating_complete`,
-      400,
+      400
     );
   }
 
@@ -278,9 +269,7 @@ export const completeUnload = asyncHandler(async (req, res) => {
   }
 
   // Mark all trays as removed if not already
-  const existingRemovedTrayIds = new Set(
-    cookItem.trayRemovalTimestamps.map((t) => t.trayId),
-  );
+  const existingRemovedTrayIds = new Set(cookItem.trayRemovalTimestamps.map((t) => t.trayId));
   for (const assignment of cookItem.dehydratorAssignments) {
     if (!existingRemovedTrayIds.has(assignment.trayId)) {
       cookItem.trayRemovalTimestamps.push({

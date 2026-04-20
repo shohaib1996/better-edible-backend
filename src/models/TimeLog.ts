@@ -1,5 +1,5 @@
 // src/models/TimeLog.ts
-import { Schema, model, Document, Types } from 'mongoose';
+import { Schema, model, Document, Types } from "mongoose";
 
 export interface ITimeLog extends Document {
   rep: Types.ObjectId;
@@ -9,11 +9,11 @@ export interface ITimeLog extends Document {
 
 const TimeLogSchema = new Schema<ITimeLog>(
   {
-    rep: { type: Schema.Types.ObjectId, ref: 'Rep', required: true },
+    rep: { type: Schema.Types.ObjectId, ref: "Rep", required: true },
     checkinTime: { type: Date, required: true },
     checkoutTime: { type: Date, default: null },
   },
   { timestamps: true }
 );
 
-export const TimeLog = model<ITimeLog>('TimeLog', TimeLogSchema);
+export const TimeLog = model<ITimeLog>("TimeLog", TimeLogSchema);

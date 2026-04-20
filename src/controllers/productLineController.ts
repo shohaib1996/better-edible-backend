@@ -31,14 +31,7 @@ export const getProductLineByName = asyncHandler(async (req, res) => {
 
 // ➕ Create product line
 export const createProductLine = asyncHandler(async (req, res) => {
-  const {
-    name,
-    displayOrder,
-    active,
-    pricingStructure,
-    fields,
-    description,
-  } = req.body;
+  const { name, displayOrder, active, pricingStructure, fields, description } = req.body;
 
   // 🔒 Avoid duplicate entries
   const existing = await ProductLine.findOne({ name });
@@ -49,11 +42,17 @@ export const createProductLine = asyncHandler(async (req, res) => {
     throw new AppError("Pricing structure is required", 400);
   }
 
-  if (pricingStructure.type === 'variants' && (!pricingStructure.variantLabels || pricingStructure.variantLabels.length === 0)) {
+  if (
+    pricingStructure.type === "variants" &&
+    (!pricingStructure.variantLabels || pricingStructure.variantLabels.length === 0)
+  ) {
     throw new AppError("Variant labels are required for variants pricing structure", 400);
   }
 
-  if (pricingStructure.type === 'multi-type' && (!pricingStructure.typeLabels || pricingStructure.typeLabels.length === 0)) {
+  if (
+    pricingStructure.type === "multi-type" &&
+    (!pricingStructure.typeLabels || pricingStructure.typeLabels.length === 0)
+  ) {
     throw new AppError("Type labels are required for multi-type pricing structure", 400);
   }
 
@@ -71,31 +70,30 @@ export const createProductLine = asyncHandler(async (req, res) => {
 
 // ✏️ Update product line
 export const updateProductLine = asyncHandler(async (req, res) => {
-  const {
-    name,
-    displayOrder,
-    active,
-    pricingStructure,
-    fields,
-    description,
-  } = req.body;
+  const { name, displayOrder, active, pricingStructure, fields, description } = req.body;
 
   // Check if name already exists (excluding current product line)
   if (name) {
     const existing = await ProductLine.findOne({
       name,
-      _id: { $ne: req.params.id }
+      _id: { $ne: req.params.id },
     });
     if (existing) throw new AppError("Product line with this name already exists", 400);
   }
 
   // Validate pricing structure if provided
   if (pricingStructure) {
-    if (pricingStructure.type === 'variants' && (!pricingStructure.variantLabels || pricingStructure.variantLabels.length === 0)) {
+    if (
+      pricingStructure.type === "variants" &&
+      (!pricingStructure.variantLabels || pricingStructure.variantLabels.length === 0)
+    ) {
       throw new AppError("Variant labels are required for variants pricing structure", 400);
     }
 
-    if (pricingStructure.type === 'multi-type' && (!pricingStructure.typeLabels || pricingStructure.typeLabels.length === 0)) {
+    if (
+      pricingStructure.type === "multi-type" &&
+      (!pricingStructure.typeLabels || pricingStructure.typeLabels.length === 0)
+    ) {
       throw new AppError("Type labels are required for multi-type pricing structure", 400);
     }
   }
@@ -120,11 +118,7 @@ export const updateProductLine = asyncHandler(async (req, res) => {
 // 🟢 Toggle product line active/inactive
 export const toggleProductLineStatus = asyncHandler(async (req, res) => {
   const { active } = req.body;
-  const productLine = await ProductLine.findByIdAndUpdate(
-    req.params.id,
-    { active },
-    { new: true }
-  );
+  const productLine = await ProductLine.findByIdAndUpdate(req.params.id, { active }, { new: true });
   if (!productLine) throw new AppError("Product line not found", 404);
   res.json({
     message: `Product line ${active ? "activated" : "deactivated"}`,

@@ -36,6 +36,7 @@ import colorRoutes from "./routes/colorRoutes";
 
 // 👉 dotenv ONLY for local development
 if (process.env.NODE_ENV === "development") {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   require("dotenv").config();
 }
 

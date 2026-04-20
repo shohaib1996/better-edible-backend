@@ -4,11 +4,7 @@ import { Schema, model, models, Document, Types } from "mongoose";
 // TYPES
 // ─────────────────────────────
 
-export type OrderStatus =
-  | "submitted"
-  | "manifested"
-  | "shipped"
-  | "cancelled";
+export type OrderStatus = "submitted" | "manifested" | "shipped" | "cancelled";
 
 export interface IOrderItem {
   product: Types.ObjectId;
@@ -105,14 +101,7 @@ const OrderSchema = new Schema<IOrder>(
     payment: PaymentSchema,
     status: {
       type: String,
-      enum: [
-        "submitted",
-        "manifested",
-        "shipped",
-        "delivered",
-        "cancelled",
-        "returned",
-      ],
+      enum: ["submitted", "manifested", "shipped", "delivered", "cancelled", "returned"],
       default: "submitted",
     },
     note: String,

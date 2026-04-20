@@ -5,9 +5,9 @@ import { Schema, model, Document } from "mongoose";
 // ─────────────────────────────
 
 export interface IProductColor extends Document {
-  colorId: string;        // e.g. "COL-001"
-  name: string;           // e.g. "Red #40"
-  hexPreview?: string;    // e.g. "#FF0000" for UI swatch
+  colorId: string; // e.g. "COL-001"
+  name: string; // e.g. "Red #40"
+  hexPreview?: string; // e.g. "#FF0000" for UI swatch
   defaultAmount?: number; // grams per mold (optional preset)
   isActive: boolean;
   createdAt: Date;

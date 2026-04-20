@@ -14,8 +14,7 @@ export const BRAND_COLORS = {
   card: "#ffffff",
 };
 
-export const LOGO_URL =
-  "https://www.better-edibles.com/assets/logo.png";
+export const LOGO_URL = "https://www.better-edibles.com/assets/logo.png";
 
 export const labelImageBlock = (
   imageUrl: string,
@@ -371,10 +370,7 @@ export const formatItemsList = (
   items: Array<{ flavorName: string; productType: string; quantity: number }>
 ): string => {
   return items
-    .map(
-      (item) =>
-        `• ${item.flavorName} ${item.productType} - ${item.quantity} units`
-    )
+    .map((item) => `• ${item.flavorName} ${item.productType} - ${item.quantity} units`)
     .join("\n");
 };
 

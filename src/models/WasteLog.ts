@@ -14,12 +14,12 @@ export type WasteReason = "cleaning" | "spillage" | "other";
 export interface IWasteLog extends Document {
   date: Date;
   material: CannabisType;
-  amount: number;             // grams
+  amount: number; // grams
   reason: WasteReason;
-  sourceContainerId: string;  // OilContainer.containerId
+  sourceContainerId: string; // OilContainer.containerId
   loggedBy: { userId: string; userName: string };
   notes?: string;
-  isAutomatic: boolean;       // true = triggered by clean action, false = manual entry
+  isAutomatic: boolean; // true = triggered by clean action, false = manual entry
   createdAt: Date;
   updatedAt: Date;
 }

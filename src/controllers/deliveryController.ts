@@ -144,7 +144,8 @@ export const updateDeliveryStatus = asyncHandler(async (req, res) => {
   await delivery.save();
 
   // Use today's date string sent from the frontend (device local date, YYYY-MM-DD)
-  const todayStr = today && /^\d{4}-\d{2}-\d{2}$/.test(today) ? today : new Date().toISOString().slice(0, 10);
+  const todayStr =
+    today && /^\d{4}-\d{2}-\d{2}$/.test(today) ? today : new Date().toISOString().slice(0, 10);
 
   // Update linked regular order status when delivery is completed or cancelled
   if (delivery.orderId) {

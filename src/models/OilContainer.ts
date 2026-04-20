@@ -9,7 +9,7 @@ export type ContainerStatus = "active" | "empty" | "cleaning";
 
 export interface IContainerHistoryEntry {
   action: "created" | "refilled" | "drawdown" | "cleaned" | "manual_adjustment";
-  amount: number;         // grams involved in this action
+  amount: number; // grams involved in this action
   balanceBefore: number;
   balanceAfter: number;
   performedBy: { userId: string; userName: string };
@@ -22,14 +22,14 @@ export interface IContainerHistoryEntry {
 // ─────────────────────────────
 
 export interface IOilContainer extends Document {
-  containerId: string;          // e.g. "OIL-001"
-  name: string;                 // display name shown to cook
+  containerId: string; // e.g. "OIL-001"
+  name: string; // display name shown to cook
   cannabisType: CannabisType;
-  potency: number;              // stored as percentage, e.g. 85 means 85%
-  totalAmount: number;          // grams at creation
-  remainingAmount: number;      // decremented on each drawdown
+  potency: number; // stored as percentage, e.g. 85 means 85%
+  totalAmount: number; // grams at creation
+  remainingAmount: number; // decremented on each drawdown
   status: ContainerStatus;
-  createdBy: string;            // admin userId
+  createdBy: string; // admin userId
   history: IContainerHistoryEntry[];
   createdAt: Date;
   updatedAt: Date;

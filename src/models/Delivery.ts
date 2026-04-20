@@ -8,17 +8,9 @@ export type DeliveryDisposition =
   | "sales_call"
   | "other";
 
-export type PaymentAction =
-  | "collect_payment"
-  | "no_payment"
-  | "may_not_collect";
+export type PaymentAction = "collect_payment" | "no_payment" | "may_not_collect";
 
-export type DeliveryStatus =
-  | "pending"
-  | "assigned"
-  | "completed"
-  | "cancelled"
-  | "in_transit";
+export type DeliveryStatus = "pending" | "assigned" | "completed" | "cancelled" | "in_transit";
 
 export interface IDelivery extends Document {
   storeId: Types.ObjectId;

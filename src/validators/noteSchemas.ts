@@ -10,15 +10,17 @@ export const createNoteSchema = z.object({
   content: z.string().min(1, "Content is required"),
   sample: z.boolean().optional(),
   delivery: z.boolean().optional(),
-  payment: z.union([
-    z.boolean(),
-    z.object({
-      cash: z.boolean().optional(),
-      check: z.boolean().optional(),
-      noPay: z.boolean().optional(),
-      amount: z.union([z.string(), z.number()]).optional(),
-    }),
-  ]).optional(),
+  payment: z
+    .union([
+      z.boolean(),
+      z.object({
+        cash: z.boolean().optional(),
+        check: z.boolean().optional(),
+        noPay: z.boolean().optional(),
+        amount: z.union([z.string(), z.number()]).optional(),
+      }),
+    ])
+    .optional(),
   date: dateString,
 });
 

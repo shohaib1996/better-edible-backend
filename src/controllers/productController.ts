@@ -5,16 +5,14 @@ import { AppError } from "../utils/AppError";
 
 // 🔍 Get all products
 export const getAllProducts = asyncHandler(async (_req, res) => {
-  const products = await Product.find()
-    .populate('productLine')
-    .sort({ createdAt: -1 });
+  const products = await Product.find().populate("productLine").sort({ createdAt: -1 });
   const total = await Product.countDocuments();
   res.json({ total, products });
 });
 
 // 🧾 Get single product
 export const getProductById = asyncHandler(async (req, res) => {
-  const product = await Product.findById(req.params.id).populate('productLine');
+  const product = await Product.findById(req.params.id).populate("productLine");
   if (!product) throw new AppError("Product not found", 404);
   res.json(product);
 });
@@ -137,7 +135,7 @@ export const updateProduct = asyncHandler(async (req, res) => {
     }
   } else {
     // If not changing productLine, check the existing product's productLine
-    const existingProduct = await Product.findById(req.params.id).populate('productLine');
+    const existingProduct = await Product.findById(req.params.id).populate("productLine");
     if (!existingProduct) throw new AppError("Product not found", 404);
 
     const productLineDoc = existingProduct.productLine as any;
@@ -148,10 +146,23 @@ export const updateProduct = asyncHandler(async (req, res) => {
 
   // Strip raw unit keys from body before saving
   const { hybridBreakdown, prices, ...rawBody } = req.body;
-  const allowedKeys = ['subProductLine', 'itemName', 'price', 'discountPrice', 'variants',
-    'priceDescription', 'discountDescription', 'applyDiscount', 'active', 'metadata', 'productLine'];
+  const allowedKeys = [
+    "subProductLine",
+    "itemName",
+    "price",
+    "discountPrice",
+    "variants",
+    "priceDescription",
+    "discountDescription",
+    "applyDiscount",
+    "active",
+    "metadata",
+    "productLine",
+  ];
   const cleanBody: any = {};
-  allowedKeys.forEach((k) => { if (rawBody[k] !== undefined) cleanBody[k] = rawBody[k]; });
+  allowedKeys.forEach((k) => {
+    if (rawBody[k] !== undefined) cleanBody[k] = rawBody[k];
+  });
   if (hybridBreakdown !== undefined) {
     cleanBody.hybridBreakdown = hybridBreakdown;
     cleanBody.prices = prices;
@@ -161,7 +172,7 @@ export const updateProduct = asyncHandler(async (req, res) => {
     req.params.id,
     { $set: cleanBody },
     { new: true }
-  ).populate('productLine');
+  ).populate("productLine");
 
   if (!product) throw new AppError("Product not found", 404);
   res.json(product);
@@ -170,11 +181,7 @@ export const updateProduct = asyncHandler(async (req, res) => {
 // 🟢 Toggle product active/inactive
 export const toggleProductStatus = asyncHandler(async (req, res) => {
   const { active } = req.body;
-  const product = await Product.findByIdAndUpdate(
-    req.params.id,
-    { active },
-    { new: true }
-  );
+  const product = await Product.findByIdAndUpdate(req.params.id, { active }, { new: true });
   if (!product) throw new AppError("Product not found", 404);
   res.json({
     message: `Product ${active ? "activated" : "deactivated"}`,

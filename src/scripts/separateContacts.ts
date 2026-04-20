@@ -30,15 +30,11 @@ try {
 
   // Write contacts.json
   fs.writeFileSync(contactsPath, JSON.stringify(contacts, null, 2));
-  console.log(
-    `Successfully extracted ${contacts.length} contacts to contacts.json`
-  );
+  console.log(`Successfully extracted ${contacts.length} contacts to contacts.json`);
 
   // Overwrite stores.json
   fs.writeFileSync(storesPath, JSON.stringify(cleanedStores, null, 2));
-  console.log(
-    `Successfully cleaned ${cleanedStores.length} stores in stores.json`
-  );
+  console.log(`Successfully cleaned ${cleanedStores.length} stores in stores.json`);
 } catch (error) {
   console.error("Error processing files:", error);
 }

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 // 👉 dotenv should ONLY run in local development
 if (process.env.NODE_ENV === "development") {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   require("dotenv").config();
 }
 

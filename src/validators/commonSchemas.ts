@@ -10,10 +10,9 @@ export const paginationQuery = z.object({
 });
 
 // Reusable date string (YYYY-MM-DD or ISO). Empty string is treated as absent.
-export const dateString = z.string().refine(
-  (val) => val === "" || !isNaN(Date.parse(val)),
-  { message: "Invalid date format" }
-);
+export const dateString = z
+  .string()
+  .refine((val) => val === "" || !isNaN(Date.parse(val)), { message: "Invalid date format" });
 
 // Reusable params with MongoDB :id
 export const idParam = z.object({

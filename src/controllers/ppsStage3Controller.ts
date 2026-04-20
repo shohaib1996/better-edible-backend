@@ -62,15 +62,14 @@ export const removeTray = asyncHandler(async (req, res) => {
   const { cookItemId, trayId } = req.body;
   const performedBy = extractPerformedBy(req.body);
 
-  if (!cookItemId || !trayId)
-    throw new AppError("cookItemId and trayId are required", 400);
+  if (!cookItemId || !trayId) throw new AppError("cookItemId and trayId are required", 400);
 
   const cookItem = await CookItem.findOne({ cookItemId });
   if (!cookItem) throw new AppError("Cook item not found", 404);
   if (cookItem.status !== "dehydrating_complete") {
     throw new AppError(
       `Cook item status is "${cookItem.status}", must be dehydrating_complete`,
-      400,
+      400
     );
   }
 
@@ -111,15 +110,13 @@ export const completeStage3 = asyncHandler(async (req, res) => {
   if (cookItem.status !== "dehydrating_complete") {
     throw new AppError(
       `Cook item status is "${cookItem.status}", must be dehydrating_complete`,
-      400,
+      400
     );
   }
 
   const now = new Date();
 
-  const existingRemovedTrayIds = new Set(
-    cookItem.trayRemovalTimestamps.map((t) => t.trayId),
-  );
+  const existingRemovedTrayIds = new Set(cookItem.trayRemovalTimestamps.map((t) => t.trayId));
   for (const assignment of cookItem.dehydratorAssignments) {
     if (!existingRemovedTrayIds.has(assignment.trayId)) {
       cookItem.trayRemovalTimestamps.push({
@@ -194,10 +191,7 @@ export const startBagging = asyncHandler(async (req, res) => {
   const cookItem = await CookItem.findOne({ cookItemId });
   if (!cookItem) throw new AppError("Cook item not found", 404);
   if (cookItem.status !== "demolding_complete") {
-    throw new AppError(
-      `Cook item status is "${cookItem.status}", must be demolding_complete`,
-      400,
-    );
+    throw new AppError(`Cook item status is "${cookItem.status}", must be demolding_complete`, 400);
   }
 
   const now = new Date();
@@ -223,10 +217,7 @@ export const startSealing = asyncHandler(async (req, res) => {
   const cookItem = await CookItem.findOne({ cookItemId });
   if (!cookItem) throw new AppError("Cook item not found", 404);
   if (cookItem.status !== "bagging") {
-    throw new AppError(
-      `Cook item status is "${cookItem.status}", must be bagging`,
-      400,
-    );
+    throw new AppError(`Cook item status is "${cookItem.status}", must be bagging`, 400);
   }
 
   const now = new Date();
@@ -252,10 +243,7 @@ export const completeBagSeal = asyncHandler(async (req, res) => {
   const cookItem = await CookItem.findOne({ cookItemId });
   if (!cookItem) throw new AppError("Cook item not found", 404);
   if (cookItem.status !== "sealing") {
-    throw new AppError(
-      `Cook item status is "${cookItem.status}", must be sealing`,
-      400,
-    );
+    throw new AppError(`Cook item status is "${cookItem.status}", must be sealing`, 400);
   }
 
   const now = new Date();

@@ -3,13 +3,7 @@ import mongoose, { Document, Schema } from "mongoose";
 export interface ISample extends Document {
   store: mongoose.Schema.Types.ObjectId;
   rep: mongoose.Schema.Types.ObjectId;
-  status:
-    | "submitted"
-    | "accepted"
-    | "manifested"
-    | "shipped"
-    | "delivered"
-    | "cancelled";
+  status: "submitted" | "accepted" | "manifested" | "shipped" | "delivered" | "cancelled";
   description?: string;
   notes?: string;
   deliveryDate?: string; // YYYY-MM-DD string

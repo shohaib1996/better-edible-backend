@@ -1,9 +1,11 @@
 import { z } from "zod";
 import { paginationQuery } from "./commonSchemas";
 
-export const createCookItemSchema = z.object({
-  cookItemId: z.string().min(1, "Cook item ID is required"),
-}).passthrough(); // allow all other cook item fields
+export const createCookItemSchema = z
+  .object({
+    cookItemId: z.string().min(1, "Cook item ID is required"),
+  })
+  .passthrough(); // allow all other cook item fields
 
 export const updateCookItemStatusSchema = z.object({
   status: z.enum([

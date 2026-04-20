@@ -111,7 +111,7 @@ const ClientOrderItemSchema = new Schema<IClientOrderItem>(
       min: 0,
     },
   },
-  { _id: false },
+  { _id: false }
 );
 
 // -------------------
@@ -227,7 +227,7 @@ const ClientOrderSchema = new Schema<IClientOrder>(
       },
     },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 // -------------------
@@ -250,7 +250,7 @@ ClientOrderSchema.pre("save", async function (next) {
     const result = await Counter.findOneAndUpdate(
       { _id: "clientOrderNumber" } as any,
       { $inc: { seq: 1 } },
-      { upsert: true, returnDocument: "after" },
+      { upsert: true, returnDocument: "after" }
     );
 
     const seq = result?.seq || 1;
@@ -287,7 +287,4 @@ ClientOrderSchema.methods.calculateProductionStart = function () {
 // -------------------
 // Model Export
 // -------------------
-export const ClientOrder = model<IClientOrder>(
-  "ClientOrder",
-  ClientOrderSchema,
-);
+export const ClientOrder = model<IClientOrder>("ClientOrder", ClientOrderSchema);

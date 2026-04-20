@@ -97,9 +97,7 @@ $('div[class^="alert-"]').each((index, element) => {
     const fullText = alertTextDiv.text().trim();
 
     // Extract [RepName, Date] pattern - Improved regex for multiline support
-    const metadataMatch = fullText.match(
-      /\[([\s\S]*?),(\d{2}\/\d{2}\/\d{4})\]\s*$/
-    );
+    const metadataMatch = fullText.match(/\[([\s\S]*?),(\d{2}\/\d{2}\/\d{4})\]\s*$/);
 
     if (!metadataMatch) {
       // If we can't parse metadata, allow empty values instead of skipping
@@ -171,11 +169,8 @@ if (errors.length > 0) {
 }
 
 // Show some statistics
-const uniqueStores = new Set(
-  followups.map((f) => f.store?.$oid).filter(Boolean)
-).size;
-const uniqueReps = new Set(followups.map((f) => f.rep?.$oid).filter(Boolean))
-  .size;
+const uniqueStores = new Set(followups.map((f) => f.store?.$oid).filter(Boolean)).size;
+const uniqueReps = new Set(followups.map((f) => f.rep?.$oid).filter(Boolean)).size;
 
 console.log("\n📊 Statistics:");
 console.log(`  Total followups: ${followups.length}`);

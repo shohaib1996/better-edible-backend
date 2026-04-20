@@ -7,14 +7,7 @@ import { AppError } from "../utils/AppError";
 // ─────────────────────────────
 
 export const getAllCookItems = asyncHandler(async (req, res) => {
-  const {
-    status,
-    orderId,
-    customerId,
-    privateLabOrderId,
-    page = 1,
-    limit = 20,
-  } = req.query;
+  const { status, orderId, customerId, privateLabOrderId, page = 1, limit = 20 } = req.query;
 
   const query: any = {};
 
@@ -103,11 +96,7 @@ export const updateCookItemStatus = asyncHandler(async (req, res) => {
   const { status } = req.body;
   if (!status) throw new AppError("Status is required", 400);
 
-  const cookItem = await CookItem.findByIdAndUpdate(
-    req.params.id,
-    { status },
-    { new: true }
-  );
+  const cookItem = await CookItem.findByIdAndUpdate(req.params.id, { status }, { new: true });
 
   if (!cookItem) throw new AppError("Cook item not found", 404);
 

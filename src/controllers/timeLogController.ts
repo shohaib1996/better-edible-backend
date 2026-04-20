@@ -1,7 +1,7 @@
 // src/controllers/timeLogController.ts
-import { TimeLog } from '../models/TimeLog';
-import { asyncHandler } from '../utils/asyncHandler';
-import { AppError } from '../utils/AppError';
+import { TimeLog } from "../models/TimeLog";
+import { asyncHandler } from "../utils/asyncHandler";
+import { AppError } from "../utils/AppError";
 
 // Helper function to convert YYYY-MM-DD to UTC Date
 function parseDate(dateStr: string, endOfDay: boolean = false): Date {
@@ -16,14 +16,14 @@ function parseDate(dateStr: string, endOfDay: boolean = false): Date {
 
 // GET all time logs
 export const getAllTimeLogs = asyncHandler(async (_req, res) => {
-  const timeLogs = await TimeLog.find().populate('rep');
+  const timeLogs = await TimeLog.find().populate("rep");
   res.json(timeLogs);
 });
 
 // GET one time log
 export const getTimeLogById = asyncHandler(async (req, res) => {
-  const timeLog = await TimeLog.findById(req.params.id).populate('rep');
-  if (!timeLog) throw new AppError('Time log not found', 404);
+  const timeLog = await TimeLog.findById(req.params.id).populate("rep");
+  if (!timeLog) throw new AppError("Time log not found", 404);
   res.json(timeLog);
 });
 
@@ -42,16 +42,18 @@ export const getTimeLogsByRepId = asyncHandler(async (req, res) => {
     }
   }
 
-  const timeLogs = await TimeLog.find(query).populate('rep');
+  const timeLogs = await TimeLog.find(query).populate("rep");
 
   if (!timeLogs || timeLogs.length === 0) {
     if (startDate || endDate) {
-      return res.status(200).json({ message: 'Time logs not available for the selected date range', data: [] });
+      return res
+        .status(200)
+        .json({ message: "Time logs not available for the selected date range", data: [] });
     }
-    return res.status(200).json({ message: 'No time logs found for this rep', data: [] });
+    return res.status(200).json({ message: "No time logs found for this rep", data: [] });
   }
 
-  res.status(200).json({ message: 'Time logs found successfully', data: timeLogs });
+  res.status(200).json({ message: "Time logs found successfully", data: timeLogs });
 });
 
 // GET time logs summary for all reps
@@ -69,12 +71,12 @@ export const getTimeLogsSummary = asyncHandler(async (req, res) => {
     }
   }
 
-  const timeLogs = await TimeLog.find(query).populate('rep');
+  const timeLogs = await TimeLog.find(query).populate("rep");
 
   if (!timeLogs || timeLogs.length === 0) {
     return res.status(200).json({
-      message: 'No time logs found for the selected date range',
-      data: []
+      message: "No time logs found for the selected date range",
+      data: [],
     });
   }
 
@@ -98,7 +100,7 @@ export const getTimeLogsSummary = asyncHandler(async (req, res) => {
         totalHours: 0,
         totalMinutes: 0,
         daysWorked: 0,
-        logs: []
+        logs: [],
       });
     }
 
@@ -113,7 +115,7 @@ export const getTimeLogsSummary = asyncHandler(async (req, res) => {
       const minutes = diffMinutes % 60;
 
       // Get date in YYYY-MM-DD format
-      const dateKey = checkinTime.toISOString().split('T')[0];
+      const dateKey = checkinTime.toISOString().split("T")[0];
 
       summary.totalMinutes += diffMinutes;
       summary.daysWorked += 1;
@@ -123,11 +125,11 @@ export const getTimeLogsSummary = asyncHandler(async (req, res) => {
         checkoutTime: log.checkoutTime,
         hoursWorked: hours,
         minutesWorked: minutes,
-        totalMinutes: diffMinutes
+        totalMinutes: diffMinutes,
       });
     } else {
       // Get date in YYYY-MM-DD format
-      const dateKey = new Date(log.checkinTime).toISOString().split('T')[0];
+      const dateKey = new Date(log.checkinTime).toISOString().split("T")[0];
 
       summary.logs.push({
         date: dateKey,
@@ -136,13 +138,13 @@ export const getTimeLogsSummary = asyncHandler(async (req, res) => {
         hoursWorked: 0,
         minutesWorked: 0,
         totalMinutes: 0,
-        status: 'Still checked in'
+        status: "Still checked in",
       });
     }
   });
 
   // Convert total minutes to hours and minutes
-  const summary = Array.from(summaryMap.values()).map(rep => {
+  const summary = Array.from(summaryMap.values()).map((rep) => {
     const totalHours = Math.floor(rep.totalMinutes / 60);
     const remainingMinutes = rep.totalMinutes % 60;
 
@@ -157,18 +159,18 @@ export const getTimeLogsSummary = asyncHandler(async (req, res) => {
       totalMinutesWorked: rep.totalMinutes,
       formattedTotalTime: `${totalHours}h ${remainingMinutes}m`,
       daysWorked: rep.daysWorked,
-      logs: rep.logs
+      logs: rep.logs,
     };
   });
 
   res.status(200).json({
-    message: 'Time logs summary retrieved successfully',
+    message: "Time logs summary retrieved successfully",
     dateRange: {
-      startDate: startDate || 'All time',
-      endDate: endDate || 'All time'
+      startDate: startDate || "All time",
+      endDate: endDate || "All time",
     },
     totalReps: summary.length,
-    data: summary
+    data: summary,
   });
 });
 
@@ -187,12 +189,12 @@ export const getTimeLogsSummaryByRepId = asyncHandler(async (req, res) => {
     }
   }
 
-  const timeLogs = await TimeLog.find(query).populate('rep');
+  const timeLogs = await TimeLog.find(query).populate("rep");
 
   if (!timeLogs || timeLogs.length === 0) {
     return res.status(200).json({
-      message: 'No time logs found for this rep in the selected date range',
-      data: null
+      message: "No time logs found for this rep in the selected date range",
+      data: null,
     });
   }
 
@@ -202,7 +204,7 @@ export const getTimeLogsSummaryByRepId = asyncHandler(async (req, res) => {
 
   timeLogs.forEach((log: any) => {
     // Get date in YYYY-MM-DD format
-    const dateKey = new Date(log.checkinTime).toISOString().split('T')[0];
+    const dateKey = new Date(log.checkinTime).toISOString().split("T")[0];
 
     if (log.checkoutTime) {
       const checkinTime = new Date(log.checkinTime);
@@ -221,7 +223,7 @@ export const getTimeLogsSummaryByRepId = asyncHandler(async (req, res) => {
         hoursWorked: hours,
         minutesWorked: minutes,
         totalMinutes: diffMinutes,
-        formattedTime: `${hours}h ${minutes}m`
+        formattedTime: `${hours}h ${minutes}m`,
       });
 
       // Daily summary
@@ -239,8 +241,8 @@ export const getTimeLogsSummaryByRepId = asyncHandler(async (req, res) => {
         hoursWorked: 0,
         minutesWorked: 0,
         totalMinutes: 0,
-        status: 'Still checked in',
-        formattedTime: 'Still checked in'
+        status: "Still checked in",
+        formattedTime: "Still checked in",
       });
     }
   });
@@ -249,7 +251,7 @@ export const getTimeLogsSummaryByRepId = asyncHandler(async (req, res) => {
   const remainingMinutes = totalMinutes % 60;
 
   // Format daily summary
-  const dailySummaryArray = Array.from(dailySummary.values()).map(day => {
+  const dailySummaryArray = Array.from(dailySummary.values()).map((day) => {
     const hours = Math.floor(day.totalMinutes / 60);
     const minutes = day.totalMinutes % 60;
     return {
@@ -258,17 +260,17 @@ export const getTimeLogsSummaryByRepId = asyncHandler(async (req, res) => {
       totalMinutes: minutes,
       totalMinutesWorked: day.totalMinutes,
       formattedTime: `${hours}h ${minutes}m`,
-      sessions: day.sessions
+      sessions: day.sessions,
     };
   });
 
   const repInfo: any = timeLogs[0].rep;
 
   res.status(200).json({
-    message: 'Time logs summary retrieved successfully',
+    message: "Time logs summary retrieved successfully",
     dateRange: {
-      startDate: startDate || 'All time',
-      endDate: endDate || 'All time'
+      startDate: startDate || "All time",
+      endDate: endDate || "All time",
     },
     data: {
       repId: repInfo._id,
@@ -282,7 +284,7 @@ export const getTimeLogsSummaryByRepId = asyncHandler(async (req, res) => {
       formattedTotalTime: `${totalHours}h ${remainingMinutes}m`,
       daysWorked: dailySummary.size,
       dailySummary: dailySummaryArray,
-      logs
-    }
+      logs,
+    },
   });
 });

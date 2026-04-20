@@ -7,13 +7,7 @@ import { AppError } from "../utils/AppError";
 // ─────────────────────────────
 
 export const getAllCases = asyncHandler(async (req, res) => {
-  const {
-    status,
-    cookItemId,
-    orderId,
-    page = 1,
-    limit = 20,
-  } = req.query;
+  const { status, cookItemId, orderId, page = 1, limit = 20 } = req.query;
 
   const query: any = {};
   if (status) query.status = status;
@@ -23,11 +17,7 @@ export const getAllCases = asyncHandler(async (req, res) => {
   const skip = (Number(page) - 1) * Number(limit);
 
   const [cases, total] = await Promise.all([
-    Case.find(query)
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(Number(limit))
-      .lean(),
+    Case.find(query).sort({ createdAt: -1 }).skip(skip).limit(Number(limit)).lean(),
     Case.countDocuments(query),
   ]);
 
@@ -90,11 +80,7 @@ export const updateCaseStatus = asyncHandler(async (req, res) => {
   const { status } = req.body;
   if (!status) throw new AppError("Status is required", 400);
 
-  const caseDoc = await Case.findByIdAndUpdate(
-    req.params.id,
-    { status },
-    { new: true }
-  );
+  const caseDoc = await Case.findByIdAndUpdate(req.params.id, { status }, { new: true });
 
   if (!caseDoc) throw new AppError("Case not found", 404);
 

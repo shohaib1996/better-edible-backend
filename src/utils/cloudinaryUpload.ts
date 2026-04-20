@@ -1,5 +1,5 @@
-import cloudinary from '../config/cloudinary';
-import { UploadApiResponse } from 'cloudinary';
+import cloudinary from "../config/cloudinary";
+import { UploadApiResponse } from "cloudinary";
 
 interface UploadResult {
   url: string;
@@ -21,13 +21,13 @@ interface UploadResult {
  */
 export const uploadToCloudinary = async (
   filePath: string,
-  folder: string = 'private-labels',
-  filename: string = 'label'
+  folder: string = "private-labels",
+  filename: string = "label"
 ): Promise<UploadResult> => {
   try {
     const result: UploadApiResponse = await cloudinary.uploader.upload(filePath, {
       folder,
-      resource_type: 'auto', // Automatically detect file type (image, pdf, etc.)
+      resource_type: "auto", // Automatically detect file type (image, pdf, etc.)
       use_filename: true,
       unique_filename: true,
     });
@@ -43,8 +43,8 @@ export const uploadToCloudinary = async (
       originalFilename: filename,
     };
   } catch (error: any) {
-    console.error('Cloudinary upload error:', error);
-    throw new Error(`Failed to upload file to Cloudinary: ${error.message}`);
+    console.error("Cloudinary upload error:", error);
+    throw new Error(`Failed to upload file to Cloudinary: ${error.message}`, { cause: error });
   }
 };
 
@@ -58,8 +58,8 @@ export const deleteFromCloudinary = async (publicId: string): Promise<any> => {
     const result = await cloudinary.uploader.destroy(publicId);
     return result;
   } catch (error: any) {
-    console.error('Cloudinary deletion error:', error);
-    throw new Error(`Failed to delete file from Cloudinary: ${error.message}`);
+    console.error("Cloudinary deletion error:", error);
+    throw new Error(`Failed to delete file from Cloudinary: ${error.message}`, { cause: error });
   }
 };
 
@@ -71,7 +71,7 @@ export const deleteFromCloudinary = async (publicId: string): Promise<any> => {
  */
 export const uploadMultipleToCloudinary = async (
   files: Array<{ path: string; originalname: string }>,
-  folder: string = 'private-labels'
+  folder: string = "private-labels"
 ): Promise<UploadResult[]> => {
   try {
     const uploadPromises = files.map((file) =>
@@ -79,7 +79,7 @@ export const uploadMultipleToCloudinary = async (
     );
     return await Promise.all(uploadPromises);
   } catch (error: any) {
-    console.error('Multiple upload error:', error);
-    throw new Error(`Failed to upload files: ${error.message}`);
+    console.error("Multiple upload error:", error);
+    throw new Error(`Failed to upload files: ${error.message}`, { cause: error });
   }
 };

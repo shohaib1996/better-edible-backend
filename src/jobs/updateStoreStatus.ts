@@ -20,13 +20,11 @@ export const updateStoreStatuses = async () => {
     for (const store of stores) {
       // Ensure numeric due
       const due =
-        typeof store.dueAmount === "number"
-          ? store.dueAmount
-          : parseFloat(store.dueAmount as any);
+        typeof store.dueAmount === "number" ? store.dueAmount : parseFloat(store.dueAmount as any);
 
       // Skip invalid reps
       if (store.rep === null || store.rep === undefined) {
-        // @ts-ignore
+        // @ts-expect-error setting rep to undefined to clear populated field
         store.rep = undefined;
       }
 

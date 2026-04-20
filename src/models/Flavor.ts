@@ -5,10 +5,10 @@ import { Schema, model, Document } from "mongoose";
 // ─────────────────────────────
 
 export interface IFlavor extends Document {
-  flavorId: string;      // e.g. "FL-001"
-  name: string;          // canonical name, e.g. "Watermelon"
+  flavorId: string; // e.g. "FL-001"
+  name: string; // canonical name, e.g. "Watermelon"
   isBlend: boolean;
-  blendOf: string[];     // flavorIds of parent flavors (only if isBlend)
+  blendOf: string[]; // flavorIds of parent flavors (only if isBlend)
   defaultAmount?: number; // grams per mold (optional preset)
   isActive: boolean;
   createdAt: Date;

@@ -54,12 +54,8 @@ function main() {
   const currentPath = path.join(rootDir, "better-edibles.stores.json");
 
   console.log("📖 Reading files...");
-  const migratedStores: OldStore[] = JSON.parse(
-    fs.readFileSync(migratedPath, "utf-8")
-  );
-  const currentStores: CurrentStore[] = JSON.parse(
-    fs.readFileSync(currentPath, "utf-8")
-  );
+  const migratedStores: OldStore[] = JSON.parse(fs.readFileSync(migratedPath, "utf-8"));
+  const currentStores: CurrentStore[] = JSON.parse(fs.readFileSync(currentPath, "utf-8"));
 
   console.log(`Found ${migratedStores.length} migrated stores`);
   console.log(`Found ${currentStores.length} current stores`);
@@ -110,9 +106,7 @@ function main() {
       usedMigratedIds.add(migratedData.oldId);
     } else {
       notFoundCount++;
-      console.log(
-        `  ⚠️  No match for: ${currentStore.name} (Addr: ${currentStore.address})`
-      );
+      console.log(`  ⚠️  No match for: ${currentStore.name} (Addr: ${currentStore.address})`);
     }
   });
 

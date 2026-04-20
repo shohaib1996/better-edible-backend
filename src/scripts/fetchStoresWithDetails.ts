@@ -38,8 +38,7 @@ interface Store {
 // Helpers
 // ─────────────────────────────
 
-const BASE_URL =
-  process.env.OLD_BASE_URL?.replace(/\/+$/, "") || "https://better-edibles.com";
+const BASE_URL = process.env.OLD_BASE_URL?.replace(/\/+$/, "") || "https://better-edibles.com";
 
 const jar = new CookieJar();
 const axios = wrapper(
@@ -121,11 +120,7 @@ function parseStoresList(): StoreListRow[] {
     const rep = repText.replace(/^Rep\s*:\s*/i, "").trim();
 
     // Balance due (if exists)
-    const balanceText = section
-      .find("span.tamt")
-      .text()
-      .replace(/[$,]/g, "")
-      .trim();
+    const balanceText = section.find("span.tamt").text().replace(/[$,]/g, "").trim();
     const balanceDue = balanceText ? parseFloat(balanceText) : 0;
 
     rows.push({
@@ -145,10 +140,7 @@ function parseStoresList(): StoreListRow[] {
 // Fetch store-add.php details
 // ─────────────────────────────
 
-async function fetchStoreDetails(
-  storeId: string,
-  defaultName: string
-): Promise<Store | null> {
+async function fetchStoreDetails(storeId: string, defaultName: string): Promise<Store | null> {
   try {
     const url = `/reps/admin/store-add.php?s=${storeId}&a=2`;
     console.log(`  🔍 Fetching details: ${url}`);
@@ -178,22 +170,12 @@ async function fetchStoreDetails(
     $('tr[id^="contact_"]').each((i, row) => {
       const $row = $(row);
 
-      const contactName =
-        $row.find('input[name^="contact_name"]').val()?.toString().trim() || "";
-      const contactRole =
-        $row.find('input[name^="contact_role"]').val()?.toString().trim() || "";
-      const contactEmail =
-        $row.find('input[name^="contact_email"]').val()?.toString().trim() ||
-        "";
-      const contactPhone =
-        $row.find('input[name^="contact_phone"]').val()?.toString().trim() ||
-        "";
+      const contactName = $row.find('input[name^="contact_name"]').val()?.toString().trim() || "";
+      const contactRole = $row.find('input[name^="contact_role"]').val()?.toString().trim() || "";
+      const contactEmail = $row.find('input[name^="contact_email"]').val()?.toString().trim() || "";
+      const contactPhone = $row.find('input[name^="contact_phone"]').val()?.toString().trim() || "";
       const importantToKnow =
-        $row
-          .find('textarea[name^="contact_important"]')
-          .val()
-          ?.toString()
-          .trim() || "";
+        $row.find('textarea[name^="contact_important"]').val()?.toString().trim() || "";
 
       if (contactName || contactEmail || contactPhone) {
         contacts.push({
@@ -244,9 +226,7 @@ async function main() {
     const migrated: Store[] = [];
 
     for (const [idx, row] of storeListRows.entries()) {
-      console.log(
-        `\n[${idx + 1}/${storeListRows.length}] Processing store: ${row.name}`
-      );
+      console.log(`\n[${idx + 1}/${storeListRows.length}] Processing store: ${row.name}`);
 
       const store = await fetchStoreDetails(row.storeId, row.name);
 
@@ -264,9 +244,7 @@ async function main() {
 
     const outPath = path.join(rootDir, "stores.migrated.json");
     fs.writeFileSync(outPath, JSON.stringify(migrated, null, 2));
-    console.log(
-      `\n✅ Done. Wrote ${migrated.length} stores with details to ${outPath}`
-    );
+    console.log(`\n✅ Done. Wrote ${migrated.length} stores with details to ${outPath}`);
     console.log("=".repeat(70));
   } catch (err: any) {
     console.error("💥 Script failed:", err?.message || err);

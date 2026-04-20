@@ -25,9 +25,7 @@ async function loginAndFetch() {
   const password = process.env.OLD_ADMIN_PASSWORD;
 
   if (!username || !password) {
-    console.error(
-      "❌ Error: OLD_ADMIN_USERNAME / OLD_ADMIN_PASSWORD not set in .env"
-    );
+    console.error("❌ Error: OLD_ADMIN_USERNAME / OLD_ADMIN_PASSWORD not set in .env");
     process.exit(1);
   }
 
@@ -65,9 +63,7 @@ async function loginAndFetch() {
 
     // Basic validation
     if (html.includes('<input type="password"') || html.includes("Sign In")) {
-      console.warn(
-        "⚠️  Warning: The output seems to be a login page. Login might have failed."
-      );
+      console.warn("⚠️  Warning: The output seems to be a login page. Login might have failed.");
     }
 
     fs.writeFileSync(outputPath, html, "utf-8");

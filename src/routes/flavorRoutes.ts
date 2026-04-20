@@ -17,9 +17,21 @@ import {
 const router = Router();
 
 router.get("/", validate({ query: getFlavorsQuery }), getFlavors /* #swagger.tags = ['Flavors'] */);
-router.post("/", validate({ body: createFlavorSchema }), createFlavor /* #swagger.tags = ['Flavors'] */);
-router.post("/blend", validate({ body: findOrCreateBlendSchema }), findOrCreateBlend /* #swagger.tags = ['Flavors'] */);
+router.post(
+  "/",
+  validate({ body: createFlavorSchema }),
+  createFlavor /* #swagger.tags = ['Flavors'] */
+);
+router.post(
+  "/blend",
+  validate({ body: findOrCreateBlendSchema }),
+  findOrCreateBlend /* #swagger.tags = ['Flavors'] */
+);
 router.patch("/:flavorId/toggle", toggleFlavor /* #swagger.tags = ['Flavors'] */);
-router.patch("/:flavorId", validate({ body: updateFlavorSchema }), updateFlavor /* #swagger.tags = ['Flavors'] */);
+router.patch(
+  "/:flavorId",
+  validate({ body: updateFlavorSchema }),
+  updateFlavor /* #swagger.tags = ['Flavors'] */
+);
 
 export default router;

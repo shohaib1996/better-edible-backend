@@ -98,8 +98,7 @@ StoreSchema.pre("save", function (next) {
   if (!this.lastPaidAt) {
     this.paymentStatus = "red";
   } else {
-    const diffDays =
-      (now.getTime() - this.lastPaidAt.getTime()) / (1000 * 60 * 60 * 24);
+    const diffDays = (now.getTime() - this.lastPaidAt.getTime()) / (1000 * 60 * 60 * 24);
     if (diffDays <= 7) this.paymentStatus = "green";
     else if (diffDays <= 30) this.paymentStatus = "yellow";
     else this.paymentStatus = "red";

@@ -6,8 +6,7 @@ import { AppError } from "../utils/AppError";
 
 // 🟩 Register Rep (basic)
 export const registerRep = asyncHandler(async (req, res) => {
-  const { name, loginName, password, repType, territory, email, phone } =
-    req.body;
+  const { name, loginName, password, repType, territory, email, phone } = req.body;
 
   const existing = await Rep.findOne({ loginName });
   if (existing) throw new AppError("Login name already exists", 400);

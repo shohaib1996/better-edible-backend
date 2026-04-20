@@ -12,8 +12,8 @@ const convertISOToDateString = (isoDate: string): string => {
   try {
     const date = new Date(isoDate);
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   } catch (error) {
     console.error(`❌ Error converting date: ${isoDate}`, error);
@@ -43,7 +43,7 @@ const migrateJSONFile = async () => {
       const originalDate = note.date;
 
       // Check if it's already in YYYY-MM-DD format
-      if (typeof originalDate === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(originalDate)) {
+      if (typeof originalDate === "string" && /^\d{4}-\d{2}-\d{2}$/.test(originalDate)) {
         console.log(`✓ Date already in correct format: ${originalDate}`);
         return;
       }
@@ -61,12 +61,11 @@ const migrateJSONFile = async () => {
   console.log(`✅ Converted ${convertedCount} dates`);
 
   // Create migrated file with new name
-  const migratedPath = jsonPath.replace('.json', '.migrated.json');
+  const migratedPath = jsonPath.replace(".json", ".migrated.json");
   fs.writeFileSync(migratedPath, JSON.stringify(notes, null, 2), "utf-8");
   console.log(`✅ Migrated JSON file created at: ${migratedPath}`);
   console.log(`📝 Original file unchanged: ${jsonPath}`);
 };
-
 
 const main = async () => {
   try {
@@ -77,7 +76,6 @@ const main = async () => {
 
     console.log("\n✅ Migration completed successfully!");
     console.log("ℹ️  Database migration skipped - only JSON file converted");
-
   } catch (error) {
     console.error("\n❌ Migration failed:", error);
     process.exit(1);

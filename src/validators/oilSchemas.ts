@@ -1,10 +1,12 @@
 import { z } from "zod";
 import { paginationQuery } from "./commonSchemas";
 
-const performedBySchema = z.object({
-  userId: z.string(),
-  userName: z.string(),
-}).optional();
+const performedBySchema = z
+  .object({
+    userId: z.string(),
+    userName: z.string(),
+  })
+  .optional();
 
 // ─────────────────────────────
 // Container schemas
@@ -20,16 +22,12 @@ export const createContainerSchema = z.object({
     .number({ error: "potency is required" })
     .min(0.1, "potency must be > 0")
     .max(100, "potency cannot exceed 100"),
-  totalAmount: z
-    .number({ error: "totalAmount is required" })
-    .min(0.1, "totalAmount must be > 0"),
+  totalAmount: z.number({ error: "totalAmount is required" }).min(0.1, "totalAmount must be > 0"),
   performedBy: performedBySchema,
 });
 
 export const refillContainerSchema = z.object({
-  amount: z
-    .number({ error: "amount is required" })
-    .min(0.1, "amount must be > 0"),
+  amount: z.number({ error: "amount is required" }).min(0.1, "amount must be > 0"),
   performedBy: performedBySchema,
 });
 
@@ -39,10 +37,7 @@ export const cleanContainerSchema = z.object({
 });
 
 export const calculatePullSchema = z.object({
-  moldCount: z.coerce
-    .number()
-    .int()
-    .min(1, "moldCount must be at least 1"),
+  moldCount: z.coerce.number().int().min(1, "moldCount must be at least 1"),
 });
 
 export const drawdownSchema = z.object({
@@ -70,9 +65,7 @@ export const createWasteLogSchema = z.object({
   material: z.enum(["BioMax", "Rosin"] as const, {
     error: "material must be BioMax or Rosin",
   }),
-  amount: z
-    .number({ error: "amount is required" })
-    .min(0.01, "amount must be > 0"),
+  amount: z.number({ error: "amount is required" }).min(0.01, "amount must be > 0"),
   reason: z.enum(["cleaning", "spillage", "other"] as const, {
     error: "reason must be cleaning, spillage, or other",
   }),

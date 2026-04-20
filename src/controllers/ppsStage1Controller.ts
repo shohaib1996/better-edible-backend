@@ -15,16 +15,10 @@ import { extractPerformedBy } from "./ppsHelpers";
 export const bulkCreateCookItems = asyncHandler(async (req, res) => {
   const { orderId, orderNumber, customerId, items } = req.body;
 
-  if (
-    !orderId ||
-    !orderNumber ||
-    !customerId ||
-    !Array.isArray(items) ||
-    items.length === 0
-  ) {
+  if (!orderId || !orderNumber || !customerId || !Array.isArray(items) || items.length === 0) {
     throw new AppError(
       "orderId, orderNumber, customerId, and a non-empty items array are required",
-      400,
+      400
     );
   }
 
@@ -41,21 +35,14 @@ export const bulkCreateCookItems = asyncHandler(async (req, res) => {
   if (!order) throw new AppError("Order not found", 404);
 
   const storeId: string | undefined = order.client?.store?.storeId;
-  if (!storeId)
-    throw new AppError("Store storeId missing — run backfill script", 400);
+  if (!storeId) throw new AppError("Store storeId missing — run backfill script", 400);
 
   const normalizedOrderNumber = (order.orderNumber as string).replace("-", "");
 
   const cookItemDocs = await Promise.all(
     items.map(async (item: any) => {
-      const label = (await Label.findById(item.labelId)
-        .select("itemId")
-        .lean()) as any;
-      if (!label?.itemId)
-        throw new AppError(
-          `Label itemId missing for label ${item.labelId}`,
-          400,
-        );
+      const label = (await Label.findById(item.labelId).select("itemId").lean()) as any;
+      if (!label?.itemId) throw new AppError(`Label itemId missing for label ${item.labelId}`, 400);
 
       const cookItemId = `${storeId}${normalizedOrderNumber}${label.itemId}`;
 
@@ -76,7 +63,7 @@ export const bulkCreateCookItems = asyncHandler(async (req, res) => {
         status: "pending",
         expectedCount: item.quantity,
       };
-    }),
+    })
   );
 
   const cookItems = await CookItem.insertMany(cookItemDocs);
@@ -131,14 +118,14 @@ export const assignMold = asyncHandler(async (req, res) => {
   if (!["pending", "in-progress"].includes(cookItem.status)) {
     throw new AppError(
       `Cook item status is "${cookItem.status}", must be pending or in-progress`,
-      400,
+      400
     );
   }
 
   const mold = await Mold.findOneAndUpdate(
     { moldId, status: "available" },
     { status: "in-use", currentCookItemId: cookItemId },
-    { new: true },
+    { new: true }
   );
 
   if (!mold) throw new AppError("Mold not found or already in use", 400);
@@ -184,14 +171,14 @@ export const unassignMold = asyncHandler(async (req, res) => {
   if (!["pending", "in-progress"].includes(cookItem.status)) {
     throw new AppError(
       `Cook item status is "${cookItem.status}", must be pending or in-progress to unassign a mold`,
-      400,
+      400
     );
   }
 
   const mold = await Mold.findOneAndUpdate(
     { moldId },
     { status: "available", currentCookItemId: null },
-    { new: true },
+    { new: true }
   );
   if (!mold) throw new AppError("Mold not found", 404);
 
@@ -229,10 +216,7 @@ export const completeStage1 = asyncHandler(async (req, res) => {
   const cookItem = await CookItem.findOne({ cookItemId });
   if (!cookItem) throw new AppError("Cook item not found", 404);
   if (cookItem.status !== "in-progress") {
-    throw new AppError(
-      `Cook item status is "${cookItem.status}", must be in-progress`,
-      400,
-    );
+    throw new AppError(`Cook item status is "${cookItem.status}", must be in-progress`, 400);
   }
   if (!cookItem.assignedMoldIds || cookItem.assignedMoldIds.length === 0) {
     throw new AppError("No molds assigned to this cook item", 400);
@@ -248,12 +232,13 @@ export const completeStage1 = asyncHandler(async (req, res) => {
     if (container.remainingAmount < oilActualAmount) {
       throw new AppError(
         `Insufficient oil — container has ${container.remainingAmount}g, need ${oilActualAmount}g`,
-        400,
+        400
       );
     }
 
     const balanceBefore = container.remainingAmount;
-    container.remainingAmount = Math.round((container.remainingAmount - oilActualAmount) * 100) / 100;
+    container.remainingAmount =
+      Math.round((container.remainingAmount - oilActualAmount) * 100) / 100;
     if (container.remainingAmount <= 0) {
       container.remainingAmount = 0;
       container.status = "empty";

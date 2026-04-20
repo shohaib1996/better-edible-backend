@@ -18,11 +18,11 @@ const convertISOToDateString = (isoDate: string): string => {
 
     // Convert to PST/PDT (America/Los_Angeles timezone)
     // PST is UTC-8, PDT is UTC-7
-    const pstDate = new Date(date.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+    const pstDate = new Date(date.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
 
     const year = pstDate.getFullYear();
-    const month = String(pstDate.getMonth() + 1).padStart(2, '0');
-    const day = String(pstDate.getDate()).padStart(2, '0');
+    const month = String(pstDate.getMonth() + 1).padStart(2, "0");
+    const day = String(pstDate.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   } catch (error) {
     console.error(`❌ Error converting date: ${isoDate}`, error);
@@ -61,12 +61,12 @@ const migrateJSONFile = () => {
       let originalDate = note.date;
 
       // Handle MongoDB extended JSON format: { "$date": "..." }
-      if (typeof originalDate === 'object' && originalDate.$date) {
+      if (typeof originalDate === "object" && originalDate.$date) {
         originalDate = originalDate.$date;
       }
 
       // Check if it's already in YYYY-MM-DD format
-      if (typeof originalDate === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(originalDate)) {
+      if (typeof originalDate === "string" && /^\d{4}-\d{2}-\d{2}$/.test(originalDate)) {
         alreadyCorrectCount++;
         return;
       }
@@ -90,7 +90,7 @@ const migrateJSONFile = () => {
   console.log(`   📝 Total notes: ${notes.length}`);
 
   // Create migrated file
-  const migratedPath = jsonPath.replace('.json', '.migrated.json');
+  const migratedPath = jsonPath.replace(".json", ".migrated.json");
   fs.writeFileSync(migratedPath, JSON.stringify(notes, null, 2), "utf-8");
 
   console.log(`\n✅ Migration completed successfully!`);

@@ -49,9 +49,7 @@ export const autoPushOrdersToProduction = async () => {
       order.status = "cooking_molding";
       await order.save();
       pushed++;
-      console.log(
-        `📦 Order ${order.orderNumber} pushed to production (Cooking & Molding)`
-      );
+      console.log(`📦 Order ${order.orderNumber} pushed to production (Cooking & Molding)`);
       // Send production started notification to client
       await sendProductionStartedNotification(order);
     }
@@ -119,9 +117,7 @@ export const sendOrderCreatedNotification = async (
 // Triggered when order status changes to cooking_molding
 // (Called from controller, not scheduled)
 // -------------------
-export const sendProductionStartedNotification = async (
-  order: IClientOrder
-): Promise<void> => {
+export const sendProductionStartedNotification = async (order: IClientOrder): Promise<void> => {
   try {
     if (order.emailsSent.productionStartedNotification) return;
 
@@ -232,9 +228,7 @@ export const sendSevenDayReminders = async () => {
 // Triggered when order status changes to ready_to_ship
 // (Called from controller, not scheduled)
 // -------------------
-export const sendReadyToShipNotification = async (
-  order: IClientOrder
-): Promise<void> => {
+export const sendReadyToShipNotification = async (order: IClientOrder): Promise<void> => {
   try {
     if (order.emailsSent.readyToShipNotification) return;
 
@@ -289,9 +283,7 @@ export const sendReadyToShipNotification = async (
 // Triggered when order status changes to shipped
 // (Called from controller, not scheduled)
 // -------------------
-export const sendShippedNotification = async (
-  order: IClientOrder
-): Promise<void> => {
+export const sendShippedNotification = async (order: IClientOrder): Promise<void> => {
   try {
     if (order.emailsSent.shippedNotification) return;
 
@@ -377,9 +369,7 @@ export const createRecurringOrder = async (
 
     // Check if recurring is enabled
     if (!client.recurringSchedule.enabled) {
-      console.log(
-        `Recurring not enabled for client ${(client.store as any)?.name}`
-      );
+      console.log(`Recurring not enabled for client ${(client.store as any)?.name}`);
       return null;
     }
 

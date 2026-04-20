@@ -58,8 +58,8 @@ export const bulkCreateMolds = asyncHandler(async (req, res) => {
     docs.push({ moldId, barcodeValue: moldId, unitsPerMold, status: "available" });
   }
 
-  let created = 0;
-  let skipped = 0;
+  let created: number;
+  let skipped: number;
 
   try {
     const result = await Mold.insertMany(docs, { ordered: false });
@@ -76,9 +76,9 @@ export const bulkCreateMolds = asyncHandler(async (req, res) => {
 
   res.status(201).json({
     success: true,
-    message: `${created} molds created, ${skipped} skipped (duplicates)`,
-    created,
-    skipped,
+    message: `${created!} molds created, ${skipped!} skipped (duplicates)`,
+    created: created!,
+    skipped: skipped!,
   });
 });
 
@@ -106,8 +106,8 @@ export const bulkCreateTrays = asyncHandler(async (req, res) => {
     docs.push({ trayId, qrCodeValue: trayId, status: "available" });
   }
 
-  let created = 0;
-  let skipped = 0;
+  let created: number;
+  let skipped: number;
 
   try {
     const result = await DehydratorTray.insertMany(docs, { ordered: false });
@@ -124,9 +124,9 @@ export const bulkCreateTrays = asyncHandler(async (req, res) => {
 
   res.status(201).json({
     success: true,
-    message: `${created} trays created, ${skipped} skipped (duplicates)`,
-    created,
-    skipped,
+    message: `${created!} trays created, ${skipped!} skipped (duplicates)`,
+    created: created!,
+    skipped: skipped!,
   });
 });
 

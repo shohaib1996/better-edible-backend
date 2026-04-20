@@ -25,9 +25,7 @@ export const getAllStores = asyncHandler(async (req, res) => {
     // e.g. "5034774203" matches "503-477-4203", "(503) 477-4203", "+15034774203", "5034774203"
     const digitsOnly = searchStr.replace(/\D/g, "");
     const phoneRegex =
-      digitsOnly.length >= 4
-        ? { $regex: digitsOnly.split("").join("\\D*"), $options: "i" }
-        : null;
+      digitsOnly.length >= 4 ? { $regex: digitsOnly.split("").join("\\D*"), $options: "i" } : null;
 
     const contactOrConditions: any[] = [{ name: textRegex }, { email: textRegex }];
     if (phoneRegex) contactOrConditions.push({ phone: phoneRegex });
@@ -37,11 +35,7 @@ export const getAllStores = asyncHandler(async (req, res) => {
       $or: contactOrConditions,
     }).distinct("store");
 
-    query.$or = [
-      { name: textRegex },
-      { address: textRegex },
-      { _id: { $in: matchingContacts } },
-    ];
+    query.$or = [{ name: textRegex }, { address: textRegex }, { _id: { $in: matchingContacts } }];
   }
   if (repId) query.rep = repId;
   if (paymentStatus) query.paymentStatus = paymentStatus;
@@ -67,10 +61,7 @@ export const getAllStores = asyncHandler(async (req, res) => {
     } else if (paymentStatus === "red") {
       const thirtyDaysAgo = new Date(today);
       thirtyDaysAgo.setDate(today.getDate() - 30);
-      query.$or = [
-        { lastPaidAt: { $lt: thirtyDaysAgo } },
-        { lastPaidAt: { $exists: false } },
-      ];
+      query.$or = [{ lastPaidAt: { $lt: thirtyDaysAgo } }, { lastPaidAt: { $exists: false } }];
     }
   }
 
@@ -134,8 +125,7 @@ export const getStoreById = asyncHandler(async (req, res) => {
 
 // Create store
 export const createStore = asyncHandler(async (req, res) => {
-  const { name, address, city, rep, state, zipCode, terms, groups } =
-    req.body;
+  const { name, address, city, rep, state, zipCode, terms, groups } = req.body;
   const existing = await Store.findOne({ name });
   if (existing) throw new AppError("Store already exists", 400);
 
@@ -164,11 +154,7 @@ export const updateStore = asyncHandler(async (req, res) => {
 // Block / Unblock store
 export const toggleBlockStore = asyncHandler(async (req, res) => {
   const { blocked } = req.body;
-  const store = await Store.findByIdAndUpdate(
-    req.params.id,
-    { blocked },
-    { new: true }
-  );
+  const store = await Store.findByIdAndUpdate(req.params.id, { blocked }, { new: true });
   if (!store) throw new AppError("Store not found", 404);
   res.json({
     message: `Store ${blocked ? "blocked" : "unblocked"} successfully`,

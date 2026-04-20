@@ -183,9 +183,7 @@ export const sendLabelApprovalRequestEmail = async (
       return false;
     }
 
-    console.log(
-      `✅ Label approval request sent to ${data.storeEmail} for ${data.flavorName}`
-    );
+    console.log(`✅ Label approval request sent to ${data.storeEmail} for ${data.flavorName}`);
     return true;
   } catch (err) {
     console.error("Error sending label approval request email:", err);

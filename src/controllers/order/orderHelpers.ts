@@ -14,9 +14,8 @@ export function pickPriceForProduct(product: any, typeOrLabel?: string | null) {
   // 1) Variant match (case-insensitive)
   if (product.variants?.length) {
     const found =
-      product.variants.find(
-        (v: any) => v.label && norm && v.label.trim().toLowerCase() === norm
-      ) || null;
+      product.variants.find((v: any) => v.label && norm && v.label.trim().toLowerCase() === norm) ||
+      null;
     if (found) {
       return {
         unitPrice: Number(found.price ?? 0),
@@ -89,7 +88,7 @@ export function buildOrderItem(product: IProduct & any, item: any) {
 
 /** Calculate discount amount from subtotal */
 export function calcDiscount(subtotal: number, discountType: string, discountValue: number) {
-  let amount = 0;
+  let amount: number;
   if (discountType === "percent") {
     amount = (subtotal * discountValue) / 100;
   } else {

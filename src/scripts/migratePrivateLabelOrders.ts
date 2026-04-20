@@ -96,19 +96,14 @@ async function migratePrivateLabelOrders() {
     console.log("✅ Connected to MongoDB");
 
     // Read old data from JSON file
-    const jsonPath = path.join(
-      __dirname,
-      "../../better-edibles-database.privatelabels.json"
-    );
+    const jsonPath = path.join(__dirname, "../../better-edibles-database.privatelabels.json");
     console.log(`📂 Reading old orders from: ${jsonPath}`);
 
     if (!fs.existsSync(jsonPath)) {
       throw new Error(`JSON file not found at: ${jsonPath}`);
     }
 
-    const oldOrders: OldPrivateLabelOrder[] = JSON.parse(
-      fs.readFileSync(jsonPath, "utf-8")
-    );
+    const oldOrders: OldPrivateLabelOrder[] = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
     console.log(`📦 Found ${oldOrders.length} old orders to migrate`);
 
     // Track created entities

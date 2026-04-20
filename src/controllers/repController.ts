@@ -34,9 +34,7 @@ export const getAllReps = asyncHandler(async (_req, res) => {
 
 // GET one rep
 export const getRepById = asyncHandler(async (req, res) => {
-  const rep = await Rep.findById(req.params.id).populate(
-    "territory assignedStores"
-  );
+  const rep = await Rep.findById(req.params.id).populate("territory assignedStores");
   if (!rep) throw new AppError("Rep not found", 404);
   res.json(rep);
 });
@@ -90,10 +88,7 @@ export const checkInRep = asyncHandler(async (req, res) => {
 
   // 3. Check rep status
   if (rep.status === "inactive" || rep.status === "suspended") {
-    throw new AppError(
-      `Check-in denied. You are ${rep.status} from the system.`,
-      403
-    );
+    throw new AppError(`Check-in denied. You are ${rep.status} from the system.`, 403);
   }
 
   // 4. Already checked in?
@@ -129,10 +124,7 @@ export const checkOutRep = asyncHandler(async (req, res) => {
 
   // 3. Check rep status
   if (rep.status === "inactive" || rep.status === "suspended") {
-    throw new AppError(
-      `Check-out denied. You are ${rep.status} from the system.`,
-      403
-    );
+    throw new AppError(`Check-out denied. You are ${rep.status} from the system.`, 403);
   }
 
   // 4. Already checked out?
@@ -180,11 +172,7 @@ export const resetPin = asyncHandler(async (req, res) => {
   const { pin } = req.body;
   if (!pin) throw new AppError("New PIN is required", 400);
 
-  const rep = await Rep.findByIdAndUpdate(
-    req.params.id,
-    { pin: pin },
-    { new: true }
-  );
+  const rep = await Rep.findByIdAndUpdate(req.params.id, { pin: pin }, { new: true });
 
   if (!rep) throw new AppError("Rep not found", 404);
 

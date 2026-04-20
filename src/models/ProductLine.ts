@@ -1,8 +1,8 @@
 // src/models/ProductLine.ts
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document } from "mongoose";
 
 // Field types for dynamic form generation
-export type FieldType = 'text' | 'number' | 'select' | 'textarea';
+export type FieldType = "text" | "number" | "select" | "textarea";
 
 export interface IFieldConfig {
   name: string;
@@ -14,7 +14,7 @@ export interface IFieldConfig {
 }
 
 // Pricing structure types
-export type PricingStructureType = 'simple' | 'variants' | 'multi-type';
+export type PricingStructureType = "simple" | "variants" | "multi-type";
 
 export interface IPricingStructure {
   type: PricingStructureType;
@@ -48,7 +48,7 @@ const FieldConfigSchema = new Schema<IFieldConfig>(
   {
     name: { type: String, required: true },
     label: { type: String, required: true },
-    type: { type: String, enum: ['text', 'number', 'select', 'textarea'], required: true },
+    type: { type: String, enum: ["text", "number", "select", "textarea"], required: true },
     placeholder: String,
     required: { type: Boolean, default: false },
     options: [String],
@@ -60,8 +60,8 @@ const PricingStructureSchema = new Schema<IPricingStructure>(
   {
     type: {
       type: String,
-      enum: ['simple', 'variants', 'multi-type'],
-      required: true
+      enum: ["simple", "variants", "multi-type"],
+      required: true,
     },
     variantLabels: [String],
     typeLabels: [String],
@@ -84,4 +84,4 @@ const ProductLineSchema = new Schema<IProductLine>(
 ProductLineSchema.index({ name: 1 });
 ProductLineSchema.index({ displayOrder: 1 });
 
-export const ProductLine = model<IProductLine>('ProductLine', ProductLineSchema);
+export const ProductLine = model<IProductLine>("ProductLine", ProductLineSchema);

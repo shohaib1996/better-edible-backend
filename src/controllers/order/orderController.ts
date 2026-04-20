@@ -19,7 +19,18 @@ import {
 // ─────────────────────────────
 
 export const createOrder = asyncHandler(async (req, res) => {
-  const { repId, storeId, items = [], note, deliveryDate, discountType, discountValue, tax, userId, userType } = req.body;
+  const {
+    repId,
+    storeId,
+    items = [],
+    note,
+    deliveryDate,
+    discountType,
+    discountValue,
+    tax,
+    userId,
+    userType,
+  } = req.body;
 
   const rep = await Rep.findById(repId);
   if (!rep) throw new AppError("Rep not found", 404);
@@ -36,7 +47,9 @@ export const createOrder = asyncHandler(async (req, res) => {
     })
   );
 
-  const subtotal = Number(orderItems.reduce((sum, i) => sum + (Number(i.lineTotal) || 0), 0).toFixed(2));
+  const subtotal = Number(
+    orderItems.reduce((sum, i) => sum + (Number(i.lineTotal) || 0), 0).toFixed(2)
+  );
   const dType = discountType || "flat";
   const dValue = parseFloat(discountValue) || 0;
   const discountAmount = calcDiscount(subtotal, dType, dValue);
@@ -93,8 +106,15 @@ export const getAllOrders = asyncHandler(async (req, res) => {
     { $limit: Number(limit) },
     {
       $project: {
-        orderNumber: 1, status: 1, total: 1, subtotal: 1, discount: 1,
-        note: 1, deliveryDate: 1, shippedDate: 1, createdAt: 1,
+        orderNumber: 1,
+        status: 1,
+        total: 1,
+        subtotal: 1,
+        discount: 1,
+        note: 1,
+        deliveryDate: 1,
+        shippedDate: 1,
+        createdAt: 1,
         store: { _id: 1, name: 1, address: 1, city: 1, blocked: 1 },
         rep: { _id: 1, name: 1, repType: 1 },
         items: 1,
@@ -134,8 +154,13 @@ export const getAllOrders = asyncHandler(async (req, res) => {
     { $limit: Number(limit) },
     {
       $project: {
-        status: 1, samples: 1, description: 1, notes: 1,
-        deliveryDate: 1, shippedDate: 1, createdAt: 1,
+        status: 1,
+        samples: 1,
+        description: 1,
+        notes: 1,
+        deliveryDate: 1,
+        shippedDate: 1,
+        createdAt: 1,
         store: { _id: 1, name: 1, address: 1, city: 1, blocked: 1 },
         rep: { _id: 1, name: 1, repType: 1 },
         createdBy: { user: { _id: 1, name: 1 }, userType: 1 },
@@ -155,7 +180,12 @@ export const getAllOrders = asyncHandler(async (req, res) => {
     (a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
   );
 
-  res.json({ total: orderTotal + sampleTotal, page: Number(page), limit: Number(limit), orders: combined });
+  res.json({
+    total: orderTotal + sampleTotal,
+    page: Number(page),
+    limit: Number(limit),
+    orders: combined,
+  });
 });
 
 // ─────────────────────────────

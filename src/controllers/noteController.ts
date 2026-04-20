@@ -55,7 +55,7 @@ export const getAllNotes = asyncHandler(async (req, res) => {
   if (entityId) {
     query.entityId = entityId;
   }
-  
+
   if (deliveryId) {
     query.deliveryId = deliveryId;
   }
@@ -82,7 +82,7 @@ export const getAllNotes = asyncHandler(async (req, res) => {
   if (Object.keys(query).length === 0) {
     throw new AppError(
       "At least one filter (entityId, deliveryId, repId, or date) is required",
-      400,
+      400
     );
   }
 
@@ -116,10 +116,7 @@ export const getAllNotes = asyncHandler(async (req, res) => {
 
 // 🟦 Get a single note
 export const getNoteById = asyncHandler(async (req, res) => {
-  const note = await Note.findById(req.params.id).populate(
-    "author",
-    "name email role",
-  );
+  const note = await Note.findById(req.params.id).populate("author", "name email role");
 
   if (!note) throw new AppError("Note not found", 404);
 
@@ -135,8 +132,7 @@ export const updateNote = asyncHandler(async (req, res) => {
   if (!noteId) throw new AppError("Note id is required", 400);
 
   // Only allow updating these fields (do not allow changing entityId or author)
-  const { disposition, visitType, content, sample, delivery, payment, date, deliveryId } =
-    req.body;
+  const { disposition, visitType, content, sample, delivery, payment, date, deliveryId } = req.body;
 
   // Validate date format if provided
   if (date && !/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(date)) {

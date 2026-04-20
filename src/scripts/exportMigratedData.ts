@@ -35,7 +35,7 @@ function convertToMongoExport(obj: any): any {
   }
 
   // Check if it's an ObjectId
-  if (obj instanceof mongoose.Types.ObjectId || (obj._bsontype === "ObjectId")) {
+  if (obj instanceof mongoose.Types.ObjectId || obj._bsontype === "ObjectId") {
     return { $oid: obj.toString() };
   }
 
@@ -46,7 +46,7 @@ function convertToMongoExport(obj: any): any {
 
   // Check if it's an array
   if (Array.isArray(obj)) {
-    return obj.map(item => convertToMongoExport(item));
+    return obj.map((item) => convertToMongoExport(item));
   }
 
   // Check if it's a plain object
@@ -78,23 +78,30 @@ async function exportMigratedData() {
     // Export only migrated ClientOrders (CO-0022 to CO-0030)
     console.log("\n📦 Exporting migrated ClientOrders (CO-0022 to CO-0030)...");
     const migratedOrderNumbers = [
-      "CO-0022", "CO-0023", "CO-0024", "CO-0025", "CO-0026",
-      "CO-0027", "CO-0028", "CO-0029", "CO-0030"
+      "CO-0022",
+      "CO-0023",
+      "CO-0024",
+      "CO-0025",
+      "CO-0026",
+      "CO-0027",
+      "CO-0028",
+      "CO-0029",
+      "CO-0030",
     ];
     const orders = await ClientOrder.find({
-      orderNumber: { $in: migratedOrderNumbers }
+      orderNumber: { $in: migratedOrderNumbers },
     }).lean();
     const ordersPath = path.join(outputDir, "export-clientorders.json");
     fs.writeFileSync(ordersPath, JSON.stringify(orders.map(convertToMongoExport), null, 2));
     console.log(`   ✅ Exported ${orders.length} orders to ${ordersPath}`);
 
     // Get client IDs from migrated orders
-    const migratedClientIds = [...new Set(orders.map(o => o.client.toString()))];
+    const migratedClientIds = [...new Set(orders.map((o) => o.client.toString()))];
 
     // Export only PrivateLabelClients that have migrated orders
     console.log("\n📦 Exporting migrated PrivateLabelClients...");
     const clients = await PrivateLabelClient.find({
-      _id: { $in: migratedClientIds }
+      _id: { $in: migratedClientIds },
     }).lean();
     const clientsPath = path.join(outputDir, "export-privatelabelclients.json");
     fs.writeFileSync(clientsPath, JSON.stringify(clients.map(convertToMongoExport), null, 2));
@@ -103,7 +110,7 @@ async function exportMigratedData() {
     // Export only Labels belonging to migrated clients
     console.log("\n📦 Exporting migrated Labels...");
     const labels = await Label.find({
-      client: { $in: migratedClientIds }
+      client: { $in: migratedClientIds },
     }).lean();
     const labelsPath = path.join(outputDir, "export-labels.json");
     fs.writeFileSync(labelsPath, JSON.stringify(labels.map(convertToMongoExport), null, 2));
@@ -122,9 +129,15 @@ async function exportMigratedData() {
     console.log(`   - ${labelsPath}`);
     console.log(`   - ${ordersPath}`);
     console.log("\n💡 To import into production MongoDB:");
-    console.log("   mongoimport --uri <PROD_URI> --collection privatelabelclients --file export-privatelabelclients.json --jsonArray");
-    console.log("   mongoimport --uri <PROD_URI> --collection labels --file export-labels.json --jsonArray");
-    console.log("   mongoimport --uri <PROD_URI> --collection clientorders --file export-clientorders.json --jsonArray");
+    console.log(
+      "   mongoimport --uri <PROD_URI> --collection privatelabelclients --file export-privatelabelclients.json --jsonArray"
+    );
+    console.log(
+      "   mongoimport --uri <PROD_URI> --collection labels --file export-labels.json --jsonArray"
+    );
+    console.log(
+      "   mongoimport --uri <PROD_URI> --collection clientorders --file export-clientorders.json --jsonArray"
+    );
     console.log("=".repeat(50));
   } catch (error) {
     console.error("❌ Export failed:", error);

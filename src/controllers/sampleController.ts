@@ -23,9 +23,10 @@ export const createSample = asyncHandler(async (req, res) => {
     description,
     notes,
     status: "submitted",
-    ...(userId && userType && {
-      createdBy: { user: userId, userType },
-    }),
+    ...(userId &&
+      userType && {
+        createdBy: { user: userId, userType },
+      }),
   });
 
   res.status(201).json({
@@ -46,11 +47,10 @@ export const updateSample = asyncHandler(async (req, res) => {
   if (req.body.deliveryDate) req.body.deliveryDate = toDateStr(req.body.deliveryDate);
   if (req.body.shippedDate) req.body.shippedDate = toDateStr(req.body.shippedDate);
 
-  const sample = await Sample.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: true, runValidators: true }
-  );
+  const sample = await Sample.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
 
   if (!sample) throw new AppError("Sample not found", 404);
 
@@ -61,11 +61,7 @@ export const updateSampleStatus = asyncHandler(async (req, res) => {
   const { status } = req.body;
   if (!status) throw new AppError("Status is required", 400);
 
-  const sample = await Sample.findByIdAndUpdate(
-    req.params.id,
-    { status },
-    { new: true }
-  );
+  const sample = await Sample.findByIdAndUpdate(req.params.id, { status }, { new: true });
 
   if (!sample) throw new AppError("Sample not found", 404);
 

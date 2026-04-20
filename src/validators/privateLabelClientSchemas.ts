@@ -7,20 +7,24 @@ export const createClientSchema = z.object({
   storeId: objectId,
   contactEmail: z.string().email("Invalid email").optional(),
   assignedRepId: objectId,
-  recurringSchedule: z.object({
-    enabled: z.boolean(),
-    interval: intervalEnum.optional(),
-  }).optional(),
+  recurringSchedule: z
+    .object({
+      enabled: z.boolean(),
+      interval: intervalEnum.optional(),
+    })
+    .optional(),
 });
 
 export const updateClientSchema = z.object({
   contactEmail: z.string().email("Invalid email").optional(),
   assignedRepId: objectId.optional(),
   status: z.enum(["onboarding", "active", "inactive", "churned"]).optional(),
-  recurringSchedule: z.object({
-    enabled: z.boolean(),
-    interval: intervalEnum.optional(),
-  }).optional(),
+  recurringSchedule: z
+    .object({
+      enabled: z.boolean(),
+      interval: intervalEnum.optional(),
+    })
+    .optional(),
 });
 
 export const updateClientScheduleSchema = z.object({

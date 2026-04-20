@@ -71,7 +71,7 @@ function findStoreId(storeName: string): string {
   if (!storeName) return "";
   const normalized = storeName.trim().toUpperCase();
   // Try exact match first
-  let id = storeNameToId.get(normalized);
+  const id = storeNameToId.get(normalized);
   if (id) return id;
 
   // Try partial match if no exact match (basic fuzzy logic could go here, but sticking to simple normalized for now as per instructions to just be lenient with empty)
@@ -94,14 +94,12 @@ errors.forEach((err) => {
   let repName = err.repName || "";
   let dateStr = err.date || "";
   let comments = "";
-  let storeName = err.storeName || "";
+  const storeName = err.storeName || "";
 
   // Try to extract from fullText if we have it (especially for "Could not extract..." errors)
   if (err.fullText) {
     // New Regex: captures multiline content inside []
-    const metadataMatch = err.fullText.match(
-      /\[([\s\S]*?),(\d{2}\/\d{2}\/\d{4})\]\s*$/
-    );
+    const metadataMatch = err.fullText.match(/\[([\s\S]*?),(\d{2}\/\d{2}\/\d{4})\]\s*$/);
 
     if (metadataMatch) {
       repName = metadataMatch[1].trim(); // capture includes newlines, trim handles basic cleaning

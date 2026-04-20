@@ -20,16 +20,7 @@ async function getUnitPriceByProductType(productType: string): Promise<number> {
 
 // GET ALL CLIENT ORDERS
 export const getAllClientOrders = asyncHandler(async (req, res) => {
-  const {
-    clientId,
-    status,
-    repId,
-    startDate,
-    endDate,
-    search,
-    page = 1,
-    limit = 20,
-  } = req.query;
+  const { clientId, status, repId, startDate, endDate, search, page = 1, limit = 20 } = req.query;
 
   const filter: any = {};
 
@@ -61,9 +52,7 @@ export const getAllClientOrders = asyncHandler(async (req, res) => {
     } else {
       const clients = await PrivateLabelClient.find().populate("store");
       const matchingClientIds = clients
-        .filter((c: any) =>
-          c.store?.name?.toLowerCase().includes(search.toLowerCase())
-        )
+        .filter((c: any) => c.store?.name?.toLowerCase().includes(search.toLowerCase()))
         .map((c) => c._id);
       filter.client = { $in: matchingClientIds };
     }
@@ -81,7 +70,10 @@ export const getAllClientOrders = asyncHandler(async (req, res) => {
         },
       })
       .populate("assignedRep", "name email")
-      .populate("items.label", "flavorName productType cannabinoidMix color flavorComponents colorComponents labelImages itemId")
+      .populate(
+        "items.label",
+        "flavorName productType cannabinoidMix color flavorComponents colorComponents labelImages itemId"
+      )
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(Number(limit))
@@ -94,9 +86,10 @@ export const getAllClientOrders = asyncHandler(async (req, res) => {
   const orders = await Promise.all(
     rawOrders.map(async (order: any) => {
       if (order.createdBy?.user) {
-        const creator = order.createdBy.userType === "admin"
-          ? await Admin.findById(order.createdBy.user).select("name").lean()
-          : await Rep.findById(order.createdBy.user).select("name").lean();
+        const creator =
+          order.createdBy.userType === "admin"
+            ? await Admin.findById(order.createdBy.user).select("name").lean()
+            : await Rep.findById(order.createdBy.user).select("name").lean();
         order.createdBy = {
           user: { _id: order.createdBy.user, name: creator?.name || "Unknown" },
           userType: order.createdBy.userType,
@@ -125,7 +118,10 @@ export const getClientOrderById = asyncHandler(async (req, res) => {
       },
     })
     .populate("assignedRep", "name email")
-    .populate("items.label", "flavorName productType cannabinoidMix color flavorComponents colorComponents labelImages itemId")
+    .populate(
+      "items.label",
+      "flavorName productType cannabinoidMix color flavorComponents colorComponents labelImages itemId"
+    )
     .lean();
 
   if (!order) throw new AppError("Order not found", 404);
@@ -133,9 +129,10 @@ export const getClientOrderById = asyncHandler(async (req, res) => {
   // Populate createdBy user name
   if (order.createdBy?.user) {
     const { Rep } = await import("../models/Rep");
-    const creator = order.createdBy.userType === "admin"
-      ? await Admin.findById(order.createdBy.user).select("name").lean()
-      : await Rep.findById(order.createdBy.user).select("name").lean();
+    const creator =
+      order.createdBy.userType === "admin"
+        ? await Admin.findById(order.createdBy.user).select("name").lean()
+        : await Rep.findById(order.createdBy.user).select("name").lean();
     order.createdBy = {
       user: { _id: order.createdBy.user, name: creator?.name || "Unknown" },
       userType: order.createdBy.userType,
@@ -179,10 +176,7 @@ export const createClientOrder = asyncHandler(async (req, res) => {
       }
 
       if (label.currentStage !== "ready_for_production") {
-        throw new AppError(
-          `Label "${label.flavorName}" is not ready for production`,
-          400
-        );
+        throw new AppError(`Label "${label.flavorName}" is not ready for production`, 400);
       }
 
       if (label.client.toString() !== clientId.toString()) {
@@ -215,12 +209,10 @@ export const createClientOrder = asyncHandler(async (req, res) => {
   );
 
   // Calculate totals
-  const subtotal = Number(
-    processedItems.reduce((sum, item) => sum + item.lineTotal, 0).toFixed(2)
-  );
+  const subtotal = Number(processedItems.reduce((sum, item) => sum + item.lineTotal, 0).toFixed(2));
 
   // Calculate discount
-  let discountAmount = 0;
+  let discountAmount: number;
   if (discountType === "percentage") {
     if (discount < 0 || discount > 100) {
       throw new AppError("Percentage discount must be between 0 and 100", 400);
@@ -266,9 +258,10 @@ export const createClientOrder = asyncHandler(async (req, res) => {
   const orderObj: any = order.toObject();
   if (orderObj.createdBy?.user) {
     const { Rep } = await import("../models/Rep");
-    const creator = orderObj.createdBy.userType === "admin"
-      ? await Admin.findById(orderObj.createdBy.user).select("name").lean()
-      : await Rep.findById(orderObj.createdBy.user).select("name").lean();
+    const creator =
+      orderObj.createdBy.userType === "admin"
+        ? await Admin.findById(orderObj.createdBy.user).select("name").lean()
+        : await Rep.findById(orderObj.createdBy.user).select("name").lean();
     orderObj.createdBy = {
       user: { _id: orderObj.createdBy.user, name: creator?.name || "Unknown" },
       userType: orderObj.createdBy.userType,
@@ -295,8 +288,7 @@ export const updateClientOrder = asyncHandler(async (req, res) => {
     throw new AppError("Order cannot be edited once in production", 400);
   }
 
-  const { deliveryDate, items, discount, discountType, note, shipASAP } =
-    req.body;
+  const { deliveryDate, items, discount, discountType, note, shipASAP } = req.body;
 
   // Update delivery date
   if (deliveryDate) {
@@ -320,10 +312,7 @@ export const updateClientOrder = asyncHandler(async (req, res) => {
         }
 
         if (label.currentStage !== "ready_for_production") {
-          throw new AppError(
-            `Label "${label.flavorName}" is not ready for production`,
-            400
-          );
+          throw new AppError(`Label "${label.flavorName}" is not ready for production`, 400);
         }
 
         // Get unit price from product type (from database)
@@ -362,18 +351,14 @@ export const updateClientOrder = asyncHandler(async (req, res) => {
   }
 
   // Recalculate discount amount and total
-  let discountAmount = 0;
+  let discountAmount: number;
   if (order.discountType === "percentage") {
-    discountAmount = Number(
-      ((order.subtotal * (order.discount || 0)) / 100).toFixed(2)
-    );
+    discountAmount = Number(((order.subtotal * (order.discount || 0)) / 100).toFixed(2));
   } else {
     discountAmount = order.discount || 0;
   }
   order.discountAmount = discountAmount;
-  order.total = Number(
-    Math.max(0, order.subtotal - discountAmount).toFixed(2)
-  );
+  order.total = Number(Math.max(0, order.subtotal - discountAmount).toFixed(2));
 
   if (note !== undefined) {
     order.note = note;
@@ -411,7 +396,13 @@ export const updateClientOrderStatus = asyncHandler(async (req, res) => {
   const previousStatus = order.status;
 
   // Block reverting to waiting once production has started (Stage 1 or beyond)
-  const productionStatuses = ["cooking_molding", "dehydrating", "demolding", "packaging_casing", "ready_to_ship"];
+  const productionStatuses = [
+    "cooking_molding",
+    "dehydrating",
+    "demolding",
+    "packaging_casing",
+    "ready_to_ship",
+  ];
   if (status === "waiting" && productionStatuses.includes(previousStatus)) {
     throw new AppError("Cannot revert order to waiting once production has started", 400);
   }
@@ -449,10 +440,12 @@ export const updateClientOrderStatus = asyncHandler(async (req, res) => {
     }
     await order.save();
     // Send shipped notification then create recurring order (sequential to avoid Resend rate limits)
-    import("../jobs/clientOrderJobs").then(async ({ sendShippedNotification, createRecurringOrder }) => {
-      await sendShippedNotification(order);
-      await createRecurringOrder(order);
-    });
+    import("../jobs/clientOrderJobs").then(
+      async ({ sendShippedNotification, createRecurringOrder }) => {
+        await sendShippedNotification(order);
+        await createRecurringOrder(order);
+      }
+    );
   } else {
     await order.save();
   }
@@ -466,7 +459,10 @@ export const updateClientOrderStatus = asyncHandler(async (req, res) => {
 // PUSH ORDER TO PPS (Production Planning System)
 export const pushOrderToPPS = asyncHandler(async (req, res) => {
   const order = await ClientOrder.findById(req.params.id)
-    .populate({ path: "items.label", select: "flavorName productType flavorComponents colorComponents itemId" })
+    .populate({
+      path: "items.label",
+      select: "flavorName productType flavorComponents colorComponents itemId",
+    })
     .populate({ path: "client", populate: { path: "store", select: "name storeId _id" } });
 
   if (!order) throw new AppError("Order not found", 404);
@@ -490,7 +486,11 @@ export const pushOrderToPPS = asyncHandler(async (req, res) => {
   const cookItemDocs = order.items.map((item: any) => {
     const label = item.label as any;
     const labelId = String(label._id);
-    if (!label.itemId) throw new AppError(`Label itemId missing for label ${labelId} — run backfillLabelItemIds script`, 400);
+    if (!label.itemId)
+      throw new AppError(
+        `Label itemId missing for label ${labelId} — run backfillLabelItemIds script`,
+        400
+      );
     return {
       cookItemId: `${storeId}-${normalizedOrderNumber}-${label.itemId}`,
       customerId: storeMongoId,
@@ -561,9 +561,7 @@ export const toggleShipASAP = asyncHandler(async (req, res) => {
   await order.save();
 
   res.json({
-    message: order.shipASAP
-      ? "Order marked for immediate shipping"
-      : "Ship ASAP disabled",
+    message: order.shipASAP ? "Order marked for immediate shipping" : "Ship ASAP disabled",
     order,
   });
 });
@@ -581,7 +579,6 @@ export const deleteClientOrder = asyncHandler(async (req, res) => {
 
   res.json({ message: "Order deleted successfully" });
 });
-
 
 // COMPLETE PRODUCTION CALLBACK
 // Fallback API endpoint — PPS calls completeProduction() internally,

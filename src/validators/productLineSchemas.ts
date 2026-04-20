@@ -30,8 +30,12 @@ export const toggleProductLineStatusSchema = z.object({
 });
 
 export const reorderProductLinesSchema = z.object({
-  order: z.array(z.object({
-    id: z.string().min(1),
-    displayOrder: z.number().int().min(0),
-  })).min(1, "Order array is required"),
+  order: z
+    .array(
+      z.object({
+        id: z.string().min(1),
+        displayOrder: z.number().int().min(0),
+      })
+    )
+    .min(1, "Order array is required"),
 });

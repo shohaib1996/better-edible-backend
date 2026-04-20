@@ -33,11 +33,7 @@ router.post(
   validate({ body: bulkCreateLabelOrdersSchema }),
   bulkCreateLabelOrders
 );
-router.post(
-  "/package-prep/orders",
-  validate({ body: createLabelOrderSchema }),
-  createLabelOrder
-);
+router.post("/package-prep/orders", validate({ body: createLabelOrderSchema }), createLabelOrder);
 router.post(
   "/package-prep/orders/:orderId/receive",
   validate({ body: receiveLabelOrderSchema }),
@@ -51,25 +47,14 @@ router.patch(
 router.delete("/package-prep/orders/:orderId", deleteLabelOrder);
 
 // Inventory
-router.get(
-  "/package-prep/inventory/summary",
-  getInventorySummary
-);
+router.get("/package-prep/inventory/summary", getInventorySummary);
 router.get(
   "/package-prep/inventory",
   validate({ query: getLabelInventoryQuerySchema }),
   getLabelInventory
 );
-router.post(
-  "/package-prep/inventory/apply",
-  validate({ body: applyLabelsSchema }),
-  applyLabels
-);
-router.post(
-  "/package-prep/inventory/print",
-  validate({ body: printLabelsSchema }),
-  printLabels
-);
+router.post("/package-prep/inventory/apply", validate({ body: applyLabelsSchema }), applyLabels);
+router.post("/package-prep/inventory/print", validate({ body: printLabelsSchema }), printLabels);
 router.patch(
   "/package-prep/inventory/:inventoryId/threshold",
   validate({ body: setReorderThresholdSchema }),

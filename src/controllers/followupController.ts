@@ -7,9 +7,7 @@ import { AppError } from "../utils/AppError";
  * Convert any incoming date (string or Date) into YYYY-MM-DD string.
  * Returns null if invalid.
  */
-function toDateOnlyString(
-  input: string | Date | undefined | null
-): string | null {
+function toDateOnlyString(input: string | Date | undefined | null): string | null {
   if (!input) return null;
 
   // already correct format
@@ -112,11 +110,7 @@ export const updateFollowup = asyncHandler(async (req, res) => {
     updateData.followupDate = dateOnly;
   }
 
-  const updated = await Followup.findByIdAndUpdate(
-    req.params.id,
-    updateData,
-    { new: true }
-  );
+  const updated = await Followup.findByIdAndUpdate(req.params.id, updateData, { new: true });
 
   if (!updated) throw new AppError("Followup not found", 404);
 

@@ -1,11 +1,13 @@
 import { z } from "zod";
 import { objectId, paginationQuery } from "./commonSchemas";
 
-const performedBySchema = z.object({
-  userId: z.string(),
-  userName: z.string(),
-  repType: z.string(),
-}).optional();
+const performedBySchema = z
+  .object({
+    userId: z.string(),
+    userName: z.string(),
+    repType: z.string(),
+  })
+  .optional();
 
 const cookItemInputSchema = z.object({
   cookItemId: z.string().min(1, "cookItemId is required"),
@@ -93,19 +95,22 @@ export const confirmCountSchema = z.object({
   performedBy: performedBySchema,
 });
 
-export const bulkCreateResourceSchema = z.object({
-  startNumber: z.number().int().min(1, "startNumber must be at least 1"),
-  endNumber: z.number().int().min(1, "endNumber must be at least 1"),
-  prefix: z.string().optional(),
-  unitsPerMold: z.number().int().min(1).optional(),
-  totalShelves: z.number().int().min(1).max(100).optional(),
-}).refine((data) => data.endNumber >= data.startNumber, {
-  message: "endNumber must be >= startNumber",
-  path: ["endNumber"],
-}).refine((data) => (data.endNumber - data.startNumber) <= 999, {
-  message: "Cannot create more than 1000 items at once",
-  path: ["endNumber"],
-});
+export const bulkCreateResourceSchema = z
+  .object({
+    startNumber: z.number().int().min(1, "startNumber must be at least 1"),
+    endNumber: z.number().int().min(1, "endNumber must be at least 1"),
+    prefix: z.string().optional(),
+    unitsPerMold: z.number().int().min(1).optional(),
+    totalShelves: z.number().int().min(1).max(100).optional(),
+  })
+  .refine((data) => data.endNumber >= data.startNumber, {
+    message: "endNumber must be >= startNumber",
+    path: ["endNumber"],
+  })
+  .refine((data) => data.endNumber - data.startNumber <= 999, {
+    message: "Cannot create more than 1000 items at once",
+    path: ["endNumber"],
+  });
 
 export const getStage1Query = paginationQuery.extend({
   status: z.string().optional(),

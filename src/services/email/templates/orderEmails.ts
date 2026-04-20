@@ -1,10 +1,6 @@
 // src/services/email/templates/orderEmails.ts
 import { resend, FROM_EMAIL } from "../config";
-import {
-  OrderEmailData,
-  OrderShippedRepData,
-  RecurringOrderCreatedData,
-} from "../types";
+import { OrderEmailData, OrderShippedRepData, RecurringOrderCreatedData } from "../types";
 import {
   emailWrapper,
   headerBanner,
@@ -18,9 +14,7 @@ import {
 } from "../helpers";
 
 // 7-Day Reminder Email
-export const sendSevenDayReminderEmail = async (
-  data: OrderEmailData
-): Promise<boolean> => {
+export const sendSevenDayReminderEmail = async (data: OrderEmailData): Promise<boolean> => {
   try {
     const content = `
       <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
@@ -78,9 +72,7 @@ export const sendSevenDayReminderEmail = async (
       return false;
     }
 
-    console.log(
-      `✅ 7-day reminder sent to ${data.contactEmail} for ${data.orderNumber}`
-    );
+    console.log(`✅ 7-day reminder sent to ${data.contactEmail} for ${data.orderNumber}`);
     return true;
   } catch (err) {
     console.error("Error sending 7-day reminder email:", err);
@@ -89,9 +81,7 @@ export const sendSevenDayReminderEmail = async (
 };
 
 // Ready to Ship Email
-export const sendReadyToShipEmail = async (
-  data: OrderEmailData
-): Promise<boolean> => {
+export const sendReadyToShipEmail = async (data: OrderEmailData): Promise<boolean> => {
   try {
     const content = `
       <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
@@ -147,9 +137,7 @@ export const sendReadyToShipEmail = async (
       return false;
     }
 
-    console.log(
-      `✅ Ready-to-ship email sent to ${data.contactEmail} for ${data.orderNumber}`
-    );
+    console.log(`✅ Ready-to-ship email sent to ${data.contactEmail} for ${data.orderNumber}`);
     return true;
   } catch (err) {
     console.error("Error sending ready-to-ship email:", err);
@@ -217,9 +205,7 @@ export const sendOrderShippedEmail = async (
       return false;
     }
 
-    console.log(
-      `✅ Order shipped email sent to ${data.contactEmail} for ${data.orderNumber}`
-    );
+    console.log(`✅ Order shipped email sent to ${data.contactEmail} for ${data.orderNumber}`);
     return true;
   } catch (err) {
     console.error("Error sending order shipped email:", err);
@@ -228,9 +214,7 @@ export const sendOrderShippedEmail = async (
 };
 
 // Order Shipped Notification (to rep)
-export const sendOrderShippedRepEmail = async (
-  data: OrderShippedRepData
-): Promise<boolean> => {
+export const sendOrderShippedRepEmail = async (data: OrderShippedRepData): Promise<boolean> => {
   try {
     const content = `
       <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
@@ -454,9 +438,7 @@ export const sendOrderCreatedClientEmail = async (
 };
 
 // Order In Production Email (to client)
-export const sendOrderInProductionEmail = async (
-  data: OrderEmailData
-): Promise<boolean> => {
+export const sendOrderInProductionEmail = async (data: OrderEmailData): Promise<boolean> => {
   try {
     const content = `
       <table role="presentation" width="100%" cellspacing="0" cellpadding="0">

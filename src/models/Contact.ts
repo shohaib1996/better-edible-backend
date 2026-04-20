@@ -1,5 +1,4 @@
-
-import { Schema, model, Document, Types } from 'mongoose';
+import { Schema, model, Document, Types } from "mongoose";
 
 export interface IContact extends Document {
   name: string;
@@ -19,9 +18,9 @@ const ContactSchema = new Schema<IContact>(
     email: { type: String },
     phone: { type: String },
     importantToKnow: { type: String },
-    store: { type: Schema.Types.ObjectId, ref: 'Store' },
+    store: { type: Schema.Types.ObjectId, ref: "Store" },
   },
   { timestamps: true }
 );
 
-export const Contact = model<IContact>('Contact', ContactSchema);
+export const Contact = model<IContact>("Contact", ContactSchema);

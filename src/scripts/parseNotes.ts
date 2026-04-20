@@ -48,30 +48,20 @@ const main = async () => {
       const cellContent = row.querySelector("td")?.innerHTML || "";
 
       // --- Extraction Logic (from original script) ---
-      const dateMatch = cellContent.match(
-        /<strong>Date\s*:\s*<\/strong>([^<]+)/
-      );
+      const dateMatch = cellContent.match(/<strong>Date\s*:\s*<\/strong>([^<]+)/);
       const dateStr = dateMatch ? dateMatch[1].trim() : "";
       if (!dateStr) return; // Skip if no date
 
-      const dispositionMatch = cellContent.match(
-        /<strong>Disposition\s*:\s*<\/strong>([^<&]+)/
-      );
+      const dispositionMatch = cellContent.match(/<strong>Disposition\s*:\s*<\/strong>([^<&]+)/);
       const disposition = dispositionMatch ? dispositionMatch[1].trim() : "";
 
-      const visitTypeMatch = cellContent.match(
-        /<strong>Visit Type\s*:\s*<\/strong>([^<]+)/
-      );
+      const visitTypeMatch = cellContent.match(/<strong>Visit Type\s*:\s*<\/strong>([^<]+)/);
       const visitType = visitTypeMatch ? visitTypeMatch[1].trim() : "";
 
-      const notesMatch = cellContent.match(
-        /<strong>Notes<\/strong>:\s*([^<]+)/
-      );
+      const notesMatch = cellContent.match(/<strong>Notes<\/strong>:\s*([^<]+)/);
       const content = notesMatch ? notesMatch[1].trim() : "";
 
-      const deliveryNoteMatch = cellContent.match(
-        /<strong>Delivery Note<\/strong>:\s*([^<]+)/
-      );
+      const deliveryNoteMatch = cellContent.match(/<strong>Delivery Note<\/strong>:\s*([^<]+)/);
       const deliveryNote = deliveryNoteMatch ? deliveryNoteMatch[1].trim() : "";
 
       const payment: any = {

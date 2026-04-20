@@ -17,7 +17,7 @@ import cron from "node-cron";
 
 // 👉 dotenv is ONLY for local development
 if (process.env.NODE_ENV === "development") {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   require("dotenv").config();
 }
 

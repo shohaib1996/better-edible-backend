@@ -12,11 +12,7 @@ export const getAllDehydratorUnits = asyncHandler(async (req, res) => {
   const skip = (Number(page) - 1) * Number(limit);
 
   const [units, total] = await Promise.all([
-    DehydratorUnit.find()
-      .sort({ unitId: 1 })
-      .skip(skip)
-      .limit(Number(limit))
-      .lean(),
+    DehydratorUnit.find().sort({ unitId: 1 }).skip(skip).limit(Number(limit)).lean(),
     DehydratorUnit.countDocuments(),
   ]);
 

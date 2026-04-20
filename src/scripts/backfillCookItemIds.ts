@@ -66,9 +66,9 @@ async function run() {
 
       // itemId on CookItem is the label's MongoDB _id
       const labelObjectId = item.itemId
-        ? (mongoose.Types.ObjectId.isValid(item.itemId)
-            ? new mongoose.Types.ObjectId(item.itemId)
-            : null)
+        ? mongoose.Types.ObjectId.isValid(item.itemId)
+          ? new mongoose.Types.ObjectId(item.itemId)
+          : null
         : null;
 
       if (!labelObjectId) {
@@ -93,28 +93,28 @@ async function run() {
         continue;
       }
 
-      await cookItemsCol.updateOne(
-        { _id: item._id },
-        { $set: { cookItemId: newCookItemId } }
-      );
+      await cookItemsCol.updateOne({ _id: item._id }, { $set: { cookItemId: newCookItemId } });
 
       // Also update any molds/trays/units that reference the old cookItemId
       const oldCookItemId = item.cookItemId as string;
 
-      await mongoose.connection.collection("molds").updateMany(
-        { currentCookItemId: oldCookItemId },
-        { $set: { currentCookItemId: newCookItemId } }
-      );
+      await mongoose.connection
+        .collection("molds")
+        .updateMany(
+          { currentCookItemId: oldCookItemId },
+          { $set: { currentCookItemId: newCookItemId } }
+        );
 
-      await mongoose.connection.collection("dehydratortrays").updateMany(
-        { currentCookItemId: oldCookItemId },
-        { $set: { currentCookItemId: newCookItemId } }
-      );
+      await mongoose.connection
+        .collection("dehydratortrays")
+        .updateMany(
+          { currentCookItemId: oldCookItemId },
+          { $set: { currentCookItemId: newCookItemId } }
+        );
 
-      await mongoose.connection.collection("cases").updateMany(
-        { cookItemId: oldCookItemId },
-        { $set: { cookItemId: newCookItemId } }
-      );
+      await mongoose.connection
+        .collection("cases")
+        .updateMany({ cookItemId: oldCookItemId }, { $set: { cookItemId: newCookItemId } });
 
       console.log(`  ${oldCookItemId} → ${newCookItemId}`);
       updated++;

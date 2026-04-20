@@ -16,11 +16,7 @@ export const getAllDehydratorTrays = asyncHandler(async (req, res) => {
   const skip = (Number(page) - 1) * Number(limit);
 
   const [trays, total] = await Promise.all([
-    DehydratorTray.find(query)
-      .sort({ trayId: 1 })
-      .skip(skip)
-      .limit(Number(limit))
-      .lean(),
+    DehydratorTray.find(query).sort({ trayId: 1 }).skip(skip).limit(Number(limit)).lean(),
     DehydratorTray.countDocuments(query),
   ]);
 

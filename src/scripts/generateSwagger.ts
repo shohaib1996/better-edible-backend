@@ -279,13 +279,11 @@ const doc = {
 const outputFile = "./src/docs/swagger-output.json";
 const endpointsFiles = ["./src/app.ts"];
 
-swaggerAutogen({ openapi: "3.0.0" })(outputFile, endpointsFiles, doc).then(
-  (result) => {
-    if (result && typeof result === "object" && result.success) {
-      console.log("✅ Swagger documentation generated successfully!");
-      console.log(`📄 Output: ${outputFile}`);
-    } else {
-      console.error("❌ Failed to generate Swagger documentation");
-    }
+swaggerAutogen({ openapi: "3.0.0" })(outputFile, endpointsFiles, doc).then((result) => {
+  if (result && typeof result === "object" && result.success) {
+    console.log("✅ Swagger documentation generated successfully!");
+    console.log(`📄 Output: ${outputFile}`);
+  } else {
+    console.error("❌ Failed to generate Swagger documentation");
   }
-);
+});

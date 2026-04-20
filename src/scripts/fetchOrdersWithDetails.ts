@@ -79,8 +79,7 @@ interface MigratedOrder {
 // Helpers
 // ─────────────────────────────
 
-const BASE_URL =
-  process.env.OLD_BASE_URL?.replace(/\/+$/, "") || "https://better-edibles.com";
+const BASE_URL = process.env.OLD_BASE_URL?.replace(/\/+$/, "") || "https://better-edibles.com";
 
 const jar = new CookieJar();
 const axios = wrapper(
@@ -110,9 +109,7 @@ function normalize(str: string): string {
 
 const reps: RepDoc[] = readJson<RepDoc[]>("better-edibles.reps.json");
 const stores: StoreDoc[] = readJson<StoreDoc[]>("better-edibles.stores.json");
-const products: ProductDoc[] = readJson<ProductDoc[]>(
-  "better-edibles.products.json"
-);
+const products: ProductDoc[] = readJson<ProductDoc[]>("better-edibles.products.json");
 
 // rep map by name
 const repMapByName = new Map<string, string>();
@@ -165,9 +162,7 @@ function findProduct(
     const fiftyProducts = products.filter(
       (p) => p.productLine && normalize(p.productLine).includes("fifty")
     );
-    const match = fiftyProducts.find(
-      (p) => p.price === unitPrice || p.discountPrice === unitPrice
-    );
+    const match = fiftyProducts.find((p) => p.price === unitPrice || p.discountPrice === unitPrice);
     if (match) return match;
   }
 
@@ -195,10 +190,7 @@ function findProduct(
   return candidates[0] ?? null;
 }
 
-function findStoreId(
-  storeName: string,
-  address: string
-): { $oid: string } | null {
+function findStoreId(storeName: string, address: string): { $oid: string } | null {
   const key = normalize(storeName);
   const candidates = storeMapByName.get(key);
   if (!candidates || candidates.length === 0) {
@@ -210,9 +202,7 @@ function findStoreId(
   }
   // If multiple with same name, try by partial address match
   const addrKey = normalize(address.split(/\s{2,}/)[0]);
-  const match =
-    candidates.find((s) => normalize(s.address).includes(addrKey)) ||
-    candidates[0];
+  const match = candidates.find((s) => normalize(s.address).includes(addrKey)) || candidates[0];
 
   return { $oid: match._id.$oid };
 }
@@ -238,10 +228,7 @@ function parseDateFromMMDDYYYY(str: string | null | undefined): string | null {
   const m = str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
   if (!m) return null;
   const [, mm, dd, yyyy] = m;
-  const iso = `${yyyy}-${mm.padStart(2, "0")}-${dd.padStart(
-    2,
-    "0"
-  )}T00:00:00.000Z`;
+  const iso = `${yyyy}-${mm.padStart(2, "0")}-${dd.padStart(2, "0")}T00:00:00.000Z`;
   return iso;
 }
 
@@ -321,8 +308,7 @@ function parseTopOrders(): TopOrderRow[] {
       .replace(/^:\s*/, "")
       .trim();
 
-    const shippedDateStr =
-      section.find("input[name='seldate']").val()?.toString().trim() || null;
+    const shippedDateStr = section.find("input[name='seldate']").val()?.toString().trim() || null;
 
     const amountText = section
       .find("dt:contains('Amount')")
@@ -339,9 +325,7 @@ function parseTopOrders(): TopOrderRow[] {
       .trim();
 
     // Pull i & s from the onclick attribute
-    const onClickAttr = section
-      .find("h4 a[onclick*='order-details.php']")
-      .attr("onclick");
+    const onClickAttr = section.find("h4 a[onclick*='order-details.php']").attr("onclick");
 
     let orderId = "";
     let storeParam = "";
@@ -368,9 +352,7 @@ function parseTopOrders(): TopOrderRow[] {
     });
   });
 
-  console.log(
-    `✅ Parsed ${rows.length} top-level orders from orders-past-1000.html`
-  );
+  console.log(`✅ Parsed ${rows.length} top-level orders from orders-past-1000.html`);
   return rows;
 }
 
@@ -508,9 +490,7 @@ async function main() {
 
     const outPath = path.join(rootDir, "orders.migrated2.json");
     fs.writeFileSync(outPath, JSON.stringify(migrated, null, 2));
-    console.log(
-      `\n✅ Done. Wrote ${migrated.length} orders with items to ${outPath}`
-    );
+    console.log(`\n✅ Done. Wrote ${migrated.length} orders with items to ${outPath}`);
   } catch (err: any) {
     console.error("💥 Script failed:", err?.message || err);
     process.exit(1);

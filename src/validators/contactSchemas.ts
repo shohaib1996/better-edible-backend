@@ -12,14 +12,16 @@ export const createContactSchema = z.union([
     importantToKnow: z.string().optional(),
   }),
   // Array of contacts
-  z.array(z.object({
-    name: z.string().min(1, "Name is required"),
-    store: objectId,
-    role: z.string().optional(),
-    email: z.string().email().optional().or(z.literal("")),
-    phone: z.string().optional(),
-    importantToKnow: z.string().optional(),
-  })),
+  z.array(
+    z.object({
+      name: z.string().min(1, "Name is required"),
+      store: objectId,
+      role: z.string().optional(),
+      email: z.string().email().optional().or(z.literal("")),
+      phone: z.string().optional(),
+      importantToKnow: z.string().optional(),
+    })
+  ),
 ]);
 
 export const updateContactSchema = z.object({

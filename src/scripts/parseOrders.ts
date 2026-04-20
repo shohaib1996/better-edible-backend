@@ -101,9 +101,7 @@ $("section.docs").each((i, el) => {
   const section = $(el);
 
   // ORDER NUMBER
-  const orderNumberText = clean(
-    section.find("dt:contains('Order#')").next("dd").text()
-  );
+  const orderNumberText = clean(section.find("dt:contains('Order#')").next("dd").text());
   const orderNumber = orderNumberText ? parseInt(orderNumberText, 10) : null;
 
   // STORE
@@ -111,26 +109,21 @@ $("section.docs").each((i, el) => {
   const storeId = storeMap[storeName] || null;
 
   // REP
-  const repText = clean(
-    section.find("dt:contains('Rep')").next("dd").text()
-  ).toUpperCase();
+  const repText = clean(section.find("dt:contains('Rep')").next("dd").text()).toUpperCase();
   const repId = repMap[repText] || null;
 
   // DELIVERY DATE = shipped date input value
   const shippedRaw = section.find("input[name='seldate']").val();
-  const deliveryDate = parseMmDdYyyyToUTC(
-    shippedRaw ? shippedRaw.toString() : null
-  );
+  const deliveryDate = parseMmDdYyyyToUTC(shippedRaw ? shippedRaw.toString() : null);
 
   // NOTE
-  const note = clean(
-    section.find("div.span10 p.note-area").text().replace("Note", "")
-  );
+  const note = clean(section.find("div.span10 p.note-area").text().replace("Note", ""));
 
   // AMOUNT
-  const amountText = clean(
-    section.find("dt:contains('Amount')").next("dd").text()
-  ).replace("$", "");
+  const amountText = clean(section.find("dt:contains('Amount')").next("dd").text()).replace(
+    "$",
+    ""
+  );
   const amount = amountText ? parseFloat(amountText) : 0;
 
   orders.push({

@@ -11,8 +11,7 @@ dotenv.config();
 // Setup
 // ─────────────────────────────
 
-const BASE_URL =
-  process.env.OLD_BASE_URL?.replace(/\/+$/, "") || "https://better-edibles.com";
+const BASE_URL = process.env.OLD_BASE_URL?.replace(/\/+$/, "") || "https://better-edibles.com";
 
 const jar = new CookieJar();
 const axios = wrapper(
@@ -73,15 +72,11 @@ async function fetchPastOrders1000() {
   form.set("edate", "12/04/2025");
   form.set("search", "");
 
-  const response = await axios.post(
-    "/reps/admin/order-lists-past-data.php",
-    form.toString(),
-    {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    }
-  );
+  const response = await axios.post("/reps/admin/order-lists-past-data.php", form.toString(), {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  });
 
   console.log("✅ Received response from server");
   return response.data;

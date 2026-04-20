@@ -37,8 +37,7 @@ interface OrderItem {
 // Helpers
 // ─────────────────────────────
 
-const BASE_URL =
-  process.env.OLD_BASE_URL?.replace(/\/+$/, "") || "https://better-edibles.com";
+const BASE_URL = process.env.OLD_BASE_URL?.replace(/\/+$/, "") || "https://better-edibles.com";
 
 const jar = new CookieJar();
 const axios = wrapper(
@@ -72,15 +71,10 @@ function parseMoney(str: string): number {
 // Load products
 // ─────────────────────────────
 
-const products: ProductDoc[] = readJson<ProductDoc[]>(
-  "better-edibles.products.json"
-);
+const products: ProductDoc[] = readJson<ProductDoc[]>("better-edibles.products.json");
 
 // product lookup helper
-function findProduct(
-  rawName: string,
-  unitLabelRaw: string | null
-): ProductDoc | null {
+function findProduct(rawName: string, unitLabelRaw: string | null): ProductDoc | null {
   // Example rawName: "Original - Hybrid", "Fruity - Sativa", "SPLIT QUADS"
   const cleaned = rawName.replace(/\u00a0/g, " ").trim();
   const [left, right] = cleaned.split("-").map((p) => p.trim());
@@ -183,9 +177,7 @@ async function fetchOrderDetails(orderId: string, storeParam: string) {
     const unitPrice = parseMoney(unitPriceCell.text());
     const lineTotal = parseMoney(totalCell.text());
 
-    console.log(
-      `  Row ${i}: ${rawName} | Qty: ${qty} | Price: ${unitPrice} | Total: ${lineTotal}`
-    );
+    console.log(`  Row ${i}: ${rawName} | Qty: ${qty} | Price: ${unitPrice} | Total: ${lineTotal}`);
 
     // Extract “Original - Hybrid” → baseName + unitLabel
     const cleaned = rawName.replace(/\u00a0/g, " ").trim();
@@ -197,11 +189,7 @@ async function fetchOrderDetails(orderId: string, storeParam: string) {
     if (!productDoc) {
       console.warn(`    ⚠️  No product match for line: "${rawName}"`);
     } else {
-      console.log(
-        `    ✅ Matched product: ${
-          productDoc.productLine || productDoc.itemName
-        }`
-      );
+      console.log(`    ✅ Matched product: ${productDoc.productLine || productDoc.itemName}`);
     }
 
     const discountPrice = unitPrice;
@@ -234,9 +222,7 @@ async function main() {
     const orderId = "3339";
     const storeParam = "219";
 
-    console.log(
-      `\nTesting fetch for Order ID: ${orderId}, Store Param: ${storeParam}`
-    );
+    console.log(`\nTesting fetch for Order ID: ${orderId}, Store Param: ${storeParam}`);
     const items = await fetchOrderDetails(orderId, storeParam);
 
     console.log("\n📦 Parsed Items:");

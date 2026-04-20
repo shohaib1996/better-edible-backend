@@ -13,10 +13,7 @@ import { Types } from "mongoose";
 // Called when all cook items for an order reach packaging_casing_complete
 // ─────────────────────────────────────────────────────────
 
-async function completeProduction(
-  privateLabOrderId: Types.ObjectId,
-  _cookItems: ICookItem[],
-) {
+async function completeProduction(privateLabOrderId: Types.ObjectId, _cookItems: ICookItem[]) {
   const order = await ClientOrder.findById(privateLabOrderId).populate({
     path: "client",
     populate: { path: "store" },
@@ -75,16 +72,12 @@ export const scanContainer = asyncHandler(async (req, res) => {
     throw new AppError("Invalid qrCodeData", 400);
   }
 
-  if (!cookItemId)
-    throw new AppError("Could not extract cookItemId from qrCodeData", 400);
+  if (!cookItemId) throw new AppError("Could not extract cookItemId from qrCodeData", 400);
 
   const cookItem = await CookItem.findOne({ cookItemId });
   if (!cookItem) throw new AppError("Cook item not found", 404);
   if (cookItem.status !== "bag_seal_complete") {
-    throw new AppError(
-      `Cook item status is "${cookItem.status}", must be bag_seal_complete`,
-      400,
-    );
+    throw new AppError(`Cook item status is "${cookItem.status}", must be bag_seal_complete`, 400);
   }
 
   const packagingStartTime = new Date();
@@ -133,7 +126,7 @@ export const getCookItemHistory = asyncHandler(async (req, res) => {
   if (!cookItem) throw new AppError("Cook item not found", 404);
 
   const history = (cookItem.history || []).sort(
-    (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime(),
+    (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
   );
 
   res.json({ cookItemId, history });
@@ -155,10 +148,7 @@ export const confirmCount = asyncHandler(async (req, res) => {
   const cookItem = await CookItem.findOne({ cookItemId });
   if (!cookItem) throw new AppError("Cook item not found", 404);
   if (cookItem.status !== "bag_seal_complete") {
-    throw new AppError(
-      `Cook item status is "${cookItem.status}", must be bag_seal_complete`,
-      400,
-    );
+    throw new AppError(`Cook item status is "${cookItem.status}", must be bag_seal_complete`, 400);
   }
 
   const now = new Date();
@@ -217,7 +207,7 @@ export const confirmCount = asyncHandler(async (req, res) => {
 
   const allItemsForOrder = await CookItem.find({ orderId: cookItem.orderId });
   const completedCount = allItemsForOrder.filter(
-    (i) => i.status === "packaging_casing_complete",
+    (i) => i.status === "packaging_casing_complete"
   ).length;
   const allComplete = completedCount === allItemsForOrder.length;
 

@@ -1,5 +1,5 @@
 // src/models/Product.ts
-import { Schema, model, Document, Types } from 'mongoose';
+import { Schema, model, Document, Types } from "mongoose";
 
 interface IHybridBreakdown {
   [key: string]: number | undefined;
@@ -25,7 +25,7 @@ export interface IProduct extends Document {
   subProductLine?: string;
   itemName?: string;
   hybridBreakdown?: IHybridBreakdown;
-  prices?: IPricesByType;             // ✅ Unified price/discount system
+  prices?: IPricesByType; // ✅ Unified price/discount system
   price?: number;
   discountPrice?: number;
   variants?: IVariantPrice[];
@@ -61,8 +61,8 @@ const ProductSchema = new Schema<IProduct>(
   {
     productLine: {
       type: Schema.Types.ObjectId,
-      ref: 'ProductLine',
-      required: true
+      ref: "ProductLine",
+      required: true,
     },
     subProductLine: String,
     itemName: String,
@@ -81,9 +81,9 @@ const ProductSchema = new Schema<IProduct>(
 );
 
 ProductSchema.index({
-  productLine: 'text',
-  subProductLine: 'text',
-  itemName: 'text',
+  productLine: "text",
+  subProductLine: "text",
+  itemName: "text",
 });
 
-export const Product = model<IProduct>('Product', ProductSchema);
+export const Product = model<IProduct>("Product", ProductSchema);
