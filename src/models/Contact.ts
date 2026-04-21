@@ -7,6 +7,11 @@ export interface IContact extends Document {
   phone: string;
   importantToKnow: string;
   store: Types.ObjectId;
+  // Store portal auth fields
+  passwordHash?: string;
+  status: "active" | "inactive";
+  magicLinkToken?: string;
+  magicLinkExpiry?: Date;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -19,6 +24,10 @@ const ContactSchema = new Schema<IContact>(
     phone: { type: String },
     importantToKnow: { type: String },
     store: { type: Schema.Types.ObjectId, ref: "Store" },
+    passwordHash: { type: String },
+    status: { type: String, enum: ["active", "inactive"], default: "active" },
+    magicLinkToken: { type: String },
+    magicLinkExpiry: { type: Date },
   },
   { timestamps: true }
 );
