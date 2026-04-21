@@ -6,7 +6,7 @@ import {
   createDehydratorTray,
   updateDehydratorTray,
   deleteDehydratorTray,
-} from "../controllers/dehydratorTrayController";
+} from "../controllers/pps/dehydratorTrayController";
 import { validate } from "../middleware/validate";
 import { idParam } from "../validators/commonSchemas";
 import {

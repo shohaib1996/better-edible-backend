@@ -11,7 +11,7 @@ import {
   printLabels,
   getInventorySummary,
   setReorderThreshold,
-} from "../controllers/packagePrepController";
+} from "../controllers/pps/packagePrepController";
 import { validate } from "../middleware/validate";
 import {
   createLabelOrderSchema,

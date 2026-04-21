@@ -1,11 +1,11 @@
-import { CookItem } from "../models/CookItem";
-import { Case } from "../models/Case";
-import { ClientOrder } from "../models/ClientOrder";
-import LabelInventory from "../models/LabelInventory";
-import { asyncHandler } from "../utils/asyncHandler";
-import { AppError } from "../utils/AppError";
+import { CookItem } from "../../models/CookItem";
+import { Case } from "../../models/Case";
+import { ClientOrder } from "../../models/ClientOrder";
+import LabelInventory from "../../models/LabelInventory";
+import { asyncHandler } from "../../utils/asyncHandler";
+import { AppError } from "../../utils/AppError";
 import { extractPerformedBy, formatTimestamp } from "./ppsHelpers";
-import type { ICookItem } from "../models/CookItem";
+import type { ICookItem } from "../../models/CookItem";
 import { Types } from "mongoose";
 
 // ─────────────────────────────────────────────────────────
@@ -25,7 +25,7 @@ async function completeProduction(privateLabOrderId: Types.ObjectId, _cookItems:
   await order.save();
 
   try {
-    const { sendReadyToShipNotification } = await import("../jobs/clientOrderJobs");
+    const { sendReadyToShipNotification } = await import("../../jobs/clientOrderJobs");
     await sendReadyToShipNotification(order);
   } catch (err) {
     console.error("Error sending ready to ship notification:", err);

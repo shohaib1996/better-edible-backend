@@ -7,7 +7,7 @@ import {
   updateCase,
   updateCaseStatus,
   deleteCase,
-} from "../controllers/caseController";
+} from "../controllers/pps/caseController";
 import { validate } from "../middleware/validate";
 import { idParam } from "../validators/commonSchemas";
 import {

@@ -34,7 +34,7 @@ import {
   confirmCount,
   getCaseById,
   getCookItemHistory,
-} from "../controllers/ppsController";
+} from "../controllers/pps/ppsController";
 import { validate } from "../middleware/validate";
 import {
   bulkCreateCookItemsSchema,

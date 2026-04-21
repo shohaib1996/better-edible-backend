@@ -1,4 +1,4 @@
-import type { IHistoryEntry } from "../models/CookItem";
+import type { IHistoryEntry } from "../../models/CookItem";
 
 export function extractPerformedBy(body: any): IHistoryEntry["performedBy"] {
   const p = body?.performedBy;

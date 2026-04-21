@@ -7,7 +7,7 @@ import {
   updateDehydratorUnit,
   updateShelf,
   deleteDehydratorUnit,
-} from "../controllers/dehydratorUnitController";
+} from "../controllers/pps/dehydratorUnitController";
 import { validate } from "../middleware/validate";
 import { idParam } from "../validators/commonSchemas";
 import {

@@ -1,10 +1,10 @@
-import { CookItem } from "../models/CookItem";
-import { Mold } from "../models/Mold";
-import { OilContainer } from "../models/OilContainer";
-import { Flavor } from "../models/Flavor";
-import { ProductColor } from "../models/ProductColor";
-import { asyncHandler } from "../utils/asyncHandler";
-import { AppError } from "../utils/AppError";
+import { CookItem } from "../../models/CookItem";
+import { Mold } from "../../models/Mold";
+import { OilContainer } from "../../models/OilContainer";
+import { Flavor } from "../../models/Flavor";
+import { ProductColor } from "../../models/ProductColor";
+import { asyncHandler } from "../../utils/asyncHandler";
+import { AppError } from "../../utils/AppError";
 import { extractPerformedBy } from "./ppsHelpers";
 
 // ─────────────────────────────────────────────────────────
@@ -22,8 +22,8 @@ export const bulkCreateCookItems = asyncHandler(async (req, res) => {
     );
   }
 
-  const { ClientOrder } = await import("../models/ClientOrder");
-  const { Label } = await import("../models/Label");
+  const { ClientOrder } = await import("../../models/ClientOrder");
+  const { Label } = await import("../../models/Label");
 
   const order = (await ClientOrder.findById(orderId)
     .populate({

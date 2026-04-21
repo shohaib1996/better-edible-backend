@@ -6,7 +6,7 @@ import {
   createMold,
   updateMold,
   deleteMold,
-} from "../controllers/moldController";
+} from "../controllers/pps/moldController";
 import { validate } from "../middleware/validate";
 import { idParam } from "../validators/commonSchemas";
 import { createMoldSchema, updateMoldSchema, getAllMoldsQuery } from "../validators/moldSchemas";

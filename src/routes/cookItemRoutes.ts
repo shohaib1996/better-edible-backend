@@ -7,7 +7,7 @@ import {
   updateCookItem,
   updateCookItemStatus,
   deleteCookItem,
-} from "../controllers/cookItemController";
+} from "../controllers/pps/cookItemController";
 import { validate } from "../middleware/validate";
 import { idParam } from "../validators/commonSchemas";
 import {

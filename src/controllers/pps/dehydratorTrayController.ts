@@ -1,6 +1,6 @@
-import { DehydratorTray } from "../models/DehydratorTray";
-import { asyncHandler } from "../utils/asyncHandler";
-import { AppError } from "../utils/AppError";
+import { DehydratorTray } from "../../models/DehydratorTray";
+import { asyncHandler } from "../../utils/asyncHandler";
+import { AppError } from "../../utils/AppError";
 
 // ─────────────────────────────
 // Get All Dehydrator Trays

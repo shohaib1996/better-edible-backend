@@ -1,6 +1,6 @@
-import { Mold } from "../models/Mold";
-import { asyncHandler } from "../utils/asyncHandler";
-import { AppError } from "../utils/AppError";
+import { Mold } from "../../models/Mold";
+import { asyncHandler } from "../../utils/asyncHandler";
+import { AppError } from "../../utils/AppError";
 
 // ─────────────────────────────
 // Get All Molds

@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
-import LabelOrder from "../models/LabelOrder";
-import LabelInventory from "../models/LabelInventory";
-import { Store } from "../models/Store";
-import { Label } from "../models/Label";
-import { AppError } from "../utils/AppError";
+import LabelOrder from "../../models/LabelOrder";
+import LabelInventory from "../../models/LabelInventory";
+import { Store } from "../../models/Store";
+import { Label } from "../../models/Label";
+import { AppError } from "../../utils/AppError";
 
 // ─────────────────────────────────────────────
 // ENDPOINT 1: getActiveLabelOrders

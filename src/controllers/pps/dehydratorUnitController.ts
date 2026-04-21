@@ -1,6 +1,6 @@
-import { DehydratorUnit } from "../models/DehydratorUnit";
-import { asyncHandler } from "../utils/asyncHandler";
-import { AppError } from "../utils/AppError";
+import { DehydratorUnit } from "../../models/DehydratorUnit";
+import { asyncHandler } from "../../utils/asyncHandler";
+import { AppError } from "../../utils/AppError";
 
 // ─────────────────────────────
 // Get All Dehydrator Units
