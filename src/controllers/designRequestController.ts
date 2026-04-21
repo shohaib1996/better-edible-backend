@@ -1,6 +1,11 @@
 import { asyncHandler } from "../utils/asyncHandler";
 import { AppError } from "../utils/AppError";
-import { DesignRequest, DesignRequestQueue, DesignRequestSource, DesignRequestType } from "../models/DesignRequest";
+import {
+  DesignRequest,
+  DesignRequestQueue,
+  DesignRequestSource,
+  DesignRequestType,
+} from "../models/DesignRequest";
 import { uploadToCloudinary } from "../utils/cloudinaryUpload";
 import { cleanupTempFiles } from "../middleware/uploadMiddleware";
 // Auto-generate requestId: DR10001, DR10002, ...
@@ -20,7 +25,10 @@ async function generateRequestId(): Promise<string> {
   return requestId;
 }
 
-function deriveQueue(source: DesignRequestSource, requestType: DesignRequestType): DesignRequestQueue {
+function deriveQueue(
+  source: DesignRequestSource,
+  requestType: DesignRequestType
+): DesignRequestQueue {
   if (source === "admin" || source === "rep") return "inhouse";
   return requestType === "free" ? "free" : "paid";
 }
@@ -84,7 +92,9 @@ export const getRequests = asyncHandler(async (req, res) => {
     DesignRequest.countDocuments(filter),
   ]);
 
-  res.status(200).json({ success: true, requests, total, page: pageNum, pages: Math.ceil(total / limitNum) });
+  res
+    .status(200)
+    .json({ success: true, requests, total, page: pageNum, pages: Math.ceil(total / limitNum) });
 });
 
 // GET /api/design-requests/mine
@@ -136,7 +146,11 @@ export const uploadFiles = asyncHandler(async (req, res) => {
   cleanupTempFiles(files);
 
   for (const u of uploads) {
-    request.uploadedFiles.push({ url: u.secureUrl, fileName: u.originalFilename, uploadedAt: new Date() });
+    request.uploadedFiles.push({
+      url: u.secureUrl,
+      fileName: u.originalFilename,
+      uploadedAt: new Date(),
+    });
   }
   await request.save();
 
@@ -231,7 +245,10 @@ export const requestRevision = asyncHandler(async (req, res) => {
 
   const allowedStatuses = ["completed", "in-progress"];
   if (!allowedStatuses.includes(request.status)) {
-    throw new AppError("Revision can only be requested when status is completed or in-progress", 400);
+    throw new AppError(
+      "Revision can only be requested when status is completed or in-progress",
+      400
+    );
   }
 
   request.revisionCount += 1;

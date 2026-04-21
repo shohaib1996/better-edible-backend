@@ -1,5 +1,11 @@
 import { Router } from "express";
-import { getColors, createColor, toggleColor, updateColor, deleteColor } from "../controllers/colorController";
+import {
+  getColors,
+  createColor,
+  toggleColor,
+  updateColor,
+  deleteColor,
+} from "../controllers/colorController";
 import { validate } from "../middleware/validate";
 import { getColorsQuery, createColorSchema, updateColorSchema } from "../validators/colorSchemas";
 

@@ -1,6 +1,14 @@
 import { Schema, model, Document, Types } from "mongoose";
 
-export type AssetCategory = "Banner" | "ProductImage" | "Video" | "Email" | "Flyer" | "Social" | "Text" | "Other";
+export type AssetCategory =
+  | "Banner"
+  | "ProductImage"
+  | "Video"
+  | "Email"
+  | "Flyer"
+  | "Social"
+  | "Text"
+  | "Other";
 export type AssetProductLine = "CannaCrispy" | "FiftyOneFifty" | "Bliss" | "YummyGummy";
 export type AssetType = "file" | "text";
 export type AssetStatus = "active" | "archived";

@@ -28,7 +28,8 @@ export const getAssetById = asyncHandler(async (req, res) => {
 
 // POST /api/digital-assets
 export const createAsset = asyncHandler(async (req, res) => {
-  const { title, description, category, productLine, assetType, textContent, tags, uploadedBy } = req.body;
+  const { title, description, category, productLine, assetType, textContent, tags, uploadedBy } =
+    req.body;
 
   if (!title || !category || !assetType) {
     throw new AppError("title, category and assetType are required", 400);

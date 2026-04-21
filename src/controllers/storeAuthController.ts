@@ -11,7 +11,9 @@ export const loginStoreUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) throw new AppError("Email and password are required", 400);
 
-  const contact = await Contact.findOne({ email }).populate<{ store: { _id: unknown; name: string; zip?: string } }>("store", "name zip");
+  const contact = await Contact.findOne({ email }).populate<{
+    store: { _id: unknown; name: string; zip?: string };
+  }>("store", "name zip");
   if (!contact) throw new AppError("Invalid credentials", 401);
   if (contact.status === "inactive") throw new AppError("Account is inactive", 403);
 
@@ -20,7 +22,8 @@ export const loginStoreUser = asyncHandler(async (req, res) => {
 
   // Lazy-init: hash the store zip as default password on first login
   if (!contact.passwordHash) {
-    if (!store.zip) throw new AppError("Store has no zip code set — cannot initialize password", 400);
+    if (!store.zip)
+      throw new AppError("Store has no zip code set — cannot initialize password", 400);
     contact.passwordHash = await bcrypt.hash(store.zip, 10);
     await contact.save();
   }
@@ -46,7 +49,10 @@ export const sendMagicLink = asyncHandler(async (req, res) => {
   const { email } = req.body;
   if (!email) throw new AppError("Email is required", 400);
 
-  const contact = await Contact.findOne({ email }).populate<{ store: { name: string } }>("store", "name");
+  const contact = await Contact.findOne({ email }).populate<{ store: { name: string } }>(
+    "store",
+    "name"
+  );
   if (!contact) throw new AppError("No account found for this email", 404);
   if (contact.status === "inactive") throw new AppError("Account is inactive", 403);
 
@@ -109,7 +115,10 @@ export const changeStorePassword = asyncHandler(async (req, res) => {
     throw new AppError("contactId, currentPassword and newPassword are required", 400);
   }
 
-  const contact = await Contact.findById(contactId).populate<{ store: { zip?: string } }>("store", "zip");
+  const contact = await Contact.findById(contactId).populate<{ store: { zip?: string } }>(
+    "store",
+    "zip"
+  );
   if (!contact) throw new AppError("Contact not found", 404);
 
   // Lazy-init if no password set yet
