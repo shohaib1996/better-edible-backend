@@ -37,12 +37,6 @@ import storeAuthRoutes from "./routes/storeAuthRoutes";
 import digitalAssetRoutes from "./routes/digitalAssetRoutes";
 import designRequestRoutes from "./routes/designRequestRoutes";
 
-// 👉 dotenv ONLY for local development
-if (process.env.NODE_ENV === "development") {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  require("dotenv").config();
-}
-
 const app = express();
 
 // ✅ CORS first

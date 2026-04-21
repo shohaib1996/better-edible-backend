@@ -1,4 +1,8 @@
 // src/server.ts
+// dotenv must load before any other imports so env vars are available at module init time
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+require("dotenv").config();
+
 import app from "./app";
 import { connectDB } from "./config/db";
 
@@ -14,12 +18,6 @@ process.on("unhandledRejection", (reason) => {
 import { updateStoreStatuses } from "./jobs/updateStoreStatus";
 import { runDailyClientOrderJobs } from "./jobs/clientOrderJobs";
 import cron from "node-cron";
-
-// 👉 dotenv is ONLY for local development
-if (process.env.NODE_ENV === "development") {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  require("dotenv").config();
-}
 
 const PORT = process.env.PORT || 5000;
 
