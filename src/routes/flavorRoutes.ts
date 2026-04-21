@@ -5,6 +5,7 @@ import {
   findOrCreateBlend,
   toggleFlavor,
   updateFlavor,
+  deleteFlavor,
 } from "../controllers/flavorController";
 import { validate } from "../middleware/validate";
 import {
@@ -33,5 +34,6 @@ router.patch(
   validate({ body: updateFlavorSchema }),
   updateFlavor /* #swagger.tags = ['Flavors'] */
 );
+router.delete("/:flavorId", deleteFlavor /* #swagger.tags = ['Flavors'] */);
 
 export default router;

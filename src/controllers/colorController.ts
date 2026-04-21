@@ -78,6 +78,22 @@ export const toggleColor = asyncHandler(async (req, res) => {
 });
 
 // ─────────────────────────────────────────────────────────
+// deleteColor
+// DELETE /api/colors/:colorId
+// ─────────────────────────────────────────────────────────
+
+export const deleteColor = asyncHandler(async (req, res) => {
+  const { colorId } = req.params;
+
+  const color = await ProductColor.findOne({ colorId });
+  if (!color) throw new AppError("Color not found", 404);
+
+  await color.deleteOne();
+
+  res.json({ success: true, message: `Color "${color.name}" deleted` });
+});
+
+// ─────────────────────────────────────────────────────────
 // updateColor
 // PATCH /api/colors/:colorId
 // Body: { name?, hexPreview?, defaultAmount? }

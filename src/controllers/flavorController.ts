@@ -132,6 +132,22 @@ export const toggleFlavor = asyncHandler(async (req, res) => {
 });
 
 // ─────────────────────────────────────────────────────────
+// deleteFlavor
+// DELETE /api/flavors/:flavorId
+// ─────────────────────────────────────────────────────────
+
+export const deleteFlavor = asyncHandler(async (req, res) => {
+  const { flavorId } = req.params;
+
+  const flavor = await Flavor.findOne({ flavorId });
+  if (!flavor) throw new AppError("Flavor not found", 404);
+
+  await flavor.deleteOne();
+
+  res.json({ success: true, message: `Flavor "${flavor.name}" deleted` });
+});
+
+// ─────────────────────────────────────────────────────────
 // updateFlavor
 // PATCH /api/flavors/:flavorId
 // Body: { name?, defaultAmount? }

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getColors, createColor, toggleColor, updateColor } from "../controllers/colorController";
+import { getColors, createColor, toggleColor, updateColor, deleteColor } from "../controllers/colorController";
 import { validate } from "../middleware/validate";
 import { getColorsQuery, createColorSchema, updateColorSchema } from "../validators/colorSchemas";
 
@@ -17,5 +17,6 @@ router.patch(
   validate({ body: updateColorSchema }),
   updateColor /* #swagger.tags = ['Colors'] */
 );
+router.delete("/:colorId", deleteColor /* #swagger.tags = ['Colors'] */);
 
 export default router;
