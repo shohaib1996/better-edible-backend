@@ -34,6 +34,7 @@ import oilRoutes from "./routes/oilRoutes";
 import flavorRoutes from "./routes/flavorRoutes";
 import colorRoutes from "./routes/colorRoutes";
 import storeAuthRoutes from "./routes/storeAuthRoutes";
+import digitalAssetRoutes from "./routes/digitalAssetRoutes";
 
 // 👉 dotenv ONLY for local development
 if (process.env.NODE_ENV === "development") {
@@ -97,6 +98,7 @@ app.use("/api/oil", oilRoutes);
 app.use("/api/flavors", flavorRoutes);
 app.use("/api/colors", colorRoutes);
 app.use("/api/store-auth", storeAuthRoutes);
+app.use("/api/digital-assets", digitalAssetRoutes);
 
 app.get("/", (_req, res) => {
   res.send("Rep Order System API is running... yep 4th time");
