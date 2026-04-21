@@ -6,13 +6,13 @@ import {
   updateAsset,
   deleteAsset,
 } from "../controllers/digitalAssetController";
-import { upload } from "../middleware/uploadMiddleware";
+import { uploadAssets } from "../middleware/uploadMiddleware";
 
 const router = Router();
 
 router.get("/", getAssets);
 router.get("/:id", getAssetById);
-router.post("/", upload.single("file"), createAsset);
+router.post("/", uploadAssets.single("file"), createAsset);
 router.put("/:id", updateAsset);
 router.delete("/:id", deleteAsset);
 

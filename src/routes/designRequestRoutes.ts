@@ -11,7 +11,7 @@ import {
   postComment,
   requestRevision,
 } from "../controllers/designRequestController";
-import { upload } from "../middleware/uploadMiddleware";
+import { uploadAssets } from "../middleware/uploadMiddleware";
 
 const router = Router();
 
@@ -20,8 +20,8 @@ router.get("/", getRequests);
 router.get("/mine", getMyRequests);
 router.get("/:id", getRequestById);
 router.put("/:id/status", updateStatus);
-router.post("/:id/upload-files", upload.array("files", 10), uploadFiles);
-router.post("/:id/completed-files", upload.array("files", 10), uploadCompletedFiles);
+router.post("/:id/upload-files", uploadAssets.array("files", 10), uploadFiles);
+router.post("/:id/completed-files", uploadAssets.array("files", 10), uploadCompletedFiles);
 router.post("/:id/send-files", sendFiles);
 router.post("/:id/comments", postComment);
 router.post("/:id/request-revision", requestRevision);

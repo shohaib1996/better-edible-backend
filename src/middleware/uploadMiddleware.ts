@@ -52,6 +52,17 @@ export const uploadPrivateLabelImages = upload.any(); // Accept any field names
 // Middleware to handle single label upload
 export const uploadSingleLabel = upload.single("labelImage");
 
+// Permissive multer for design requests and digital assets — allows any file type up to 50MB
+const assetFileFilter = (_req: any, _file: Express.Multer.File, cb: any) => cb(null, true);
+
+export const uploadAssets = multer({
+  storage,
+  fileFilter: assetFileFilter,
+  limits: {
+    fileSize: 50 * 1024 * 1024, // 50MB
+  },
+});
+
 // Cleanup function to delete temporary files after upload to Cloudinary
 export const cleanupTempFiles = (files: Express.Multer.File[]) => {
   files.forEach((file) => {
