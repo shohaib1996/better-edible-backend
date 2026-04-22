@@ -1,6 +1,6 @@
-import { ProductColor } from "../models/ProductColor";
-import { asyncHandler } from "../utils/asyncHandler";
-import { AppError } from "../utils/AppError";
+import { ProductColor } from "../../models/ProductColor";
+import { asyncHandler } from "../../utils/asyncHandler";
+import { AppError } from "../../utils/AppError";
 
 // ─────────────────────────────────────────────────────────
 // Helpers

@@ -5,7 +5,7 @@ import {
   toggleColor,
   updateColor,
   deleteColor,
-} from "../controllers/colorController";
+} from "../controllers/pps/colorController";
 import { validate } from "../middleware/validate";
 import { getColorsQuery, createColorSchema, updateColorSchema } from "../validators/colorSchemas";
 

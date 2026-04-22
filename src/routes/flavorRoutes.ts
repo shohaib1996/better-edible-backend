@@ -6,7 +6,7 @@ import {
   toggleFlavor,
   updateFlavor,
   deleteFlavor,
-} from "../controllers/flavorController";
+} from "../controllers/pps/flavorController";
 import { validate } from "../middleware/validate";
 import {
   getFlavorsQuery,

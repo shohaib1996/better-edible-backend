@@ -9,7 +9,7 @@ import {
   recordDrawdown,
   getWasteLogs,
   createWasteLog,
-} from "../controllers/oilController";
+} from "../controllers/pps/oilController";
 import { validate } from "../middleware/validate";
 import {
   createContainerSchema,
