@@ -23,15 +23,31 @@ function generateFlavorId(name: string, isBlend: boolean): string {
 // ─────────────────────────────────────────────────────────
 
 export const getFlavors = asyncHandler(async (req, res) => {
-  const { isActive, isBlend } = req.query;
+  const { isActive, isBlend, page, limit } = req.query;
 
   const filter: Record<string, any> = {};
   if (isActive !== undefined) filter.isActive = isActive === "true";
   if (isBlend !== undefined) filter.isBlend = isBlend === "true";
 
-  const flavors = await Flavor.find(filter).sort({ name: 1 }).lean();
+  const pageNum = page ? Number(page) : undefined;
+  const limitNum = limit ? Number(limit) : undefined;
 
-  res.json({ success: true, total: flavors.length, flavors });
+  const total = await Flavor.countDocuments(filter);
+
+  let query = Flavor.find(filter).sort({ name: 1 });
+  if (pageNum !== undefined && limitNum !== undefined) {
+    query = query.skip((pageNum - 1) * limitNum).limit(limitNum);
+  }
+  const flavors = await query.lean();
+
+  res.json({
+    success: true,
+    total,
+    flavors,
+    ...(pageNum !== undefined && limitNum !== undefined
+      ? { page: pageNum, limit: limitNum, totalPages: Math.ceil(total / limitNum) }
+      : {}),
+  });
 });
 
 // ─────────────────────────────────────────────────────────
