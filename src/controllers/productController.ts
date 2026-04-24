@@ -83,7 +83,7 @@ export const createProduct = asyncHandler(async (req, res) => {
     productData.prices = prices;
   }
 
-  // 🔹 Simple pricing (e.g., Fifty-One Fifty)
+  // 🔹 Simple price (e.g., Fifty-One Fifty)
   else if (productLineDoc.pricingStructure.type === "simple") {
     if (typeof price !== "number") {
       throw new AppError(`Price is required for ${productLineDoc.name} products`, 400);
