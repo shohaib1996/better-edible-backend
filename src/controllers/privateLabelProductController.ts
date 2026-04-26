@@ -23,7 +23,7 @@ export const getAllProducts = asyncHandler(async (req, res) => {
 });
 
 // ─────────────────────────────
-// Get Single Product
+// Get Single Private Label Product
 // ─────────────────────────────
 
 export const getProductById = asyncHandler(async (req, res) => {
