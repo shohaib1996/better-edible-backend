@@ -37,7 +37,7 @@ export const createProduct = asyncHandler(async (req, res) => {
   const productLineDoc = await ProductLine.findById(productLine);
   if (!productLineDoc) throw new AppError("Invalid product line ID", 400);
 
-  // 🔒 Avoid duplicate entries
+  // 🔒 Avoid duplicate entries (using item name, subProductLine and productLine)
   const existing = await Product.findOne({
     productLine,
     subProductLine,
