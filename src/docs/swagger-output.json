@@ -128,15 +128,18 @@
           "Auth"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -145,6 +148,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "name": {
                     "example": "any"
                   },
@@ -187,18 +193,18 @@
           "Auth"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -207,6 +213,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "email": {
                     "example": "any"
                   },
@@ -237,9 +246,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -250,15 +256,18 @@
           "Admin"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -267,6 +276,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "name": {
                     "example": "any"
                   },
@@ -292,18 +304,18 @@
           "Admin"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -312,6 +324,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "email": {
                     "example": "any"
                   },
@@ -334,9 +349,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -350,9 +362,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -371,17 +380,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -398,17 +408,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -425,17 +450,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -446,24 +486,18 @@
           "Reps"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -472,6 +506,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "loginName": {
                     "example": "any"
                   },
@@ -491,24 +528,18 @@
           "Reps"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -517,6 +548,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "loginName": {
                     "example": "any"
                   },
@@ -544,20 +578,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -566,6 +598,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "password": {
                     "example": "any"
                   }
@@ -590,20 +625,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -612,6 +645,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "pin": {
                     "example": "any"
                   }
@@ -629,6 +665,13 @@
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "search",
             "in": "query",
@@ -682,9 +725,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -693,15 +733,18 @@
           "Stores"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -710,6 +753,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "name": {
                     "example": "any"
                   },
@@ -755,17 +801,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -782,17 +829,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -809,17 +871,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -830,12 +907,18 @@
           "Stores"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -844,6 +927,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "storeIds": {
                     "example": "any"
                   },
@@ -863,12 +949,18 @@
           "Stores"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -877,6 +969,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "storeIds": {
                     "example": "any"
                   },
@@ -904,17 +999,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -923,6 +1019,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "blocked": {
                     "example": "any"
                   }
@@ -940,11 +1039,8 @@
         ],
         "description": "",
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       },
@@ -953,15 +1049,18 @@
           "Products"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -970,55 +1069,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "productLine": {
-                    "example": "any"
-                  },
-                  "subProductLine": {
-                    "example": "any"
-                  },
-                  "itemName": {
-                    "example": "any"
-                  },
-                  "hybridUnits": {
-                    "example": "any"
-                  },
-                  "hybridDiscount": {
-                    "example": "any"
-                  },
-                  "indicaUnits": {
-                    "example": "any"
-                  },
-                  "indicaDiscount": {
-                    "example": "any"
-                  },
-                  "sativaUnits": {
-                    "example": "any"
-                  },
-                  "sativaDiscount": {
-                    "example": "any"
-                  },
-                  "price": {
-                    "example": "any"
-                  },
-                  "discountPrice": {
-                    "example": "any"
-                  },
-                  "variants": {
-                    "example": "any"
-                  },
-                  "priceDescription": {
-                    "example": "any"
-                  },
-                  "discountDescription": {
-                    "example": "any"
-                  },
-                  "applyDiscount": {
-                    "example": "any"
-                  },
-                  "active": {
-                    "example": "any"
-                  },
-                  "metadata": {
+                  "safeParse(req": {
                     "example": "any"
                   }
                 }
@@ -1042,17 +1093,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       },
@@ -1069,20 +1121,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -1091,31 +1141,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "hybridBreakdown": {
-                    "example": "any"
-                  },
-                  "prices": {
-                    "example": "any"
-                  },
-                  "productLine": {
-                    "example": "any"
-                  },
-                  "hybridUnits": {
-                    "example": "any"
-                  },
-                  "hybridDiscount": {
-                    "example": "any"
-                  },
-                  "indicaUnits": {
-                    "example": "any"
-                  },
-                  "indicaDiscount": {
-                    "example": "any"
-                  },
-                  "sativaUnits": {
-                    "example": "any"
-                  },
-                  "sativaDiscount": {
+                  "safeParse(req": {
                     "example": "any"
                   }
                 }
@@ -1137,17 +1163,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -1166,17 +1207,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -1185,7 +1227,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "active": {
+                  "safeParse(req": {
                     "example": "any"
                   }
                 }
@@ -1204,9 +1246,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -1215,15 +1254,18 @@
           "Product Lines"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -1232,6 +1274,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "name": {
                     "example": "any"
                   },
@@ -1266,9 +1311,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -1292,12 +1334,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -1316,17 +1352,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -1343,20 +1380,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -1365,6 +1400,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "name": {
                     "example": "any"
                   },
@@ -1402,17 +1440,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -1431,17 +1484,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -1450,6 +1504,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "active": {
                     "example": "any"
                   }
@@ -1466,15 +1523,18 @@
           "Product Lines"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -1483,6 +1543,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "order": {
                     "example": "any"
                   }
@@ -1499,18 +1562,18 @@
           "Orders"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -1519,6 +1582,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "repId": {
                     "example": "any"
                   },
@@ -1562,28 +1628,7 @@
         "description": "",
         "parameters": [
           {
-            "name": "status",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "storeId",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "repId",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "repName",
+            "name": "safeParse(req",
             "in": "query",
             "schema": {
               "type": "string"
@@ -1611,14 +1656,7 @@
             }
           },
           {
-            "name": "startDate",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "endDate",
+            "name": "repName",
             "in": "query",
             "schema": {
               "type": "string"
@@ -1628,9 +1666,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -1649,17 +1684,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -1676,17 +1712,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -1695,6 +1732,15 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
+                  "deliveryDate": {
+                    "example": "any"
+                  },
+                  "shippedDate": {
+                    "example": "any"
+                  },
                   "items": {
                     "example": "any"
                   },
@@ -1728,20 +1774,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -1750,6 +1794,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "status": {
                     "example": "any"
                   }
@@ -1774,17 +1821,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -1793,6 +1841,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "method": {
                     "example": "any"
                   },
@@ -1830,9 +1881,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -1841,15 +1889,18 @@
           "Private Label Products"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -1858,6 +1909,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "name": {
                     "example": "any"
                   },
@@ -1891,17 +1945,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -1918,20 +1973,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -1940,6 +1993,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "name": {
                     "example": "any"
                   },
@@ -1971,17 +2027,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -2000,17 +2071,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -2022,6 +2108,13 @@
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -2061,9 +2154,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -2072,18 +2162,18 @@
           "Private Label Clients"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -2092,6 +2182,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "storeId": {
                     "example": "any"
                   },
@@ -2136,9 +2229,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -2157,17 +2247,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -2184,17 +2275,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -2203,6 +2295,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "contactEmail": {
                     "example": "any"
                   },
@@ -2234,17 +2329,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -2253,6 +2349,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "contactEmail": {
                     "example": "any"
                   },
@@ -2284,20 +2383,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -2316,17 +2427,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -2335,6 +2447,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "enabled": {
                     "example": "any"
                   },
@@ -2365,14 +2480,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       },
@@ -2392,17 +2501,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -2415,35 +2515,7 @@
         "description": "",
         "parameters": [
           {
-            "name": "clientId",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "stage",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "productType",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
+            "name": "safeParse(req",
             "in": "query",
             "schema": {
               "type": "string"
@@ -2451,11 +2523,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       },
@@ -2465,58 +2534,8 @@
         ],
         "description": "",
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "clientId": {
-                    "example": "any"
-                  },
-                  "flavorName": {
-                    "example": "any"
-                  },
-                  "productType": {
-                    "example": "any"
-                  },
-                  "specialInstructions": {
-                    "example": "any"
-                  },
-                  "cannabinoidMix": {
-                    "example": "any"
-                  },
-                  "color": {
-                    "example": "any"
-                  },
-                  "flavorComponents": {
-                    "example": "any"
-                  },
-                  "colorComponents": {
-                    "example": "any"
-                  },
-                  "userId": {
-                    "example": "any"
-                  },
-                  "userType": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
+          "default": {
+            "description": ""
           }
         }
       }
@@ -2538,14 +2557,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -2564,17 +2577,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       },
@@ -2594,52 +2608,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "flavorName": {
-                    "example": "any"
-                  },
-                  "productType": {
-                    "example": "any"
-                  },
-                  "specialInstructions": {
-                    "example": "any"
-                  },
-                  "cannabinoidMix": {
-                    "example": "any"
-                  },
-                  "color": {
-                    "example": "any"
-                  },
-                  "flavorComponents": {
-                    "example": "any"
-                  },
-                  "colorComponents": {
-                    "example": "any"
-                  },
-                  "keepExistingImages": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
+          "default": {
+            "description": ""
           }
         }
       },
@@ -2659,52 +2629,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "flavorName": {
-                    "example": "any"
-                  },
-                  "productType": {
-                    "example": "any"
-                  },
-                  "specialInstructions": {
-                    "example": "any"
-                  },
-                  "cannabinoidMix": {
-                    "example": "any"
-                  },
-                  "color": {
-                    "example": "any"
-                  },
-                  "flavorComponents": {
-                    "example": "any"
-                  },
-                  "colorComponents": {
-                    "example": "any"
-                  },
-                  "keepExistingImages": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
+          "default": {
+            "description": ""
           }
         }
       },
@@ -2721,20 +2647,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -2745,15 +2683,18 @@
           "Labels"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -2762,19 +2703,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "clientId": {
-                    "example": "any"
-                  },
-                  "stage": {
-                    "example": "any"
-                  },
-                  "notes": {
-                    "example": "any"
-                  },
-                  "userId": {
-                    "example": "any"
-                  },
-                  "userType": {
+                  "safeParse(req": {
                     "example": "any"
                   }
                 }
@@ -2798,20 +2727,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -2820,16 +2747,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "stage": {
-                    "example": "any"
-                  },
-                  "notes": {
-                    "example": "any"
-                  },
-                  "userId": {
-                    "example": "any"
-                  },
-                  "userType": {
+                  "safeParse(req": {
                     "example": "any"
                   }
                 }
@@ -2847,56 +2765,7 @@
         "description": "",
         "parameters": [
           {
-            "name": "clientId",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "status",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "repId",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "startDate",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "endDate",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "search",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
+            "name": "safeParse(req",
             "in": "query",
             "schema": {
               "type": "string"
@@ -2904,11 +2773,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       },
@@ -2917,18 +2783,18 @@
           "Client Orders"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -2937,31 +2803,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "clientId": {
-                    "example": "any"
-                  },
-                  "deliveryDate": {
-                    "example": "any"
-                  },
-                  "items": {
-                    "example": "any"
-                  },
-                  "discount": {
-                    "example": "any"
-                  },
-                  "discountType": {
-                    "example": "any"
-                  },
-                  "note": {
-                    "example": "any"
-                  },
-                  "shipASAP": {
-                    "example": "any"
-                  },
-                  "userId": {
-                    "example": "any"
-                  },
-                  "userType": {
+                  "safeParse(req": {
                     "example": "any"
                   }
                 }
@@ -2985,17 +2827,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       },
@@ -3012,20 +2855,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -3034,22 +2875,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "deliveryDate": {
-                    "example": "any"
-                  },
-                  "items": {
-                    "example": "any"
-                  },
-                  "discount": {
-                    "example": "any"
-                  },
-                  "discountType": {
-                    "example": "any"
-                  },
-                  "note": {
-                    "example": "any"
-                  },
-                  "shipASAP": {
+                  "safeParse(req": {
                     "example": "any"
                   }
                 }
@@ -3071,20 +2897,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -3093,22 +2917,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "deliveryDate": {
-                    "example": "any"
-                  },
-                  "items": {
-                    "example": "any"
-                  },
-                  "discount": {
-                    "example": "any"
-                  },
-                  "discountType": {
-                    "example": "any"
-                  },
-                  "note": {
-                    "example": "any"
-                  },
-                  "shipASAP": {
+                  "safeParse(req": {
                     "example": "any"
                   }
                 }
@@ -3130,20 +2939,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -3162,20 +2983,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -3184,10 +3003,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "status": {
-                    "example": "any"
-                  },
-                  "trackingNumber": {
+                  "safeParse(req": {
                     "example": "any"
                   }
                 }
@@ -3211,20 +3027,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -3243,20 +3071,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -3265,7 +3091,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "deliveryDate": {
+                  "safeParse(req": {
                     "example": "any"
                   }
                 }
@@ -3289,17 +3115,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -3308,7 +3135,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "shipASAP": {
+                  "safeParse(req": {
                     "example": "any"
                   }
                 }
@@ -3332,17 +3159,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -3353,12 +3195,18 @@
           "Deliveries"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -3367,6 +3215,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "storeId": {
                     "example": "any"
                   },
@@ -3409,6 +3260,13 @@
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -3476,9 +3334,45 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/deliveries/check": {
+      "get": {
+        "tags": [
+          "Deliveries"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           },
-          "500": {
-            "description": "Internal Server Error"
+          {
+            "name": "sampleId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "clientOrderId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           }
         }
       }
@@ -3497,17 +3391,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -3524,17 +3419,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -3543,6 +3439,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "paymentAction": {
                     "example": "any"
                   }
@@ -3565,17 +3464,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -3594,20 +3508,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -3616,7 +3528,13 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "status": {
+                    "example": "any"
+                  },
+                  "today": {
                     "example": "any"
                   }
                 }
@@ -3632,15 +3550,18 @@
           "Notes"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -3649,7 +3570,13 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "entityId": {
+                    "example": "any"
+                  },
+                  "deliveryId": {
                     "example": "any"
                   },
                   "author": {
@@ -3689,7 +3616,21 @@
         "description": "",
         "parameters": [
           {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "entityId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "deliveryId",
             "in": "query",
             "schema": {
               "type": "string"
@@ -3727,12 +3668,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -3751,17 +3686,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -3778,20 +3714,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -3800,6 +3734,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "disposition": {
                     "example": "any"
                   },
@@ -3819,6 +3756,9 @@
                     "example": "any"
                   },
                   "date": {
+                    "example": "any"
+                  },
+                  "deliveryId": {
                     "example": "any"
                   }
                 }
@@ -3840,17 +3780,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -3861,12 +3816,18 @@
           "Time Logs"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -3878,6 +3839,13 @@
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "startDate",
             "in": "query",
@@ -3896,9 +3864,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -3936,9 +3901,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -3976,9 +3938,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -3997,17 +3956,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -4018,18 +3978,18 @@
           "Samples"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -4038,22 +3998,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "repId": {
-                    "example": "any"
-                  },
-                  "storeId": {
-                    "example": "any"
-                  },
-                  "description": {
-                    "example": "any"
-                  },
-                  "notes": {
-                    "example": "any"
-                  },
-                  "userId": {
-                    "example": "any"
-                  },
-                  "userType": {
+                  "safeParse(req": {
                     "example": "any"
                   }
                 }
@@ -4069,35 +4014,7 @@
         "description": "",
         "parameters": [
           {
-            "name": "repId",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "search",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "status",
+            "name": "safeParse(req",
             "in": "query",
             "schema": {
               "type": "string"
@@ -4105,11 +4022,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       }
@@ -4128,17 +4042,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       },
@@ -4155,17 +4070,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -4182,17 +4112,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -4211,20 +4156,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -4233,7 +4176,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "status": {
+                  "safeParse(req": {
                     "example": "any"
                   }
                 }
@@ -4251,6 +4194,13 @@
         "description": "",
         "parameters": [
           {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "storeId",
             "in": "query",
             "schema": {
@@ -4261,9 +4211,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -4272,12 +4219,32 @@
           "Contacts"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -4296,17 +4263,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -4323,17 +4291,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -4350,17 +4333,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -4372,6 +4370,13 @@
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "storeId",
             "in": "query",
@@ -4418,12 +4423,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -4432,15 +4431,18 @@
           "Followups"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -4449,6 +4451,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "followupDate": {
                     "example": "any"
                   },
@@ -4485,17 +4490,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -4512,20 +4518,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -4542,17 +4560,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -4564,6 +4597,13 @@
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "repId",
             "in": "query",
@@ -4582,12 +4622,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -4596,15 +4630,18 @@
           "Delivery Orders"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -4613,6 +4650,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "repId": {
                     "example": "any"
                   },
@@ -4636,6 +4676,13 @@
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -4682,9 +4729,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -4693,15 +4737,18 @@
           "CookItems"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -4710,6 +4757,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "cookItemId": {
                     "example": "any"
                   }
@@ -4734,17 +4784,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -4761,17 +4812,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -4788,17 +4854,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -4822,12 +4903,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -4846,20 +4921,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -4868,6 +4941,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "status": {
                     "example": "any"
                   }
@@ -4885,6 +4961,13 @@
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -4910,9 +4993,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -4921,15 +5001,18 @@
           "Molds"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -4938,6 +5021,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "moldId": {
                     "example": "any"
                   }
@@ -4962,17 +5048,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -4989,17 +5076,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -5016,17 +5118,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -5050,12 +5167,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -5067,6 +5178,13 @@
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -5099,9 +5217,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -5110,15 +5225,18 @@
           "DehydratorTrays"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -5127,6 +5245,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "trayId": {
                     "example": "any"
                   }
@@ -5151,17 +5272,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -5178,17 +5300,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -5205,17 +5342,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -5239,12 +5391,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -5256,6 +5402,13 @@
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "page",
             "in": "query",
@@ -5274,9 +5427,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -5285,15 +5435,18 @@
           "DehydratorUnits"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -5302,6 +5455,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "unitId": {
                     "example": "any"
                   }
@@ -5326,17 +5482,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -5353,17 +5510,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -5380,17 +5552,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -5414,12 +5601,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -5446,20 +5627,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -5468,6 +5647,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "occupied": {
                     "example": "any"
                   },
@@ -5491,6 +5673,13 @@
         ],
         "description": "",
         "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "status",
             "in": "query",
@@ -5530,9 +5719,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -5541,15 +5727,18 @@
           "Cases"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -5558,6 +5747,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "caseId": {
                     "example": "any"
                   }
@@ -5582,17 +5774,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
@@ -5609,17 +5802,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -5636,17 +5844,32 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -5670,12 +5893,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -5694,20 +5911,18 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -5716,6 +5931,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
                   "status": {
                     "example": "any"
                   }
@@ -5732,15 +5950,18 @@
           "PPS"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         },
         "requestBody": {
@@ -5749,21 +5970,35 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "orderId": {
-                    "example": "any"
-                  },
-                  "orderNumber": {
-                    "example": "any"
-                  },
-                  "customerId": {
-                    "example": "any"
-                  },
-                  "items": {
+                  "safeParse(req": {
                     "example": "any"
                   }
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/pps/cook-items/{cookItemId}/history": {
+      "get": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "cookItemId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
           }
         }
       }
@@ -5776,7 +6011,1378 @@
         "description": "",
         "parameters": [
           {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/pps/stage-1/assign-mold": {
+      "post": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/stage-1/unassign-mold": {
+      "delete": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/stage-1/complete": {
+      "patch": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/stage-1/set-flavor-color": {
+      "patch": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/stage-1/edit-flavor-color": {
+      "patch": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/stage-2/cook-items": {
+      "get": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/pps/stage-2/process-mold": {
+      "post": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/stage-2/unprocess-mold": {
+      "delete": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/stage-2/next-available-shelf": {
+      "get": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/pps/stage-2/unload-items": {
+      "get": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/pps/stage-2/unload-complete": {
+      "post": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/molds": {
+      "get": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/pps/dehydrator-trays": {
+      "get": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/pps/dehydrator-units": {
+      "get": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/pps/molds/bulk": {
+      "post": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/molds/{moldId}/status": {
+      "patch": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "moldId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/dehydrator-trays/bulk": {
+      "post": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/dehydrator-trays/{trayId}/status": {
+      "patch": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "trayId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/dehydrator-units/bulk": {
+      "post": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/stage-3/cook-items": {
+      "get": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/pps/stage-3/remove-tray": {
+      "post": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/stage-3/complete": {
+      "post": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/stage-3/start-bagging": {
+      "post": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/stage-3/start-sealing": {
+      "post": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/stage-3/bag-seal-complete": {
+      "post": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/stage-4/cook-items": {
+      "get": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/pps/stage-4/scan-container": {
+      "post": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/stage-4/confirm-count": {
+      "post": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/cases/{caseId}": {
+      "get": {
+        "tags": [
+          "PPS"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "caseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/pps/package-prep/orders": {
+      "get": {
+        "tags": [
+          "PackagePrep"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "PackagePrep"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
+                  "storeId": {
+                    "example": "any"
+                  },
+                  "labelId": {
+                    "example": "any"
+                  },
+                  "quantityOrdered": {
+                    "example": "any"
+                  },
+                  "notes": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/package-prep/orders/bulk": {
+      "post": {
+        "tags": [
+          "PackagePrep"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
+                  "orders": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/package-prep/orders/{orderId}/receive": {
+      "post": {
+        "tags": [
+          "PackagePrep"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
+                  "quantityReceived": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/package-prep/orders/{orderId}": {
+      "patch": {
+        "tags": [
+          "PackagePrep"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
+                  "quantityOrdered": {
+                    "example": "any"
+                  },
+                  "notes": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "PackagePrep"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/pps/package-prep/inventory/summary": {
+      "get": {
+        "tags": [
+          "PackagePrep"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/pps/package-prep/inventory": {
+      "get": {
+        "tags": [
+          "PackagePrep"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "storeId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/pps/package-prep/inventory/apply": {
+      "post": {
+        "tags": [
+          "PackagePrep"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
+                  "storeId": {
+                    "example": "any"
+                  },
+                  "labelId": {
+                    "example": "any"
+                  },
+                  "quantity": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/package-prep/inventory/print": {
+      "post": {
+        "tags": [
+          "PackagePrep"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
+                  "storeId": {
+                    "example": "any"
+                  },
+                  "labelId": {
+                    "example": "any"
+                  },
+                  "quantity": {
+                    "example": "any"
+                  },
+                  "lotNumber": {
+                    "example": "any"
+                  },
+                  "thcPercent": {
+                    "example": "any"
+                  },
+                  "testDate": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pps/package-prep/inventory/{inventoryId}/threshold": {
+      "patch": {
+        "tags": [
+          "PackagePrep"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "inventoryId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
+                  "reorderThreshold": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/oil/containers": {
+      "get": {
+        "tags": [
+          "Oil"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cannabisType",
             "in": "query",
             "schema": {
               "type": "string"
@@ -5800,31 +7406,26 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/api/pps/stage-1/assign-mold": {
+      },
       "post": {
         "tags": [
-          "PPS"
+          "Oil"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "201": {
+            "description": "Created"
           }
         },
         "requestBody": {
@@ -5833,10 +7434,22 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "cookItemId": {
+                  "safeParse(req": {
                     "example": "any"
                   },
-                  "moldId": {
+                  "containerId": {
+                    "example": "any"
+                  },
+                  "name": {
+                    "example": "any"
+                  },
+                  "cannabisType": {
+                    "example": "any"
+                  },
+                  "potency": {
+                    "example": "any"
+                  },
+                  "totalAmount": {
                     "example": "any"
                   }
                 }
@@ -5846,24 +7459,55 @@
         }
       }
     },
-    "/api/pps/stage-1/complete": {
+    "/api/oil/containers/{containerId}": {
+      "get": {
+        "tags": [
+          "Oil"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "containerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/oil/containers/{containerId}/refill": {
       "patch": {
         "tags": [
-          "PPS"
+          "Oil"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "containerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -5872,7 +7516,10 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "cookItemId": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
+                  "amount": {
                     "example": "any"
                   }
                 }
@@ -5882,40 +7529,32 @@
         }
       }
     },
-    "/api/pps/stage-2/cook-items": {
-      "get": {
+    "/api/oil/containers/{containerId}/clean": {
+      "patch": {
         "tags": [
-          "PPS"
+          "Oil"
         ],
         "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
+        "parameters": [
+          {
+            "name": "containerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           },
-          "500": {
-            "description": "Internal Server Error"
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
-        }
-      }
-    },
-    "/api/pps/stage-2/process-mold": {
-      "post": {
-        "tags": [
-          "PPS"
         ],
-        "description": "",
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -5924,19 +7563,10 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "cookItemId": {
+                  "safeParse(req": {
                     "example": "any"
                   },
-                  "moldId": {
-                    "example": "any"
-                  },
-                  "trayId": {
-                    "example": "any"
-                  },
-                  "dehydratorUnitId": {
-                    "example": "any"
-                  },
-                  "shelfPosition": {
+                  "notes": {
                     "example": "any"
                   }
                 }
@@ -5946,88 +7576,779 @@
         }
       }
     },
-    "/api/pps/stage-2/next-available-shelf": {
+    "/api/oil/containers/{containerId}/calculate": {
       "get": {
         "tags": [
-          "PPS"
+          "Oil"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "containerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "moldCount",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/api/pps/molds": {
-      "get": {
-        "tags": [
-          "PPS"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/pps/dehydrator-trays": {
-      "get": {
-        "tags": [
-          "PPS"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/pps/dehydrator-units": {
-      "get": {
-        "tags": [
-          "PPS"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/pps/molds/bulk": {
+    "/api/oil/containers/{containerId}/drawdown": {
       "post": {
         "tags": [
-          "PPS"
+          "Oil"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "containerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
+                  "cookItemId": {
+                    "example": "any"
+                  },
+                  "actualAmount": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/oil/waste-logs": {
+      "get": {
+        "tags": [
+          "Oil"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "material",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reason",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sourceContainerId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Oil"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
+                  "date": {
+                    "example": "any"
+                  },
+                  "material": {
+                    "example": "any"
+                  },
+                  "amount": {
+                    "example": "any"
+                  },
+                  "reason": {
+                    "example": "any"
+                  },
+                  "sourceContainerId": {
+                    "example": "any"
+                  },
+                  "notes": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/flavors/": {
+      "get": {
+        "tags": [
+          "Flavors"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "isActive",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "isBlend",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Flavors"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
+                  "name": {
+                    "example": "any"
+                  },
+                  "defaultAmount": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/flavors/blend": {
+      "post": {
+        "tags": [
+          "Flavors"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
+                  "blendOf": {
+                    "example": "any"
+                  },
+                  "name": {
+                    "example": "any"
+                  },
+                  "defaultAmount": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/flavors/{flavorId}/toggle": {
+      "patch": {
+        "tags": [
+          "Flavors"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "flavorId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/flavors/{flavorId}": {
+      "patch": {
+        "tags": [
+          "Flavors"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "flavorId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
+                  "name": {
+                    "example": "any"
+                  },
+                  "defaultAmount": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Flavors"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "flavorId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/colors/": {
+      "get": {
+        "tags": [
+          "Colors"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "isActive",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Colors"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
+                  "name": {
+                    "example": "any"
+                  },
+                  "hexPreview": {
+                    "example": "any"
+                  },
+                  "defaultAmount": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/colors/{colorId}/toggle": {
+      "patch": {
+        "tags": [
+          "Colors"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "colorId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/colors/{colorId}": {
+      "patch": {
+        "tags": [
+          "Colors"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "colorId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "safeParse(req",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "safeParse(req": {
+                    "example": "any"
+                  },
+                  "name": {
+                    "example": "any"
+                  },
+                  "hexPreview": {
+                    "example": "any"
+                  },
+                  "defaultAmount": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Colors"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "colorId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/store-auth/login": {
+      "post": {
+        "tags": [
+          "StoreAuth"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/store-auth/magic-link": {
+      "post": {
+        "tags": [
+          "StoreAuth"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/store-auth/magic-link/{token}": {
+      "get": {
+        "tags": [
+          "StoreAuth"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/store-auth/change-password": {
+      "post": {
+        "tags": [
+          "StoreAuth"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "contactId": {
+                    "example": "any"
+                  },
+                  "currentPassword": {
+                    "example": "any"
+                  },
+                  "newPassword": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/store-auth/logout": {
+      "post": {
+        "tags": [
+          "StoreAuth"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/digital-assets/": {
+      "get": {
+        "tags": [
+          "DigitalAssets"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productLine",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "DigitalAssets"
         ],
         "description": "",
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -6036,16 +8357,28 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "startNumber": {
+                  "title": {
                     "example": "any"
                   },
-                  "endNumber": {
+                  "description": {
                     "example": "any"
                   },
-                  "prefix": {
+                  "category": {
                     "example": "any"
                   },
-                  "unitsPerMold": {
+                  "productLine": {
+                    "example": "any"
+                  },
+                  "assetType": {
+                    "example": "any"
+                  },
+                  "textContent": {
+                    "example": "any"
+                  },
+                  "tags": {
+                    "example": "any"
+                  },
+                  "uploadedBy": {
                     "example": "any"
                   }
                 }
@@ -6055,21 +8388,112 @@
         }
       }
     },
-    "/api/pps/dehydrator-trays/bulk": {
+    "/api/digital-assets/{id}": {
+      "get": {
+        "tags": [
+          "DigitalAssets"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "DigitalAssets"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "example": "any"
+                  },
+                  "description": {
+                    "example": "any"
+                  },
+                  "category": {
+                    "example": "any"
+                  },
+                  "productLine": {
+                    "example": "any"
+                  },
+                  "textContent": {
+                    "example": "any"
+                  },
+                  "tags": {
+                    "example": "any"
+                  },
+                  "status": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "DigitalAssets"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/design-requests/": {
       "post": {
         "tags": [
-          "PPS"
+          "DesignRequests"
         ],
         "description": "",
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         },
         "requestBody": {
@@ -6078,13 +8502,31 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "startNumber": {
+                  "requestType": {
                     "example": "any"
                   },
-                  "endNumber": {
+                  "source": {
                     "example": "any"
                   },
-                  "prefix": {
+                  "storeId": {
+                    "example": "any"
+                  },
+                  "storeName": {
+                    "example": "any"
+                  },
+                  "contactId": {
+                    "example": "any"
+                  },
+                  "submittedBy": {
+                    "example": "any"
+                  },
+                  "submittedByName": {
+                    "example": "any"
+                  },
+                  "productLine": {
+                    "example": "any"
+                  },
+                  "description": {
                     "example": "any"
                   }
                 }
@@ -6092,81 +8534,120 @@
             }
           }
         }
-      }
-    },
-    "/api/pps/dehydrator-units/bulk": {
-      "post": {
-        "tags": [
-          "PPS"
-        ],
-        "description": "",
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "startNumber": {
-                    "example": "any"
-                  },
-                  "endNumber": {
-                    "example": "any"
-                  },
-                  "prefix": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/pps/stage-3/cook-items": {
+      },
       "get": {
         "tags": [
-          "PPS"
+          "DesignRequests"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "queue",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "storeId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/api/pps/stage-3/remove-tray": {
-      "post": {
+    "/api/design-requests/mine": {
+      "get": {
         "tags": [
-          "PPS"
+          "DesignRequests"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/design-requests/{id}": {
+      "get": {
+        "tags": [
+          "DesignRequests"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/design-requests/{id}/status": {
+      "put": {
+        "tags": [
+          "DesignRequests"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         },
         "requestBody": {
@@ -6175,121 +8656,136 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "cookItemId": {
+                  "status": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/design-requests/{id}/upload-files": {
+      "post": {
+        "tags": [
+          "DesignRequests"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/design-requests/{id}/completed-files": {
+      "post": {
+        "tags": [
+          "DesignRequests"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/design-requests/{id}/send-files": {
+      "post": {
+        "tags": [
+          "DesignRequests"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fileIds": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/design-requests/{id}/comments": {
+      "post": {
+        "tags": [
+          "DesignRequests"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "authorId": {
                     "example": "any"
                   },
-                  "trayId": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/pps/stage-3/complete": {
-      "post": {
-        "tags": [
-          "PPS"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "cookItemId": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/pps/stage-4/scan-container": {
-      "post": {
-        "tags": [
-          "PPS"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "qrCodeData": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/pps/stage-4/confirm-count": {
-      "post": {
-        "tags": [
-          "PPS"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "cookItemId": {
+                  "authorName": {
                     "example": "any"
                   },
-                  "actualCount": {
+                  "authorRole": {
+                    "example": "any"
+                  },
+                  "message": {
                     "example": "any"
                   }
                 }
@@ -6299,22 +8795,45 @@
         }
       }
     },
-    "/api/pps/cook-items/{bulkString(shelfPosition));if(!shelf){returnres.status(400).json({messageShelfposition${shelfPosition}doesnotexist});}if(shelf.occupied){returnres.status(400).json({message:Shelf${shelfPosition}isalreadyoccupied});}constnow=newDate();constdehydrationEndTime=newDate(now.{_{__function__}_}getTime()12*60*60*1000);mold.status=available;mold.currentCookItemId=null;mold.lastUsedAt=now;tray.status=in-use;tray.currentCookItemId=cookItemId;tray.currentDehydratorUnitId=dehydratorUnitId;tray.currentShelfPosition=shelfPosition;unit.shelves.set(String(shelfPosition)}": {
-      "get": {
+    "/api/design-requests/{id}/request-revision": {
+      "post": {
+        "tags": [
+          "DesignRequests"
+        ],
         "description": "",
-        "responses": {
-          "default": {
-            "description": ""
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           }
-        }
-      }
-    },
-    "/api/pps/cook-items/{bulkString(i));if(shelf&&!shelf.occupied){returnres.json({dehydratorUnitIdunit.unitId}": {
-      "get": {
-        "description": "",
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "authorId": {
+                    "example": "any"
+                  },
+                  "authorName": {
+                    "example": "any"
+                  },
+                  "message": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
