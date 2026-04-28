@@ -6,3 +6,6 @@ dist
 # Plan files
 PLAN_*.txt
 *.txt
+
+# graphify
+graphify-out/
