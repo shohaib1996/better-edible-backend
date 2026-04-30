@@ -9,3 +9,4 @@ PLAN_*.txt
 
 # graphify
 graphify-out/
+.graphify_python
