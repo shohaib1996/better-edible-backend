@@ -48,7 +48,7 @@ export const createAsset = asyncHandler(async (req, res) => {
     const result = await uploadToCloudinary(req.file.path, "digital-assets", req.file.originalname);
     cleanupTempFiles([req.file]);
     fileUrl = result.secureUrl;
-    // For images use the same URL as preview; for other types leave previewUrl undefined
+    // For images use the same URL as preview; for other types leave previewUrl as undefined
     if (req.file.mimetype.startsWith("image/")) {
       previewUrl = result.secureUrl;
     }
