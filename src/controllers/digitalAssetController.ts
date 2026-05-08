@@ -4,7 +4,7 @@ import { DigitalAsset } from "../models/DigitalAsset";
 import { uploadToCloudinary } from "../utils/cloudinaryUpload";
 import { cleanupTempFiles } from "../middleware/uploadMiddleware";
 
-// GET /api/digital-assets
+// GET /api/digital-assets 231
 export const getAssets = asyncHandler(async (req, res) => {
   const { category, productLine, status, search } = req.query;
 
