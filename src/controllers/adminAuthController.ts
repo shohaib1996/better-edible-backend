@@ -1,10 +1,10 @@
-// src/controllers/adminAuthController.ts
+// src/controllers/adminAuthController.ts 
 import { Admin } from "../models/Admin";
 import bcrypt from "bcryptjs";
 import { asyncHandler } from "../utils/asyncHandler";
 import { AppError } from "../utils/AppError";
 
-// 🟩 Register admin (only manually at first)
+// 🟩 Register admin (only manually at first) 
 export const registerAdmin = asyncHandler(async (req, res) => {
   const { name, email, password, role } = req.body;
 
@@ -31,7 +31,7 @@ export const registerAdmin = asyncHandler(async (req, res) => {
   });
 });
 
-// 🟦 Admin login
+// 🟦 Admin login logic
 export const loginAdmin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const admin = await Admin.findOne({ email });
