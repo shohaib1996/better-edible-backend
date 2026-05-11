@@ -125,7 +125,7 @@ export const getStoreById = asyncHandler(async (req, res) => {
 
 // Create store
 export const createStore = asyncHandler(async (req, res) => {
-  const { name, address, city, rep, state, zipCode, terms, groups } = req.body;
+  const { name, address, city, rep, state, zip, terms, groups } = req.body;
   const existing = await Store.findOne({ name });
   if (existing) throw new AppError("Store already exists", 400);
 
@@ -135,7 +135,7 @@ export const createStore = asyncHandler(async (req, res) => {
     city,
     rep,
     state,
-    zipCode,
+    zip,
     terms,
     groups,
   });
@@ -144,9 +144,15 @@ export const createStore = asyncHandler(async (req, res) => {
 
 // Update store
 export const updateStore = asyncHandler(async (req, res) => {
-  const store = await Store.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
+  const { contacts, ...updateFields } = req.body;
+const store = await Store.findByIdAndUpdate(
+    req.params.id,
+    { $set: updateFields },
+    { new: true }
+  )
+    .populate("rep", "name repType territory")
+    .populate({ path: "contacts", select: "name role email phone importantToKnow" })
+    .lean();
   if (!store) throw new AppError("Store not found", 404);
   res.json(store);
 });

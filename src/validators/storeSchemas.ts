@@ -6,10 +6,11 @@ export const createStoreSchema = z.object({
   address: z.string().optional(),
   city: z.string().optional(),
   state: z.string().optional(),
-  zipCode: z.string().optional(),
+  zip: z.string().optional(),
   rep: z.string().optional(),
   terms: z.string().optional(),
   groups: z.array(z.string()).optional(),
+  blocked: z.boolean().optional(),
 });
 
 export const updateStoreSchema = createStoreSchema.partial().extend({
