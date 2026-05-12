@@ -3,8 +3,7 @@ import bcrypt from "bcryptjs";
 import { asyncHandler } from "../utils/asyncHandler";
 import { AppError } from "../utils/AppError";
 import { Contact } from "../models/Contact";
-import { Store } from "../models/Store";
-import { resend, FROM_EMAIL } from "../services/email/config";
+import { sendMagicLinkEmail } from "../services/email/templates/storeAuthEmails";
 
 // POST /api/store-auth/login
 export const loginStoreUser = asyncHandler(async (req, res) => {
@@ -63,17 +62,7 @@ export const sendMagicLink = asyncHandler(async (req, res) => {
 
   const link = `${process.env.STORE_FRONTEND_URL || "https://better-edibles.com"}/store/login?token=${token}`;
 
-  await resend.emails.send({
-    from: FROM_EMAIL,
-    to: email,
-    subject: "Your Better Edibles login link",
-    html: `
-      <p>Hi ${contact.name},</p>
-      <p>Click the link below to log in to the Better Edibles store portal. This link expires in 15 minutes.</p>
-      <p><a href="${link}">${link}</a></p>
-      <p>If you did not request this, you can ignore this email.</p>
-    `,
-  });
+  await sendMagicLinkEmail(contact.name, email, link);
 
   res.status(200).json({ success: true, message: "Magic link sent" });
 });
