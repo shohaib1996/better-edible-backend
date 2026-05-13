@@ -8,7 +8,7 @@ import { cleanupTempFiles } from "../middleware/uploadMiddleware";
 export const getAssets = asyncHandler(async (req, res) => {
   const { category, productLine, status, search } = req.query;
 
-  const filter: Record<string, unknown> = { status: status || "active" };
+  const filter: Record<string, unknown> = status && status !== "all" ? { status } : { status: { $in: ["active", "archived"] } };
   if (category) filter.category = category;
   if (productLine) filter.productLine = productLine;
   if (search) filter.title = { $regex: search, $options: "i" };
