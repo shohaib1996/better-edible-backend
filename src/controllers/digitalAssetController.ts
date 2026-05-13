@@ -112,6 +112,23 @@ export const updateAsset = asyncHandler(async (req, res) => {
   if (tags !== undefined) asset.tags = Array.isArray(tags) ? tags : [tags];
   if (status !== undefined) asset.status = status;
 
+  if (req.file) {
+    const mime = req.file.mimetype;
+    const result = await uploadToCloudinary(req.file.path, "digital-assets", req.file.originalname, mime);
+    cleanupTempFiles([req.file]);
+    asset.fileUrl = result.secureUrl;
+
+    if (mime.startsWith("image/")) {
+      asset.previewUrl = result.secureUrl;
+    } else if (mime === "application/pdf") {
+      asset.previewUrl = result.secureUrl.replace(/\.pdf$/i, ".jpg");
+    } else if (mime.startsWith("video/")) {
+      asset.previewUrl = result.secureUrl
+        .replace("/video/upload/", "/video/upload/so_0/")
+        .replace(/\.[^.]+$/, ".jpg");
+    }
+  }
+
   await asset.save();
 
   res.status(200).json({ success: true, asset });
