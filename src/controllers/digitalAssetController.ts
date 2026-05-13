@@ -6,11 +6,12 @@ import { cleanupTempFiles } from "../middleware/uploadMiddleware";
 
 // GET /api/digital-assets
 export const getAssets = asyncHandler(async (req, res) => {
-  const { category, productLine, status, search, page, limit } = req.query;
+  const { category, productLine, assetType, status, search, page, limit } = req.query;
 
   const filter: Record<string, unknown> = status && status !== "all" ? { status } : { status: { $in: ["active", "archived"] } };
   if (category) filter.category = category;
   if (productLine) filter.productLine = productLine;
+  if (assetType) filter.assetType = assetType;
   if (search) filter.title = { $regex: search, $options: "i" };
 
   // When status=all (tab counts query) return everything unpaginated
