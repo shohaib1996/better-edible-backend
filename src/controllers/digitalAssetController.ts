@@ -4,18 +4,37 @@ import { DigitalAsset } from "../models/DigitalAsset";
 import { uploadToCloudinary } from "../utils/cloudinaryUpload";
 import { cleanupTempFiles } from "../middleware/uploadMiddleware";
 
-// GET /api/digital-assets 231
+// GET /api/digital-assets
 export const getAssets = asyncHandler(async (req, res) => {
-  const { category, productLine, status, search } = req.query;
+  const { category, productLine, status, search, page, limit } = req.query;
 
   const filter: Record<string, unknown> = status && status !== "all" ? { status } : { status: { $in: ["active", "archived"] } };
   if (category) filter.category = category;
   if (productLine) filter.productLine = productLine;
   if (search) filter.title = { $regex: search, $options: "i" };
 
-  const assets = await DigitalAsset.find(filter).sort({ createdAt: -1 });
+  // When status=all (tab counts query) return everything unpaginated
+  if (!page && !limit) {
+    const assets = await DigitalAsset.find(filter).sort({ createdAt: -1 });
+    return res.status(200).json({ success: true, assets, totalItems: assets.length, totalPages: 1, currentPage: 1 });
+  }
 
-  res.status(200).json({ success: true, assets });
+  const pageNum = Math.max(1, parseInt(page as string) || 1);
+  const limitNum = Math.min(100, Math.max(1, parseInt(limit as string) || 10));
+  const skip = (pageNum - 1) * limitNum;
+
+  const [assets, totalItems] = await Promise.all([
+    DigitalAsset.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limitNum),
+    DigitalAsset.countDocuments(filter),
+  ]);
+
+  res.status(200).json({
+    success: true,
+    assets,
+    totalItems,
+    totalPages: Math.ceil(totalItems / limitNum),
+    currentPage: pageNum,
+  });
 });
 
 // GET /api/digital-assets/:id
@@ -45,12 +64,20 @@ export const createAsset = asyncHandler(async (req, res) => {
   let previewUrl: string | undefined;
 
   if (assetType === "file" && req.file) {
-    const result = await uploadToCloudinary(req.file.path, "digital-assets", req.file.originalname);
+    const mime = req.file.mimetype;
+    const result = await uploadToCloudinary(req.file.path, "digital-assets", req.file.originalname, mime);
     cleanupTempFiles([req.file]);
     fileUrl = result.secureUrl;
-    // For images use the same URL as preview; for other types leave previewUrl as undefined
-    if (req.file.mimetype.startsWith("image/")) {
+
+    if (mime.startsWith("image/")) {
       previewUrl = result.secureUrl;
+    } else if (mime === "application/pdf") {
+      // PDF uploaded as image resource_type — Cloudinary generates a page thumbnail
+      previewUrl = result.secureUrl.replace(/\.pdf$/i, ".jpg");
+    } else if (mime.startsWith("video/")) {
+      previewUrl = result.secureUrl
+        .replace("/video/upload/", "/video/upload/so_0/")
+        .replace(/\.[^.]+$/, ".jpg");
     }
   }
 

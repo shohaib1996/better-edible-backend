@@ -1,5 +1,12 @@
 import cloudinary from "../config/cloudinary";
-import { UploadApiResponse } from "cloudinary";
+import { UploadApiResponse, ResourceType } from "cloudinary";
+
+function mimeToResourceType(mime: string): ResourceType {
+  if (mime.startsWith("video/")) return "video";
+  // PDFs upload as "image" so Cloudinary can generate page thumbnails
+  // and serve them inline via /image/upload/
+  return "image";
+}
 
 interface UploadResult {
   url: string;
@@ -22,14 +29,17 @@ interface UploadResult {
 export const uploadToCloudinary = async (
   filePath: string,
   folder: string = "private-labels",
-  filename: string = "label"
+  filename: string = "label",
+  mime?: string
 ): Promise<UploadResult> => {
   try {
+    const resource_type: ResourceType = mime ? mimeToResourceType(mime) : "auto";
     const result: UploadApiResponse = await cloudinary.uploader.upload(filePath, {
       folder,
-      resource_type: "auto", // Automatically detect file type (image, pdf, etc.)
+      resource_type,
       use_filename: true,
       unique_filename: true,
+      access_mode: "public",
     });
 
     return {
