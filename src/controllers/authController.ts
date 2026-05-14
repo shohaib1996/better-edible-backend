@@ -43,10 +43,10 @@ export const loginRep = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const rep = await Rep.findOne({ email });
 
-  if (!rep) throw new AppError("Rep not found", 404);
+  if (!rep) throw new AppError("Invalid email or password", 401);
 
   const isMatch = await bcrypt.compare(password, rep.passwordHash);
-  if (!isMatch) throw new AppError("Invalid credentials", 401);
+  if (!isMatch) throw new AppError("Invalid email or password", 401);
 
   // No JWT yet — just send success and rep info
   res.status(200).json({

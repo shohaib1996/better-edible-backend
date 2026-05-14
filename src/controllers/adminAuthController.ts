@@ -36,10 +36,10 @@ export const loginAdmin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const admin = await Admin.findOne({ email });
 
-  if (!admin) throw new AppError("Admin not found", 404);
+  if (!admin) throw new AppError("Invalid email or password", 401);
 
   const isMatch = await bcrypt.compare(password, admin.passwordHash);
-  if (!isMatch) throw new AppError("Invalid credentials", 401);
+  if (!isMatch) throw new AppError("Invalid email or password", 401);
 
   // For now, return success + admin info (no JWT yet)
   res.status(200).json({
