@@ -1,3 +1,5 @@
+// store auth controller //
+
 import crypto from "crypto";
 import bcrypt from "bcryptjs";
 import { asyncHandler } from "../utils/asyncHandler";
@@ -10,7 +12,9 @@ export const loginStoreUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) throw new AppError("Email and password are required", 400);
 
-  const contact = await Contact.findOne({ email: { $regex: new RegExp(`^${email}$`, "i") } }).populate<{
+  const contact = await Contact.findOne({
+    email: { $regex: new RegExp(`^${email}$`, "i") },
+  }).populate<{
     store: { _id: unknown; name: string; zip?: string };
   }>("store", "name zip");
   if (!contact) throw new AppError("Invalid credentials", 401);
@@ -48,10 +52,9 @@ export const sendMagicLink = asyncHandler(async (req, res) => {
   const { email } = req.body;
   if (!email) throw new AppError("Email is required", 400);
 
-  const contact = await Contact.findOne({ email: { $regex: new RegExp(`^${email}$`, "i") } }).populate<{ store: { name: string } }>(
-    "store",
-    "name"
-  );
+  const contact = await Contact.findOne({
+    email: { $regex: new RegExp(`^${email}$`, "i") },
+  }).populate<{ store: { name: string } }>("store", "name");
   if (!contact) throw new AppError("No account found for this email", 404);
   if (contact.status === "inactive") throw new AppError("Account is inactive", 403);
 
