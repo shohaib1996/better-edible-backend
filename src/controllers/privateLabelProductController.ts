@@ -3,7 +3,7 @@ import { asyncHandler } from "../utils/asyncHandler";
 import { AppError } from "../utils/AppError";
 
 // ─────────────────────────────
-// Get All Private Label Products
+// Get All Private Label Products Admin Side
 // ─────────────────────────────
 
 export const getAllProducts = asyncHandler(async (req, res) => {
