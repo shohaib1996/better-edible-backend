@@ -48,7 +48,7 @@ export const createProduct = asyncHandler(async (req, res) => {
     throw new AppError("Valid unit price is required", 400);
   }
 
-  // Check if product with same name already exists
+  // Check if product with same name already exists Admin Side
   const existingProduct = await PrivateLabelProduct.findOne({
     name: name.trim(),
   });
@@ -72,7 +72,7 @@ export const createProduct = asyncHandler(async (req, res) => {
 });
 
 // ─────────────────────────────
-// Update Product
+// Update Product functionality Admin Side
 // ─────────────────────────────
 
 export const updateProduct = asyncHandler(async (req, res) => {
