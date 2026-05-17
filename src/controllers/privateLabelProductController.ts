@@ -33,7 +33,7 @@ export const getProductById = asyncHandler(async (req, res) => {
 });
 
 // ─────────────────────────────
-// Create Products
+// Create Products Admin Side
 // ─────────────────────────────
 
 export const createProduct = asyncHandler(async (req, res) => {
