@@ -31,11 +31,11 @@ export interface IPricingResult {
 // Cannabinoid price table
 // -------------------
 const CANNABINOID_PRICES: Record<CannabinoidName, Record<number, number>> = {
-  CBD:  { 100: 0.25, 200: 0.50, 300: 0.75, 400: 1.00 },
-  CBG:  { 100: 0.50, 200: 1.00 },
-  CBN:  { 50: 0.60,  100: 1.00 },
-  CBC:  { 25: 0.60,  50: 1.00,  75: 1.50, 100: 2.00 },
-  THCv: { 25: 0.60,  50: 1.00,  75: 1.50, 100: 2.00 },
+  CBD: { 100: 0.25, 200: 0.5, 300: 0.75, 400: 1.0 },
+  CBG: { 100: 0.5, 200: 1.0 },
+  CBN: { 50: 0.6, 100: 1.0 },
+  CBC: { 25: 0.6, 50: 1.0, 75: 1.5, 100: 2.0 },
+  THCv: { 25: 0.6, 50: 1.0, 75: 1.5, 100: 2.0 },
 };
 
 const TESTING_FEE = 250;
@@ -45,7 +45,7 @@ const POOL_THRESHOLD = 3000;
 // Main pricing function
 // -------------------
 export function calculateGummyPrice(config: IGummyConfig): IPricingResult {
-  const base = config.oilType === "rosin" ? 2.50 : 1.75;
+  const base = config.oilType === "rosin" ? 2.5 : 1.75;
   const size = config.size === "xl" ? 0.05 : 0;
   const effect = config.effect === "hybrid" ? 0 : 0.05;
   const flavorMode = config.flavorMode === "mix" ? 0.05 : 0;
@@ -85,9 +85,7 @@ export function calculateGummyPrice(config: IGummyConfig): IPricingResult {
 // Builds a deterministic string from cannabinoid config for pool matching
 // e.g. [{ name: "CBD", mg: 200 }, { name: "CBG", mg: 100 }] → "CBC-50_CBD-200"
 // -------------------
-export function buildCannabinoidKey(
-  cannabinoids: { name: CannabinoidName; mg: number }[]
-): string {
+export function buildCannabinoidKey(cannabinoids: { name: CannabinoidName; mg: number }[]): string {
   return cannabinoids
     .map((c) => `${c.name}-${c.mg}`)
     .sort()

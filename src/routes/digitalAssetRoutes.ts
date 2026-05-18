@@ -13,7 +13,11 @@ const router = Router();
 router.get("/", getAssets /* #swagger.tags = ['DigitalAssets'] */);
 router.get("/:id", getAssetById /* #swagger.tags = ['DigitalAssets'] */);
 router.post("/", uploadAssets.single("file"), createAsset /* #swagger.tags = ['DigitalAssets'] */);
-router.put("/:id", uploadAssets.single("file"), updateAsset /* #swagger.tags = ['DigitalAssets'] */);
+router.put(
+  "/:id",
+  uploadAssets.single("file"),
+  updateAsset /* #swagger.tags = ['DigitalAssets'] */
+);
 router.delete("/:id", deleteAsset /* #swagger.tags = ['DigitalAssets'] */);
 
 export default router;

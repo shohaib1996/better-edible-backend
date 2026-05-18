@@ -19,7 +19,9 @@ export const updateRepSchema = z
     name: z.string().min(1).optional(),
     email: z.string().email().optional(),
     phone: z.string().optional(),
-    repType: z.enum(["rep", "delivery", "both", "pps", "production", "packaging", "designer"]).optional(),
+    repType: z
+      .enum(["rep", "delivery", "both", "pps", "production", "packaging", "designer"])
+      .optional(),
     territory: z.string().optional(),
     status: z.enum(["active", "inactive", "suspended"]).optional(),
   })

@@ -145,11 +145,7 @@ export const createStore = asyncHandler(async (req, res) => {
 // Update store
 export const updateStore = asyncHandler(async (req, res) => {
   const { contacts, ...updateFields } = req.body;
-const store = await Store.findByIdAndUpdate(
-    req.params.id,
-    { $set: updateFields },
-    { new: true }
-  )
+  const store = await Store.findByIdAndUpdate(req.params.id, { $set: updateFields }, { new: true })
     .populate("rep", "name repType territory")
     .populate({ path: "contacts", select: "name role email phone importantToKnow" })
     .lean();

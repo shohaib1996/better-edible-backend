@@ -70,10 +70,7 @@ export const triggerPool = asyncHandler(async (req, res) => {
 
   // Update all participating labels to mark them as going to production
   const labelIds = pool.entries.map((e) => e.labelId);
-  await Label.updateMany(
-    { _id: { $in: labelIds } },
-    { productionMode: "pool" }
-  );
+  await Label.updateMany({ _id: { $in: labelIds } }, { productionMode: "pool" });
 
   res.status(200).json({
     success: true,

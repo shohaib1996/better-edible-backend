@@ -52,7 +52,7 @@ export const placeOrder = asyncHandler(async (req, res) => {
   const labelIds = items.map((i: { labelId: string }) => new Types.ObjectId(i.labelId));
   const labels = await Label.find({ _id: { $in: labelIds } });
 
-  const labelMap: Record<string, typeof labels[0]> = {};
+  const labelMap: Record<string, (typeof labels)[0]> = {};
   for (const l of labels) labelMap[String(l._id)] = l;
 
   const orderItems = [];
@@ -62,10 +62,7 @@ export const placeOrder = asyncHandler(async (req, res) => {
     const label = labelMap[item.labelId];
     if (!label) throw new AppError(`Label ${item.labelId} not found`, 404);
     if (label.currentStage !== "ready_for_production") {
-      throw new AppError(
-        `Label "${label.flavorName}" is not yet approved for ordering`,
-        400
-      );
+      throw new AppError(`Label "${label.flavorName}" is not yet approved for ordering`, 400);
     }
 
     const quantity = parseInt(item.quantity, 10);
