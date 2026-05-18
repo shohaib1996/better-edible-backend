@@ -36,6 +36,7 @@ import colorRoutes from "./routes/colorRoutes";
 import storeAuthRoutes from "./routes/storeAuthRoutes";
 import digitalAssetRoutes from "./routes/digitalAssetRoutes";
 import designRequestRoutes from "./routes/designRequestRoutes";
+import storeLabelRoutes from "./routes/storeLabelRoutes";
 
 const app = express();
 
@@ -95,6 +96,7 @@ app.use("/api/colors", colorRoutes);
 app.use("/api/store-auth", storeAuthRoutes);
 app.use("/api/digital-assets", digitalAssetRoutes);
 app.use("/api/design-requests", designRequestRoutes);
+app.use("/api/store/labels", storeLabelRoutes);
 
 app.get("/", (_req, res) => {
   res.send("Rep Order System API is running... yep 4th time");
