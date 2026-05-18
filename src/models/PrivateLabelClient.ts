@@ -12,6 +12,10 @@ export interface IPrivateLabelClient extends Document {
     enabled: boolean;
     interval?: "monthly" | "bimonthly" | "quarterly";
   };
+  logo?: {
+    url?: string;
+    status?: "uploaded" | "pending_email" | "use_existing";
+  };
   createdAt: Date;
   updatedAt: Date;
   isActive(): boolean;
@@ -54,6 +58,13 @@ const PrivateLabelClientSchema = new Schema<IPrivateLabelClient>(
       interval: {
         type: String,
         enum: ["monthly", "bimonthly", "quarterly"],
+      },
+    },
+    logo: {
+      url: { type: String },
+      status: {
+        type: String,
+        enum: ["uploaded", "pending_email", "use_existing"],
       },
     },
   },
