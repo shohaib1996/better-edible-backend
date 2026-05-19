@@ -81,11 +81,12 @@ export const submitRequest = asyncHandler(async (req, res) => {
 
 // GET /api/design-requests
 export const getRequests = asyncHandler(async (req, res) => {
-  const { queue, status, storeId, page = "1", limit = "20" } = req.query;
+  const { queue, status, storeId, excludeStatus, page = "1", limit = "20" } = req.query;
 
   const filter: Record<string, unknown> = {};
   if (queue) filter.queueType = queue;
   if (status) filter.status = status;
+  else if (excludeStatus) filter.status = { $ne: excludeStatus };
   if (storeId) filter.storeId = storeId;
 
   const pageNum = parseInt(page as string, 10);
