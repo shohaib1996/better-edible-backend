@@ -50,6 +50,14 @@ export interface IStageHistoryEntry {
   notes?: string;
 }
 
+export type CannabinoidName = "CBD" | "CBG" | "CBN" | "CBC" | "THCv";
+
+export interface ICannabinoidEntry {
+  name: CannabinoidName;
+  mg: number;
+  priceAdd: number;
+}
+
 // -------------------
 // Main Interface
 // -------------------
@@ -68,6 +76,21 @@ export interface ILabel extends Document {
   labelImages: ILabelImage[];
   approvalToken?: string;
   approvalTokenExpiry?: Date;
+  // Gummy builder fields
+  size?: "standard" | "xl";
+  oilType?: "biomax" | "rosin";
+  effect?: "hybrid" | "indica" | "sativa";
+  flavorMode?: "single" | "mix";
+  cannabinoids?: ICannabinoidEntry[];
+  unitsOrdered?: number;
+  unitCost?: number;
+  totalCost?: number;
+  isRatio?: boolean;
+  testingFee?: number;
+  testingFeeWaived?: boolean;
+  productionMode?: "standard" | "pool" | "custom_run";
+  labelStatus?: "draft" | "submitted";
+  submittedAt?: Date;
   createdAt: Date;
   updatedAt: Date;
   updateStage(
@@ -100,6 +123,19 @@ const FormulationComponentSchema = new Schema(
   {
     name: { type: String, required: true, trim: true },
     percentage: { type: Number, required: true },
+  },
+  { _id: false }
+);
+
+const CannabinoidEntrySchema = new Schema(
+  {
+    name: {
+      type: String,
+      enum: ["CBD", "CBG", "CBN", "CBC", "THCv"],
+      required: true,
+    },
+    mg: { type: Number, required: true },
+    priceAdd: { type: Number, required: true },
   },
   { _id: false }
 );
@@ -194,6 +230,21 @@ const LabelSchema = new Schema<ILabel>(
       type: Date,
       default: null,
     },
+    // Gummy builder fields
+    size: { type: String, enum: ["standard", "xl"], default: "standard" },
+    oilType: { type: String, enum: ["biomax", "rosin"], default: "biomax" },
+    effect: { type: String, enum: ["hybrid", "indica", "sativa"], default: "hybrid" },
+    flavorMode: { type: String, enum: ["single", "mix"], default: "single" },
+    cannabinoids: { type: [CannabinoidEntrySchema], default: [] },
+    unitsOrdered: { type: Number, default: 630 },
+    unitCost: { type: Number },
+    totalCost: { type: Number },
+    isRatio: { type: Boolean, default: false },
+    testingFee: { type: Number, default: 0 },
+    testingFeeWaived: { type: Boolean, default: false },
+    productionMode: { type: String, enum: ["standard", "pool", "custom_run"] },
+    labelStatus: { type: String, enum: ["draft", "submitted"], default: "draft" },
+    submittedAt: { type: Date },
   },
   { timestamps: true }
 );

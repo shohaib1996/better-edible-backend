@@ -1,10 +1,5 @@
 import { resend, FROM_EMAIL } from "../config";
-import {
-  emailWrapper,
-  headerBanner,
-  ctaButton,
-  BRAND_COLORS,
-} from "../helpers";
+import { emailWrapper, headerBanner, ctaButton, BRAND_COLORS } from "../helpers";
 
 export const sendMagicLinkEmail = async (
   name: string,

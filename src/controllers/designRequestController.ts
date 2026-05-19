@@ -44,11 +44,15 @@ export const submitRequest = asyncHandler(async (req, res) => {
     submittedBy,
     submittedByName,
     productLine,
+    format,
     description,
   } = req.body;
 
   if (!requestType || !source || !description) {
     throw new AppError("requestType, source, and description are required", 400);
+  }
+  if (!format) {
+    throw new AppError("format is required", 400);
   }
   if (requestType === "free" && !productLine) {
     throw new AppError("productLine is required for free requests", 400);
@@ -68,6 +72,7 @@ export const submitRequest = asyncHandler(async (req, res) => {
     submittedBy: submittedBy || undefined,
     submittedByName: submittedByName || undefined,
     productLine: productLine || null,
+    format,
     description,
   });
 
@@ -76,11 +81,12 @@ export const submitRequest = asyncHandler(async (req, res) => {
 
 // GET /api/design-requests
 export const getRequests = asyncHandler(async (req, res) => {
-  const { queue, status, storeId, page = "1", limit = "20" } = req.query;
+  const { queue, status, storeId, excludeStatus, page = "1", limit = "20" } = req.query;
 
   const filter: Record<string, unknown> = {};
   if (queue) filter.queueType = queue;
   if (status) filter.status = status;
+  else if (excludeStatus) filter.status = { $ne: excludeStatus };
   if (storeId) filter.storeId = storeId;
 
   const pageNum = parseInt(page as string, 10);
@@ -215,6 +221,21 @@ export const sendFiles = asyncHandler(async (req, res) => {
   await request.save();
 
   res.status(200).json({ success: true, request });
+});
+
+// DELETE /api/design-requests/:id/completed-files/:fileId
+export const deleteCompletedFile = asyncHandler(async (req, res) => {
+  const request = await DesignRequest.findById(req.params.id);
+  if (!request) throw new AppError("Design request not found", 404);
+
+  const file = request.completedFiles.find((f) => String(f._id) === req.params.fileId);
+  if (!file) throw new AppError("File not found", 404);
+  if (file.sent) throw new AppError("Cannot delete a file that has already been sent", 400);
+
+  request.completedFiles = request.completedFiles.filter((f) => String(f._id) !== req.params.fileId);
+  await request.save();
+
+  res.status(200).json({ success: true, completedFiles: request.completedFiles });
 });
 
 // POST /api/design-requests/:id/comments

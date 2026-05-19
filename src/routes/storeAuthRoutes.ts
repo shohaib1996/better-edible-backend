@@ -4,6 +4,7 @@ import {
   sendMagicLink,
   verifyMagicLink,
   changeStorePassword,
+  adminResetStorePassword,
   logoutStoreUser,
 } from "../controllers/storeAuthController";
 
@@ -13,6 +14,7 @@ router.post("/login", loginStoreUser /* #swagger.tags = ['StoreAuth'] */);
 router.post("/magic-link", sendMagicLink /* #swagger.tags = ['StoreAuth'] */);
 router.get("/magic-link/:token", verifyMagicLink /* #swagger.tags = ['StoreAuth'] */);
 router.post("/change-password", changeStorePassword /* #swagger.tags = ['StoreAuth'] */);
+router.post("/:contactId/reset-password", adminResetStorePassword /* #swagger.tags = ['StoreAuth'] */);
 router.post("/logout", logoutStoreUser /* #swagger.tags = ['StoreAuth'] */);
 
 export default router;

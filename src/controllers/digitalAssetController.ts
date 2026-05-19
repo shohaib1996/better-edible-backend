@@ -8,7 +8,8 @@ import { cleanupTempFiles } from "../middleware/uploadMiddleware";
 export const getAssets = asyncHandler(async (req, res) => {
   const { category, productLine, assetType, status, search, page, limit } = req.query;
 
-  const filter: Record<string, unknown> = status && status !== "all" ? { status } : { status: { $in: ["active", "archived"] } };
+  const filter: Record<string, unknown> =
+    status && status !== "all" ? { status } : { status: { $in: ["active", "archived"] } };
   if (category) filter.category = category;
   if (productLine) filter.productLine = productLine;
   if (assetType) filter.assetType = assetType;
@@ -17,7 +18,9 @@ export const getAssets = asyncHandler(async (req, res) => {
   // When status=all (tab counts query) return everything unpaginated
   if (!page && !limit) {
     const assets = await DigitalAsset.find(filter).sort({ createdAt: -1 });
-    return res.status(200).json({ success: true, assets, totalItems: assets.length, totalPages: 1, currentPage: 1 });
+    return res
+      .status(200)
+      .json({ success: true, assets, totalItems: assets.length, totalPages: 1, currentPage: 1 });
   }
 
   const pageNum = Math.max(1, parseInt(page as string) || 1);
@@ -66,7 +69,12 @@ export const createAsset = asyncHandler(async (req, res) => {
 
   if (assetType === "file" && req.file) {
     const mime = req.file.mimetype;
-    const result = await uploadToCloudinary(req.file.path, "digital-assets", req.file.originalname, mime);
+    const result = await uploadToCloudinary(
+      req.file.path,
+      "digital-assets",
+      req.file.originalname,
+      mime
+    );
     cleanupTempFiles([req.file]);
     fileUrl = result.secureUrl;
 
@@ -115,7 +123,12 @@ export const updateAsset = asyncHandler(async (req, res) => {
 
   if (req.file) {
     const mime = req.file.mimetype;
-    const result = await uploadToCloudinary(req.file.path, "digital-assets", req.file.originalname, mime);
+    const result = await uploadToCloudinary(
+      req.file.path,
+      "digital-assets",
+      req.file.originalname,
+      mime
+    );
     cleanupTempFiles([req.file]);
     asset.fileUrl = result.secureUrl;
 
