@@ -44,11 +44,15 @@ export const submitRequest = asyncHandler(async (req, res) => {
     submittedBy,
     submittedByName,
     productLine,
+    format,
     description,
   } = req.body;
 
   if (!requestType || !source || !description) {
     throw new AppError("requestType, source, and description are required", 400);
+  }
+  if (!format) {
+    throw new AppError("format is required", 400);
   }
   if (requestType === "free" && !productLine) {
     throw new AppError("productLine is required for free requests", 400);
@@ -68,6 +72,7 @@ export const submitRequest = asyncHandler(async (req, res) => {
     submittedBy: submittedBy || undefined,
     submittedByName: submittedByName || undefined,
     productLine: productLine || null,
+    format,
     description,
   });
 

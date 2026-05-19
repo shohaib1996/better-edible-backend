@@ -129,6 +129,17 @@ export const changeStorePassword = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, message: "Password updated" });
 });
 
+// POST /api/store-auth/:contactId/reset-password  (admin — clears hash so next login re-initializes from store zip)
+export const adminResetStorePassword = asyncHandler(async (req, res) => {
+  const contact = await Contact.findById(req.params.contactId);
+  if (!contact) throw new AppError("Contact not found", 404);
+
+  contact.passwordHash = undefined;
+  await contact.save();
+
+  res.status(200).json({ success: true, message: "Password reset. Store can now log in with their ZIP code." });
+});
+
 // POST /api/store-auth/logout
 export const logoutStoreUser = asyncHandler(async (_req, res) => {
   res.status(200).json({ success: true, message: "Logout successful" });

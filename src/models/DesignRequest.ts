@@ -42,6 +42,7 @@ export interface IDesignRequest extends Document {
   submittedBy?: Types.ObjectId;
   submittedByName?: string;
   productLine?: DesignProductLine | null;
+  format?: string;
   description: string;
   uploadedFiles: IUploadedFile[];
   completedFiles: ICompletedFile[];
@@ -101,6 +102,7 @@ const DesignRequestSchema = new Schema<IDesignRequest>(
       enum: ["CannaCrispy", "FiftyOneFifty", "Bliss", "YummyGummy"],
       default: null,
     },
+    format: { type: String },
     description: { type: String, required: true },
     uploadedFiles: [UploadedFileSchema],
     completedFiles: [CompletedFileSchema],
