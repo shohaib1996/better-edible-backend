@@ -217,6 +217,21 @@ export const sendFiles = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, request });
 });
 
+// DELETE /api/design-requests/:id/completed-files/:fileId
+export const deleteCompletedFile = asyncHandler(async (req, res) => {
+  const request = await DesignRequest.findById(req.params.id);
+  if (!request) throw new AppError("Design request not found", 404);
+
+  const file = request.completedFiles.find((f) => String(f._id) === req.params.fileId);
+  if (!file) throw new AppError("File not found", 404);
+  if (file.sent) throw new AppError("Cannot delete a file that has already been sent", 400);
+
+  request.completedFiles = request.completedFiles.filter((f) => String(f._id) !== req.params.fileId);
+  await request.save();
+
+  res.status(200).json({ success: true, completedFiles: request.completedFiles });
+});
+
 // POST /api/design-requests/:id/comments
 export const postComment = asyncHandler(async (req, res) => {
   const { authorId, authorName, authorRole, message } = req.body;
