@@ -78,7 +78,7 @@ export const submitRequest = asyncHandler(async (req, res) => {
 
   res.status(201).json({ success: true, request });
 });
-
+// get design requests with optional filters: queue, status, storeId, excludeStatus, pagination
 // GET /api/design-requests
 export const getRequests = asyncHandler(async (req, res) => {
   const { queue, status, storeId, excludeStatus, page = "1", limit = "20" } = req.query;
@@ -232,7 +232,9 @@ export const deleteCompletedFile = asyncHandler(async (req, res) => {
   if (!file) throw new AppError("File not found", 404);
   if (file.sent) throw new AppError("Cannot delete a file that has already been sent", 400);
 
-  request.completedFiles = request.completedFiles.filter((f) => String(f._id) !== req.params.fileId);
+  request.completedFiles = request.completedFiles.filter(
+    (f) => String(f._id) !== req.params.fileId
+  );
   await request.save();
 
   res.status(200).json({ success: true, completedFiles: request.completedFiles });
