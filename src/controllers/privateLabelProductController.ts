@@ -72,7 +72,7 @@ export const createProduct = asyncHandler(async (req, res) => {
 });
 
 // ─────────────────────────────
-// Update Product functionality Admin Side
+// Update Product functionality Admin Side and Toggle Active Status
 // ─────────────────────────────
 
 export const updateProduct = asyncHandler(async (req, res) => {
