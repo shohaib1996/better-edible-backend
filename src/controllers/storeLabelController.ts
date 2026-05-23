@@ -97,10 +97,10 @@ export const getStoreSubmissions = asyncHandler(async (req, res) => {
 });
 
 // -------------------
-// GET /api/store/labels?storeId=
+// GET /api/store/labels?storeId=&status=&page=&limit=
 // -------------------
 export const getMyLabels = asyncHandler(async (req, res) => {
-  const { storeId } = req.query;
+  const { storeId, status, page, limit } = req.query;
   if (!storeId) throw new AppError("storeId is required", 400);
 
   const client = await PrivateLabelClient.findOne({ store: new Types.ObjectId(storeId as string) });
@@ -108,14 +108,29 @@ export const getMyLabels = asyncHandler(async (req, res) => {
     return res.status(200).json({ success: true, labels: [], clientStatus: null });
   }
 
-  const labels = await Label.find({ client: client._id }).sort({ createdAt: -1 });
+  const filter: Record<string, any> = { client: client._id };
+  if (status) filter.labelStatus = status as string;
 
-  res.status(200).json({
-    success: true,
-    labels,
-    clientStatus: client.status,
-    clientId: client._id,
-  });
+  if (page && limit) {
+    const pageNum = Math.max(1, parseInt(page as string) || 1);
+    const limitNum = Math.max(1, parseInt(limit as string) || 10);
+    const skip = (pageNum - 1) * limitNum;
+    const [totalItems, labels] = await Promise.all([
+      Label.countDocuments(filter),
+      Label.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limitNum),
+    ]);
+    const totalPages = Math.ceil(totalItems / limitNum) || 1;
+    return res.status(200).json({
+      success: true,
+      labels,
+      clientStatus: client.status,
+      clientId: client._id,
+      pagination: { page: pageNum, limit: limitNum, totalItems, totalPages },
+    });
+  }
+
+  const labels = await Label.find(filter).sort({ createdAt: -1 });
+  res.status(200).json({ success: true, labels, clientStatus: client.status, clientId: client._id });
 });
 
 // -------------------

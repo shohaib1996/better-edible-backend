@@ -6,11 +6,11 @@ import { PrivateLabelClient } from "../models/PrivateLabelClient";
 import { Types } from "mongoose";
 
 // -------------------
-// GET /api/store/orders?storeId=
+// GET /api/store/orders?storeId=&page=&limit=
 // Store — get all their orders
 // -------------------
 export const getMyOrders = asyncHandler(async (req, res) => {
-  const { storeId } = req.query;
+  const { storeId, page, limit } = req.query;
   if (!storeId) throw new AppError("storeId is required", 400);
 
   const client = await PrivateLabelClient.findOne({
@@ -20,10 +20,31 @@ export const getMyOrders = asyncHandler(async (req, res) => {
     return res.status(200).json({ success: true, orders: [] });
   }
 
-  const orders = await ClientOrder.find({ client: client._id })
+  const filter = { client: client._id };
+
+  if (page && limit) {
+    const pageNum = Math.max(1, parseInt(page as string) || 1);
+    const limitNum = Math.max(1, parseInt(limit as string) || 10);
+    const skip = (pageNum - 1) * limitNum;
+    const [totalItems, orders] = await Promise.all([
+      ClientOrder.countDocuments(filter),
+      ClientOrder.find(filter)
+        .populate("items.label", "flavorName itemId currentStage")
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limitNum),
+    ]);
+    const totalPages = Math.ceil(totalItems / limitNum) || 1;
+    return res.status(200).json({
+      success: true,
+      orders,
+      pagination: { page: pageNum, limit: limitNum, totalItems, totalPages },
+    });
+  }
+
+  const orders = await ClientOrder.find(filter)
     .populate("items.label", "flavorName itemId currentStage")
     .sort({ createdAt: -1 });
-
   res.status(200).json({ success: true, orders });
 });
 
