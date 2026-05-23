@@ -50,6 +50,53 @@ async function joinPool(
 }
 
 // -------------------
+// GET /api/store/submissions (admin)
+// Returns all submitted store gummy labels grouped by store
+// -------------------
+export const getStoreSubmissions = asyncHandler(async (req, res) => {
+  const labels = await Label.find({ source: "store", labelStatus: "submitted" })
+    .populate({
+      path: "client",
+      populate: { path: "store", select: "name city state" },
+    })
+    .sort({ submittedAt: -1 });
+
+  // Group by store
+  const map: Record<string, any> = {};
+
+  for (const label of labels) {
+    const client = label.client as any;
+    const store = client?.store;
+    const storeId = String(store?._id ?? client?._id ?? "unknown");
+    const storeName = store?.name ?? "Unknown Store";
+
+    if (!map[storeId]) {
+      map[storeId] = {
+        storeId,
+        storeName,
+        clientId: String(client?._id),
+        city: store?.city ?? "",
+        state: store?.state ?? "",
+        labels: [],
+        totalValue: 0,
+        earliestSubmission: label.submittedAt,
+      };
+    }
+
+    map[storeId].labels.push(label);
+    map[storeId].totalValue = parseFloat(
+      (map[storeId].totalValue + (label.totalCost ?? 0)).toFixed(2)
+    );
+
+    if (label.submittedAt && label.submittedAt < map[storeId].earliestSubmission) {
+      map[storeId].earliestSubmission = label.submittedAt;
+    }
+  }
+
+  res.status(200).json({ success: true, submissions: Object.values(map) });
+});
+
+// -------------------
 // GET /api/store/labels?storeId=
 // -------------------
 export const getMyLabels = asyncHandler(async (req, res) => {
@@ -122,6 +169,7 @@ export const createDraftLabel = asyncHandler(async (req, res) => {
     testingFee: pricing.testingFee,
     testingFeeWaived: pricing.testingFeeWaived,
     labelStatus: "draft",
+    source: "store",
     currentStage: "design_in_progress",
   });
 

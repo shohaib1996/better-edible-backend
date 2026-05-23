@@ -39,6 +39,7 @@ import designRequestRoutes from "./routes/designRequestRoutes";
 import storeLabelRoutes from "./routes/storeLabelRoutes";
 import poolRoutes from "./routes/poolRoutes";
 import storeOrderRoutes from "./routes/storeOrderRoutes";
+import storeSubmissionsRoutes from "./routes/storeSubmissionsRoutes";
 
 const app = express();
 
@@ -101,6 +102,7 @@ app.use("/api/design-requests", designRequestRoutes);
 app.use("/api/store/labels", storeLabelRoutes);
 app.use("/api/pools", poolRoutes);
 app.use("/api/store/orders", storeOrderRoutes);
+app.use("/api/store/submissions", storeSubmissionsRoutes);
 
 app.get("/", (_req, res) => {
   res.send("Rep Order System API is running... yep 4th time");

@@ -70,7 +70,8 @@ async function populateStageHistory(labels: any[]) {
 export const getAllLabels = asyncHandler(async (req, res) => {
   const { clientId, stage, productType, page = 1, limit = 50 } = req.query;
 
-  const filter: any = {};
+  // Exclude store gummy builder labels
+  const filter: any = { source: { $ne: "store" } };
 
   if (clientId && mongoose.Types.ObjectId.isValid(String(clientId))) {
     filter.client = new mongoose.Types.ObjectId(String(clientId));

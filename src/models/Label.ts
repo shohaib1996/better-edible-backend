@@ -91,6 +91,7 @@ export interface ILabel extends Document {
   productionMode?: "standard" | "pool" | "custom_run";
   labelStatus?: "draft" | "submitted";
   submittedAt?: Date;
+  source?: "admin" | "store";
   createdAt: Date;
   updatedAt: Date;
   updateStage(
@@ -245,6 +246,7 @@ const LabelSchema = new Schema<ILabel>(
     productionMode: { type: String, enum: ["standard", "pool", "custom_run"] },
     labelStatus: { type: String, enum: ["draft", "submitted"], default: "draft" },
     submittedAt: { type: Date },
+    source: { type: String, enum: ["admin", "store"], default: "admin" },
   },
   { timestamps: true }
 );
