@@ -43,7 +43,7 @@ export const getMoldByMoldId = asyncHandler(async (req, res) => {
 });
 
 // ─────────────────────────────
-// Create Mold
+// Create Mold funtions
 // ─────────────────────────────
 
 export const createMold = asyncHandler(async (req, res) => {
