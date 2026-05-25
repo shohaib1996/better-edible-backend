@@ -6,12 +6,16 @@ import {
   getApprovedLabelsByClient,
   createLabel,
   updateLabel,
+  deleteLabel,
+} from "../controllers/label/labelCrudController";
+import {
   updateLabelStage,
   bulkUpdateLabelStages,
-  deleteLabel,
+} from "../controllers/label/labelStageController";
+import {
   getLabelForApproval,
   approveLabelPublic,
-} from "../controllers/labelController";
+} from "../controllers/label/labelApprovalController";
 import { upload } from "../middleware/uploadMiddleware";
 import { validate } from "../middleware/validate";
 import { idParam } from "../validators/commonSchemas";
