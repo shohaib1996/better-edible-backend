@@ -137,7 +137,9 @@ export const adminResetStorePassword = asyncHandler(async (req, res) => {
   contact.passwordHash = undefined;
   await contact.save();
 
-  res.status(200).json({ success: true, message: "Password reset. Store can now log in with their ZIP code." });
+  res
+    .status(200)
+    .json({ success: true, message: "Password reset. Store can now log in with their ZIP code." });
 });
 
 // POST /api/store-auth/logout

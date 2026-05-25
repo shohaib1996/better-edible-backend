@@ -31,7 +31,10 @@ router.post(
   uploadAssets.array("files", 10),
   uploadCompletedFiles /* #swagger.tags = ['DesignRequests'] */
 );
-router.delete("/:id/completed-files/:fileId", deleteCompletedFile /* #swagger.tags = ['DesignRequests'] */);
+router.delete(
+  "/:id/completed-files/:fileId",
+  deleteCompletedFile /* #swagger.tags = ['DesignRequests'] */
+);
 router.post("/:id/send-files", sendFiles /* #swagger.tags = ['DesignRequests'] */);
 router.post("/:id/comments", postComment /* #swagger.tags = ['DesignRequests'] */);
 router.post("/:id/request-revision", requestRevision /* #swagger.tags = ['DesignRequests'] */);

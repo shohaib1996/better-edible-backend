@@ -6,12 +6,14 @@ import {
   receiveLabelOrder,
   updateLabelOrder,
   deleteLabelOrder,
+} from "../controllers/pps/labelOrderController";
+import {
   getLabelInventory,
   applyLabels,
   printLabels,
   getInventorySummary,
   setReorderThreshold,
-} from "../controllers/pps/packagePrepController";
+} from "../controllers/pps/labelInventoryController";
 import { validate } from "../middleware/validate";
 import {
   createLabelOrderSchema,

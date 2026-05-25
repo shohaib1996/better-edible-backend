@@ -130,7 +130,9 @@ export const getMyLabels = asyncHandler(async (req, res) => {
   }
 
   const labels = await Label.find(filter).sort({ createdAt: -1 });
-  res.status(200).json({ success: true, labels, clientStatus: client.status, clientId: client._id });
+  res
+    .status(200)
+    .json({ success: true, labels, clientStatus: client.status, clientId: client._id });
 });
 
 // -------------------
