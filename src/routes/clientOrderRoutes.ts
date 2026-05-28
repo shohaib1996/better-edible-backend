@@ -5,13 +5,15 @@ import {
   getClientOrderById,
   createClientOrder,
   updateClientOrder,
+  deleteClientOrder,
+} from "../controllers/clientOrder/clientOrderCrudController";
+import {
   updateClientOrderStatus,
-  pushOrderToPPS,
   updateDeliveryDate,
   toggleShipASAP,
-  deleteClientOrder,
   completeProductionCallback,
-} from "../controllers/clientOrderController";
+} from "../controllers/clientOrder/clientOrderStatusController";
+import { pushOrderToPPS } from "../controllers/clientOrder/clientOrderPpsController";
 import { validate } from "../middleware/validate";
 import { idParam } from "../validators/commonSchemas";
 import {
