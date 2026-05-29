@@ -347,11 +347,16 @@ export const submitLine = asyncHandler(async (req, res) => {
   const client = await PrivateLabelClient.findOne({ store: new Types.ObjectId(storeId) });
   if (!client) throw new AppError("No private label client found for this store", 404);
 
-  // Update logo
-  if (logoStatus) {
-    client.logo = { url: logoUrl || undefined, status: logoStatus };
+  // Update logo — only overwrite URL when actually uploading a new one
+  if (logoStatus === "uploaded" && logoUrl) {
+    client.logo = { url: logoUrl, status: "uploaded" };
+    await client.save();
+  } else if (logoStatus === "pending_email") {
+    // Keep existing URL (if any), just record that they'll email it
+    client.logo = { url: (client.logo as any)?.url || undefined, status: "pending_email" };
     await client.save();
   }
+  // use_existing: leave client.logo completely unchanged
 
   // Get all draft labels for this client
   const draftLabels = await Label.find({ client: client._id, labelStatus: "draft" });
