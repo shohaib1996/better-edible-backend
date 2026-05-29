@@ -4,6 +4,8 @@ import { Label } from "../models/Label";
 import { PrivateLabelClient } from "../models/PrivateLabelClient";
 import { GummyPool } from "../models/GummyPool";
 import { calculateGummyPrice, buildCannabinoidKey } from "../utils/gummyPricing";
+import { uploadToCloudinary } from "../utils/cloudinaryUpload";
+import { cleanupTempFiles } from "../middleware/uploadMiddleware";
 import { Types } from "mongoose";
 
 // -------------------
@@ -57,7 +59,10 @@ export const getStoreSubmissions = asyncHandler(async (req, res) => {
   const labels = await Label.find({ source: "store", labelStatus: "submitted" })
     .populate({
       path: "client",
-      populate: { path: "store", select: "name city state" },
+      populate: [
+        { path: "store", select: "name city state" },
+        { path: "assignedRep", select: "name email" },
+      ],
     })
     .sort({ submittedAt: -1 });
 
@@ -67,6 +72,7 @@ export const getStoreSubmissions = asyncHandler(async (req, res) => {
   for (const label of labels) {
     const client = label.client as any;
     const store = client?.store;
+    const rep = client?.assignedRep;
     const storeId = String(store?._id ?? client?._id ?? "unknown");
     const storeName = store?.name ?? "Unknown Store";
 
@@ -77,6 +83,8 @@ export const getStoreSubmissions = asyncHandler(async (req, res) => {
         clientId: String(client?._id),
         city: store?.city ?? "",
         state: store?.state ?? "",
+        logo: client?.logo ?? null,
+        rep: rep ? { name: rep.name ?? "", email: rep.email ?? "" } : null,
         labels: [],
         totalValue: 0,
         earliestSubmission: label.submittedAt,
@@ -255,6 +263,43 @@ export const deleteDraftLabel = asyncHandler(async (req, res) => {
   await label.deleteOne();
 
   res.status(200).json({ success: true, message: "Draft label deleted" });
+});
+
+// -------------------
+// GET /api/store/labels/my-rep?storeId=
+// -------------------
+export const getMyRep = asyncHandler(async (req, res) => {
+  const { storeId } = req.query;
+  if (!storeId) throw new AppError("storeId is required", 400);
+
+  const client = await PrivateLabelClient.findOne({ store: new Types.ObjectId(storeId as string) })
+    .populate<{ assignedRep: { name: string; email?: string } }>("assignedRep", "name email");
+
+  if (!client) return res.status(200).json({ success: true, rep: null });
+
+  const rep = client.assignedRep as any;
+  res.status(200).json({
+    success: true,
+    rep: rep ? { name: rep.name ?? "", email: rep.email ?? "" } : null,
+  });
+});
+
+// -------------------
+// POST /api/store/labels/upload-logo
+// -------------------
+export const uploadLogo = asyncHandler(async (req, res) => {
+  if (!req.file) throw new AppError("No file uploaded", 400);
+
+  const result = await uploadToCloudinary(
+    req.file.path,
+    "private-label-logos",
+    req.file.originalname,
+    req.file.mimetype
+  );
+
+  cleanupTempFiles([req.file]);
+
+  res.status(200).json({ success: true, url: result.secureUrl });
 });
 
 // -------------------
