@@ -1,6 +1,6 @@
 import { asyncHandler } from "../utils/asyncHandler";
 import { AppError } from "../utils/AppError";
-import { Label } from "../models/Label";
+import { Label, LABEL_STAGES } from "../models/Label";
 import { PrivateLabelClient } from "../models/PrivateLabelClient";
 import { GummyPool } from "../models/GummyPool";
 import { calculateGummyPrice, buildCannabinoidKey } from "../utils/gummyPricing";
@@ -56,7 +56,18 @@ async function joinPool(
 // Returns all submitted store gummy labels grouped by store
 // -------------------
 export const getStoreSubmissions = asyncHandler(async (req, res) => {
-  const labels = await Label.find({ source: "store", labelStatus: "submitted" })
+  const { clientId } = req.query;
+
+  const filter: any = {
+    labelStatus: "submitted",
+    $or: [{ source: "store" }, { source: { $exists: false } }, { source: null }],
+  };
+
+  if (clientId && Types.ObjectId.isValid(clientId as string)) {
+    filter.client = new Types.ObjectId(clientId as string);
+  }
+
+  const labels = await Label.find(filter)
     .populate({
       path: "client",
       populate: [
@@ -263,6 +274,26 @@ export const deleteDraftLabel = asyncHandler(async (req, res) => {
   await label.deleteOne();
 
   res.status(200).json({ success: true, message: "Draft label deleted" });
+});
+
+// -------------------
+// PATCH /api/store/submissions/:labelId/stage
+// -------------------
+export const advanceLabelStage = asyncHandler(async (req, res) => {
+  const { labelId } = req.params;
+  const { stage } = req.body;
+
+  if (!stage || !LABEL_STAGES.includes(stage)) {
+    throw new AppError(`Invalid stage. Valid values: ${LABEL_STAGES.join(", ")}`, 400);
+  }
+
+  const label = await Label.findById(labelId);
+  if (!label) throw new AppError("Label not found", 404);
+  if (label.labelStatus !== "submitted") throw new AppError("Only submitted labels can be staged", 400);
+
+  await label.updateStage(stage);
+
+  res.status(200).json({ success: true, label });
 });
 
 // -------------------
