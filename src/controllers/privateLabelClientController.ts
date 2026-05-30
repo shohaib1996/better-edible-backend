@@ -18,7 +18,7 @@ export const getAllClients = asyncHandler(async (req, res) => {
     filter.assignedRep = new mongoose.Types.ObjectId(String(repId));
   }
 
-  // Search by store name
+  // Search by store name if search is provided
   if (search && typeof search === "string" && search.trim()) {
     const stores = await Store.find({
       name: { $regex: search.trim(), $options: "i" },
