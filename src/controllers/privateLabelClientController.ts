@@ -7,7 +7,7 @@ import { Rep } from "../models/Rep";
 import { asyncHandler } from "../utils/asyncHandler";
 import { AppError } from "../utils/AppError";
 
-// GET ALL CLIENTS
+// GET ALL CLIENTS WITH FILTERS, SEARCH, AND PAGINATION
 export const getAllClients = asyncHandler(async (req, res) => {
   const { status, repId, search, page = 1, limit = 20 } = req.query;
 
