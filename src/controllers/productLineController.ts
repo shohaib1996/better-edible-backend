@@ -81,7 +81,7 @@ export const updateProductLine = asyncHandler(async (req, res) => {
     if (existing) throw new AppError("Product line with this name already exists", 400);
   }
 
-  // Validate pricing structure if provided
+  // Validate pricing structure if provided (we allow partial updates, so it may not be provided)
   if (pricingStructure) {
     if (
       pricingStructure.type === "variants" &&
