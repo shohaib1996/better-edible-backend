@@ -127,7 +127,7 @@ export const getMyLabels = asyncHandler(async (req, res) => {
     return res.status(200).json({ success: true, labels: [], clientStatus: null });
   }
 
-  const filter: Record<string, any> = { client: client._id };
+  const filter: Record<string, any> = { client: client._id, source: "store" };
   if (status) filter.labelStatus = status as string;
 
   if (page && limit) {
