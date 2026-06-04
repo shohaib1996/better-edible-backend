@@ -5,9 +5,9 @@ import {
   createDraftLabel,
   updateDraftLabel,
   deleteDraftLabel,
-  submitLine,
   uploadLogo,
-} from "../controllers/storeLabelController";
+} from "../controllers/storeLabel/storeLabelCrudController";
+import { submitLine } from "../controllers/storeLabel/storeLabelSubmissionController";
 import { upload } from "../middleware/uploadMiddleware";
 
 const router = Router();

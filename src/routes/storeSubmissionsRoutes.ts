@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getStoreSubmissions, advanceLabelStage } from "../controllers/storeLabelController";
+import { getStoreSubmissions, advanceLabelStage } from "../controllers/storeLabel/storeLabelSubmissionController";
 
 const router = Router();
 
