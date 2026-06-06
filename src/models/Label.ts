@@ -92,6 +92,7 @@ export interface ILabel extends Document {
   labelStatus?: "draft" | "submitted";
   submittedAt?: Date;
   source?: "admin" | "store";
+  submissionLabelId?: Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
   updateStage(
@@ -247,6 +248,7 @@ const LabelSchema = new Schema<ILabel>(
     labelStatus: { type: String, enum: ["draft", "submitted"], default: "draft" },
     submittedAt: { type: Date },
     source: { type: String, enum: ["admin", "store"], default: "admin" },
+    submissionLabelId: { type: Schema.Types.ObjectId, ref: "Label", default: null },
   },
   { timestamps: true }
 );

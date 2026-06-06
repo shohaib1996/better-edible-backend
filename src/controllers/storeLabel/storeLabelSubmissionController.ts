@@ -62,7 +62,25 @@ export const getStoreSubmissions = asyncHandler(async (req, res) => {
     }
   }
 
-  res.status(200).json({ success: true, submissions: Object.values(map) });
+  const allSubmissionLabelIds = Object.values(map).flatMap((s: any) =>
+    s.labels.map((l: any) => l._id)
+  );
+
+  const adminLinked = await Label.find(
+    { submissionLabelId: { $in: allSubmissionLabelIds } },
+    { submissionLabelId: 1 }
+  );
+  const linkedIds = new Set(adminLinked.map((l) => String(l.submissionLabelId)));
+
+  const submissions = Object.values(map).map((s: any) => ({
+    ...s,
+    labels: s.labels.map((l: any) => ({
+      ...l.toObject(),
+      hasAdminLabel: linkedIds.has(String(l._id)),
+    })),
+  }));
+
+  res.status(200).json({ success: true, submissions });
 });
 
 // POST /api/store/labels/submit

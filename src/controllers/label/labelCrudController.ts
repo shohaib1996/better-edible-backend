@@ -84,6 +84,7 @@ export const createLabel = asyncHandler(async (req, res) => {
     colorComponents,
     userId,
     userType,
+    submissionLabelId,
   } = req.body;
 
   const client = await PrivateLabelClient.findById(clientId);
@@ -155,6 +156,9 @@ export const createLabel = asyncHandler(async (req, res) => {
     colorComponents: parsedColorComponents,
     currentStage: "design_in_progress",
     labelImages,
+    ...(submissionLabelId && mongoose.Types.ObjectId.isValid(submissionLabelId)
+      ? { submissionLabelId: new mongoose.Types.ObjectId(submissionLabelId) }
+      : {}),
     stageHistory: [
       {
         stage: "design_in_progress",
