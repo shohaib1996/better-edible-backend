@@ -5,7 +5,11 @@ import { uploadMultipleToCloudinary, deleteFromCloudinary } from "../../utils/cl
 import { cleanupTempFiles } from "../../middleware/uploadMiddleware";
 import { asyncHandler } from "../../utils/asyncHandler";
 import { AppError } from "../../utils/AppError";
-import { getUnitPriceByProductType, isValidProductType, populateStageHistory } from "./labelHelpers";
+import {
+  getUnitPriceByProductType,
+  isValidProductType,
+  populateStageHistory,
+} from "./labelHelpers";
 
 // GET /api/labels
 export const getAllLabels = asyncHandler(async (req, res) => {
@@ -59,7 +63,9 @@ export const getApprovedLabelsByClient = asyncHandler(async (req, res) => {
   const labels = await Label.find({
     client: new mongoose.Types.ObjectId(clientId),
     currentStage: "ready_for_production",
-  }).select("_id flavorName productType cannabinoidMix color flavorComponents colorComponents labelImages");
+  }).select(
+    "_id flavorName productType cannabinoidMix color flavorComponents colorComponents labelImages"
+  );
 
   const labelsWithPricing = await Promise.all(
     labels.map(async (label) => ({

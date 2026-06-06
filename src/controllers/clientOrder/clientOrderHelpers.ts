@@ -6,7 +6,9 @@ export async function getUnitPriceByProductType(productType: string): Promise<nu
   return product?.unitPrice || 0;
 }
 
-export async function populateCreatedBy(createdBy: { user: unknown; userType: string } | undefined) {
+export async function populateCreatedBy(
+  createdBy: { user: unknown; userType: string } | undefined
+) {
   if (!createdBy?.user) return createdBy;
 
   const { Rep } = await import("../../models/Rep");

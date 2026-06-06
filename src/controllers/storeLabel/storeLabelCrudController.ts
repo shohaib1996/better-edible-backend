@@ -40,7 +40,9 @@ export const getMyLabels = asyncHandler(async (req, res) => {
   }
 
   const labels = await Label.find(filter).sort({ createdAt: -1 });
-  res.status(200).json({ success: true, labels, clientStatus: client.status, clientId: client._id });
+  res
+    .status(200)
+    .json({ success: true, labels, clientStatus: client.status, clientId: client._id });
 });
 
 // GET /api/store/labels/my-rep
@@ -138,8 +140,16 @@ export const updateDraftLabel = asyncHandler(async (req, res) => {
   if (!label) throw new AppError("Label not found", 404);
   if (label.labelStatus !== "draft") throw new AppError("Only draft labels can be edited", 400);
 
-  const { flavorName, size, oilType, effect, flavorMode, cannabinoids, unitsOrdered, specialInstructions } =
-    req.body;
+  const {
+    flavorName,
+    size,
+    oilType,
+    effect,
+    flavorMode,
+    cannabinoids,
+    unitsOrdered,
+    specialInstructions,
+  } = req.body;
 
   if (flavorName !== undefined) label.flavorName = flavorName;
   if (specialInstructions !== undefined) label.specialInstructions = specialInstructions;

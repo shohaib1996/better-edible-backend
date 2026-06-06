@@ -6,7 +6,10 @@ import { AppError } from "../../utils/AppError";
 // PATCH /api/client-orders/:id/push-to-pps
 export const pushOrderToPPS = asyncHandler(async (req, res) => {
   const order = await ClientOrder.findById(req.params.id)
-    .populate({ path: "items.label", select: "flavorName productType flavorComponents colorComponents itemId" })
+    .populate({
+      path: "items.label",
+      select: "flavorName productType flavorComponents colorComponents itemId",
+    })
     .populate({ path: "client", populate: { path: "store", select: "name storeId _id" } });
 
   if (!order) throw new AppError("Order not found", 404);

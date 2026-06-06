@@ -45,9 +45,15 @@ export const getAllClientOrders = asyncHandler(async (req, res) => {
 
   const [rawOrders, total] = await Promise.all([
     ClientOrder.find(filter)
-      .populate({ path: "client", populate: { path: "store", select: "name address city state storeId" } })
+      .populate({
+        path: "client",
+        populate: { path: "store", select: "name address city state storeId" },
+      })
       .populate("assignedRep", "name email")
-      .populate("items.label", "flavorName productType cannabinoidMix color flavorComponents colorComponents labelImages itemId")
+      .populate(
+        "items.label",
+        "flavorName productType cannabinoidMix color flavorComponents colorComponents labelImages itemId"
+      )
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(Number(limit))
@@ -68,9 +74,15 @@ export const getAllClientOrders = asyncHandler(async (req, res) => {
 // GET /api/client-orders/:id
 export const getClientOrderById = asyncHandler(async (req, res) => {
   const order: any = await ClientOrder.findById(req.params.id)
-    .populate({ path: "client", populate: { path: "store", select: "name address city state zip storeId" } })
+    .populate({
+      path: "client",
+      populate: { path: "store", select: "name address city state zip storeId" },
+    })
     .populate("assignedRep", "name email")
-    .populate("items.label", "flavorName productType cannabinoidMix color flavorComponents colorComponents labelImages itemId")
+    .populate(
+      "items.label",
+      "flavorName productType cannabinoidMix color flavorComponents colorComponents labelImages itemId"
+    )
     .lean();
 
   if (!order) throw new AppError("Order not found", 404);
@@ -230,7 +242,9 @@ export const updateClientOrder = asyncHandler(async (req, res) => {
     );
 
     order.items = processedItems;
-    order.subtotal = Number(processedItems.reduce((sum, item) => sum + item.lineTotal, 0).toFixed(2));
+    order.subtotal = Number(
+      processedItems.reduce((sum, item) => sum + item.lineTotal, 0).toFixed(2)
+    );
   }
 
   if (discount !== undefined) order.discount = discount;

@@ -75,6 +75,19 @@ export const updateLabelStage = asyncHandler(async (req, res) => {
   const normalized = normalizeUserType(userType);
   await label.updateStage(stage, userId || undefined, normalized, notes);
 
+  // Sync stage to linked submission label
+  if (label.submissionLabelId) {
+    const submissionLabel = await Label.findById(label.submissionLabelId);
+    if (submissionLabel && submissionLabel.labelStatus === "submitted") {
+      await submissionLabel.updateStage(
+        stage,
+        userId || undefined,
+        normalized,
+        notes || "Synced from admin label"
+      );
+    }
+  }
+
   await label.populate({ path: "client", populate: { path: "store", select: "name" } });
 
   if (stage === "awaiting_store_approval" && previousStage !== "awaiting_store_approval") {
@@ -115,5 +128,8 @@ export const bulkUpdateLabelStages = asyncHandler(async (req, res) => {
     await sendApprovalEmails(labels, clientId, frontendUrl);
   }
 
-  res.json({ message: `${labels.length} labels updated to stage: ${stage}`, updatedCount: labels.length });
+  res.json({
+    message: `${labels.length} labels updated to stage: ${stage}`,
+    updatedCount: labels.length,
+  });
 });

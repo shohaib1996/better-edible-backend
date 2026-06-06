@@ -151,9 +151,16 @@ export const advanceLabelStage = asyncHandler(async (req, res) => {
 
   const label = await Label.findById(labelId);
   if (!label) throw new AppError("Label not found", 404);
-  if (label.labelStatus !== "submitted") throw new AppError("Only submitted labels can be staged", 400);
+  if (label.labelStatus !== "submitted")
+    throw new AppError("Only submitted labels can be staged", 400);
 
   await label.updateStage(stage);
+
+  // Sync stage to linked admin label
+  const adminLabel = await Label.findOne({ submissionLabelId: label._id });
+  if (adminLabel) {
+    await adminLabel.updateStage(stage, undefined, undefined, "Synced from store submission");
+  }
 
   res.status(200).json({ success: true, label });
 });

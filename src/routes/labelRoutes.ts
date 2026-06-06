@@ -8,10 +8,7 @@ import {
   updateLabel,
   deleteLabel,
 } from "../controllers/label/labelCrudController";
-import {
-  updateLabelStage,
-  bulkUpdateLabelStages,
-} from "../controllers/label/labelStageController";
+import { updateLabelStage, bulkUpdateLabelStages } from "../controllers/label/labelStageController";
 import {
   getLabelForApproval,
   approveLabelPublic,
