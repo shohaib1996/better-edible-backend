@@ -93,6 +93,9 @@ export interface ILabel extends Document {
   submittedAt?: Date;
   source?: "admin" | "store";
   submissionLabelId?: Types.ObjectId;
+  selectedFlavors?: string[];
+  gummyColorHex?: string;
+  gummyColorName?: string;
   createdAt: Date;
   updatedAt: Date;
   updateStage(
@@ -249,6 +252,9 @@ const LabelSchema = new Schema<ILabel>(
     submittedAt: { type: Date },
     source: { type: String, enum: ["admin", "store"], default: "admin" },
     submissionLabelId: { type: Schema.Types.ObjectId, ref: "Label", default: null },
+    selectedFlavors: { type: [String], default: [] },
+    gummyColorHex: { type: String, trim: true },
+    gummyColorName: { type: String, trim: true },
   },
   { timestamps: true }
 );

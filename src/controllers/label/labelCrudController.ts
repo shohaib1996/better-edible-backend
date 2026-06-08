@@ -91,6 +91,9 @@ export const createLabel = asyncHandler(async (req, res) => {
     userId,
     userType,
     submissionLabelId,
+    gummyColorHex,
+    gummyColorName,
+    selectedFlavors,
   } = req.body;
 
   const client = await PrivateLabelClient.findById(clientId);
@@ -165,6 +168,9 @@ export const createLabel = asyncHandler(async (req, res) => {
     ...(submissionLabelId && mongoose.Types.ObjectId.isValid(submissionLabelId)
       ? { submissionLabelId: new mongoose.Types.ObjectId(submissionLabelId) }
       : {}),
+    ...(gummyColorHex && { gummyColorHex }),
+    ...(gummyColorName && { gummyColorName }),
+    ...(selectedFlavors && { selectedFlavors: Array.isArray(selectedFlavors) ? selectedFlavors : JSON.parse(selectedFlavors) }),
     stageHistory: [
       {
         stage: "design_in_progress",

@@ -95,6 +95,9 @@ export const createDraftLabel = asyncHandler(async (req, res) => {
     cannabinoids,
     unitsOrdered,
     specialInstructions,
+    gummyColorHex,
+    gummyColorName,
+    selectedFlavors,
   } = req.body;
 
   if (!storeId) throw new AppError("storeId is required", 400);
@@ -133,6 +136,9 @@ export const createDraftLabel = asyncHandler(async (req, res) => {
     labelStatus: "draft",
     source: "store",
     currentStage: "design_in_progress",
+    ...(Array.isArray(selectedFlavors) && { selectedFlavors }),
+    ...(gummyColorHex && { gummyColorHex }),
+    ...(gummyColorName && { gummyColorName }),
   });
 
   res.status(201).json({ success: true, label });
@@ -153,10 +159,16 @@ export const updateDraftLabel = asyncHandler(async (req, res) => {
     cannabinoids,
     unitsOrdered,
     specialInstructions,
+    selectedFlavors: updatedFlavors,
+    gummyColorHex: updatedColorHex,
+    gummyColorName: updatedColorName,
   } = req.body;
 
   if (flavorName !== undefined) label.flavorName = flavorName;
   if (specialInstructions !== undefined) label.specialInstructions = specialInstructions;
+  if (Array.isArray(updatedFlavors)) label.selectedFlavors = updatedFlavors;
+  if (updatedColorHex !== undefined) label.gummyColorHex = updatedColorHex;
+  if (updatedColorName !== undefined) label.gummyColorName = updatedColorName;
 
   const config = {
     size: size ?? label.size ?? "standard",
