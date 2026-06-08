@@ -10,6 +10,15 @@ export async function isValidProductType(productType: string): Promise<boolean> 
   return !!product;
 }
 
+export async function getProductTypeByOilType(oilType: string): Promise<string | null> {
+  const keyword = oilType.toLowerCase();
+  const product = await PrivateLabelProduct.findOne({
+    name: { $regex: keyword, $options: "i" },
+    isActive: true,
+  });
+  return product?.name ?? null;
+}
+
 export async function populateStageHistory(labels: any[]) {
   const { Admin } = await import("../../models/Admin");
   const { Rep } = await import("../../models/Rep");

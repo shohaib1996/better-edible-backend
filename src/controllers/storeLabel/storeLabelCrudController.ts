@@ -7,6 +7,7 @@ import { calculateGummyPrice } from "../../utils/gummyPricing";
 import { uploadToCloudinary } from "../../utils/cloudinaryUpload";
 import { cleanupTempFiles } from "../../middleware/uploadMiddleware";
 import { getOrCreateClient } from "./storeLabelHelpers";
+import { getProductTypeByOilType } from "../label/labelHelpers";
 
 const APPROVED_STAGES = ["olcc_approved", "print_order_submitted", "ready_for_production"];
 
@@ -192,7 +193,8 @@ export const updateDraftLabel = asyncHandler(async (req, res) => {
   label.isRatio = pricing.isRatio;
   label.testingFee = pricing.testingFee;
   label.testingFeeWaived = pricing.testingFeeWaived;
-  label.productType = config.oilType === "rosin" ? "Rosin" : "BioMax";
+  const resolvedProductType = await getProductTypeByOilType(config.oilType);
+  if (resolvedProductType) label.productType = resolvedProductType;
 
   await label.save();
 
