@@ -8,9 +8,11 @@ import { uploadToCloudinary } from "../../utils/cloudinaryUpload";
 import { cleanupTempFiles } from "../../middleware/uploadMiddleware";
 import { getOrCreateClient } from "./storeLabelHelpers";
 
+const APPROVED_STAGES = ["olcc_approved", "print_order_submitted", "ready_for_production"];
+
 // GET /api/store/labels
 export const getMyLabels = asyncHandler(async (req, res) => {
-  const { storeId, status, page, limit } = req.query;
+  const { storeId, status, stageGroup, page, limit } = req.query;
   if (!storeId) throw new AppError("storeId is required", 400);
 
   const client = await PrivateLabelClient.findOne({ store: new Types.ObjectId(storeId as string) });
@@ -20,6 +22,8 @@ export const getMyLabels = asyncHandler(async (req, res) => {
 
   const filter: Record<string, any> = { client: client._id, source: "store" };
   if (status) filter.labelStatus = status as string;
+  if (stageGroup === "in_progress") filter.currentStage = { $nin: APPROVED_STAGES };
+  else if (stageGroup === "approved") filter.currentStage = { $in: APPROVED_STAGES };
 
   if (page && limit) {
     const pageNum = Math.max(1, parseInt(page as string) || 1);

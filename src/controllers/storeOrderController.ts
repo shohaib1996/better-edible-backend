@@ -9,8 +9,10 @@ import { Types } from "mongoose";
 // GET /api/store/orders?storeId=&page=&limit=
 // Store — get all their orders
 // -------------------
+const COMPLETED_STATUSES = ["shipped", "delivered"];
+
 export const getMyOrders = asyncHandler(async (req, res) => {
-  const { storeId, page, limit } = req.query;
+  const { storeId, statusGroup, page, limit } = req.query;
   if (!storeId) throw new AppError("storeId is required", 400);
 
   const client = await PrivateLabelClient.findOne({
@@ -20,7 +22,9 @@ export const getMyOrders = asyncHandler(async (req, res) => {
     return res.status(200).json({ success: true, orders: [] });
   }
 
-  const filter = { client: client._id };
+  const filter: Record<string, any> = { client: client._id };
+  if (statusGroup === "ongoing") filter.status = { $nin: COMPLETED_STATUSES };
+  else if (statusGroup === "completed") filter.status = { $in: COMPLETED_STATUSES };
 
   if (page && limit) {
     const pageNum = Math.max(1, parseInt(page as string) || 1);
