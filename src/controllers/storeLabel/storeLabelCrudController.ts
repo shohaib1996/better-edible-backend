@@ -183,6 +183,29 @@ export const updateDraftLabel = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, label });
 });
 
+// POST /api/store/labels/gummy-color  — proxies external AI color API (avoids browser CORS)
+export const gummyColorProxy = asyncHandler(async (req, res) => {
+  const { flavor } = req.body;
+  if (!flavor || typeof flavor !== "string") throw new AppError("flavor is required", 400);
+
+  const upstream = await fetch(
+    "https://gummycolor-kceb6nqy.manus.space/api/trpc/color.generate?batch=1",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ "0": { json: { flavor } } }),
+    }
+  );
+
+  if (!upstream.ok) throw new AppError("Color API error", 502);
+
+  const data = (await upstream.json()) as any[];
+  const json = data?.[0]?.result?.data?.json;
+  if (!json?.hex) throw new AppError("Invalid response from color API", 502);
+
+  res.status(200).json({ success: true, ...json });
+});
+
 // DELETE /api/store/labels/:id
 export const deleteDraftLabel = asyncHandler(async (req, res) => {
   const label = await Label.findById(req.params.id);

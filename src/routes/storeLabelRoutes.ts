@@ -6,6 +6,7 @@ import {
   updateDraftLabel,
   deleteDraftLabel,
   uploadLogo,
+  gummyColorProxy,
 } from "../controllers/storeLabel/storeLabelCrudController";
 import { submitLine } from "../controllers/storeLabel/storeLabelSubmissionController";
 import { upload } from "../middleware/uploadMiddleware";
@@ -19,6 +20,7 @@ router.post(
   upload.single("logo"),
   uploadLogo /* #swagger.tags = ['Store - Labels'] */
 );
+router.post("/gummy-color", gummyColorProxy /* #swagger.tags = ['Store - Labels'] */);
 router.post("/submit", submitLine /* #swagger.tags = ['Store - Labels'] */); // before /:id to avoid param conflict
 router.post("/", createDraftLabel /* #swagger.tags = ['Store - Labels'] */);
 router.put("/:id", updateDraftLabel /* #swagger.tags = ['Store - Labels'] */);
