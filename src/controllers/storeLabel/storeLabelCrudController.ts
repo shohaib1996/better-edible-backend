@@ -117,11 +117,12 @@ export const createDraftLabel = asyncHandler(async (req, res) => {
   };
 
   const pricing = calculateGummyPrice(config);
+  const resolvedProductType = await getProductTypeByOilType(config.oilType);
 
   const label = await Label.create({
     client: client._id,
     flavorName,
-    productType: config.oilType === "rosin" ? "Rosin" : "BioMax",
+    productType: resolvedProductType ?? "",
     specialInstructions: specialInstructions || "",
     size: config.size,
     oilType: config.oilType,
