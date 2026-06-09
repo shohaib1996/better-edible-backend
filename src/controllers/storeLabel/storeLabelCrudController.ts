@@ -21,10 +21,17 @@ export const getMyLabels = asyncHandler(async (req, res) => {
     return res.status(200).json({ success: true, labels: [], clientStatus: null });
   }
 
-  const filter: Record<string, any> = { client: client._id, source: "store" };
-  if (status) filter.labelStatus = status as string;
-  if (stageGroup === "in_progress") filter.currentStage = { $nin: APPROVED_STAGES };
-  else if (stageGroup === "approved") filter.currentStage = { $in: APPROVED_STAGES };
+  const filter: Record<string, any> = { client: client._id };
+
+  if (stageGroup === "approved") {
+    // Show admin-managed labels only (source != "store") — avoids duplicating store submission records
+    filter.source = { $ne: "store" };
+    filter.currentStage = { $in: APPROVED_STAGES };
+  } else {
+    filter.source = "store";
+    if (status) filter.labelStatus = status as string;
+    if (stageGroup === "in_progress") filter.currentStage = { $nin: APPROVED_STAGES };
+  }
 
   if (page && limit) {
     const pageNum = Math.max(1, parseInt(page as string) || 1);
