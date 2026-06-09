@@ -202,7 +202,7 @@ const ClientOrderSchema = new Schema<IClientOrder>(
     },
     createdBy: {
       user: { type: Schema.Types.ObjectId },
-      userType: { type: String, enum: ["admin", "rep"] },
+      userType: { type: String, enum: ["admin", "rep", "store"] },
     },
     emailsSent: {
       orderCreatedNotification: {

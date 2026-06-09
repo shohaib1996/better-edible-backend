@@ -4,6 +4,7 @@ import { ClientOrder } from "../models/ClientOrder";
 import { Label } from "../models/Label";
 import { PrivateLabelClient } from "../models/PrivateLabelClient";
 import { Types } from "mongoose";
+import { getUnitPriceByProductType } from "./clientOrder/clientOrderHelpers";
 
 // -------------------
 // GET /api/store/orders?storeId=&page=&limit=
@@ -95,7 +96,7 @@ export const placeOrder = asyncHandler(async (req, res) => {
       throw new AppError(`Invalid quantity for label "${label.flavorName}"`, 400);
     }
 
-    const unitPrice = label.unitCost ?? 0;
+    const unitPrice = label.unitCost ?? (await getUnitPriceByProductType(label.productType));
     const lineTotal = parseFloat((unitPrice * quantity).toFixed(2));
     subtotal += lineTotal;
 
@@ -111,7 +112,7 @@ export const placeOrder = asyncHandler(async (req, res) => {
 
   const total = parseFloat(subtotal.toFixed(2));
 
-  const order = await ClientOrder.create({
+  const order = new ClientOrder({
     client: client._id,
     assignedRep: client.assignedRep,
     status: "waiting",
@@ -122,7 +123,6 @@ export const placeOrder = asyncHandler(async (req, res) => {
     createdBy: { userType: "store" },
   });
 
-  // calculateProductionStart is a method on the model
   order.calculateProductionStart();
   await order.save();
 
