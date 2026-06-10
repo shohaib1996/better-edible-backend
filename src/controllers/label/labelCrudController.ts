@@ -94,6 +94,7 @@ export const createLabel = asyncHandler(async (req, res) => {
     gummyColorHex,
     gummyColorName,
     selectedFlavors,
+    flavorMode,
   } = req.body;
 
   const client = await PrivateLabelClient.findById(clientId);
@@ -171,6 +172,7 @@ export const createLabel = asyncHandler(async (req, res) => {
     ...(gummyColorHex && { gummyColorHex }),
     ...(gummyColorName && { gummyColorName }),
     ...(selectedFlavors && { selectedFlavors: Array.isArray(selectedFlavors) ? selectedFlavors : JSON.parse(selectedFlavors) }),
+    ...(flavorMode && { flavorMode }),
     stageHistory: [
       {
         stage: "design_in_progress",
@@ -204,6 +206,7 @@ export const updateLabel = asyncHandler(async (req, res) => {
     gummyColorHex,
     gummyColorName,
     selectedFlavors,
+    flavorMode,
   } = req.body;
 
   if (flavorName !== undefined) {
@@ -246,6 +249,7 @@ export const updateLabel = asyncHandler(async (req, res) => {
       throw new AppError("Invalid selectedFlavors format", 400);
     }
   }
+  if (flavorMode === "single" || flavorMode === "mix") label.flavorMode = flavorMode;
 
   const files = (req as any).files as Express.Multer.File[];
   let updatedImages = [...label.labelImages];

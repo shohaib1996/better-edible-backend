@@ -237,11 +237,12 @@ export const updateLabelRecipeData = asyncHandler(async (req, res) => {
   const label = await Label.findById(req.params.id);
   if (!label) throw new AppError("Label not found", 404);
 
-  const { selectedFlavors, gummyColorHex, gummyColorName } = req.body;
+  const { selectedFlavors, gummyColorHex, gummyColorName, flavorMode } = req.body;
 
   if (Array.isArray(selectedFlavors)) label.selectedFlavors = selectedFlavors;
   if (gummyColorHex !== undefined) label.gummyColorHex = gummyColorHex || undefined;
   if (gummyColorName !== undefined) label.gummyColorName = gummyColorName || undefined;
+  if (flavorMode === "single" || flavorMode === "mix") label.flavorMode = flavorMode;
 
   await label.save();
   res.status(200).json({ success: true, label });
