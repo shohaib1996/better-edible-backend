@@ -232,6 +232,21 @@ export const gummyColorProxy = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, ...json });
 });
 
+// PATCH /api/store/labels/:id/recipe-data — update AI recipe fields on any label status
+export const updateLabelRecipeData = asyncHandler(async (req, res) => {
+  const label = await Label.findById(req.params.id);
+  if (!label) throw new AppError("Label not found", 404);
+
+  const { selectedFlavors, gummyColorHex, gummyColorName } = req.body;
+
+  if (Array.isArray(selectedFlavors)) label.selectedFlavors = selectedFlavors;
+  if (gummyColorHex !== undefined) label.gummyColorHex = gummyColorHex || undefined;
+  if (gummyColorName !== undefined) label.gummyColorName = gummyColorName || undefined;
+
+  await label.save();
+  res.status(200).json({ success: true, label });
+});
+
 // DELETE /api/store/labels/:id
 export const deleteDraftLabel = asyncHandler(async (req, res) => {
   const label = await Label.findById(req.params.id);

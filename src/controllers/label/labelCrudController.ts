@@ -201,6 +201,9 @@ export const updateLabel = asyncHandler(async (req, res) => {
     flavorComponents,
     colorComponents,
     keepExistingImages,
+    gummyColorHex,
+    gummyColorName,
+    selectedFlavors,
   } = req.body;
 
   if (flavorName !== undefined) {
@@ -231,6 +234,16 @@ export const updateLabel = asyncHandler(async (req, res) => {
       label.colorComponents = JSON.parse(colorComponents);
     } catch {
       throw new AppError("Invalid color components format", 400);
+    }
+  }
+
+  if (gummyColorHex !== undefined) label.gummyColorHex = gummyColorHex || undefined;
+  if (gummyColorName !== undefined) label.gummyColorName = gummyColorName || undefined;
+  if (selectedFlavors !== undefined) {
+    try {
+      label.selectedFlavors = Array.isArray(selectedFlavors) ? selectedFlavors : JSON.parse(selectedFlavors);
+    } catch {
+      throw new AppError("Invalid selectedFlavors format", 400);
     }
   }
 
