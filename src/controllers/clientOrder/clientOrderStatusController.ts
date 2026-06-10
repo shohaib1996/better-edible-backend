@@ -40,6 +40,49 @@ export const updateClientOrderStatus = asyncHandler(async (req, res) => {
     await CookItem.deleteMany({ privateLabOrderId: order._id });
   }
 
+  // When setting status to cooking_molding, create CookItems if none exist.
+  // Covers both: waiting → cooking_molding, and re-selecting cooking_molding on a stuck order.
+  if (status === "cooking_molding") {
+    const existing = await CookItem.countDocuments({ privateLabOrderId: order._id });
+    if (existing === 0) {
+      const populated = await ClientOrder.findById(order._id)
+        .populate({
+          path: "items.label",
+          select: "flavorName productType flavorComponents colorComponents itemId",
+        })
+        .populate({ path: "client", populate: { path: "store", select: "name storeId _id" } });
+
+      const storeId = (populated?.client as any)?.store?.storeId;
+      const storeName = (populated?.client as any)?.store?.name;
+      const storeMongoId = (populated?.client as any)?.store?._id;
+
+      if (storeId && storeName && storeMongoId && populated) {
+        const normalizedOrderNumber = (order.orderNumber as string).replace("-", "");
+        const cookItemDocs = (populated.items as any[]).map((item: any) => {
+          const label = item.label as any;
+          return {
+            cookItemId: `${storeId}-${normalizedOrderNumber}-${label.itemId}`,
+            customerId: storeMongoId,
+            orderId: order.orderNumber,
+            itemId: String(label._id),
+            labelId: label._id,
+            privateLabOrderId: order._id,
+            storeName,
+            flavor: label.flavorName,
+            quantity: item.quantity,
+            flavorComponents: label.flavorComponents || [],
+            colorComponents: label.colorComponents || [],
+            productType: label.productType,
+            specialFormulation: false,
+            status: "pending",
+            expectedCount: item.quantity,
+          };
+        });
+        await CookItem.insertMany(cookItemDocs);
+      }
+    }
+  }
+
   order.status = status;
 
   if (status === "cooking_molding" && previousStatus !== "cooking_molding") {

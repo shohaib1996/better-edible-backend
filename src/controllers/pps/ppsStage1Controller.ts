@@ -405,3 +405,142 @@ export const editFlavorColor = asyncHandler(async (req, res) => {
 
   res.json({ success: true, cookItem });
 });
+
+// ─────────────────────────────────────────────────────────
+// generateRecipe
+// POST /api/pps/stage-1/generate-recipe
+// Calls tRPC batch: color.recipe + color.flavor
+// ─────────────────────────────────────────────────────────
+
+const COLOR_API = "https://gummycolor-kceb6nqy.manus.space";
+
+export const generateRecipe = asyncHandler(async (req, res) => {
+  const { cookItemId } = req.body;
+  if (!cookItemId) throw new AppError("cookItemId is required", 400);
+
+  const cookItem = await CookItem.findOne({ cookItemId });
+  if (!cookItem) throw new AppError("Cook item not found", 404);
+
+  const { Label } = await import("../../models/Label");
+  const label = await Label.findById(cookItem.labelId)
+    .select("gummyColorHex gummyColorName flavorOilType selectedFlavors")
+    .lean() as any;
+
+  // Use actual gummy builder flavor selection, not the label display name
+  const selectedFlavors: string[] = label?.selectedFlavors ?? [];
+  const flavorName = selectedFlavors.length > 0
+    ? selectedFlavors.join(", ")
+    : cookItem.flavor;
+  const totalMolds = Math.ceil(cookItem.quantity / 70);
+
+  // Step 1: auto-generate hex if missing, save to label
+  let hex: string | undefined = label?.gummyColorHex;
+  if (!hex) {
+    try {
+      const genRes = await fetch(
+        `${COLOR_API}/api/trpc/color.generate?batch=1`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ "0": { json: { flavor: flavorName } } }),
+        }
+      );
+      if (genRes.ok) {
+        const genData = (await genRes.json()) as any[];
+        const generated = genData?.[0]?.result?.data?.json;
+        if (generated?.hex) {
+          hex = generated.hex;
+          await Label.findByIdAndUpdate(cookItem.labelId, {
+            gummyColorHex: hex,
+            ...(generated.name && { gummyColorName: generated.name }),
+          });
+        }
+      }
+    } catch (_) { /* proceed without hex */ }
+  }
+
+  // Step 2: tRPC batch — color.recipe (needs hex) + color.flavor
+  // If no hex, only call color.flavor
+  const hasHex = !!hex;
+  const endpoints = hasHex ? "color.recipe,color.flavor" : "color.flavor";
+  const batchPayload: Record<string, any> = hasHex
+    ? {
+        "0": { json: { hex, flavor: flavorName } },
+        "1": { json: { flavor: flavorName } },
+      }
+    : { "0": { json: { flavor: flavorName } } };
+
+  const batchRes = await fetch(
+    `${COLOR_API}/api/trpc/${endpoints}?batch=1`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(batchPayload),
+    }
+  );
+  if (!batchRes.ok) throw new AppError("Recipe API unavailable", 502);
+  const batchData = (await batchRes.json()) as any[];
+
+  const colorJson  = hasHex ? batchData?.[0]?.result?.data?.json : null;
+  const flavorJson = hasHex ? batchData?.[1]?.result?.data?.json : batchData?.[0]?.result?.data?.json;
+
+  if (!flavorJson) throw new AppError("Invalid response from recipe API", 502);
+
+  const round1 = (n: number) => Math.round(n * 10) / 10;
+
+  const aiRecipe: any = {
+    totalMolds,
+    generatedAt: new Date(),
+    colorMissing: !hasHex,
+    lockedFlavorOilType: label?.flavorOilType ?? "lorann",
+  };
+
+  // Flavor — scale grams_per_700g by totalMolds (new API returns per-700g, not pre-scaled)
+  aiRecipe.flavorLorann = (flavorJson.lorann?.components ?? []).map((c: any) => ({
+    name: c.name,
+    product: c.product,
+    gramsPerMold: c.grams_per_700g,
+    totalGrams: round1(c.grams_per_700g * totalMolds),
+    ratioPct: c.ratio_pct,
+    note: c.note,
+  }));
+
+  aiRecipe.flavorExtract = (flavorJson.extract?.components ?? []).map((c: any) => ({
+    name: c.name,
+    product: c.product,
+    source: c.source,
+    gramsPerMold: c.grams_per_700g,
+    totalGrams: round1(c.grams_per_700g * totalMolds),
+    ratioPct: c.ratio_pct,
+    note: c.note,
+  }));
+
+  aiRecipe.lorannMixingNote  = flavorJson.lorann?.mixing_note;
+  aiRecipe.extractMixingNote = flavorJson.extract?.mixing_note;
+  aiRecipe.flavorNote        = flavorJson.flavor_note;
+
+  // Color — recipe[] has { color, drops, hex }; pct computed from total drops
+  if (hasHex && colorJson?.recipe?.length) {
+    const totalDrops: number = colorJson.recipe.reduce(
+      (sum: number, c: any) => sum + (c.drops ?? 0), 0
+    );
+    aiRecipe.colorRecipe = colorJson.recipe.map((c: any) => ({
+      color: c.color,
+      hex: c.hex,
+      dropsApprox: c.drops,
+      pct: totalDrops > 0 ? Math.round((c.drops / totalDrops) * 100) : 0,
+    }));
+    aiRecipe.batchColoringDrops = totalDrops;
+    aiRecipe.colorMixingNote    = colorJson.mixing_note;
+    aiRecipe.colorHexUsed       = hex;
+    aiRecipe.colorName          = label?.gummyColorName;
+  } else {
+    aiRecipe.colorRecipe        = [];
+    aiRecipe.batchColoringDrops = 0;
+  }
+
+  cookItem.aiRecipe = aiRecipe;
+  await cookItem.save();
+
+  res.json({ success: true, aiRecipe: cookItem.aiRecipe });
+});

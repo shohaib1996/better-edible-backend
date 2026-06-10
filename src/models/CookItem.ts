@@ -128,6 +128,9 @@ export interface ICookItem extends Document {
 
   history: IHistoryEntry[];
 
+  // AI Recipe (Stage 1 — generated via Color API)
+  aiRecipe?: Record<string, any>;
+
   createdAt: Date;
   updatedAt: Date;
 }
@@ -304,6 +307,9 @@ const CookItemSchema = new Schema<ICookItem>(
     packagingCompletionTimestamp: Date,
 
     history: { type: [HistoryEntrySchema], default: [] },
+
+    // AI Recipe (Stage 1 — generated via Color API)
+    aiRecipe: { type: Schema.Types.Mixed },
   },
   { timestamps: true }
 );

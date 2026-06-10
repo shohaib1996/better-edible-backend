@@ -7,6 +7,7 @@ import {
   completeStage1,
   setFlavorColor,
   editFlavorColor,
+  generateRecipe,
   getStage2CookItems,
   processMold,
   unprocessMold,
@@ -99,6 +100,10 @@ router.patch(
   "/stage-1/edit-flavor-color",
   validate({ body: editFlavorColorSchema }),
   editFlavorColor /* #swagger.tags = ['PPS'] */
+);
+router.post(
+  "/stage-1/generate-recipe",
+  generateRecipe /* #swagger.tags = ['PPS'] */
 );
 
 // Stage 2 - Dehydrating

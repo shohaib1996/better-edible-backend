@@ -96,6 +96,7 @@ export interface ILabel extends Document {
   selectedFlavors?: string[];
   gummyColorHex?: string;
   gummyColorName?: string;
+  flavorOilType?: "lorann" | "extract";
   createdAt: Date;
   updatedAt: Date;
   updateStage(
@@ -255,6 +256,7 @@ const LabelSchema = new Schema<ILabel>(
     selectedFlavors: { type: [String], default: [] },
     gummyColorHex: { type: String, trim: true },
     gummyColorName: { type: String, trim: true },
+    flavorOilType: { type: String, enum: ["lorann", "extract"] },
   },
   { timestamps: true }
 );

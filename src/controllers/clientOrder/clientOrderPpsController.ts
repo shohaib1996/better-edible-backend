@@ -14,8 +14,14 @@ export const pushOrderToPPS = asyncHandler(async (req, res) => {
 
   if (!order) throw new AppError("Order not found", 404);
 
-  if (order.status !== "waiting") {
-    throw new AppError("Order is not in waiting status", 400);
+  if (!["waiting", "cooking_molding"].includes(order.status)) {
+    throw new AppError("Order must be in waiting or cooking_molding status to push to PPS", 400);
+  }
+
+  // Idempotent — skip if CookItems already exist
+  const existing = await CookItem.countDocuments({ privateLabOrderId: order._id });
+  if (existing > 0) {
+    return res.json({ message: "CookItems already exist for this order", cookItemsCreated: 0, order });
   }
 
   const storeMongoId = (order.client as any)?.store?._id;
@@ -58,12 +64,15 @@ export const pushOrderToPPS = asyncHandler(async (req, res) => {
 
   await CookItem.insertMany(cookItemDocs);
 
+  const wasWaiting = order.status === "waiting";
   order.status = "cooking_molding";
   await order.save();
 
-  import("../../jobs/clientOrderJobs").then(({ sendProductionStartedNotification }) => {
-    sendProductionStartedNotification(order);
-  });
+  if (wasWaiting) {
+    import("../../jobs/clientOrderJobs").then(({ sendProductionStartedNotification }) => {
+      sendProductionStartedNotification(order);
+    });
+  }
 
   res.json({
     message: "Order pushed to production",
