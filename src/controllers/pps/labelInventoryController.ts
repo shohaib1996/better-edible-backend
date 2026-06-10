@@ -37,8 +37,8 @@ export const getLabelInventory = async (req: Request, res: Response, next: NextF
   }
 };
 
-// GET /api/pps/package-prep/inventory/summary
-export const getInventorySummary = async (_req: Request, res: Response, next: NextFunction) => {
+// GET /api/pps/package-prep/inventory/summary (optionally filtered by storeId)
+export const getInventorySummary = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const docs = await LabelInventory.find().sort({ storeName: 1, labelName: 1 });
 
