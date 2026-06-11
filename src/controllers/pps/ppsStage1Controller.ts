@@ -539,8 +539,52 @@ export const generateRecipe = asyncHandler(async (req, res) => {
     aiRecipe.batchColoringDrops = 0;
   }
 
+  // SOP — build step-by-step instructions from the generated recipe
+  aiRecipe.sopSteps = buildSopSteps(aiRecipe);
+
   cookItem.aiRecipe = aiRecipe;
   await cookItem.save();
 
   res.json({ success: true, aiRecipe: cookItem.aiRecipe });
 });
+
+function buildSopSteps(recipe: any): string[] {
+  const steps: string[] = [];
+  const n = recipe.totalMolds as number;
+  const molds = `${n} mold${n !== 1 ? "s" : ""}`;
+  const lockedType: string = recipe.lockedFlavorOilType ?? "lorann";
+  const flavorLines: any[] = lockedType === "lorann" ? (recipe.flavorLorann ?? []) : (recipe.flavorExtract ?? []);
+  const mixingNote: string | undefined = lockedType === "lorann" ? recipe.lorannMixingNote : recipe.extractMixingNote;
+
+  steps.push(`Prepare ${molds} — inspect each cavity and lay flat on trays`);
+  steps.push("Weigh out cannabis oil (refer to the cannabis oil container for your exact calculated amount)");
+  steps.push("Heat kettle to 165°F (74°C)");
+  steps.push("Add gelatin base to hot water; stir continuously until fully dissolved (~3 min)");
+  steps.push("Remove from heat. Add cannabis oil and stir until fully combined");
+
+  if (flavorLines.length > 0) {
+    const parts = flavorLines
+      .map((l: any) => `${l.product} — ${l.totalGrams}g total (${l.gramsPerMold}g per mold)`)
+      .join("; ");
+    steps.push(`Add flavor: ${parts}`);
+    if (mixingNote) steps.push(`Mixing tip: ${mixingNote}`);
+  }
+
+  if (recipe.colorRecipe?.length > 0) {
+    const colorParts = (recipe.colorRecipe as any[])
+      .map((c: any) => `${c.color}: ~${c.dropsApprox} drops`)
+      .join(", ");
+    steps.push(`Mix color concentrate: ${colorParts}`);
+    steps.push(`Add ${recipe.batchColoringDrops} drops of color concentrate to the full batch; stir to combine`);
+    if (recipe.colorMixingNote) {
+      const colorLabel = recipe.colorName ? `${recipe.colorName}` : "target color";
+      steps.push(`Color tip (${colorLabel}): ${recipe.colorMixingNote}`);
+    }
+  }
+
+  steps.push(`Pour mixture into all ${molds} (70 units per mold) while still warm`);
+  steps.push("Allow to cool at room temperature for 10 minutes before moving");
+  steps.push("Load filled molds onto dehydrator trays and proceed to Stage 2");
+
+  return steps;
+}
