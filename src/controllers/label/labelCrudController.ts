@@ -95,6 +95,13 @@ export const createLabel = asyncHandler(async (req, res) => {
     gummyColorName,
     selectedFlavors,
     flavorMode,
+    size,
+    oilType,
+    effect,
+    cannabinoids,
+    unitsOrdered,
+    unitCost,
+    totalCost,
   } = req.body;
 
   const client = await PrivateLabelClient.findById(clientId);
@@ -173,6 +180,13 @@ export const createLabel = asyncHandler(async (req, res) => {
     ...(gummyColorName && { gummyColorName }),
     ...(selectedFlavors && { selectedFlavors: Array.isArray(selectedFlavors) ? selectedFlavors : JSON.parse(selectedFlavors) }),
     ...(flavorMode && { flavorMode }),
+    ...(size && { size }),
+    ...(oilType && { oilType }),
+    ...(effect && { effect }),
+    ...(unitsOrdered && { unitsOrdered: Number(unitsOrdered) }),
+    ...(cannabinoids && { cannabinoids: Array.isArray(cannabinoids) ? cannabinoids : JSON.parse(cannabinoids) }),
+    ...(unitCost != null && { unitCost: Number(unitCost) }),
+    ...(totalCost != null && { totalCost: Number(totalCost) }),
     stageHistory: [
       {
         stage: "design_in_progress",
@@ -207,6 +221,13 @@ export const updateLabel = asyncHandler(async (req, res) => {
     gummyColorName,
     selectedFlavors,
     flavorMode,
+    size,
+    oilType,
+    effect,
+    cannabinoids,
+    unitsOrdered,
+    unitCost,
+    totalCost,
   } = req.body;
 
   if (flavorName !== undefined) {
@@ -250,6 +271,20 @@ export const updateLabel = asyncHandler(async (req, res) => {
     }
   }
   if (flavorMode === "single" || flavorMode === "mix") label.flavorMode = flavorMode;
+
+  if (size !== undefined) (label as any).size = size || undefined;
+  if (oilType !== undefined) (label as any).oilType = oilType || undefined;
+  if (effect !== undefined) (label as any).effect = effect || undefined;
+  if (unitsOrdered !== undefined) (label as any).unitsOrdered = unitsOrdered ? Number(unitsOrdered) : undefined;
+  if (unitCost !== undefined) (label as any).unitCost = unitCost ? Number(unitCost) : undefined;
+  if (totalCost !== undefined) (label as any).totalCost = totalCost ? Number(totalCost) : undefined;
+  if (cannabinoids !== undefined) {
+    try {
+      (label as any).cannabinoids = Array.isArray(cannabinoids) ? cannabinoids : JSON.parse(cannabinoids);
+    } catch {
+      throw new AppError("Invalid cannabinoids format", 400);
+    }
+  }
 
   const files = (req as any).files as Express.Multer.File[];
   let updatedImages = [...label.labelImages];

@@ -8,7 +8,7 @@ export const pushOrderToPPS = asyncHandler(async (req, res) => {
   const order = await ClientOrder.findById(req.params.id)
     .populate({
       path: "items.label",
-      select: "flavorName productType flavorComponents colorComponents itemId",
+      select: "flavorName productType flavorComponents colorComponents itemId size oilType effect cannabinoids",
     })
     .populate({ path: "client", populate: { path: "store", select: "name storeId _id" } });
 
@@ -59,6 +59,10 @@ export const pushOrderToPPS = asyncHandler(async (req, res) => {
       specialFormulation: false,
       status: "pending",
       expectedCount: item.quantity,
+      gummySize: label.size || "standard",
+      gummyOilType: label.oilType || "biomax",
+      gummyEffect: label.effect || "hybrid",
+      gummyCannabinoids: label.cannabinoids || [],
     };
   });
 

@@ -73,6 +73,12 @@ export interface ICookItem extends Document {
   productType: string;
   specialFormulation: boolean;
 
+  // Gummy spec (copied from Label at PPS push time)
+  gummySize?: "standard" | "xl";
+  gummyOilType?: "biomax" | "rosin";
+  gummyEffect?: "hybrid" | "indica" | "sativa";
+  gummyCannabinoids?: { name: string; mg: number; priceAdd: number }[];
+
   // Status
   status: CookItemStatus;
 
@@ -240,6 +246,15 @@ const CookItemSchema = new Schema<ICookItem>(
     colorComponents: { type: [FormulationComponentSchema], default: [] },
     productType: { type: String, required: true },
     specialFormulation: { type: Boolean, default: false },
+
+    // Gummy spec (copied from Label at PPS push time)
+    gummySize: { type: String, enum: ["standard", "xl"] },
+    gummyOilType: { type: String, enum: ["biomax", "rosin"] },
+    gummyEffect: { type: String, enum: ["hybrid", "indica", "sativa"] },
+    gummyCannabinoids: {
+      type: [new Schema({ name: String, mg: Number, priceAdd: Number }, { _id: false })],
+      default: [],
+    },
 
     // Status
     status: {
