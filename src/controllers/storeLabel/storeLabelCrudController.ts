@@ -232,6 +232,36 @@ export const gummyColorProxy = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, ...json });
 });
 
+// POST /api/store/labels/gummy-details  — proxies color.recipe + color.flavor batch (avoids CORS)
+export const gummyDetailsProxy = asyncHandler(async (req, res) => {
+  const { hex, flavor } = req.body;
+  if (!hex || !flavor) throw new AppError("hex and flavor are required", 400);
+
+  const upstream = await fetch(
+    "https://gummycolor-kceb6nqy.manus.space/api/trpc/color.recipe,color.flavor?batch=1",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        "0": { json: { hex, flavor } },
+        "1": { json: { flavor } },
+      }),
+    }
+  );
+
+  if (!upstream.ok) throw new AppError("Color details API error", 502);
+
+  const data = (await upstream.json()) as any[];
+  const recipeJson = data?.[0]?.result?.data?.json;
+  const flavorJson = data?.[1]?.result?.data?.json;
+
+  res.status(200).json({
+    success: true,
+    recipe: recipeJson ?? null,
+    flavorRecipe: flavorJson ?? null,
+  });
+});
+
 // PATCH /api/store/labels/:id/recipe-data — update AI recipe fields on any label status
 export const updateLabelRecipeData = asyncHandler(async (req, res) => {
   const label = await Label.findById(req.params.id);
