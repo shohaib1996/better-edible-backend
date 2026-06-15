@@ -50,6 +50,7 @@ app.use(
       "https://www.better-edibles.com",
       "https://staging.better-edibles.com",
       "http://localhost:3000",
+      "https://ai.better-edibles.com",
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
