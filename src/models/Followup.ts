@@ -19,6 +19,8 @@ export interface IFollowup extends Document {
   status: FollowupStatus;     // "open" | "resolved"
   resolvedAt?: Date;
   history: IFollowupHistoryEntry[];  // full thread of past dates/notes
+  setByDriver?: boolean;      // true when a driver created this on behalf of the rep
+  setByName?: string;         // name of the driver who set it
   createdAt: Date;
   updatedAt: Date;
 }
@@ -59,6 +61,8 @@ const FollowupSchema = new Schema<IFollowup>(
     },
     resolvedAt: { type: Date },
     history: { type: [HistoryEntrySchema], default: [] },
+    setByDriver: { type: Boolean, default: false },
+    setByName: { type: String },
   },
   { timestamps: true }
 );

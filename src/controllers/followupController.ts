@@ -87,7 +87,7 @@ export const getFollowupById = asyncHandler(async (req, res) => {
 // CREATE FOLLOWUP  (one open per store enforced)
 // ---------------------------------------------------------------------------
 export const createFollowup = asyncHandler(async (req, res) => {
-  const { followupDate, interestLevel, comments, store, rep } = req.body;
+  const { followupDate, interestLevel, comments, store, rep, setByDriver, setByName } = req.body;
 
   const dateOnly = toDateOnlyString(followupDate);
   if (!dateOnly) throw new AppError("Invalid followupDate", 400);
@@ -108,6 +108,8 @@ export const createFollowup = asyncHandler(async (req, res) => {
     store,
     rep,
     status: "open",
+    setByDriver: !!setByDriver,
+    setByName: setByDriver ? (setByName || undefined) : undefined,
     history: [
       {
         date: dateOnly,
