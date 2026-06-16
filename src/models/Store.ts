@@ -31,6 +31,11 @@ export interface IStore extends Document {
   lastPaidAt?: Date;
   paymentStatus: "green" | "yellow" | "red";
 
+  // 📍 Geocoded coordinates (populated on demand)
+  lat?: number;
+  lng?: number;
+  geocodedAt?: Date;
+
   createdAt: Date;
   updatedAt: Date;
 }
@@ -82,6 +87,11 @@ const StoreSchema = new Schema<IStore>(
       enum: ["green", "yellow", "red"],
       default: "green",
     },
+
+    // 📍 Geocoded coordinates
+    lat: { type: Number },
+    lng: { type: Number },
+    geocodedAt: { type: Date },
   },
   { timestamps: true }
 );
