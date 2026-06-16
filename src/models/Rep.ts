@@ -3,6 +3,7 @@ import { Schema, model, Document, Types } from "mongoose";
 
 export type RepType = "rep" | "delivery" | "both" | "pps" | "production" | "packaging" | "designer";
 export type RepStatus = "active" | "inactive" | "suspended";
+export type PayType = "hourly" | "salary";
 
 export interface IRep extends Document {
   name: string;
@@ -14,6 +15,8 @@ export interface IRep extends Document {
   repType: RepType;
   territory?: string;
   pin: string;
+  fobId?: string;       // RFID fob UID assigned to this rep
+  payType: PayType;     // "hourly" (weekly pay) or "salary" (semi-monthly pay)
   assignedStores: Types.ObjectId[];
   checkin: boolean;
   status: RepStatus;
@@ -27,6 +30,12 @@ const RepSchema = new Schema<IRep>(
     loginName: { type: String, unique: true, required: true },
     passwordHash: { type: String, required: true },
     pin: { type: String, required: true, default: "1212" },
+    fobId: { type: String, sparse: true, default: null }, // RFID fob UID
+    payType: {
+      type: String,
+      enum: ["hourly", "salary"],
+      default: "hourly",
+    },
     email: { type: String, sparse: true },
     phone: String,
     // repClass: String,

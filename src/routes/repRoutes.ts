@@ -3,13 +3,14 @@ import { Router } from "express";
 import {
   getAllReps,
   getRepById,
-  //   createRep,
   updateRep,
   deleteRep,
   checkInRep,
   checkOutRep,
   resetPassword,
   resetPin,
+  kioskClock,
+  assignFob,
 } from "../controllers/repController";
 import { validate } from "../middleware/validate";
 import { idParam } from "../validators/commonSchemas";
@@ -19,6 +20,7 @@ import {
   resetPasswordSchema,
   resetPinSchema,
 } from "../validators/repSchemas";
+import Joi from "joi";
 
 const router = Router();
 
@@ -41,6 +43,29 @@ router.post(
   validate({ body: checkInOutSchema }),
   checkOutRep /* #swagger.tags = ['Reps'] */
 );
+
+// Kiosk clock — single toggle endpoint, accepts pin OR fobId, no auth required
+router.post(
+  "/kiosk-clock",
+  validate({
+    body: Joi.object({
+      pin: Joi.string().optional(),
+      fobId: Joi.string().optional(),
+    }).or("pin", "fobId"),
+  }),
+  kioskClock /* #swagger.tags = ['Reps'] */
+);
+
+// Assign / remove fob from a rep (admin only)
+router.post(
+  "/:id/assign-fob",
+  validate({
+    params: idParam,
+    body: Joi.object({ fobId: Joi.string().allow("", null).optional() }),
+  }),
+  assignFob /* #swagger.tags = ['Reps'] */
+);
+
 router.post(
   "/:id/reset-password",
   validate({ params: idParam, body: resetPasswordSchema }),

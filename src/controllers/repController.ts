@@ -39,25 +39,6 @@ export const getRepById = asyncHandler(async (req, res) => {
   res.json(rep);
 });
 
-// CREATE rep
-// export const createRep = asyncHandler(async (req, res) => {
-//   const { name, loginName, password, repType, territory } = req.body;
-
-//   const existing = await Rep.findOne({ loginName });
-//   if (existing) throw new AppError('Login name already taken', 400);
-
-//   const hashedPassword = await bcrypt.hash(password, 10);
-//   const rep = await Rep.create({
-//     name,
-//     loginName,
-//     passwordHash: hashedPassword,
-//     repType,
-//     territory,
-//   });
-
-//   res.status(201).json(rep);
-// });
-
 // UPDATE rep
 export const updateRep = asyncHandler(async (req, res) => {
   const rep = await Rep.findByIdAndUpdate(req.params.id, req.body, {
@@ -74,10 +55,66 @@ export const deleteRep = asyncHandler(async (req, res) => {
   res.json({ message: "Rep deleted successfully" });
 });
 
-// CHECK-IN / CHECK-OUT
+// ─────────────────────────────────────────────────────────────────
+// KIOSK CLOCK — single endpoint that handles check-in AND check-out
+// Accepts either { pin } or { fobId } (no loginName required for kiosk)
+// source is always "door"
+// ─────────────────────────────────────────────────────────────────
+export const kioskClock = asyncHandler(async (req, res) => {
+  const { pin, fobId } = req.body;
+
+  if (!pin && !fobId) {
+    throw new AppError("PIN or fob ID is required", 400);
+  }
+
+  // Find rep by fob or by PIN (PIN is unique per rep, used as fallback)
+  let rep;
+  if (fobId) {
+    rep = await Rep.findOne({ fobId: fobId.trim() });
+    if (!rep) throw new AppError("Fob not recognized", 404);
+  } else {
+    // PIN-only fallback: PIN must be unique across all reps for kiosk use
+    const matches = await Rep.find({ pin });
+    if (matches.length === 0) throw new AppError("Invalid PIN", 401);
+    if (matches.length > 1) throw new AppError("PIN is not unique — contact admin", 400);
+    rep = matches[0];
+  }
+
+  if (rep.status === "inactive" || rep.status === "suspended") {
+    throw new AppError(`Access denied. You are ${rep.status}.`, 403);
+  }
+
+  if (!rep.checkin) {
+    // Clock IN
+    rep.checkin = true;
+    await rep.save();
+    await TimeLog.create({ rep: rep._id, checkinTime: new Date(), source: "door" });
+    return res.json({
+      action: "checkin",
+      message: `Welcome, ${rep.name}!`,
+      rep: { id: rep._id, name: rep.name, repType: rep.repType, checkin: true },
+    });
+  } else {
+    // Clock OUT
+    rep.checkin = false;
+    await rep.save();
+    const timeLog = await TimeLog.findOne({ rep: rep._id, checkoutTime: null });
+    if (timeLog) {
+      timeLog.checkoutTime = new Date();
+      await timeLog.save();
+    }
+    return res.json({
+      action: "checkout",
+      message: `Goodbye, ${rep.name}!`,
+      rep: { id: rep._id, name: rep.name, checkin: false },
+    });
+  }
+});
+
+// CHECK-IN / CHECK-OUT (existing web/mobile flows — now with source tagging)
 // ✅ SECURE CHECK-IN
 export const checkInRep = asyncHandler(async (req, res) => {
-  const { loginName, pin } = req.body;
+  const { loginName, pin, source = "web" } = req.body;
 
   // 1. Find rep by loginName
   const rep = await Rep.findOne({ loginName });
@@ -97,7 +134,7 @@ export const checkInRep = asyncHandler(async (req, res) => {
   // 5. Update checkin flag and create time log
   rep.checkin = true;
   await rep.save();
-  await TimeLog.create({ rep: rep._id, checkinTime: new Date() });
+  await TimeLog.create({ rep: rep._id, checkinTime: new Date(), source });
 
   res.json({
     message: "Checked in successfully",
@@ -113,7 +150,7 @@ export const checkInRep = asyncHandler(async (req, res) => {
 
 // ✅ SECURE CHECK-OUT
 export const checkOutRep = asyncHandler(async (req, res) => {
-  const { loginName, pin } = req.body;
+  const { loginName, pin, source = "web" } = req.body;
 
   // 1. Find rep by loginName
   const rep = await Rep.findOne({ loginName });
@@ -177,4 +214,27 @@ export const resetPin = asyncHandler(async (req, res) => {
   if (!rep) throw new AppError("Rep not found", 404);
 
   res.json({ message: "PIN reset successfully", pin: rep.pin });
+});
+
+// ASSIGN FOB to rep
+export const assignFob = asyncHandler(async (req, res) => {
+  const { fobId } = req.body;
+
+  // Check if fobId is already assigned to another rep
+  if (fobId) {
+    const existing = await Rep.findOne({ fobId: fobId.trim(), _id: { $ne: req.params.id } });
+    if (existing) {
+      throw new AppError(`Fob is already assigned to ${existing.name}`, 400);
+    }
+  }
+
+  const rep = await Rep.findByIdAndUpdate(
+    req.params.id,
+    { fobId: fobId ? fobId.trim() : null },
+    { new: true }
+  );
+
+  if (!rep) throw new AppError("Rep not found", 404);
+
+  res.json({ message: fobId ? "Fob assigned successfully" : "Fob removed", rep });
 });
