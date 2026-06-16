@@ -15,8 +15,10 @@ export interface IRep extends Document {
   repType: RepType;
   territory?: string;
   pin: string;
-  fobId?: string;       // RFID fob UID assigned to this rep
-  payType: PayType;     // "hourly" (weekly pay) or "salary" (semi-monthly pay)
+  fobId?: string;              // RFID fob UID assigned to this rep
+  payType: PayType;             // "hourly" (weekly pay) or "salary" (semi-monthly pay)
+  hourlyRate?: number;          // $ per hour (hourly employees only)
+  semiMonthlyAmount?: number;   // $ per semi-monthly period (salary employees only)
   assignedStores: Types.ObjectId[];
   checkin: boolean;
   status: RepStatus;
@@ -36,6 +38,8 @@ const RepSchema = new Schema<IRep>(
       enum: ["hourly", "salary"],
       default: "hourly",
     },
+    hourlyRate: { type: Number, default: null },         // $ per hour
+    semiMonthlyAmount: { type: Number, default: null },  // $ per semi-monthly period
     email: { type: String, sparse: true },
     phone: String,
     // repClass: String,
