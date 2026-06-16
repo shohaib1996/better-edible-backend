@@ -5,6 +5,7 @@ import { Schema, model, Document } from "mongoose";
 // ─────────────────────────────
 
 export type CannabisType = "BioMax" | "Rosin";
+export type RosinStrain = "Indica" | "Sativa" | "Hybrid";
 export type ContainerStatus = "active" | "empty" | "cleaning";
 
 export interface IContainerHistoryEntry {
@@ -25,6 +26,7 @@ export interface IOilContainer extends Document {
   containerId: string; // e.g. "OIL-001"
   name: string; // display name shown to cook
   cannabisType: CannabisType;
+  strain?: RosinStrain; // Only set when cannabisType === "Rosin"
   potency: number; // stored as percentage, e.g. 85 means 85%
   totalAmount: number; // grams at creation
   remainingAmount: number; // decremented on each drawdown
@@ -71,6 +73,11 @@ const OilContainerSchema = new Schema<IOilContainer>(
       type: String,
       enum: ["BioMax", "Rosin"],
       required: true,
+    },
+    strain: {
+      type: String,
+      enum: ["Indica", "Sativa", "Hybrid"],
+      default: null,
     },
     potency: { type: Number, required: true, min: 0.1, max: 100 },
     totalAmount: { type: Number, required: true, min: 0 },

@@ -18,6 +18,7 @@ export const createContainerSchema = z.object({
   cannabisType: z.enum(["BioMax", "Rosin"] as const, {
     error: "cannabisType must be BioMax or Rosin",
   }),
+  strain: z.enum(["Indica", "Sativa", "Hybrid"] as const).optional(),
   potency: z
     .number({ error: "potency is required" })
     .min(0.1, "potency must be > 0")

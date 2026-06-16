@@ -73,7 +73,7 @@ export const getContainerById = asyncHandler(async (req, res) => {
 // ─────────────────────────────────────────────────────────
 
 export const createContainer = asyncHandler(async (req, res) => {
-  const { containerId, name, cannabisType, potency, totalAmount } = req.body;
+  const { containerId, name, cannabisType, strain, potency, totalAmount } = req.body;
   const performedBy = extractPerformedBy(req.body);
 
   const existing = await OilContainer.findOne({ containerId });
@@ -83,6 +83,7 @@ export const createContainer = asyncHandler(async (req, res) => {
     containerId,
     name,
     cannabisType,
+    ...(cannabisType === "Rosin" && strain ? { strain } : {}),
     potency,
     totalAmount,
     remainingAmount: totalAmount,
