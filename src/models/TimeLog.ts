@@ -1,4 +1,4 @@
-// src/models/TimeLog.ts
+// src/models/TimeLog.ts (schema for time logs)
 import { Schema, model, Document, Types } from "mongoose";
 
 export interface ITimeLog extends Document {
