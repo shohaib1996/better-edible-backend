@@ -1,14 +1,42 @@
 import { Schema, model, Document, Types } from "mongoose";
 
+export type FollowupStatus = "open" | "resolved";
+
+export interface IFollowupHistoryEntry {
+  date: string;          // YYYY-MM-DD — the date this entry was the active followup date
+  comments: string;
+  interestLevel?: string;
+  changedAt: Date;       // when the rep rescheduled or resolved
+  action: "created" | "rescheduled" | "resolved";
+}
+
 export interface IFollowup extends Document {
-  followupDate: string; // <-- CHANGED
-  interestLevel: string;
+  followupDate: string;       // YYYY-MM-DD — current target date
+  interestLevel?: string;
   comments: string;
   store: Types.ObjectId;
   rep: Types.ObjectId;
+  status: FollowupStatus;     // "open" | "resolved"
+  resolvedAt?: Date;
+  history: IFollowupHistoryEntry[];  // full thread of past dates/notes
   createdAt: Date;
   updatedAt: Date;
 }
+
+const HistoryEntrySchema = new Schema<IFollowupHistoryEntry>(
+  {
+    date: { type: String, required: true },
+    comments: { type: String, default: "" },
+    interestLevel: { type: String },
+    changedAt: { type: Date, default: () => new Date() },
+    action: {
+      type: String,
+      enum: ["created", "rescheduled", "resolved"],
+      required: true,
+    },
+  },
+  { _id: false }
+);
 
 const FollowupSchema = new Schema<IFollowup>(
   {
@@ -21,11 +49,28 @@ const FollowupSchema = new Schema<IFollowup>(
       },
     },
     interestLevel: { type: String },
-    comments: { type: String },
+    comments: { type: String, default: "" },
     store: { type: Schema.Types.ObjectId, ref: "Store", required: true },
     rep: { type: Schema.Types.ObjectId, ref: "Rep", required: true },
+    status: {
+      type: String,
+      enum: ["open", "resolved"],
+      default: "open",
+    },
+    resolvedAt: { type: Date },
+    history: { type: [HistoryEntrySchema], default: [] },
   },
   { timestamps: true }
+);
+
+// One active follow-up per store (only enforced for open ones)
+FollowupSchema.index(
+  { store: 1, status: 1 },
+  {
+    unique: true,
+    partialFilterExpression: { status: "open" },
+    name: "one_open_per_store",
+  }
 );
 
 export const Followup = model<IFollowup>("Followup", FollowupSchema);
