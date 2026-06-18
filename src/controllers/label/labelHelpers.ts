@@ -1,12 +1,18 @@
 import { PrivateLabelProduct } from "../../models/PrivateLabelProduct";
 
 export async function getUnitPriceByProductType(productType: string): Promise<number> {
-  const product = await PrivateLabelProduct.findOne({ name: productType, isActive: true });
+  const product = await PrivateLabelProduct.findOne({
+    name: { $regex: new RegExp(`^${productType}$`, "i") },
+    isActive: true,
+  });
   return product?.unitPrice || 0;
 }
 
 export async function isValidProductType(productType: string): Promise<boolean> {
-  const product = await PrivateLabelProduct.findOne({ name: productType, isActive: true });
+  const product = await PrivateLabelProduct.findOne({
+    name: { $regex: new RegExp(`^${productType}$`, "i") },
+    isActive: true,
+  });
   return !!product;
 }
 
