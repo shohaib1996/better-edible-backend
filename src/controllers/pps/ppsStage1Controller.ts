@@ -41,7 +41,7 @@ export const bulkCreateCookItems = asyncHandler(async (req, res) => {
 
   const cookItemDocs = await Promise.all(
     items.map(async (item: any) => {
-      const label = (await Label.findById(item.labelId).select("itemId").lean()) as any;
+      const label = (await Label.findById(item.labelId).select("itemId oilType").lean()) as any;
       if (!label?.itemId) throw new AppError(`Label itemId missing for label ${item.labelId}`, 400);
 
       const cookItemId = `${storeId}${normalizedOrderNumber}${label.itemId}`;
@@ -59,6 +59,7 @@ export const bulkCreateCookItems = asyncHandler(async (req, res) => {
         flavorComponents: item.flavorComponents || [],
         colorComponents: item.colorComponents || [],
         productType: item.productType,
+        gummyOilType: label.oilType || item.gummyOilType || "biomax",
         specialFormulation: false,
         status: "pending",
         expectedCount: item.quantity,

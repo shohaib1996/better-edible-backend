@@ -48,7 +48,7 @@ export const updateClientOrderStatus = asyncHandler(async (req, res) => {
       const populated = await ClientOrder.findById(order._id)
         .populate({
           path: "items.label",
-          select: "flavorName productType flavorComponents colorComponents itemId",
+          select: "flavorName productType flavorComponents colorComponents itemId oilType",
         })
         .populate({ path: "client", populate: { path: "store", select: "name storeId _id" } });
 
@@ -73,6 +73,7 @@ export const updateClientOrderStatus = asyncHandler(async (req, res) => {
             flavorComponents: label.flavorComponents || [],
             colorComponents: label.colorComponents || [],
             productType: label.productType,
+            gummyOilType: label.oilType || "biomax",
             specialFormulation: false,
             status: "pending",
             expectedCount: item.quantity,
