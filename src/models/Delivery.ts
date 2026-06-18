@@ -21,6 +21,7 @@ export interface IDelivery extends Document {
   orderId?: Types.ObjectId;
   paymentAction: PaymentAction;
   amount: number;
+  moneyPickupAmount?: number;
   scheduledAt: Date;
   notes?: string;
   status: DeliveryStatus;
@@ -46,6 +47,7 @@ const DeliverySchema = new Schema<IDelivery>(
       default: "no_payment",
     },
     amount: { type: Number, required: true, default: 0 },
+    moneyPickupAmount: { type: Number, default: 0 },
     scheduledAt: { type: Date, required: true },
     notes: { type: String, trim: true },
     status: {

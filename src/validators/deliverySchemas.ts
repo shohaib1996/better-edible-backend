@@ -7,6 +7,7 @@ export const createDeliverySchema = z.object({
   disposition: z.array(z.string()).min(1, "At least one disposition is required"),
   paymentAction: z.string().optional(),
   amount: z.number().min(0).optional(),
+  moneyPickupAmount: z.number().min(0).optional(),
   scheduledAt: dateString,
   notes: z.string().optional(),
   orderId: objectId.optional(),
