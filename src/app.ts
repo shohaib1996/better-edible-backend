@@ -40,6 +40,7 @@ import storeLabelRoutes from "./routes/storeLabelRoutes";
 import poolRoutes from "./routes/poolRoutes";
 import storeOrderRoutes from "./routes/storeOrderRoutes";
 import storeSubmissionsRoutes from "./routes/storeSubmissionsRoutes";
+import partnershipRoutes from "./routes/partnershipRoutes";
 
 const app = express();
 
@@ -54,7 +55,7 @@ app.use(
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Partnership-Key"],
   })
 );
 
@@ -104,6 +105,7 @@ app.use("/api/store/labels", storeLabelRoutes);
 app.use("/api/pools", poolRoutes);
 app.use("/api/store/orders", storeOrderRoutes);
 app.use("/api/store/submissions", storeSubmissionsRoutes);
+app.use("/api", partnershipRoutes);
 
 app.get("/", (_req, res) => {
   res.send("Rep Order System API is running... yep 4th time");
