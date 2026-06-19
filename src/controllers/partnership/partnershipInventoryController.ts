@@ -11,11 +11,18 @@ export const getInventory = async (req: Request, res: Response, next: NextFuncti
     const storeId = (req.params.storeId || req.query.storeId) as string;
     if (!storeId) return next(new AppError("storeId is required", 400));
 
-    const inventory = await PartnershipInventory.find({
-      storeId: new Types.ObjectId(storeId),
-    }).sort({ productName: 1 });
+    const page = Math.max(1, parseInt(req.query.page as string) || 1);
+    const limit = Math.min(100, Math.max(1, parseInt(req.query.limit as string) || 10));
+    const skip = (page - 1) * limit;
 
-    res.json({ success: true, inventory });
+    const filter = { storeId: new Types.ObjectId(storeId) };
+    const [inventory, totalCount] = await Promise.all([
+      PartnershipInventory.find(filter).sort({ productName: 1 }).skip(skip).limit(limit),
+      PartnershipInventory.countDocuments(filter),
+    ]);
+
+    const totalPages = Math.ceil(totalCount / limit) || 1;
+    res.json({ success: true, inventory, totalCount, totalPages, currentPage: page });
   } catch (err) {
     next(err);
   }

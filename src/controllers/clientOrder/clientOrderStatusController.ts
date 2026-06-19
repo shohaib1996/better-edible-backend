@@ -1,7 +1,44 @@
+import { Types } from "mongoose";
 import { ClientOrder } from "../../models/ClientOrder";
 import { CookItem } from "../../models/CookItem";
 import { asyncHandler } from "../../utils/asyncHandler";
 import { AppError } from "../../utils/AppError";
+import PartnershipEnrollment from "../../models/PartnershipEnrollment";
+import PartnershipInventory from "../../models/PartnershipInventory";
+
+async function syncPartnershipInventory(orderId: Types.ObjectId) {
+  const populated = await ClientOrder.findById(orderId)
+    .populate({ path: "client", populate: { path: "store", select: "_id" } })
+    .populate({ path: "items.label", select: "itemId flavorName productType" });
+
+  if (!populated) return;
+
+  const storeId = (populated.client as any)?.store?._id;
+  if (!storeId) return;
+
+  const enrollment = await PartnershipEnrollment.findOne({
+    storeId,
+    status: { $in: ["active", "pending_setup"] },
+  });
+  if (!enrollment) return;
+
+  for (const item of populated.items as any[]) {
+    const label = item.label;
+    if (!label?.itemId) continue;
+
+    const productName = `${label.flavorName} (${label.productType})`;
+
+    await PartnershipInventory.findOneAndUpdate(
+      { storeId, productId: label._id },
+      {
+        $inc: { unitsPlaced: item.quantity, unitsRemaining: item.quantity },
+        $set: { wholesalePrice: item.unitPrice },
+        $setOnInsert: { sku: label.itemId, productName },
+      },
+      { upsert: true }
+    );
+  }
+}
 
 // PATCH /api/client-orders/:id/status
 export const updateClientOrderStatus = asyncHandler(async (req, res) => {
@@ -100,6 +137,9 @@ export const updateClientOrderStatus = asyncHandler(async (req, res) => {
     order.actualShipDate = new Date();
     if (trackingNumber) order.trackingNumber = trackingNumber;
     await order.save();
+    syncPartnershipInventory(order._id as Types.ObjectId).catch((err) =>
+      console.error("[Partnership] Inventory sync error:", err)
+    );
     import("../../jobs/clientOrderJobs").then(
       async ({ sendShippedNotification, createRecurringOrder }) => {
         await sendShippedNotification(order);

@@ -9,7 +9,6 @@ export interface IPartnershipInventory extends Document {
   unitsPlaced: number;
   unitsSold: number;
   unitsRemaining: number;
-  lastReconciliationAt?: Date;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -24,7 +23,6 @@ const PartnershipInventorySchema = new Schema<IPartnershipInventory>(
     unitsPlaced: { type: Number, default: 0 },
     unitsSold: { type: Number, default: 0 },
     unitsRemaining: { type: Number, default: 0 },
-    lastReconciliationAt: { type: Date },
   },
   { timestamps: true }
 );

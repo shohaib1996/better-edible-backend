@@ -20,33 +20,6 @@ export const placeInventorySchema = z.object({
   unitsToAdd: z.number().int().min(1),
 });
 
-export const createReplenishmentSchema = z.object({
-  items: z
-    .array(
-      z.object({
-        productId: z.string().min(1),
-        unitsRequested: z.number().int().min(1),
-      })
-    )
-    .min(1),
-});
-
-export const updateReplenishmentStatusSchema = z.object({
-  status: z.enum(["pending", "in_transit", "delivered"]),
-});
-
-export const deliverReplenishmentSchema = z.object({
-  driverCounts: z
-    .array(
-      z.object({
-        productId: z.string().min(1),
-        actualCount: z.number().int().min(0),
-      })
-    )
-    .min(1),
-  driverNotes: z.string().optional(),
-});
-
 export const posInboundSalesSchema = z.object({
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be YYYY-MM-DD"),
   items: z

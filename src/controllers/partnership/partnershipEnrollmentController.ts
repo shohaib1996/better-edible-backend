@@ -111,11 +111,21 @@ export const getAllPartnershipStores = async (req: Request, res: Response, next:
     const filter: Record<string, any> = {};
     if (status) filter.status = status;
 
-    const enrollments = await PartnershipEnrollment.find(filter)
-      .populate("storeId", "name city state")
-      .sort({ requestedAt: -1 });
+    const page = Math.max(1, parseInt(req.query.page as string) || 1);
+    const limit = Math.min(100, Math.max(1, parseInt(req.query.limit as string) || 20));
+    const skip = (page - 1) * limit;
 
-    res.json({ success: true, stores: enrollments });
+    const [enrollments, totalCount] = await Promise.all([
+      PartnershipEnrollment.find(filter)
+        .populate("storeId", "name city state")
+        .sort({ requestedAt: -1 })
+        .skip(skip)
+        .limit(limit),
+      PartnershipEnrollment.countDocuments(filter),
+    ]);
+
+    const totalPages = Math.ceil(totalCount / limit) || 1;
+    res.json({ success: true, stores: enrollments, totalCount, totalPages, currentPage: page });
   } catch (err) {
     next(err);
   }

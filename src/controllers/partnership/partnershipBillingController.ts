@@ -12,11 +12,18 @@ export const getBilling = async (req: Request, res: Response, next: NextFunction
     const storeId = (req.params.storeId || req.query.storeId) as string;
     if (!storeId) return next(new AppError("storeId is required", 400));
 
-    const bills = await PartnershipBill.find({
-      storeId: new Types.ObjectId(storeId),
-    }).sort({ billingYear: -1, billingMonth: -1 });
+    const page = Math.max(1, parseInt(req.query.page as string) || 1);
+    const limit = Math.min(100, Math.max(1, parseInt(req.query.limit as string) || 10));
+    const skip = (page - 1) * limit;
 
-    res.json({ success: true, bills });
+    const filter = { storeId: new Types.ObjectId(storeId) };
+    const [bills, totalCount] = await Promise.all([
+      PartnershipBill.find(filter).sort({ billingYear: -1, billingMonth: -1 }).skip(skip).limit(limit),
+      PartnershipBill.countDocuments(filter),
+    ]);
+
+    const totalPages = Math.ceil(totalCount / limit) || 1;
+    res.json({ success: true, bills, totalCount, totalPages, currentPage: page });
   } catch (err) {
     next(err);
   }

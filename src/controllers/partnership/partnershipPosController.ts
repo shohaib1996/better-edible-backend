@@ -13,7 +13,7 @@ export const receivePosData = async (req: Request, res: Response, next: NextFunc
     if (!apiKey) return next(new AppError("Missing X-Partnership-Key header", 401));
 
     const enrollment = await PartnershipEnrollment.findOne({ posApiKey: apiKey });
-    if (!enrollment || enrollment.status !== "active") {
+    if (!enrollment || !["active", "pending_setup"].includes(enrollment.status)) {
       return next(new AppError("Invalid or inactive partnership key", 401));
     }
 
@@ -98,8 +98,17 @@ export const getSales = async (req: Request, res: Response, next: NextFunction) 
       if (endDate) filter.date.$lte = new Date(`${endDate}T23:59:59.999Z`);
     }
 
-    const sales = await PartnershipSale.find(filter).sort({ date: -1 });
-    res.json({ success: true, sales });
+    const page = Math.max(1, parseInt(req.query.page as string) || 1);
+    const limit = Math.min(100, Math.max(1, parseInt(req.query.limit as string) || 20));
+    const skip = (page - 1) * limit;
+
+    const [sales, totalCount] = await Promise.all([
+      PartnershipSale.find(filter).sort({ date: -1 }).skip(skip).limit(limit),
+      PartnershipSale.countDocuments(filter),
+    ]);
+
+    const totalPages = Math.ceil(totalCount / limit) || 1;
+    res.json({ success: true, sales, totalCount, totalPages, currentPage: page });
   } catch (err) {
     next(err);
   }

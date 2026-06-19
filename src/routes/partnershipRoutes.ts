@@ -21,13 +21,6 @@ import {
 } from "../controllers/partnership/partnershipPosController";
 
 import {
-  getReplenishments,
-  createReplenishment,
-  updateReplenishmentStatus,
-  deliverReplenishment,
-} from "../controllers/partnership/partnershipReplenishmentController";
-
-import {
   getBilling,
   generateBill,
   applyCredit,
@@ -39,9 +32,6 @@ import {
   approvePartnershipSchema,
   rejectPartnershipSchema,
   placeInventorySchema,
-  createReplenishmentSchema,
-  updateReplenishmentStatusSchema,
-  deliverReplenishmentSchema,
   posInboundSalesSchema,
   generateBillSchema,
   applyCreditSchema,
@@ -60,7 +50,6 @@ router.post(
 router.get("/partnership/status", getPartnershipStatus);
 router.get("/partnership/inventory", getInventory);
 router.get("/partnership/sales", getSales);
-router.get("/partnership/replenishments", getReplenishments);
 router.get("/partnership/billing", getBilling);
 
 // ── POS inbound (X-Partnership-Key auth — no user session) ───────────────────
@@ -95,23 +84,6 @@ router.post(
 );
 
 router.get("/admin/partnership/:storeId/sales", getSales);
-
-router.get("/admin/partnership/:storeId/replenishments", getReplenishments);
-router.post(
-  "/admin/partnership/:storeId/replenishment",
-  validate({ body: createReplenishmentSchema }),
-  createReplenishment
-);
-router.patch(
-  "/admin/partnership/replenishment/:id/status",
-  validate({ body: updateReplenishmentStatusSchema }),
-  updateReplenishmentStatus
-);
-router.post(
-  "/admin/partnership/replenishment/:id/deliver",
-  validate({ body: deliverReplenishmentSchema }),
-  deliverReplenishment
-);
 
 router.get("/admin/partnership/:storeId/billing", getBilling);
 router.post(
