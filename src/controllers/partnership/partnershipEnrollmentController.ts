@@ -131,6 +131,23 @@ export const getAllPartnershipStores = async (req: Request, res: Response, next:
   }
 };
 
+// DELETE /api/admin/partnership/:storeId
+export const removePartnership = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { storeId } = req.params;
+
+    const enrollment = await PartnershipEnrollment.findOneAndDelete({
+      storeId: new Types.ObjectId(storeId),
+    });
+
+    if (!enrollment) return next(new AppError("Enrollment not found", 404));
+
+    res.json({ success: true, message: "Partnership removed" });
+  } catch (err) {
+    next(err);
+  }
+};
+
 // GET /api/admin/partnership/:storeId
 export const getStorePartnershipDetail = async (req: Request, res: Response, next: NextFunction) => {
   try {

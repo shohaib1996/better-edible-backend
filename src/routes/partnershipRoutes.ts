@@ -6,6 +6,7 @@ import {
   getPartnershipStatus,
   approvePartnership,
   rejectPartnership,
+  removePartnership,
   getAllPartnershipStores,
   getStorePartnershipDetail,
 } from "../controllers/partnership/partnershipEnrollmentController";
@@ -64,6 +65,7 @@ router.post(
 
 router.get("/admin/partnership", getAllPartnershipStores);
 router.get("/admin/partnership/:storeId", getStorePartnershipDetail);
+router.delete("/admin/partnership/:storeId", removePartnership);
 
 router.post(
   "/admin/partnership/:storeId/approve",
