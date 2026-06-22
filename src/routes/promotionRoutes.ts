@@ -1,121 +1,42 @@
 import { Router } from "express";
 import { validate } from "../middleware/validate";
-
 import {
-  enrollInPromotions,
-  getPromotionStatus,
-  getAllPromotionEnrollments,
-  approvePromotionEnrollment,
-  rejectPromotionEnrollment,
-} from "../controllers/promotions/promotionEnrollmentController";
-
-import {
-  getAvailablePromotions,
   getAdminPromotions,
+  getAdminPromotion,
   createPromotion,
   updatePromotion,
   deletePromotion,
+  getPromotionUsage,
 } from "../controllers/promotions/promotionController";
-
 import {
-  getMyPromotions,
-  joinCompanyPromotion,
-  createCustomPromotion,
-  getAdminStorePromotions,
-} from "../controllers/promotions/storePromotionController";
-
+  validatePromoCode,
+  getAutoApplyPromotions,
+  getPublicPromotions,
+  getStoreUsage,
+  applyPromoToOrder,
+} from "../controllers/promotions/promotionApplyController";
 import {
-  logPromotionSales,
-} from "../controllers/promotions/promotionSalesController";
-
-import {
-  getPromotionCredits,
-  applyPromotionCredit,
-} from "../controllers/promotions/promotionCreditController";
-
-import {
-  enrollInPromotionsSchema,
-  approvePromotionEnrollmentSchema,
-  rejectPromotionEnrollmentSchema,
   createPromotionSchema,
   updatePromotionSchema,
-  joinCompanyPromotionSchema,
-  createCustomPromotionSchema,
-  logPromotionSalesSchema,
-  applyPromotionCreditSchema,
+  validatePromoCodeSchema,
+  applyPromoToOrderSchema,
 } from "../validators/promotionSchemas";
 
 const router = Router();
 
-// ── Store-facing routes ───────────────────────────────────────────────────────
-
-router.post(
-  "/promotions/enroll",
-  validate({ body: enrollInPromotionsSchema }),
-  enrollInPromotions
-);
-router.get("/promotions/status", getPromotionStatus);
-router.get("/promotions/available", getAvailablePromotions);
-router.get("/promotions/my", getMyPromotions);
-
-router.post(
-  "/promotions/join/:promotionId",
-  validate({ body: joinCompanyPromotionSchema }),
-  joinCompanyPromotion
-);
-
-router.post(
-  "/promotions/custom",
-  validate({ body: createCustomPromotionSchema }),
-  createCustomPromotion
-);
-
-router.post(
-  "/promotions/sales/:storePromotionId",
-  validate({ body: logPromotionSalesSchema }),
-  logPromotionSales
-);
-
-router.get("/promotions/credits", getPromotionCredits);
-
-// ── Admin routes ──────────────────────────────────────────────────────────────
-
-router.get("/admin/promotions/enrollments", getAllPromotionEnrollments);
-
-router.post(
-  "/admin/promotions/enrollments/:storeId/approve",
-  validate({ body: approvePromotionEnrollmentSchema }),
-  approvePromotionEnrollment
-);
-
-router.post(
-  "/admin/promotions/enrollments/:storeId/reject",
-  validate({ body: rejectPromotionEnrollmentSchema }),
-  rejectPromotionEnrollment
-);
-
-router.get("/admin/promotions/stores/:storeId", getAdminStorePromotions);
-
-router.post(
-  "/admin/promotions/credits/apply",
-  validate({ body: applyPromotionCreditSchema }),
-  applyPromotionCredit
-);
-
+// ── Admin CRUD ──────────────────────────────────────────────────────────────
 router.get("/admin/promotions", getAdminPromotions);
-
-router.post(
-  "/admin/promotions",
-  validate({ body: createPromotionSchema }),
-  createPromotion
-);
-
-router.put(
-  "/admin/promotions/:id",
-  validate({ body: updatePromotionSchema }),
-  updatePromotion
-);
-
+router.get("/admin/promotions/:id/usage", getPromotionUsage);
+router.get("/admin/promotions/:id", getAdminPromotion);
+router.post("/admin/promotions", validate({ body: createPromotionSchema }), createPromotion);
+router.put("/admin/promotions/:id", validate({ body: updatePromotionSchema }), updatePromotion);
 router.delete("/admin/promotions/:id", deletePromotion);
+router.post("/admin/promotions/apply", validate({ body: applyPromoToOrderSchema }), applyPromoToOrder);
+
+// ── Store / public ──────────────────────────────────────────────────────────
+router.get("/promotions/public", getPublicPromotions);
+router.get("/promotions/auto-apply", getAutoApplyPromotions);
+router.get("/promotions/usage", getStoreUsage);
+router.post("/promotions/validate", validate({ body: validatePromoCodeSchema }), validatePromoCode);
 
 export default router;

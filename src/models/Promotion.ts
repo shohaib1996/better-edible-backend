@@ -1,43 +1,44 @@
-import mongoose, { Document, Schema, Types } from "mongoose";
+import { Schema, model, Document, Types } from "mongoose";
 
 export interface IPromotion extends Document {
   name: string;
-  description: string;
-  productId: Types.ObjectId;
-  productName: string;
-  sku: string;
-  creditRatePerUnit: number;
-  startDate: Date;
-  endDate: Date;
-  status: "draft" | "active" | "expired";
+  code?: string;
+  description?: string;
+  type: "flat" | "percentage";
+  value: number;
+  minOrderAmount?: number;
+  maxUses?: number;
+  usedCount: number;
+  maxUsesPerStore?: number;
+  storeIds: Types.ObjectId[];
+  startDate?: Date;
+  endDate?: Date;
+  status: "active" | "inactive";
   isPublic: boolean;
-  createdBy: string;
+  autoApply: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
 
 const PromotionSchema = new Schema<IPromotion>(
   {
-    name: { type: String, required: true },
-    description: { type: String, required: true },
-    productId: { type: Schema.Types.ObjectId, ref: "Product", required: true },
-    productName: { type: String, required: true },
-    sku: { type: String, required: true },
-    creditRatePerUnit: { type: Number, required: true, min: 0 },
-    startDate: { type: Date, required: true },
-    endDate: { type: Date, required: true },
-    status: {
-      type: String,
-      enum: ["draft", "active", "expired"],
-      default: "draft",
-    },
+    name: { type: String, required: true, trim: true },
+    code: { type: String, unique: true, sparse: true, uppercase: true, trim: true },
+    description: { type: String, trim: true },
+    type: { type: String, enum: ["flat", "percentage"], required: true },
+    value: { type: Number, required: true, min: 0 },
+    minOrderAmount: { type: Number, min: 0 },
+    maxUses: { type: Number, min: 1 },
+    usedCount: { type: Number, default: 0 },
+    maxUsesPerStore: { type: Number, min: 1 },
+    storeIds: [{ type: Schema.Types.ObjectId, ref: "Store" }],
+    startDate: { type: Date },
+    endDate: { type: Date },
+    status: { type: String, enum: ["active", "inactive"], default: "active" },
     isPublic: { type: Boolean, default: false },
-    createdBy: { type: String, default: "admin" },
+    autoApply: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
 
-PromotionSchema.index({ status: 1, isPublic: 1 });
-PromotionSchema.index({ endDate: 1 });
-
-export default mongoose.model<IPromotion>("Promotion", PromotionSchema);
+export default model<IPromotion>("Promotion", PromotionSchema);
