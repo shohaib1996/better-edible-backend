@@ -142,6 +142,60 @@ export const getPublicPromotions = async (req: Request, res: Response, next: Nex
 };
 
 // ──────────────────────────────────────────────
+// GET /api/promotions/for-store?storeId=
+// Returns all promotions a specific store can see:
+//   - public promos open to all stores
+//   - public promos targeted to this store
+//   - private promos targeted specifically to this store
+// ──────────────────────────────────────────────
+export const getStorePromotions = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { storeId } = req.query;
+    if (!storeId) return next(new AppError("storeId is required", 400));
+
+    const now = new Date();
+    const storeObjId = new Types.ObjectId(storeId as string);
+
+    const timeFilter = {
+      $and: [
+        { $or: [{ startDate: { $exists: false } }, { startDate: { $lte: now } }] },
+        { $or: [{ endDate: { $exists: false } }, { endDate: { $gte: now } }] },
+      ],
+    };
+
+    const promotions = await Promotion.find({
+      status: "active",
+      ...timeFilter,
+      $or: [
+        { isPublic: true, storeIds: { $size: 0 } },
+        { storeIds: storeObjId },
+      ],
+    }).sort({ createdAt: -1 });
+
+    // Filter out promos this store has already exhausted
+    const eligible = await Promise.all(
+      promotions.map(async (promo) => {
+        // Global usage cap hit
+        if (promo.maxUses && promo.usedCount >= promo.maxUses) return null;
+        // Per-store usage cap hit
+        if (promo.maxUsesPerStore) {
+          const used = await PromotionUsage.countDocuments({
+            promotionId: promo._id,
+            storeId: storeObjId,
+          });
+          if (used >= promo.maxUsesPerStore) return null;
+        }
+        return promo;
+      })
+    );
+
+    res.json({ success: true, promotions: eligible.filter(Boolean) });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// ──────────────────────────────────────────────
 // GET /api/promotions/usage?storeId=&page=&limit=
 // Store's own usage history
 // ──────────────────────────────────────────────

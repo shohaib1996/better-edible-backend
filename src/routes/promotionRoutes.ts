@@ -12,6 +12,7 @@ import {
   validatePromoCode,
   getAutoApplyPromotions,
   getPublicPromotions,
+  getStorePromotions,
   getStoreUsage,
   applyPromoToOrder,
 } from "../controllers/promotions/promotionApplyController";
@@ -35,6 +36,7 @@ router.post("/admin/promotions/apply", validate({ body: applyPromoToOrderSchema 
 
 // ── Store / public ──────────────────────────────────────────────────────────
 router.get("/promotions/public", getPublicPromotions);
+router.get("/promotions/for-store", getStorePromotions);
 router.get("/promotions/auto-apply", getAutoApplyPromotions);
 router.get("/promotions/usage", getStoreUsage);
 router.post("/promotions/validate", validate({ body: validatePromoCodeSchema }), validatePromoCode);

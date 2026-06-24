@@ -4,6 +4,18 @@ import Promotion from "../../models/Promotion";
 import PromotionUsage from "../../models/PromotionUsage";
 import { AppError } from "../../utils/AppError";
 
+// Date-only strings (YYYY-MM-DD) from the form are parsed as UTC midnight.
+// To make a promo valid for the full calendar day regardless of timezone,
+// we normalise startDate to 00:00:00 UTC and endDate to 23:59:59.999 UTC.
+function toStartOfDayUTC(dateStr: string): Date {
+  const d = dateStr.slice(0, 10); // keep YYYY-MM-DD only
+  return new Date(`${d}T00:00:00.000Z`);
+}
+function toEndOfDayUTC(dateStr: string): Date {
+  const d = dateStr.slice(0, 10);
+  return new Date(`${d}T23:59:59.999Z`);
+}
+
 // GET /api/admin/promotions
 export const getAdminPromotions = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -56,8 +68,8 @@ export const createPromotion = async (req: Request, res: Response, next: NextFun
       maxUses,
       maxUsesPerStore,
       storeIds: storeIds ?? [],
-      startDate: startDate ? new Date(startDate) : undefined,
-      endDate: endDate ? new Date(endDate) : undefined,
+      startDate: startDate ? toStartOfDayUTC(startDate) : undefined,
+      endDate: endDate ? toEndOfDayUTC(endDate) : undefined,
       status: status ?? "active",
       isPublic: isPublic ?? false,
       autoApply: autoApply ?? false,
@@ -83,8 +95,8 @@ export const updatePromotion = async (req: Request, res: Response, next: NextFun
       name, description, type, value,
       minOrderAmount, maxUses, maxUsesPerStore,
       storeIds: storeIds ?? [],
-      startDate: startDate ? new Date(startDate) : undefined,
-      endDate: endDate ? new Date(endDate) : undefined,
+      startDate: startDate ? toStartOfDayUTC(startDate) : undefined,
+      endDate: endDate ? toEndOfDayUTC(endDate) : undefined,
       status, isPublic, autoApply,
     };
     if (code !== undefined) update.code = code ? String(code).toUpperCase().trim() : undefined;

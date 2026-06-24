@@ -53,6 +53,8 @@ export interface IClientOrder extends Document {
   discount?: number;
   discountType?: "flat" | "percentage";
   discountAmount?: number;
+  promotionId?: Types.ObjectId;
+  promotionCode?: string;
   total: number;
   note?: string;
   isRecurring: boolean;
@@ -178,6 +180,8 @@ const ClientOrderSchema = new Schema<IClientOrder>(
       default: 0,
       min: 0,
     },
+    promotionId: { type: Schema.Types.ObjectId, ref: "Promotion" },
+    promotionCode: { type: String },
     total: {
       type: Number,
       required: true,

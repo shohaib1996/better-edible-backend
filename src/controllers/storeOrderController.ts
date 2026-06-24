@@ -3,8 +3,56 @@ import { AppError } from "../utils/AppError";
 import { ClientOrder } from "../models/ClientOrder";
 import { Label } from "../models/Label";
 import { PrivateLabelClient } from "../models/PrivateLabelClient";
+import Promotion from "../models/Promotion";
+import PromotionUsage from "../models/PromotionUsage";
 import { Types } from "mongoose";
 import { getUnitPriceByProductType } from "./clientOrder/clientOrderHelpers";
+
+async function resolvePromotion(
+  code: string | undefined,
+  promotionId: string | undefined,
+  storeId: string,
+  orderTotal: number,
+  autoApplyFallback = true
+) {
+  const now = new Date();
+  const timeFilter = {
+    $and: [
+      { $or: [{ startDate: { $exists: false } }, { startDate: { $lte: now } }] },
+      { $or: [{ endDate: { $exists: false } }, { endDate: { $gte: now } }] },
+    ],
+  };
+  const storeObjId = new Types.ObjectId(storeId);
+
+  const buildFilter = (extra: Record<string, unknown>) => ({
+    status: "active",
+    ...timeFilter,
+    $or: [{ storeIds: { $size: 0 } }, { storeIds: storeObjId }],
+    ...extra,
+  });
+
+  let candidates;
+  if (promotionId) {
+    candidates = await Promotion.find(buildFilter({ _id: new Types.ObjectId(promotionId) }));
+  } else if (code) {
+    candidates = await Promotion.find(buildFilter({ code: code.toUpperCase().trim() }));
+  } else if (autoApplyFallback) {
+    candidates = await Promotion.find(buildFilter({ autoApply: true })).sort({ value: -1 });
+  } else {
+    return null;
+  }
+
+  for (const promo of candidates) {
+    if (promo.minOrderAmount && orderTotal < promo.minOrderAmount) continue;
+    if (promo.maxUses && promo.usedCount >= promo.maxUses) continue;
+    if (promo.maxUsesPerStore) {
+      const used = await PromotionUsage.countDocuments({ promotionId: promo._id, storeId: storeObjId });
+      if (used >= promo.maxUsesPerStore) continue;
+    }
+    return promo;
+  }
+  return null;
+}
 
 // -------------------
 // GET /api/store/orders?storeId=&page=&limit=
@@ -58,7 +106,7 @@ export const getMyOrders = asyncHandler(async (req, res) => {
 // Store — place a new order (approved labels only)
 // -------------------
 export const placeOrder = asyncHandler(async (req, res) => {
-  const { storeId, items, deliveryDate } = req.body;
+  const { storeId, items, deliveryDate, promoCode, promotionId } = req.body;
 
   if (!storeId) throw new AppError("storeId is required", 400);
   if (!items || !Array.isArray(items) || items.length === 0) {
@@ -110,7 +158,16 @@ export const placeOrder = asyncHandler(async (req, res) => {
     });
   }
 
-  const total = parseFloat(subtotal.toFixed(2));
+  // ── Promotion ──────────────────────────────────────────────────────────────
+  const promo = await resolvePromotion(promoCode, promotionId, storeId, subtotal);
+  let discountAmount = 0;
+  if (promo) {
+    discountAmount =
+      promo.type === "flat"
+        ? Math.min(promo.value, subtotal)
+        : parseFloat(((subtotal * promo.value) / 100).toFixed(2));
+  }
+  const total = parseFloat((subtotal - discountAmount).toFixed(2));
 
   const order = new ClientOrder({
     client: client._id,
@@ -119,12 +176,28 @@ export const placeOrder = asyncHandler(async (req, res) => {
     deliveryDate: new Date(deliveryDate),
     items: orderItems,
     subtotal,
+    discount: promo ? promo.value : 0,
+    discountType: promo ? promo.type : "flat",
+    discountAmount,
+    promotionId: promo ? promo._id : undefined,
+    promotionCode: promo?.code ?? undefined,
     total,
     createdBy: { userType: "store" },
   });
 
   order.calculateProductionStart();
   await order.save();
+
+  if (promo) {
+    await PromotionUsage.create({
+      promotionId: promo._id,
+      storeId: new Types.ObjectId(storeId),
+      orderId: order._id,
+      discountAmount,
+      appliedBy: "store",
+    });
+    await Promotion.findByIdAndUpdate(promo._id, { $inc: { usedCount: 1 } });
+  }
 
   res.status(201).json({ success: true, order });
 });
