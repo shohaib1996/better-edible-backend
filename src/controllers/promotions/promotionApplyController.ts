@@ -53,7 +53,10 @@ async function findEligiblePromotion(
 
     // Check per-store usage limit
     if (promo.maxUsesPerStore) {
-      const storeUseCount = await PromotionUsage.countDocuments({ promotionId: promo._id, storeId: storeObjId });
+      const storeUseCount = await PromotionUsage.countDocuments({
+        promotionId: promo._id,
+        storeId: storeObjId,
+      });
       if (storeUseCount >= promo.maxUsesPerStore) continue;
     }
 
@@ -103,7 +106,12 @@ export const getAutoApplyPromotions = async (req: Request, res: Response, next: 
       return next(new AppError("storeId and orderTotal are required", 400));
     }
 
-    const promo = await findEligiblePromotion(undefined, storeId as string, Number(orderTotal), true);
+    const promo = await findEligiblePromotion(
+      undefined,
+      storeId as string,
+      Number(orderTotal),
+      true
+    );
     if (!promo) return res.json({ success: true, promotion: null, discount: 0 });
 
     const discount = computeDiscount(promo.type, promo.value, Number(orderTotal));
@@ -166,10 +174,7 @@ export const getStorePromotions = async (req: Request, res: Response, next: Next
     const promotions = await Promotion.find({
       status: "active",
       ...timeFilter,
-      $or: [
-        { isPublic: true, storeIds: { $size: 0 } },
-        { storeIds: storeObjId },
-      ],
+      $or: [{ isPublic: true, storeIds: { $size: 0 } }, { storeIds: storeObjId }],
     }).sort({ createdAt: -1 });
 
     // Filter out promos this store has already exhausted
@@ -218,7 +223,13 @@ export const getStoreUsage = async (req: Request, res: Response, next: NextFunct
       PromotionUsage.countDocuments(filter),
     ]);
 
-    res.json({ success: true, usages, totalCount, totalPages: Math.ceil(totalCount / limit) || 1, currentPage: page });
+    res.json({
+      success: true,
+      usages,
+      totalCount,
+      totalPages: Math.ceil(totalCount / limit) || 1,
+      currentPage: page,
+    });
   } catch (err) {
     next(err);
   }
@@ -242,7 +253,8 @@ export const applyPromoToOrder = async (req: Request, res: Response, next: NextF
     let promo;
     if (promotionId) {
       promo = await Promotion.findById(promotionId);
-      if (!promo || promo.status !== "active") return next(new AppError("Promotion not found or inactive", 400));
+      if (!promo || promo.status !== "active")
+        return next(new AppError("Promotion not found or inactive", 400));
     } else {
       promo = await findEligiblePromotion(code, storeId, order.total ?? 0);
       if (!promo) return next(new AppError("Invalid or ineligible promo code", 400));

@@ -101,10 +101,7 @@ router.patch(
   validate({ body: editFlavorColorSchema }),
   editFlavorColor /* #swagger.tags = ['PPS'] */
 );
-router.post(
-  "/stage-1/generate-recipe",
-  generateRecipe /* #swagger.tags = ['PPS'] */
-);
+router.post("/stage-1/generate-recipe", generateRecipe /* #swagger.tags = ['PPS'] */);
 
 // Stage 2 - Dehydrating
 router.get("/stage-2/cook-items", getStage2CookItems /* #swagger.tags = ['PPS'] */);

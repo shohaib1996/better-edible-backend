@@ -149,7 +149,11 @@ export const removePartnership = async (req: Request, res: Response, next: NextF
 };
 
 // GET /api/admin/partnership/:storeId
-export const getStorePartnershipDetail = async (req: Request, res: Response, next: NextFunction) => {
+export const getStorePartnershipDetail = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { storeId } = req.params;
 

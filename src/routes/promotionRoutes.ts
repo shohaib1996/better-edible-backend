@@ -32,7 +32,11 @@ router.get("/admin/promotions/:id", getAdminPromotion);
 router.post("/admin/promotions", validate({ body: createPromotionSchema }), createPromotion);
 router.put("/admin/promotions/:id", validate({ body: updatePromotionSchema }), updatePromotion);
 router.delete("/admin/promotions/:id", deletePromotion);
-router.post("/admin/promotions/apply", validate({ body: applyPromoToOrderSchema }), applyPromoToOrder);
+router.post(
+  "/admin/promotions/apply",
+  validate({ body: applyPromoToOrderSchema }),
+  applyPromoToOrder
+);
 
 // ── Store / public ──────────────────────────────────────────────────────────
 router.get("/promotions/public", getPublicPromotions);

@@ -18,7 +18,10 @@ export const getBilling = async (req: Request, res: Response, next: NextFunction
 
     const filter = { storeId: new Types.ObjectId(storeId) };
     const [bills, totalCount] = await Promise.all([
-      PartnershipBill.find(filter).sort({ billingYear: -1, billingMonth: -1 }).skip(skip).limit(limit),
+      PartnershipBill.find(filter)
+        .sort({ billingYear: -1, billingMonth: -1 })
+        .skip(skip)
+        .limit(limit),
       PartnershipBill.countDocuments(filter),
     ]);
 

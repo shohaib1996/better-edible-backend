@@ -423,29 +423,24 @@ export const generateRecipe = asyncHandler(async (req, res) => {
   if (!cookItem) throw new AppError("Cook item not found", 404);
 
   const { Label } = await import("../../models/Label");
-  const label = await Label.findById(cookItem.labelId)
+  const label = (await Label.findById(cookItem.labelId)
     .select("gummyColorHex gummyColorName flavorOilType selectedFlavors")
-    .lean() as any;
+    .lean()) as any;
 
   // Use actual gummy builder flavor selection, not the label display name
   const selectedFlavors: string[] = label?.selectedFlavors ?? [];
-  const flavorName = selectedFlavors.length > 0
-    ? selectedFlavors.join(", ")
-    : cookItem.flavor;
+  const flavorName = selectedFlavors.length > 0 ? selectedFlavors.join(", ") : cookItem.flavor;
   const totalMolds = Math.ceil(cookItem.quantity / 70);
 
   // Step 1: auto-generate hex if missing, save to label
   let hex: string | undefined = label?.gummyColorHex;
   if (!hex) {
     try {
-      const genRes = await fetch(
-        `${COLOR_API}/api/trpc/color.generate?batch=1`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ "0": { json: { flavor: flavorName } } }),
-        }
-      );
+      const genRes = await fetch(`${COLOR_API}/api/trpc/color.generate?batch=1`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ "0": { json: { flavor: flavorName } } }),
+      });
       if (genRes.ok) {
         const genData = (await genRes.json()) as any[];
         const generated = genData?.[0]?.result?.data?.json;
@@ -457,7 +452,9 @@ export const generateRecipe = asyncHandler(async (req, res) => {
           });
         }
       }
-    } catch (_) { /* proceed without hex */ }
+    } catch (_) {
+      /* proceed without hex */
+    }
   }
 
   // Step 2: tRPC batch — color.recipe (needs hex) + color.flavor
@@ -471,19 +468,18 @@ export const generateRecipe = asyncHandler(async (req, res) => {
       }
     : { "0": { json: { flavor: flavorName } } };
 
-  const batchRes = await fetch(
-    `${COLOR_API}/api/trpc/${endpoints}?batch=1`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(batchPayload),
-    }
-  );
+  const batchRes = await fetch(`${COLOR_API}/api/trpc/${endpoints}?batch=1`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(batchPayload),
+  });
   if (!batchRes.ok) throw new AppError("Recipe API unavailable", 502);
   const batchData = (await batchRes.json()) as any[];
 
-  const colorJson  = hasHex ? batchData?.[0]?.result?.data?.json : null;
-  const flavorJson = hasHex ? batchData?.[1]?.result?.data?.json : batchData?.[0]?.result?.data?.json;
+  const colorJson = hasHex ? batchData?.[0]?.result?.data?.json : null;
+  const flavorJson = hasHex
+    ? batchData?.[1]?.result?.data?.json
+    : batchData?.[0]?.result?.data?.json;
 
   if (!flavorJson) throw new AppError("Invalid response from recipe API", 502);
 
@@ -516,14 +512,15 @@ export const generateRecipe = asyncHandler(async (req, res) => {
     note: c.note,
   }));
 
-  aiRecipe.lorannMixingNote  = flavorJson.lorann?.mixing_note;
+  aiRecipe.lorannMixingNote = flavorJson.lorann?.mixing_note;
   aiRecipe.extractMixingNote = flavorJson.extract?.mixing_note;
-  aiRecipe.flavorNote        = flavorJson.flavor_note;
+  aiRecipe.flavorNote = flavorJson.flavor_note;
 
   // Color — recipe[] has { color, drops, hex }; pct computed from total drops
   if (hasHex && colorJson?.recipe?.length) {
     const totalDrops: number = colorJson.recipe.reduce(
-      (sum: number, c: any) => sum + (c.drops ?? 0), 0
+      (sum: number, c: any) => sum + (c.drops ?? 0),
+      0
     );
     aiRecipe.colorRecipe = colorJson.recipe.map((c: any) => ({
       color: c.color,
@@ -532,11 +529,11 @@ export const generateRecipe = asyncHandler(async (req, res) => {
       pct: totalDrops > 0 ? Math.round((c.drops / totalDrops) * 100) : 0,
     }));
     aiRecipe.batchColoringDrops = totalDrops;
-    aiRecipe.colorMixingNote    = colorJson.mixing_note;
-    aiRecipe.colorHexUsed       = hex;
-    aiRecipe.colorName          = label?.gummyColorName;
+    aiRecipe.colorMixingNote = colorJson.mixing_note;
+    aiRecipe.colorHexUsed = hex;
+    aiRecipe.colorName = label?.gummyColorName;
   } else {
-    aiRecipe.colorRecipe        = [];
+    aiRecipe.colorRecipe = [];
     aiRecipe.batchColoringDrops = 0;
   }
 
@@ -554,11 +551,15 @@ function buildSopSteps(recipe: any): string[] {
   const n = recipe.totalMolds as number;
   const molds = `${n} mold${n !== 1 ? "s" : ""}`;
   const lockedType: string = recipe.lockedFlavorOilType ?? "lorann";
-  const flavorLines: any[] = lockedType === "lorann" ? (recipe.flavorLorann ?? []) : (recipe.flavorExtract ?? []);
-  const mixingNote: string | undefined = lockedType === "lorann" ? recipe.lorannMixingNote : recipe.extractMixingNote;
+  const flavorLines: any[] =
+    lockedType === "lorann" ? (recipe.flavorLorann ?? []) : (recipe.flavorExtract ?? []);
+  const mixingNote: string | undefined =
+    lockedType === "lorann" ? recipe.lorannMixingNote : recipe.extractMixingNote;
 
   steps.push(`Prepare ${molds} — inspect each cavity and lay flat on trays`);
-  steps.push("Weigh out cannabis oil (refer to the cannabis oil container for your exact calculated amount)");
+  steps.push(
+    "Weigh out cannabis oil (refer to the cannabis oil container for your exact calculated amount)"
+  );
   steps.push("Heat kettle to 165°F (74°C)");
   steps.push("Add gelatin base to hot water; stir continuously until fully dissolved (~3 min)");
   steps.push("Remove from heat. Add cannabis oil and stir until fully combined");
@@ -576,7 +577,9 @@ function buildSopSteps(recipe: any): string[] {
       .map((c: any) => `${c.color}: ~${c.dropsApprox} drops`)
       .join(", ");
     steps.push(`Mix color concentrate: ${colorParts}`);
-    steps.push(`Add ${recipe.batchColoringDrops} drops of color concentrate to the full batch; stir to combine`);
+    steps.push(
+      `Add ${recipe.batchColoringDrops} drops of color concentrate to the full batch; stir to combine`
+    );
     if (recipe.colorMixingNote) {
       const colorLabel = recipe.colorName ? `${recipe.colorName}` : "target color";
       steps.push(`Color tip (${colorLabel}): ${recipe.colorMixingNote}`);

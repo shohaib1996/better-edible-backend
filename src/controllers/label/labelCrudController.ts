@@ -178,13 +178,19 @@ export const createLabel = asyncHandler(async (req, res) => {
       : {}),
     ...(gummyColorHex && { gummyColorHex }),
     ...(gummyColorName && { gummyColorName }),
-    ...(selectedFlavors && { selectedFlavors: Array.isArray(selectedFlavors) ? selectedFlavors : JSON.parse(selectedFlavors) }),
+    ...(selectedFlavors && {
+      selectedFlavors: Array.isArray(selectedFlavors)
+        ? selectedFlavors
+        : JSON.parse(selectedFlavors),
+    }),
     ...(flavorMode && { flavorMode }),
     ...(size && { size }),
     ...(oilType && { oilType }),
     ...(effect && { effect }),
     ...(unitsOrdered && { unitsOrdered: Number(unitsOrdered) }),
-    ...(cannabinoids && { cannabinoids: Array.isArray(cannabinoids) ? cannabinoids : JSON.parse(cannabinoids) }),
+    ...(cannabinoids && {
+      cannabinoids: Array.isArray(cannabinoids) ? cannabinoids : JSON.parse(cannabinoids),
+    }),
     ...(unitCost != null && { unitCost: Number(unitCost) }),
     ...(totalCost != null && { totalCost: Number(totalCost) }),
     stageHistory: [
@@ -265,7 +271,9 @@ export const updateLabel = asyncHandler(async (req, res) => {
   if (gummyColorName !== undefined) label.gummyColorName = gummyColorName || undefined;
   if (selectedFlavors !== undefined) {
     try {
-      label.selectedFlavors = Array.isArray(selectedFlavors) ? selectedFlavors : JSON.parse(selectedFlavors);
+      label.selectedFlavors = Array.isArray(selectedFlavors)
+        ? selectedFlavors
+        : JSON.parse(selectedFlavors);
     } catch {
       throw new AppError("Invalid selectedFlavors format", 400);
     }
@@ -275,12 +283,15 @@ export const updateLabel = asyncHandler(async (req, res) => {
   if (size !== undefined) (label as any).size = size || undefined;
   if (oilType !== undefined) (label as any).oilType = oilType || undefined;
   if (effect !== undefined) (label as any).effect = effect || undefined;
-  if (unitsOrdered !== undefined) (label as any).unitsOrdered = unitsOrdered ? Number(unitsOrdered) : undefined;
+  if (unitsOrdered !== undefined)
+    (label as any).unitsOrdered = unitsOrdered ? Number(unitsOrdered) : undefined;
   if (unitCost !== undefined) (label as any).unitCost = unitCost ? Number(unitCost) : undefined;
   if (totalCost !== undefined) (label as any).totalCost = totalCost ? Number(totalCost) : undefined;
   if (cannabinoids !== undefined) {
     try {
-      (label as any).cannabinoids = Array.isArray(cannabinoids) ? cannabinoids : JSON.parse(cannabinoids);
+      (label as any).cannabinoids = Array.isArray(cannabinoids)
+        ? cannabinoids
+        : JSON.parse(cannabinoids);
     } catch {
       throw new AppError("Invalid cannabinoids format", 400);
     }

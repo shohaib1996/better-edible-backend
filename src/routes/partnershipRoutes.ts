@@ -16,10 +16,7 @@ import {
   placeInventory,
 } from "../controllers/partnership/partnershipInventoryController";
 
-import {
-  receivePosData,
-  getSales,
-} from "../controllers/partnership/partnershipPosController";
+import { receivePosData, getSales } from "../controllers/partnership/partnershipPosController";
 
 import {
   getBilling,
@@ -43,11 +40,7 @@ const router = Router();
 
 // ── Store-facing routes ───────────────────────────────────────────────────────
 
-router.post(
-  "/partnership/join",
-  validate({ body: joinPartnershipSchema }),
-  joinPartnership
-);
+router.post("/partnership/join", validate({ body: joinPartnershipSchema }), joinPartnership);
 router.get("/partnership/status", getPartnershipStatus);
 router.get("/partnership/inventory", getInventory);
 router.get("/partnership/sales", getSales);
@@ -55,11 +48,7 @@ router.get("/partnership/billing", getBilling);
 
 // ── POS inbound (X-Partnership-Key auth — no user session) ───────────────────
 
-router.post(
-  "/partnership/pos/sales",
-  validate({ body: posInboundSalesSchema }),
-  receivePosData
-);
+router.post("/partnership/pos/sales", validate({ body: posInboundSalesSchema }), receivePosData);
 
 // ── Admin routes ──────────────────────────────────────────────────────────────
 

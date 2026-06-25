@@ -54,7 +54,12 @@ export const receivePosData = async (req: Request, res: Response, next: NextFunc
 
       // Recalculate total sold from all sale records for this product
       const agg = await PartnershipSale.aggregate([
-        { $match: { storeId: new Types.ObjectId(storeId.toString()), productId: inventory.productId } },
+        {
+          $match: {
+            storeId: new Types.ObjectId(storeId.toString()),
+            productId: inventory.productId,
+          },
+        },
         { $group: { _id: null, total: { $sum: "$unitsSold" } } },
       ]);
       const totalSold = agg[0]?.total ?? 0;

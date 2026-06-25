@@ -32,7 +32,13 @@ export const getAdminPromotions = async (req: Request, res: Response, next: Next
       Promotion.countDocuments(filter),
     ]);
 
-    res.json({ success: true, promotions, totalCount, totalPages: Math.ceil(totalCount / limit) || 1, currentPage: page });
+    res.json({
+      success: true,
+      promotions,
+      totalCount,
+      totalPages: Math.ceil(totalCount / limit) || 1,
+      currentPage: page,
+    });
   } catch (err) {
     next(err);
   }
@@ -53,9 +59,20 @@ export const getAdminPromotion = async (req: Request, res: Response, next: NextF
 export const createPromotion = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const {
-      name, code, description, type, value,
-      minOrderAmount, maxUses, maxUsesPerStore,
-      storeIds, startDate, endDate, status, isPublic, autoApply,
+      name,
+      code,
+      description,
+      type,
+      value,
+      minOrderAmount,
+      maxUses,
+      maxUsesPerStore,
+      storeIds,
+      startDate,
+      endDate,
+      status,
+      isPublic,
+      autoApply,
     } = req.body;
 
     const promotion = await Promotion.create({
@@ -77,7 +94,8 @@ export const createPromotion = async (req: Request, res: Response, next: NextFun
 
     res.status(201).json({ success: true, promotion });
   } catch (err: any) {
-    if (err.code === 11000) return next(new AppError("A promotion with that code already exists", 400));
+    if (err.code === 11000)
+      return next(new AppError("A promotion with that code already exists", 400));
     next(err);
   }
 };
@@ -86,27 +104,49 @@ export const createPromotion = async (req: Request, res: Response, next: NextFun
 export const updatePromotion = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const {
-      name, code, description, type, value,
-      minOrderAmount, maxUses, maxUsesPerStore,
-      storeIds, startDate, endDate, status, isPublic, autoApply,
+      name,
+      code,
+      description,
+      type,
+      value,
+      minOrderAmount,
+      maxUses,
+      maxUsesPerStore,
+      storeIds,
+      startDate,
+      endDate,
+      status,
+      isPublic,
+      autoApply,
     } = req.body;
 
     const update: Record<string, unknown> = {
-      name, description, type, value,
-      minOrderAmount, maxUses, maxUsesPerStore,
+      name,
+      description,
+      type,
+      value,
+      minOrderAmount,
+      maxUses,
+      maxUsesPerStore,
       storeIds: storeIds ?? [],
       startDate: startDate ? toStartOfDayUTC(startDate) : undefined,
       endDate: endDate ? toEndOfDayUTC(endDate) : undefined,
-      status, isPublic, autoApply,
+      status,
+      isPublic,
+      autoApply,
     };
     if (code !== undefined) update.code = code ? String(code).toUpperCase().trim() : undefined;
 
-    const promotion = await Promotion.findByIdAndUpdate(req.params.id, update, { new: true, runValidators: true });
+    const promotion = await Promotion.findByIdAndUpdate(req.params.id, update, {
+      new: true,
+      runValidators: true,
+    });
     if (!promotion) return next(new AppError("Promotion not found", 404));
 
     res.json({ success: true, promotion });
   } catch (err: any) {
-    if (err.code === 11000) return next(new AppError("A promotion with that code already exists", 400));
+    if (err.code === 11000)
+      return next(new AppError("A promotion with that code already exists", 400));
     next(err);
   }
 };
@@ -135,7 +175,7 @@ export const getPromotionUsage = async (req: Request, res: Response, next: NextF
         .sort({ appliedAt: -1 })
         .skip(skip)
         .limit(limit)
-        .populate("storeId", "storeName")
+        .populate("storeId", "name")
         .populate("orderId", "orderNumber total"),
       PromotionUsage.countDocuments({ promotionId }),
       Promotion.findById(promotionId, "name usedCount"),

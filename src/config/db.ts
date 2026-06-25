@@ -44,9 +44,7 @@ async function srvToDirectUri(srvUri: string): Promise<string> {
     .join(",");
 
   // TXT data: "authSource=admin&replicaSet=atlas-xxx-shard-0"
-  const txtOptions = txtAnswers
-    .map((r: any) => (r.data as string).replace(/"/g, ""))
-    .join("&");
+  const txtOptions = txtAnswers.map((r: any) => (r.data as string).replace(/"/g, "")).join("&");
 
   const dbName = url.pathname.slice(1).replace(/\?.*/, "");
   const auth = `${encodeURIComponent(url.username)}:${encodeURIComponent(url.password)}`;

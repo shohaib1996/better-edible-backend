@@ -46,7 +46,10 @@ async function resolvePromotion(
     if (promo.minOrderAmount && orderTotal < promo.minOrderAmount) continue;
     if (promo.maxUses && promo.usedCount >= promo.maxUses) continue;
     if (promo.maxUsesPerStore) {
-      const used = await PromotionUsage.countDocuments({ promotionId: promo._id, storeId: storeObjId });
+      const used = await PromotionUsage.countDocuments({
+        promotionId: promo._id,
+        storeId: storeObjId,
+      });
       if (used >= promo.maxUsesPerStore) continue;
     }
     return promo;

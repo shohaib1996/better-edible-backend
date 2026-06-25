@@ -13,7 +13,7 @@ const PromotionUsageSchema = new Schema<IPromotionUsage>(
   {
     promotionId: { type: Schema.Types.ObjectId, ref: "Promotion", required: true },
     storeId: { type: Schema.Types.ObjectId, ref: "Store", required: true },
-    orderId: { type: Schema.Types.ObjectId, ref: "Order" },
+    orderId: { type: Schema.Types.ObjectId, ref: "ClientOrder" },
     discountAmount: { type: Number, required: true, min: 0 },
     appliedAt: { type: Date, default: Date.now },
     appliedBy: { type: String, enum: ["store", "admin"], required: true },

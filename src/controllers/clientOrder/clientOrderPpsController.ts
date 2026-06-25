@@ -8,7 +8,8 @@ export const pushOrderToPPS = asyncHandler(async (req, res) => {
   const order = await ClientOrder.findById(req.params.id)
     .populate({
       path: "items.label",
-      select: "flavorName productType flavorComponents colorComponents itemId size oilType effect cannabinoids",
+      select:
+        "flavorName productType flavorComponents colorComponents itemId size oilType effect cannabinoids",
     })
     .populate({ path: "client", populate: { path: "store", select: "name storeId _id" } });
 
@@ -21,7 +22,11 @@ export const pushOrderToPPS = asyncHandler(async (req, res) => {
   // Idempotent — skip if CookItems already exist
   const existing = await CookItem.countDocuments({ privateLabOrderId: order._id });
   if (existing > 0) {
-    return res.json({ message: "CookItems already exist for this order", cookItemsCreated: 0, order });
+    return res.json({
+      message: "CookItems already exist for this order",
+      cookItemsCreated: 0,
+      order,
+    });
   }
 
   const storeMongoId = (order.client as any)?.store?._id;
