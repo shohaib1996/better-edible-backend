@@ -11,7 +11,7 @@ export const getAllContacts = asyncHandler(async (req, res) => {
   res.json(contacts);
 });
 
-// Get contact by ID
+// Get contact by ID (or by store ID if provided)
 export const getContactById = asyncHandler(async (req, res) => {
   const contact = await Contact.findById(req.params.id).populate("store", "name");
   if (!contact) throw new AppError("Contact not found", 404);
