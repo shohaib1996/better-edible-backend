@@ -209,56 +209,46 @@ export const updateDraftLabel = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, label });
 });
 
-// POST /api/store/labels/gummy-color  — proxies external AI color API (avoids browser CORS)
+const AI_BASE = "https://ai.better-edibles.com/store2-api";
+
+// POST /api/store/labels/gummy-color  — delegates to production AI backend
 export const gummyColorProxy = asyncHandler(async (req, res) => {
-  const { flavor } = req.body;
+  const { flavor, notes } = req.body;
   if (!flavor || typeof flavor !== "string") throw new AppError("flavor is required", 400);
 
-  const upstream = await fetch(
-    "https://gummycolor-kceb6nqy.manus.space/api/trpc/color.generate?batch=1",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ "0": { json: { flavor } } }),
-    }
-  );
+  const upstream = await fetch(`${AI_BASE}/store/labels/gummy-color`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ flavor, ...(notes ? { notes } : {}) }),
+  });
 
   if (!upstream.ok) throw new AppError("Color API error", 502);
 
-  const data = (await upstream.json()) as any[];
-  const json = data?.[0]?.result?.data?.json;
+  const json = (await upstream.json()) as Record<string, unknown>;
   if (!json?.hex) throw new AppError("Invalid response from color API", 502);
 
   res.status(200).json({ success: true, ...json });
 });
 
-// POST /api/store/labels/gummy-details  — proxies color.recipe + color.flavor batch (avoids CORS)
+// POST /api/store/labels/gummy-details  — delegates to production AI backend
 export const gummyDetailsProxy = asyncHandler(async (req, res) => {
   const { hex, flavor } = req.body;
   if (!hex || !flavor) throw new AppError("hex and flavor are required", 400);
 
-  const upstream = await fetch(
-    "https://gummycolor-kceb6nqy.manus.space/api/trpc/color.recipe,color.flavor?batch=1",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        "0": { json: { hex, flavor } },
-        "1": { json: { flavor } },
-      }),
-    }
-  );
+  const upstream = await fetch(`${AI_BASE}/store/labels/gummy-details`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ hex, flavor }),
+  });
 
   if (!upstream.ok) throw new AppError("Color details API error", 502);
 
-  const data = (await upstream.json()) as any[];
-  const recipeJson = data?.[0]?.result?.data?.json;
-  const flavorJson = data?.[1]?.result?.data?.json;
+  const json = (await upstream.json()) as { recipe?: unknown; flavorRecipe?: unknown };
 
   res.status(200).json({
     success: true,
-    recipe: recipeJson ?? null,
-    flavorRecipe: flavorJson ?? null,
+    recipe: json.recipe ?? null,
+    flavorRecipe: json.flavorRecipe ?? null,
   });
 });
 
