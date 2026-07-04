@@ -9,7 +9,7 @@ export const paginationQuery = z.object({
   limit: z.coerce.number().int().min(1).max(9999).optional().default(20),
 });
 
-// Reusable date string (YYYY-MM-DD or ISO). Empty string is treated as absent.
+// Reusable date string (YYYY-MM-DD or ISO). Empty string is treated as absent. Note: This is a permissive date string validator. It does not enforce strict date formats, but checks if the string can be parsed into a valid date.
 export const dateString = z
   .string()
   .refine((val) => val === "" || !isNaN(Date.parse(val)), { message: "Invalid date format" });
