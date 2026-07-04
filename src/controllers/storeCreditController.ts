@@ -23,7 +23,7 @@ export const applyCredit = asyncHandler(async (req, res) => {
     throw new AppError("orderTotal must be a non-negative number", 400);
   }
 
-  let doc = await StoreCredit.findOne({ store: new Types.ObjectId(storeId) });
+  const doc = await StoreCredit.findOne({ store: new Types.ObjectId(storeId) });
   if (!doc) {
     return res.json({ success: true, newBalance: 0, applied: 0 });
   }
