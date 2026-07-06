@@ -16,7 +16,7 @@ export const getAllCookItems = asyncHandler(async (req, res) => {
   if (customerId) query.customerId = customerId;
   if (privateLabOrderId) query.privateLabOrderId = privateLabOrderId;
 
-  const skip: string = (Number(page) - 1) * Number(limit);
+  const skip = (Number(page) - 1) * Number(limit);
 
   const [cookItems, total] = await Promise.all([
     CookItem.find(query)
@@ -41,7 +41,7 @@ export const getCookItemById = asyncHandler(async (req, res) => {
     .populate("labelId")
     .populate("privateLabOrderId");
 
-  if (!cookItem) throw new AppError("Cook item not found");
+  if (!cookItem) throw new AppError("Cook item not found", 404);
 
   res.json(cookItem);
 });
