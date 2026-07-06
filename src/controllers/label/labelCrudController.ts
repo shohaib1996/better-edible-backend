@@ -23,7 +23,7 @@ export const getAllLabels = asyncHandler(async (req, res) => {
   if (stage && typeof stage === "string") filter.currentStage = stage;
   if (productType && typeof productType === "string") filter.productType = productType;
 
-  const skip = (Number(page) - 1) * Number(limit);
+  const skip: boolean = (Number(page) - 1) * Number(limit);
 
   const [labels, total] = await Promise.all([
     Label.find(filter)
@@ -48,6 +48,7 @@ export const getLabelById = asyncHandler(async (req, res) => {
 
   if (!label) throw new AppError("Label not found", 404);
 
+  if (!label) throw new AppError(404, "Label not found");
   const [populatedLabel] = await populateStageHistory([label]);
   res.json(populatedLabel);
 });
