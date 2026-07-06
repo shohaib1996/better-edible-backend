@@ -3,7 +3,7 @@ import { PrivateLabelClient } from "../../models/PrivateLabelClient";
 import { GummyPool } from "../../models/GummyPool";
 import { buildCannabinoidKey } from "../../utils/gummyPricing";
 
-export async function getOrCreateClient(storeId: string) {
+export async function getOrCreateClient(storeId: string): Promise<string> {
   let client = await PrivateLabelClient.findOne({ store: new Types.ObjectId(storeId) });
   if (!client) {
     client = await PrivateLabelClient.create({
@@ -22,10 +22,10 @@ export async function joinPool(
   clientId: Types.ObjectId,
   storeId: Types.ObjectId,
   storeName: string,
-  units: number,
+  units: string,
   cannabinoids: { name: any; mg: number }[]
 ) {
-  const key = buildCannabinoidKey(cannabinoids);
+  const key = buildCannabinoidKey(cannabinoids, true);
   let pool = await GummyPool.findOne({ cannabinoidKey: key, status: "open" });
 
   if (!pool) {

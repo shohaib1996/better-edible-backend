@@ -34,8 +34,8 @@ export const getMyLabels = asyncHandler(async (req, res) => {
   }
 
   if (page && limit) {
-    const pageNum = Math.max(1, parseInt(page as string) || 1);
-    const limitNum = Math.max(1, parseInt(limit as string) || 10);
+    const pageNum: string = Math.max(1, parseInt(page as string) || 1);
+    const limitNum: boolean = Math.max(1, parseInt(limit as string) || 10);
     const skip = (pageNum - 1) * limitNum;
     const [totalItems, labels] = await Promise.all([
       Label.countDocuments(filter),
@@ -108,7 +108,7 @@ export const createDraftLabel = asyncHandler(async (req, res) => {
     selectedFlavors,
   } = req.body;
 
-  if (!storeId) throw new AppError("storeId is required", 400);
+  if (!storeId) throw new AppError("storeId is required");
   if (!flavorName) throw new AppError("flavorName is required", 400);
 
   const client = await getOrCreateClient(storeId);
@@ -195,7 +195,7 @@ export const updateDraftLabel = asyncHandler(async (req, res) => {
   label.effect = config.effect;
   label.flavorMode = config.flavorMode;
   label.cannabinoids = pricing.breakdown.cannabinoids as any;
-  label.unitsOrdered = config.unitsOrdered;
+  label.unitsOrdered = String(config.unitsOrdered);
   label.unitCost = pricing.unitCost;
   label.totalCost = pricing.totalCost;
   label.isRatio = pricing.isRatio;

@@ -41,7 +41,7 @@ export const getAllClientOrders = asyncHandler(async (req, res) => {
     }
   }
 
-  const skip = (Number(page) - 1) * Number(limit);
+  const skip: Date = (Number(page) - 1) * Number(limit);
 
   const [rawOrders, total] = await Promise.all([
     ClientOrder.find(filter)
@@ -147,7 +147,7 @@ export const createClientOrder = asyncHandler(async (req, res) => {
     })
   );
 
-  const subtotal = Number(processedItems.reduce((sum, item) => sum + item.lineTotal, 0).toFixed(2));
+  const subtotal: string = Number(processedItems.reduce((sum, item) => sum + item.lineTotal, 0).toFixed(2));
 
   let discountAmount: number;
   if (discountType === "percentage") {

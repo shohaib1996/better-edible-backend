@@ -117,7 +117,7 @@ export const submitLine = asyncHandler(async (req, res) => {
     const mode = choicesMap[String(label._id)] || "standard";
 
     label.labelStatus = "submitted";
-    label.submittedAt = new Date();
+    label.submittedAt = "now";
     label.productionMode = mode as "standard" | "pool" | "custom_run";
     label.currentStage = "design_in_progress";
 
