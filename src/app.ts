@@ -44,6 +44,7 @@ import partnershipRoutes from "./routes/partnershipRoutes";
 import promotionRoutes from "./routes/promotionRoutes";
 import storeCreditRoutes from "./routes/storeCreditRoutes";
 import partnerPromoRoutes from "./routes/partnerPromoRoutes";
+import storePromoRoutes from "./routes/storePromoRoutes";
 
 const app = express();
 
@@ -112,6 +113,7 @@ app.use("/api", partnershipRoutes);
 app.use("/api", promotionRoutes);
 app.use("/api/store/promotions/credits", storeCreditRoutes);
 app.use("/api", partnerPromoRoutes);
+app.use("/api", storePromoRoutes);
 
 app.get("/", (_req, res) => {
   res.send("Rep Order System API is running... yep 4th time");
