@@ -23,11 +23,12 @@ function generateFlavorId(name: string, isBlend: boolean): string {
 // ─────────────────────────────────────────────────────────
 
 export const getFlavors = asyncHandler(async (req, res) => {
-  const { isActive, isBlend, page, limit } = req.query;
+  const { isActive, isBlend, page, limit, search } = req.query;
 
   const filter: Record<string, any> = {};
   if (isActive !== undefined) filter.isActive = isActive === "true";
   if (isBlend !== undefined) filter.isBlend = isBlend === "true";
+  if (search) filter.name = { $regex: search, $options: "i" };
 
   const pageNum = page ? Number(page) : undefined;
   const limitNum = limit ? Number(limit) : undefined;

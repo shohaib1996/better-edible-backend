@@ -22,6 +22,7 @@ function fmt(chain: any) {
     hasLogin: !!chain.loginEmail,
     active: chain.active,
     memberCount: chain.stores?.length ?? 0,
+    storeIds: (chain.stores ?? []).map((s: any) => s.toString()),
     createdAt: chain.createdAt,
     updatedAt: chain.updatedAt,
   };
@@ -163,6 +164,26 @@ export const updateChain = asyncHandler(async (req, res) => {
   const chain = await Chain.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
   if (!chain) throw new AppError("Chain not found", 404);
   res.json({ success: true, chain: fmt(chain) });
+});
+
+// PUT /api/chains/assign-store  — move a store in/out of a chain
+export const assignStoreToChain = asyncHandler(async (req, res) => {
+  const { storeId, chainId } = req.body as { storeId: string; chainId?: string };
+  if (!storeId) throw new AppError("storeId is required", 400);
+
+  const storeObjectId = new Types.ObjectId(storeId);
+
+  // Remove from any chain that currently holds this store
+  await Chain.updateMany({ stores: storeObjectId }, { $pull: { stores: storeObjectId } });
+
+  if (chainId) {
+    const chain = await Chain.findById(chainId);
+    if (!chain) throw new AppError("Chain not found", 404);
+    chain.stores.push(storeObjectId as any);
+    await chain.save();
+  }
+
+  res.json({ success: true, message: chainId ? "Store assigned to chain" : "Store removed from chain" });
 });
 
 // DELETE /api/chains/:id

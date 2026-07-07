@@ -5,6 +5,7 @@ import {
   getChainRollup,
   updateChainStores,
   updateChainCredentials,
+  assignStoreToChain,
   createChain,
   updateChain,
   deleteChain,
@@ -24,6 +25,7 @@ router.get("/", getAllChains /* #swagger.tags = ['Chains'] */);
 router.get("/:id/rollup", validate({ params: idParam }), getChainRollup /* #swagger.tags = ['Chains'] */);
 router.get("/:id", validate({ params: idParam }), getChainById /* #swagger.tags = ['Chains'] */);
 router.post("/", validate({ body: createChainSchema }), createChain /* #swagger.tags = ['Chains'] */);
+router.put("/assign-store", assignStoreToChain /* #swagger.tags = ['Chains'] */);
 router.put("/:id/stores", validate({ params: idParam, body: storeIdsSchema }), updateChainStores /* #swagger.tags = ['Chains'] */);
 router.put("/:id/credentials", validate({ params: idParam }), updateChainCredentials /* #swagger.tags = ['Chains'] */);
 router.put("/:id", validate({ params: idParam, body: updateChainSchema }), updateChain /* #swagger.tags = ['Chains'] */);
