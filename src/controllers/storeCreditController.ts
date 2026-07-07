@@ -3,6 +3,13 @@ import { asyncHandler } from "../utils/asyncHandler";
 import { AppError } from "../utils/AppError";
 import { StoreCredit } from "../models/StoreCredit";
 
+// GET /api/store/promotions/credits/:storeId/ledger  (admin — balance + full tx history)
+export const getStoreCreditLedger = asyncHandler(async (req, res) => {
+  const { storeId } = req.params;
+  const doc = await StoreCredit.findOne({ store: new Types.ObjectId(storeId) });
+  res.json({ success: true, balance: doc?.balance ?? 0, transactions: doc?.transactions ?? [] });
+});
+
 // GET /api/store/promotions/credits?storeId=
 export const getCreditBalance = asyncHandler(async (req, res) => {
   const { storeId } = req.query;
@@ -50,11 +57,11 @@ export const applyCredit = asyncHandler(async (req, res) => {
 // Body: { amount: number, note?: string }
 export const addCredit = asyncHandler(async (req, res) => {
   const { storeId } = req.params;
-  const { amount, note } = req.body;
+  const { amount, note, addedBy } = req.body;
 
   if (!storeId) throw new AppError("storeId is required", 400);
-  if (typeof amount !== "number" || amount <= 0) {
-    throw new AppError("amount must be a positive number", 400);
+  if (typeof amount !== "number" || amount === 0) {
+    throw new AppError("amount must be a non-zero number", 400);
   }
 
   let doc = await StoreCredit.findOne({ store: new Types.ObjectId(storeId) });
@@ -67,6 +74,7 @@ export const addCredit = asyncHandler(async (req, res) => {
     type: "manual",
     amount,
     note: note || "Manual credit added",
+    addedBy: addedBy || undefined,
     createdAt: new Date(),
   });
 

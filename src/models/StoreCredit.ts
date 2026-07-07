@@ -5,6 +5,7 @@ interface ICreditTransaction {
   amount: number;
   ref?: string;
   note?: string;
+  addedBy?: string;
   createdAt: Date;
 }
 
@@ -21,6 +22,7 @@ const CreditTransactionSchema = new Schema<ICreditTransaction>(
     amount: { type: Number, required: true },
     ref: String,
     note: String,
+    addedBy: String,
     createdAt: { type: Date, default: () => new Date() },
   },
   { _id: false }
