@@ -146,6 +146,7 @@ export const createClientOrder = asyncHandler(async (req, res) => {
       } as IClientOrderItem;
     })
   );
+  // subtotal is the sum of all line totals, rounded to 2 decimal places
 
   const subtotal = Number(processedItems.reduce((sum, item) => sum + item.lineTotal, 0).toFixed(2));
 
