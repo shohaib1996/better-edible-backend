@@ -2,6 +2,8 @@ import { Product } from "../models/Product";
 import { ProductLine } from "../models/ProductLine";
 import { asyncHandler } from "../utils/asyncHandler";
 import { AppError } from "../utils/AppError";
+import { uploadMultipleToCloudinary, deleteFromCloudinary } from "../utils/cloudinaryUpload";
+import { cleanupTempFiles } from "../middleware/uploadMiddleware";
 
 // 🔍 Get all products
 export const getAllProducts = asyncHandler(async (_req, res) => {
@@ -158,6 +160,7 @@ export const updateProduct = asyncHandler(async (req, res) => {
     "active",
     "metadata",
     "productLine",
+    "displayOrder",
   ];
   const cleanBody: any = {};
   allowedKeys.forEach((k) => {
@@ -194,4 +197,56 @@ export const deleteProduct = asyncHandler(async (req, res) => {
   const product = await Product.findByIdAndDelete(req.params.id);
   if (!product) throw new AppError("Product not found", 404);
   res.json({ message: "Product deleted successfully" });
+});
+
+// 🖼️ Upload images to a product
+export const uploadProductImages = asyncHandler(async (req, res) => {
+  const product = await Product.findById(req.params.id);
+  if (!product) throw new AppError("Product not found", 404);
+
+  const files = req.files as Express.Multer.File[];
+  if (!files?.length) throw new AppError("No files uploaded", 400);
+
+  const uploaded = await uploadMultipleToCloudinary(
+    files.map((f) => ({ path: f.path, originalname: f.originalname })),
+    "products"
+  );
+  cleanupTempFiles(files);
+
+  const newImages = uploaded.map((u) => ({ url: u.secureUrl, publicId: u.publicId }));
+  (product as any).images = [...((product as any).images || []), ...newImages];
+  await product.save();
+
+  const populated = await Product.findById(product._id).populate("productLine");
+  res.json(populated);
+});
+
+// 🗑️ Delete a single image from a product
+export const deleteProductImage = asyncHandler(async (req, res) => {
+  const { publicId } = req.body;
+  if (!publicId) throw new AppError("publicId is required", 400);
+
+  const product = await Product.findById(req.params.id);
+  if (!product) throw new AppError("Product not found", 404);
+
+  await deleteFromCloudinary(publicId);
+  (product as any).images = ((product as any).images || []).filter(
+    (img: any) => img.publicId !== publicId
+  );
+  await product.save();
+
+  res.json(product);
+});
+
+// 🔢 Batch update displayOrder for multiple products
+export const batchUpdateProductOrder = asyncHandler(async (req, res) => {
+  const updates: { id: string; displayOrder: number }[] = req.body;
+  if (!Array.isArray(updates)) throw new AppError("Expected array of { id, displayOrder }", 400);
+
+  await Promise.all(
+    updates.map(({ id, displayOrder }) =>
+      Product.findByIdAndUpdate(id, { displayOrder })
+    )
+  );
+  res.json({ success: true });
 });

@@ -20,12 +20,17 @@ interface IVariantPrice {
   discountPrice?: number;
 }
 
+interface IProductImage {
+  url: string;
+  publicId: string;
+}
+
 export interface IProduct extends Document {
-  productLine: Types.ObjectId | string; // Reference to ProductLine or legacy string
+  productLine: Types.ObjectId | string;
   subProductLine?: string;
   itemName?: string;
   hybridBreakdown?: IHybridBreakdown;
-  prices?: IPricesByType; // ✅ Unified price/discount system
+  prices?: IPricesByType;
   price?: number;
   discountPrice?: number;
   variants?: IVariantPrice[];
@@ -34,6 +39,8 @@ export interface IProduct extends Document {
   applyDiscount?: boolean;
   active: boolean;
   metadata?: Record<string, any>;
+  images?: IProductImage[];
+  displayOrder: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -76,6 +83,12 @@ const ProductSchema = new Schema<IProduct>(
     applyDiscount: { type: Boolean, default: false },
     active: { type: Boolean, default: true },
     metadata: Schema.Types.Mixed,
+    images: {
+      type: [{ url: { type: String, required: true }, publicId: { type: String, required: true } }],
+      default: [],
+      _id: false,
+    },
+    displayOrder: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
