@@ -1,6 +1,5 @@
 node_modules
 dist
-.env
 .vercel
 
 # Plan files
@@ -12,3 +11,5 @@ graphify-out/
 .graphify_python
 temp_auto_push.bat
 temp_interactive_push.bat
+branch_structure.json
+config.bat
