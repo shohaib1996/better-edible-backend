@@ -16,7 +16,7 @@ process.on("unhandledRejection", (reason) => {
   process.exit(1);
 });
 import { updateStoreStatuses } from "./jobs/updateStoreStatus";
-import { runDailyClientOrderJobs } from "./jobs/clientOrderJobs";
+import { runDailyClientOrderJobs } from "./jobs/clientOrderScheduled";
 import cron from "node-cron";
 
 const PORT = process.env.PORT || 5000;
